@@ -3,25 +3,21 @@
 ### What is this repository for? ###
 
 * This repository is the repository for OpenID Foundation's eKYC and Identity Assurance WG
-* Version n/a
+* The document(s) are written in the markdown and translated to html using [mmark](https://github.com/mmarkdown/mmark)
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Clone the repository
+* Edit the source using the markdown editor of your choice
+* Build the build command using docker: `docker build -t openid.net/xml2rfc .`
+* Build the HTML/TXT versions of the specification: `docker run -v `pwd`:/data openid.net/xml2rfc openid-connect-4-identity-assurance.md`
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* There are two ways to contribute, creating issues and pull requests
+* All proposals are discussed in the WG on the list and in our regular calls before being accepted and merged.
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* The WG can be reached via the mailing list openid-specs-ekyc-ida@lists.openid.net
