@@ -2,7 +2,7 @@
 
 ### What is this repository for? ###
 
-* This repository is the repository for OpenID Foundation's eKYC and Identity Assurance WG
+* This repository is the repository for OpenID Foundation's [eKYC and Identity Assurance WG](https://openid.net/wg/ekyc-ida/).
 * The document(s) are written in [markdown](https://bitbucket.org/tutorials/markdowndemo) and translated to html using [mmark](https://github.com/mmarkdown/mmark)
 
 ### How do I get set up? ###
