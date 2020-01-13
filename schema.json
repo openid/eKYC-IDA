@@ -18,7 +18,7 @@
         },
         "created_at":{
           "type":"string",
-          "format":"date"
+          "format":"date-time"
         }
       },
       "required": ["type","issuer","serial_number","issued_at"]
@@ -38,19 +38,29 @@
             "name":{
               "type":"string"
             },
-            "country":{
+            "formatted":{
+              "type":"string"
+            },
+            "street_address":{
+              "type":"string"
+            },
+            "locality":{
               "type":"string"
             },
             "region":{
               "type":"string"
             },
-            "street_address":{
+            "postal_code":{
+              "type":"string"
+            },
+            "country":{
               "type":"string"
             }
           }
         },
         "date":{
-          "type":"string"
+          "type":"string",
+          "format":"date"
         }
       },
       "required": ["type","provider","date"]
@@ -80,8 +90,8 @@
           }
         },
         "time":{
-              "type":"string",
-              "format":"time"
+          "type":"string",
+          "format":"date-time"
         },
         "document":{
           "type":"object",

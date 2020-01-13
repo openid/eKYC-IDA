@@ -860,7 +860,7 @@ This is an example openid-configuration snippet:
       "family_name",
       "birthdate",
       "place_of_birth",
-      "nationality",
+      "nationalities",
       "address"
    ],
 ...
@@ -1306,7 +1306,7 @@ This section contains the JSON Schema of assertions containing the `verified_cla
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-I would like to thank Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman,
+We would like to thank Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman,
 Michael B. Jones, and Jeff Lombardo for their valuable feedback that helped to evolve this specification.
 
 # Notices
@@ -1321,6 +1321,12 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
    
+   -09
+   
+   * integrated source into single md file
+   * fixed typos
+
+
    -08
    
    * added `uripp` verification method
