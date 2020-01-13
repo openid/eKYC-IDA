@@ -29,9 +29,9 @@ organization="yes.com"
 
 %%%
 
-.# Abstract 
+.# Abstract
 
-This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person in compliance with a certain law. 
+This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person in compliance with a certain law.
 
 {mainmatter}
 
@@ -39,48 +39,47 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 This specification defines an extension to OpenID Connect [@!OpenID] to address the use case of strong identity verification of a natural person in accordance with certain laws. Examples include Anti Money Laundering Laws, Telecommunication Acts, Anti Terror Laws, and regulations on trust services, such as eIDAS [@?eIDAS].
 
-In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source along with evidence related to the identity verification process. 
+In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source along with evidence related to the identity verification process.
 
-The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to attest information about the authentication performed in a OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.  
+The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to attest information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
-For example, the assurance an OP typically will be able to attest for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of a user, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator. 
+For example, the assurance an OP typically will be able to attest for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of a user, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
 
-Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification proposes a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data. 
+Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification proposes a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
 
-## Terminology 
+## Terminology
 
-This section defines some terms relevant to the topic covered in this documents, heavily inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
+This section defines some terms relevant to the topic covered in this document, heavily inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
 
 * Identity Proofing - process in which a user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP to assert that identification at a useful identity assurance level.
 
 * Identify Verification - process conducted by the OP or a claim provider to verify the user's identity.
 
-* Identity Assurance - process in which the OP or a claim provider attests identity data of a certain user with a certain assurance towards a RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+* Identity Assurance - process in which the OP or a claim provider attests identity data of a certain user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
 
-* Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular user account were verified in the course of an identity verification process.
+* Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular user account was verified in the course of an identity verification process.
 
 [1]: https://pages.nist.gov/800-63-3/sp800-63a.html "NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements"
 
 # Scope and Requirements
 
-The scope of the extension is to define a mechanism to assert verified Claims, in general, and to introduce new Claims about the End-User required in the identity assurance space; one example would be the place of birth. 
+The scope of the extension is to define a mechanism to assert verified Claims, in general, and to introduce new Claims about the End-User required in the identity assurance space; one example would be the place of birth.
 
 The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data and the evidence and the identity verification processes employed by the OP.
 
-This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS notified eID systems, as well as other OPs. Strictly regulated OPs can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. 
+This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS notified eID systems, as well as other OPs. Strictly regulated OPs can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability.
 
 For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state takes the liability for the identities asserted by its notified eID systems. Every other OP not operating under such well-defined conditions is typically required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, it shall be possible to use identity data maintained in accordance with the Anti Money Laundering Law to fulfill requirements defined by eIDAS.
 
 From a technical perspective, this means this specification allows the OP to attest verified Claims along with information about the respective trust framework (and assurance level) but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be attested in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with 
-verified Claims.   
+The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be attested in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
 
 This extension is intended to be truly international and support identity assurance for different and across jurisdictions. The extension is therefore extensible to support additional trust frameworks, verification methods, and identity evidence.
 
-In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users. 
+In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
-For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of a user without a verification status. Those Claims can be used in the same OpenID Connect assertion beside verified Claims represented according to this extension. 
+For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of a user without a verification status. Those Claims can be used in the same OpenID Connect assertion beside verified Claims represented according to this extension.
 
 In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension.
 
@@ -93,131 +92,130 @@ Even for asserting verified Claims, this extension utilizes existing OpenID Conn
 In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying user data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
 
 * `place_of_birth`: a structured Claim representing the End-User’s place of birth. It consists of the following fields:
-	* `country`: REQUIRED. [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3] 
+	* `country`: REQUIRED. [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3]
 	* `region`: State, province, prefecture, or region component. This field might be required in some jurisdictions.
-	* `locality`: REQUIRED. city or other locality
-* `nationalities`: string array representing the user’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".
-* `birth_family_name`: family name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.
-* `birth_given_name`: given name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.
-* `birth_middle_name`: middle name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.
+	* `locality`: REQUIRED. City or other locality.
+* `nationalities`: String array representing the user’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".
+* `birth_family_name`: Family name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.
+* `birth_given_name`: Given name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.
+* `birth_middle_name`: Middle name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.
 * `salutation`: End-User’s salutation, e.g. “Mr.”
 * `title`: End-User’s title, e.g. “Dr.”
 
 ## txn Claim
 
-Strong identity verification typically requires the participants to keep an audit trail of the whole process. 
+Strong identity verification typically requires the participants to keep an audit trail of the whole process.
 
-The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction. 
+The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
 
-If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details: 
+If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details:
 
-* the transaction id,
-* the authentication methods employed, and
+* the transaction ID,
+* the authentication method employed, and
 * the transaction type (e.g. scope values).
 
-This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation. 
+This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
 
-The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default Claim set identified by a scope value. 
+The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default Claim set identified by a scope value.
 
 The `txn` value MUST allow an RP to obtain these transaction details if needed.
 
-Note: the mechanism to obtain the transaction details from the OP and their format is out of scope of this specification. 
-    
-# Verified Data Representation 
+Note: The mechanism to obtain the transaction details from the OP and their format is out of scope of this specification.
 
-This extension to OpenID Connect wants to ensure that RPs cannot mix up verified and unverified Claims and incidentally process unverified Claims as verified Claims. 
+# Verified Data Representation
+
+This extension to OpenID Connect wants to ensure that RPs cannot mix up verified and unverified Claims and incidentally process unverified Claims as verified Claims.
 
 The representation proposed therefore provides the RP with the verified Claims within a container element `verified_claims`. This container is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
 
-This section explains the structure and meaning of `verified_claims` in detail. A machine-readable syntax definition is given as JSON schema in (#json_schema). It can be used to automatically validate JSON documents containing a  `verified_claims` element. 
+This section explains the structure and meaning of `verified_claims` in detail. A machine-readable syntax definition is given as JSON schema in (#json_schema). It can be used to automatically validate JSON documents containing a `verified_claims` element.
 
 `verified_claims` consists of the following sub-elements:
 
 * `verification`: REQUIRED. Object that contains all data about the verification process.
-* `claims`: REQUIRED. Object that is the container for the verified Claims about the End-User. 
+* `claims`: REQUIRED. Object that is the container for the verified Claims about the End-User.
 
-Note: implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. 
+Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
 ## verification Element {#verification}
 
 This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
 
-The `verification` element consists of the following elements: 
+The `verification` element consists of the following elements:
 
-`trust_framework`: REQUIRED. String determing the trust framework governing the identity verification process and the identity assurance level of the OP. 
+`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process and the identity assurance level of the OP.
 
 An example value is `eidas_ial_high`, which denotes a notified eID system under eIDAS [@?eIDAS] providing identity assurance at level of assurance "High".
 
-An initial list of standardized values is defined in [Trust Frameworks](#predefined_values_tf). Additional trust framework identifiers can be introduced [how?]. RPs SHOULD ignore `verified_claims` claims containing a trust framework id they don't understand.
+An initial list of standardized values is defined in [Trust Frameworks](#predefined_values_tf). Additional trust framework identifiers can be introduced [how?]. RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
 
-The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money laundering law (`de_aml`).
+The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date and time when identity verification took place. Presence of this element might be required for certain trust frameworks. 
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date and time when identity verification took place. Presence of this element might be required for certain trust frameworks.
 
-`verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks. 
+`verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
-Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP attested the user's verified identity data towards a RP. 
+Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP attested the user's verified identity data towards an RP.
 
-`evidence` is a JSON array containing information about the evidence the OP used to verify the user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately. 
+`evidence`: JSON array containing information about the evidence the OP used to verify the user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
-Important: implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. 
+Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
-### Evidence 
+### Evidence
 
 The following types of evidence are defined:
 
-* `id_document`: verification based on any kind of government issued identity document 
-* `utility_bill`: verification based on a utility bill
-* `qes`: verification based on a eIDAS Qualified Electronic Signature
+* `id_document`: Verification based on any kind of government issued identity document.
+* `utility_bill`: Verification based on a utility bill.
+* `qes`: Verification based on an eIDAS Qualified Electronic Signature.
 
 #### id_document
 
-The following elements are contained in an `id_document` evidence sub-element. 
+The following elements are contained in an `id_document` evidence sub-element.
 
-`method`: REQUIRED. The method used to verify the id document. Predefined values are given in  [Verification Methods](#predefined_values_vm)
+`method`: REQUIRED. The method used to verify the ID document. Predefined values are given in  [Verification Methods](#predefined_values_vm).
 
-`verifier`: OPTIONAL. A JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
-* `organization`: String denoting the organization which performed the verification on behalf of the OP. 
-* `txn`: identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+* `organization`: String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: Identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh` format representing the date when this id document was verified. 
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date when this ID document was verified.
 
-`document`: A JSON object representing the id document used to perform the id verification. It consists of the following properties:
+`document`: JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
-* `type`: REQUIRED. String denoting the type of the id document. Standardized values are defined in [Identity Documents](#predefined_values_idd). The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `type`: REQUIRED. String denoting the type of the ID document. Standardized values are defined in [Identity Documents](#predefined_values_idd). The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `number`: String representing the number of the identity document.
-* `issuer`: A JSON object containg information about the issuer of this identity document. This object consists of the following properties:
-	*  `name`: REQUIRED. Designation of the issuer of the identity document
-	*  `country`: String denoting the country or organization that issued the document as ICAO 2-letter-code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
-* `date_of_issuance`: REQUIRED if this attribute exists for the particular type of document. The date the document was issued as ISO 8601:2004 YYYY-MM-DD format.
-* `date_of_expiry`: REQUIRED if this attribute exists for the particular type of document. The date the document will expire as ISO 8601:2004 YYYY-MM-DD format. 
+* `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
+	*  `name`: REQUIRED. Designation of the issuer of the identity document.
+	*  `country`: String denoting the country or organization that issued the document as ICAO 2-letter code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
+* `date_of_issuance`: REQUIRED if this attribute exists for the particular type of document. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_expiry`: REQUIRED if this attribute exists for the particular type of document. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
 #### utility_bill
 
-The following elements are contained in a `utility_bill` evidence sub-element. 
+The following elements are contained in a `utility_bill` evidence sub-element.
 
-`provider`: REQUIRED. A JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
+`provider`: REQUIRED. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
 
-* `name`: A String designating the provider.
+* `name`: String designating the provider.
 * All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
-`date`: A ISO 8601:2004 YYYY-MM-DD formatted string containing the date when this bill was issued.
+`date`: String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
 
 #### qes
 
-The following elements are contained in a `qes` evidence sub-element. 
+The following elements are contained in a `qes` evidence sub-element.
 
-`issuer`: REQUIRED. A String denoting the certification authority that issued the signer's certificate. 
+`issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
 
 `serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
 
-`created_at`: REQUIRED. The time the signature was created as ISO 8601:2004 YYYY-MM-DDThh:mm:ss±hh format.
-
+`created_at`: REQUIRED. The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm:ss±hh:mm` format.
 
 ## claims Element {#claimselement}
 
-The `claims` element contains the claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element. 
+The `claims` element contains the claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
 
 The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
 
@@ -228,9 +226,9 @@ The `claims` element MAY contain one or more of the following Claims as defined 
 * `birthdate`
 * `address`
 
-or the claims defined in (#userclaims).
+and the claims defined in (#userclaims).
 
-The `claims` element MAY also contain other claims given the value of the respective claim was verified in the verification process represented by the sibling `verification` element. 
+The `claims` element MAY also contain other claims given the value of the respective claim was verified in the verification process represented by the sibling `verification` element.
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
 
@@ -238,74 +236,74 @@ Claim names MAY be annotated with language tags as specified in Section 5.2 of t
 
 ## Requesting End-User Claims {#req_claims}
 
-Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5. of the OpenID Connect specification [@!OpenID]. 
+Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
 
-To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter. 
+To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
 
 Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys with a `null` value. An example is shown in the following:
 
 ```json
-{  
-   "userinfo":{  
-      "verified_claims":{  
-         "claims":{  
+{
+   "userinfo":{
+      "verified_claims":{
+         "claims":{
             "given_name":null,
             "family_name":null,
             "birthdate":null
          }
       }
-   }	
+   }
 }
 ```
 
 Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization.
 
-RPs MAY indicate that a certain Claim is essential to the successful completion of the user journey by utilizing the `essential` field as defined in Section 5.5.1. of the OpenID Connect specification [@!OpenID]. The following example designates both given as well as family name as being essential.
+RPs MAY indicate that a certain Claim is essential to the successful completion of the user journey by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
 
 ```json
-{  
-   "userinfo":{  
-      "verified_claims":{  
-         "claims":{  
+{
+   "userinfo":{
+      "verified_claims":{
+         "claims":{
             "given_name":{"essential": true},
             "family_name":{"essential": true},
             "birthdate":null
          }
       }
-   }	
+   }
 }
 ```
 
-This specification introduces the additional field `purpose` to allow a RP 
-to state the purpose for the transfer of a certain End-User Claim it is asking for. 
-The field `purpose` can be a member value of each individually requested 
+This specification introduces the additional field `purpose` to allow an RP
+to state the purpose for the transfer of a certain End-User Claim it is asking for.
+The field `purpose` can be a member value of each individually requested
 Claim, but a Claim cannot have more than one associated purpose.
 
-`purpose` OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or 
-longer than 300 characters. If this rule is violated, the authentication 
+`purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
+longer than 300 characters. If this rule is violated, the authentication
 request MUST fail and the OP returns an error `invalid_request` to the RP.
-The OP MUST display this purpose in the respective user consent screen(s) 
-in order to inform the user about the designated use of the data to be 
-transferred or the authorization to be approved. If the parameter `purpose` 
-is not present in the request, the OP MAY display a 
-value that was pre-configured for the respective RP. For details on UI 
-localization see (#purpose).
+The OP MUST display this purpose in the respective user consent screen(s)
+in order to inform the user about the designated use of the data to be
+transferred or the authorization to be approved. If the parameter `purpose`
+is not present in the request, the OP MAY display a
+value that was pre-configured for the respective RP. For details on UI
+localization, see (#purpose).
 
 Example:
 
 ```json
-{  
-   "userinfo":{  
-      "verified_claims":{  
-         "claims":{  
-            "given_name":{  
+{
+   "userinfo":{
+      "verified_claims":{
+         "claims":{
+            "given_name":{
                "essential":true,
                "purpose":"To make communication look more personal"
             },
-            "family_name":{  
+            "family_name":{
                "essential":true
             },
-            "birthdate":{  
+            "birthdate":{
                "purpose":"To send you best wishes on your birthday"
             }
          }
@@ -317,12 +315,12 @@ Example:
 Note: A `claims` sub-element with value `null` is interpreted as a request for all possible Claims. An example is shown in the following:
 
 ```json
-{  
-   "userinfo":{  
-      "verified_claims":{  
+{
+   "userinfo":{
+      "verified_claims":{
          "claims":null
       }
-   }	
+   }
 }
 ```
 
@@ -332,16 +330,16 @@ Note: If the `claims` sub-element is empty or contains a Claim not fulfilling th
 
 ## Requesting Verification Data {#req_verification}
 
-The content of the `verification` element is basically determined by the respective `trust_framework` and the Claim source's policy. 
+The content of the `verification` element is basically determined by the respective `trust_framework` and the Claim source's policy.
 
 This specification also defines a way for the RP to explicitly request certain data to be present in the `verification` element. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` can be requested in the same way as defined in (#req_claims) by adding the respective element as shown in the following example:
 
 ```json
-{  
-   "verified_claims":{  
-      "verification":{  
+{
+   "verified_claims":{
+      "verification":{
          "time":null,
          "evidence":null
       },
@@ -350,19 +348,19 @@ Elements within `verification` can be requested in the same way as defined in (#
 }
 ```
 
-It requests the date of the verification and the available evidence to be present in the issued assertion. 
+It requests the date of the verification and the available evidence to be present in the issued assertion.
 
-Note: the RP does not need to explicitly request the `trust_framework` field as it is a mandatory element of the `verified_claims` Claim. 
+Note: The RP does not need to explicitly request the `trust_framework` field as it is a mandatory element of the `verified_claims` Claim.
 
 The RP may also dig one step deeper into the structure and request certain data to be present within every `evidence`. A single entry is used as prototype for all entries in the result array:
 
 ```json
-{  
-   "verified_claims":{  
-      "verification":{  
+{
+   "verified_claims":{
+      "verification":{
          "time":null,
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "method":null,
                "document":null
             }
@@ -375,19 +373,19 @@ The RP may also dig one step deeper into the structure and request certain data 
 
 This example requests the `method` element and the `document` element for every evidence available for a certain user account.
 
-Note: the RP does not need to explicitly request the `type` field as it is a mandatory element of any `evidence` entry. 
+Note: The RP does not need to explicitly request the `type` field as it is a mandatory element of any `evidence` entry.
 
-The RP may also request certain data within the `document` element to be present. This again follows the syntax rules used above. 
+The RP may also request certain data within the `document` element to be present. This again follows the syntax rules used above.
 
 ```json
-{  
-   "verified_claims":{  
-      "verification":{  
+{
+   "verified_claims":{
+      "verification":{
          "time":null,
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "method":null,
-               "document":{  
+               "document":{
                   "issuer":null,
                   "number":null,
                   "date_of_issuance":null
@@ -400,7 +398,7 @@ The RP may also request certain data within the `document` element to be present
 }
 ```
 
-Note: the RP does not need to explicitly request the `type` field as it is a mandatory element of any `document` entry. 
+Note: The RP does not need to explicitly request the `type` field as it is a mandatory element of any `document` entry.
 
 It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. It is also at the discretion of the OP to provide more verification data than has been requested by the RP.
 
@@ -408,36 +406,36 @@ It is at the discretion of the OP to decide whether the requested verification d
 
 The RP MAY express requirements regarding the elements in the `verification` sub-element.
 
-This, again, requires an extension to the syntax as defined in Section 5.5. of the OpenID Connect specification [@!OpenID] due to the nested nature of the `verified_claims` claim.
+This, again, requires an extension to the syntax as defined in Section 5.5 of the OpenID Connect specification [@!OpenID] due to the nested nature of the `verified_claims` claim.
 
-Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for the member value of the Claim being requested to be a JSON object with additional information/constraints on the Claim. For doing so it defines three members (`essential`, `value` and `values`) with special query 
+Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for the member value of the Claim being requested to be a JSON object with additional information/constraints on the Claim. For doing so it defines three members (`essential`, `value` and `values`) with special query
 meanings and allows for other special members to be defined (while stating that any members that are not understood must be ignored).
 
 This specification re-uses that mechanism and introduces a new such member `max_age` (see below).
 
-To start with, the RP MAY limit the possible values of the elements `trust_framework`, `evidence/type`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields. 
+To start with, the RP MAY limit the possible values of the elements `trust_framework`, `evidence/type`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields.
 
-The following example shows that the RP wants to obtain an attestation based on AML and limited to users who were identified in a bank branch in person using government issued id documents.
+The following example shows that the RP wants to obtain an attestation based on AML and limited to users who were identified in a bank branch in person using government issued ID documents.
 
 ```json
-{  
-   "userinfo":{  
-      "verified_claims":{  
-         "verification":{  
-            "trust_framework":{  
+{
+   "userinfo":{
+      "verified_claims":{
+         "verification":{
+            "trust_framework":{
                "value":"de_aml"
             },
-            "evidence":[  
-               {  
-                  "type":{  
+            "evidence":[
+               {
+                  "type":{
                      "value":"id_document"
                   },
-                  "method":{  
+                  "method":{
                      "value":"pipp"
                   },
-                  "document":{  
-                     "type":{  
-                        "values":[  
+                  "document":{
+                     "type":{
+                        "values":[
                            "idcard",
                            "passport"
                         ]
@@ -452,20 +450,20 @@ The following example shows that the RP wants to obtain an attestation based on 
 }
 ```
 
-The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place. 
+The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place.
 
 This specification therefore defines a new member `max_age`.
 
-`max_age`: OPTIONAL. Is a JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
+`max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
 
 The following is an example:
 
 ```json
-{  
-   "userinfo":{  
-      "verified_claims":{  
-         "verification":{  
-            "time":{  
+{
+   "userinfo":{
+      "verified_claims":{
+         "verification":{
+            "time":{
                "max_age":63113852
             }
          },
@@ -475,36 +473,36 @@ The following is an example:
 }
 ```
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through a online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. 
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach.
 
 If the OP is unable to fulfill any of the requirements stated in this section (even in case it is marked as being `essential`), it will provide the RP with the data available and the RP may decide how to use the data. The OP MUST NOT return an error in case it cannot return all Claims requested as essential Claims.
 
 # Examples
 
-The following sections show examples of `verified_claims`. 
+The following sections show examples of `verified_claims`.
 
-The first and second section show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different verification methods along with the actual Claims about the End-User.
+The first and second sections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different verification methods along with the actual Claims about the End-User.
 
-The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP. 
+The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
 
 Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
 ## id_document
 
 ```JSON
-{  
-   "verified_claims":{  
-      "verification":{  
+{
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
+               "document":{
                   "type":"idcard",
-                  "issuer":{  
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -515,16 +513,18 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28",
-         "place_of_birth":{  
+         "place_of_birth":{
             "country":"DE",
             "locality":"Musterstadt"
          },
-         "nationality":"DE",
-         "address":{  
+         "nationalities":[
+            "DE"
+         ],
+         "address":{
             "locality":"Maxstadt",
             "postal_code":"12344",
             "country":"DE",
@@ -538,19 +538,19 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 ## id_document + utility bill
 
 ```JSON
-{  
-   "verified_claims":{  
-      "verification":{  
+{
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
-                  "document_type":"de_erp_replacement_idcard",
-                  "issuer":{  
+               "document":{
+                  "type":"de_erp_replacement_idcard",
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -559,9 +559,9 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
                   "date_of_expiry":"2022-04-22"
                }
             },
-            {  
+            {
                "type":"utility_bill",
-               "provider":{  
+               "provider":{
                   "name":"Stadtwerke Musterstadt",
                   "country":"DE",
                   "region":"Thüringen",
@@ -571,16 +571,18 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28",
-         "place_of_birth":{  
+         "place_of_birth":{
             "country":"DE",
             "locality":"Musterstadt"
          },
-         "nationality":"DE",
-         "address":{  
+         "nationalities":[
+            "DE"
+         ],
+         "address":{
             "locality":"Maxstadt",
             "postal_code":"12344",
             "country":"DE",
@@ -594,21 +596,23 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 ## Notified eID system (eIDAS)
 
 ```JSON
-{  
-   "verified_claims":{  
-      "verification":{  
+{
+   "verified_claims":{
+      "verification":{
          "trust_framework":"eidas_ial_substantial"
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28",
-         "place_of_birth":{  
+         "place_of_birth":{
             "country":"DE",
             "locality":"Musterstadt"
          },
-         "nationality":"DE",
-         "address":{  
+         "nationalities":[
+            "DE"
+         ],
+         "address":{
             "locality":"Maxstadt",
             "postal_code":"12344",
             "country":"DE",
@@ -619,28 +623,27 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 }
 ```
 
-
 ## Verified Claims in UserInfo Response
 
 ### Request
 
-In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request verified Claims. 
+In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request verified Claims.
 
 The scope value is: `scope=openid email`
 
 The value of the `claims` parameter is:
 
 ```json
-{  
-   "userinfo":{  
-       "verified_claims":{  
-         "claims":{  
+{
+   "userinfo":{
+       "verified_claims":{
+         "claims":{
             "given_name":null,
             "family_name":null,
             "birthdate":null
          }
       }
-   }	
+   }
 }
 ```
 
@@ -652,22 +655,22 @@ The respective UserInfo response would be
 HTTP/1.1 200 OK
 Content-Type: application/json
 
-{  
+{
    "sub":"248289761001",
    "email":"janedoe@example.com",
    "email_verified":true,
-   "verified_claims":{  
-      "verification":{  
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
+               "document":{
                   "type":"idcard",
-                  "issuer":{  
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -678,7 +681,7 @@ Content-Type: application/json
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28"
@@ -691,18 +694,18 @@ Content-Type: application/json
 
 ### Request
 
-In this case, the RP requests verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `code`). 
+In this case, the RP requests verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `authorization_code`).
 
 The `claims` parameter value is
 
 ```json
-{  
-   "id_token":{  
+{
+   "id_token":{
       "email":null,
       "preferred_username":null,
       "picture":null,
-      "verified_claims":{  
-         "claims":{  
+      "verified_claims":{
+         "claims":{
             "given_name":null,
             "family_name":null,
             "birthdate":null
@@ -717,7 +720,7 @@ The `claims` parameter value is
 The respective ID Token could be
 
 ```json
-{  
+{
    "iss":"https://server.example.com",
    "sub":"24400320",
    "aud":"s6BhdRkqt3",
@@ -729,18 +732,18 @@ The respective ID Token could be
    "email":"janedoe@example.com",
    "preferred_username":"j.doe",
    "picture":"http://example.com/janedoe/me.jpg",
-   "verified_claims":{  
-      "verification":{  
+   "verified_claims":{
+      "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
          "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[  
-            {  
+         "evidence":[
+            {
                "type":"id_document",
                "method":"pipp",
-               "document":{  
+               "document":{
                   "type":"idcard",
-                  "issuer":{  
+                  "issuer":{
                      "name":"Stadt Augsburg",
                      "country":"DE"
                   },
@@ -751,7 +754,7 @@ The respective ID Token could be
             }
          ]
       },
-      "claims":{  
+      "claims":{
          "given_name":"Max",
          "family_name":"Meier",
          "birthdate":"1956-01-28"
@@ -761,22 +764,23 @@ The respective ID Token could be
 ```
 
 ## Aggregated Claims
-Note: line breaks for display purposes only
+
+Note: Line breaks for display purposes only.
 
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
 
-{ 
-   "iss":"https://server.example.com", 
+{
+   "iss":"https://server.example.com",
    "sub":"248289761001",
    "email":"janedoe@example.com",
    "email_verified":true,
-   "_claim_names":{  
+   "_claim_names":{
       "verified_claims":"src1"
    },
-   "_claim_sources":{  
-      "src1":{  
+   "_claim_sources":{
+      "src1":{
       "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
       lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
       JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
@@ -794,41 +798,42 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-   "iss":"https://server.example.com",  
+   "iss":"https://server.example.com",
    "sub":"248289761001",
    "email":"janedoe@example.com",
    "email_verified":true,
-   "_claim_names":{  
+   "_claim_names":{
       "verified_claims":"src1"
    },
-   "_claim_sources":{  
-      "src1":{  
+   "_claim_sources":{
+      "src1":{
          "endpoint":"https://server.yetanotherop.com/claim_source",
          "access_token":"ksj3n283dkeafb76cdef"
       }
    }
 }
 ```
+
 # OP Metadata {#opmetadata}
 
 The OP advertises its capabilities with respect to verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-`verified_claims_supported`: Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension. 
+`verified_claims_supported`: Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension.
 
-`trust_frameworks_supported` This is a JSON array containing all supported trust frameworks.
+`trust_frameworks_supported`: JSON array containing all supported trust frameworks.
 
-`evidence_supported` This JSON array contains all types of identity evidence the OP uses.
+`evidence_supported`: JSON array containing all types of identity evidence the OP uses.
 
-`id_documents_supported` This JSON array contains all identity documents utilized by the OP for identity verification.
+`id_documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
 
-`id_documents_verification_methods_supported` This element is a JSON array containing the id document verification methods a OP supports as defined in (#verification). 
+`id_documents_verification_methods_supported`: JSON array containing the ID document verification methods the OP supports as defined in (#verification).
 
-`claims_in_verified_claims_supported` This JSON array contains all claims supported within `verified_claims`.
+`claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 
 This is an example openid-configuration snippet:
 
 ```json
-{  
+{
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
@@ -840,17 +845,17 @@ This is an example openid-configuration snippet:
       "utility_bill",
       "qes"
    ]
-   "id_documents_supported":[  
+   "id_documents_supported":[
        "idcard",
        "passport",
        "driving_permit"
    ]
-   "id_documents_verification_methods_supported":[  
+   "id_documents_verification_methods_supported":[
        "pipp",
        "sripp",
        "eid"
    ]
-   "claims_in_verified_claims_supported":[  
+   "claims_in_verified_claims_supported":[
       "given_name",
       "family_name",
       "birthdate",
@@ -862,16 +867,16 @@ This is an example openid-configuration snippet:
 }
 ```
 
-The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element. 
+The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
 
 # Transaction-specific Purpose {#purpose}
 
-This specification introduces the request parameter `purpose` to allow a RP
+This specification introduces the request parameter `purpose` to allow an RP
 to state the purpose for the transfer of user data it is asking for.
 
-`purpose` OPTIONAL. String describing the purpose for obtaining certain user data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
+`purpose`: OPTIONAL. String describing the purpose for obtaining certain user data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
 
-The OP MUST display this purpose in the respective user consent screen(s) in order to inform the user about the designated use of the data to be transferred or the authorization to be approved. 
+The OP MUST display this purpose in the respective user consent screen(s) in order to inform the user about the designated use of the data to be transferred or the authorization to be approved.
 
 In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
 
@@ -880,17 +885,19 @@ If the parameter `purpose` is not present in the request, the OP MAY utilize a d
 Note: In order to prevent injection attacks, the OP MUST escape the text appropriately before it will be shown in a user interface. The OP MUST expect special characters in the URL decoded purpose text provided by the RP. The OP MUST ensure that any special characters in the purpose text cannot be used to inject code into the web interface of the OP (e.g., cross-site scripting, defacing). Proper escaping MUST be applied by the OP. The OP SHALL NOT remove characters from the purpose text to this end.
 
 # Privacy Consideration {#Privacy}
-OP and RP MUST establish a legal basis before exchanging any personally identifiable information. It can be established upfront or in the course of the OpenID process. 
+
+OP and RP MUST establish a legal basis before exchanging any personally identifiable information. It can be established upfront or in the course of the OpenID process.
 
 # Security Considerations {#Security}
-      
-The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions. 
 
-The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer. 
+The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions.
+
+The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
 ## Trust Frameworks {#predefined_values_tf}
+
 This section defines trust framework identifiers for use with this specification.
 
 | Identifier | Definition|
@@ -900,7 +907,7 @@ This section defines trust framework identifiers for use with this specification
 |`eidas_ial_high`|The OP is able to attest user identities in accordance with the EU regulation No 910/2014 (eIDAS) at the identitfication assurance level "High".|
 |`nist_800_63A_ial_2`|The OP is able to attest user identities in accordance with the NIST Special Publication 800-63A at the Identity Assurance Level 2.|
 |`nist_800_63A_ial_3`|The OP is able to attest user identities in accordance with the NIST Special Publication 800-63A at the Identity Assurance Level 3.|
-|`jp_aml`|The OP verifies and maintains user identities in conforms with the Japanese Act on Prevention of Transfer of Criminal Proceeds.|
+|`jp_aml`|The OP verifies and maintains user identities in conformance with the Japanese Act on Prevention of Transfer of Criminal Proceeds.|
 |`jp_mpiupa`|The OP verifies and maintains user identities in conformance with the Japanese Act for Identification, etc. by Mobile Voice Communications Carriers of Their Subscribers, etc. and for Prevention of Improper Use of Mobile Voice Communications Services.|
 
 ## Identity Documents {#predefined_values_idd}
@@ -913,20 +920,20 @@ This section defines identity document identifiers for use with this specificati
 |`passport`|A passport is a travel document, usually issued by a country's government, that certifies the identity and nationality of its holder primarily for the purpose of international travel.[@?OxfordPassport]|
 |`driving_permit`|Official document permitting an individual to operate motorized vehicles. In the absence of a formal identity document, a driver's license may be accepted in many countries for identity verification.|
 |`de_idcard_foreigners`|ID Card issued by the German government to foreign nationals.|
-|`de_emergency_idcard`|ID Card issued by the German government to foreign nationals as passports replacement|
-|`de_erp`|Electronic Resident Permit issued by the German government to foreign nationals|
-|`de_erp_replacement_idcard`|Electronic Resident Permit issued by the German government to foreign nationals as replacement for another identity document|
-|`de_idcard_refugees`|ID Card issued by the German government to refugees as passports replacement|
-|`de_idcard_apatrids`|ID Card issued by the German government to apatrids as passports replacement|
-|`de_certificate_of_suspension_of_deportation`|identity document issued to refugees in case of suspension of deportation that are marked as "id card replacement"|
-|`de_permission_to_reside`|permission to reside issued by the German governed to foreign nationals appliying for asylum|
-|`de_replacement_idcard`|ID Card replacement document issued by the German government to foreign nationals (see Act on the Residence, Economic Activity and Integration of Foreigners in the Federal Territory, Residence Act, Appendix D1 ID Card replacement according to § 48 Abs. 2 i.V.m. § 78a Abs. 4)|
-|`jp_drivers_license`| Japanese drivers license
+|`de_emergency_idcard`|ID Card issued by the German government to foreign nationals as passports replacement.|
+|`de_erp`|Electronic Resident Permit issued by the German government to foreign nationals.|
+|`de_erp_replacement_idcard`|Electronic Resident Permit issued by the German government to foreign nationals as replacement for another identity document.|
+|`de_idcard_refugees`|ID Card issued by the German government to refugees as passports replacement.|
+|`de_idcard_apatrids`|ID Card issued by the German government to apatrids as passports replacement.|
+|`de_certificate_of_suspension_of_deportation`|An identity document issued to refugees in case of suspension of deportation that are marked as "ID card replacement".|
+|`de_permission_to_reside`|Permission to reside issued by the German government to foreign nationals appliying for asylum.|
+|`de_replacement_idcard`|ID Card replacement document issued by the German government to foreign nationals. (see Act on the Residence, Economic Activity and Integration of Foreigners in the Federal Territory, Residence Act, Appendix D1 ID Card replacement according to § 48 Abs. 2 i.V.m. § 78a Abs. 4)|
+|`jp_drivers_license`| Japanese driver's license.|
 |`jp_residency_card_for_foreigner`| Japanese residence card for foreigners.|
-|`jp_individual_number_card`| Japanese national id card.|
+|`jp_individual_number_card`| Japanese national ID card.|
 |`jp_permanent_residency_card_for_foreigner`| Japanese special residency card for foreigners to permit permanently resident.|
 |`jp_health_insurance_card`| Japanese health and insurance card.|
-|`jp_residency_card`| Japanese residency card|
+|`jp_residency_card`| Japanese residency card.|
 
 ## Verification Methods {#predefined_values_vm}
 
@@ -934,14 +941,14 @@ This section defines verification method identifiers for use with this specifica
 
 | Identifier | Definition          |
 |:------------|---------------------|
-|`pipp`|Physical In-Person Proofing|
-|`sripp`|Supervised remote In-Person Proofing|
-|`eid`|Online verification of an electronic ID card|
+|`pipp`|Physical In-Person Proofing.|
+|`sripp`|Supervised remote In-Person Proofing.|
+|`eid`|Online verification of an electronic ID card.|
 |`uripp`|Unsupervised remote in-person proofing with video capture of the ID document, user self-portrait video and liveness checks.|
 
 # JSON Schema {#json_schema}
 
-This section contains the JSON Schema of assertions containing the `verified_claims` claim. 
+This section contains the JSON Schema of assertions containing the `verified_claims` claim.
 
 ```JSON
 {
@@ -964,7 +971,7 @@ This section contains the JSON Schema of assertions containing the `verified_cla
         },
         "created_at":{
           "type":"string",
-          "format":"date"
+          "format":"date-time"
         }
       },
       "required": ["type","issuer","serial_number","issued_at"]
@@ -984,19 +991,29 @@ This section contains the JSON Schema of assertions containing the `verified_cla
             "name":{
               "type":"string"
             },
-            "country":{
+            "formatted":{
+              "type":"string"
+            },
+            "street_address":{
+              "type":"string"
+            },
+            "locality":{
               "type":"string"
             },
             "region":{
               "type":"string"
             },
-            "street_address":{
+            "postal_code":{
+              "type":"string"
+            },
+            "country":{
               "type":"string"
             }
           }
         },
         "date":{
-          "type":"string"
+          "type":"string",
+          "format":"date"
         }
       },
       "required": ["type","provider","date"]
@@ -1026,8 +1043,8 @@ This section contains the JSON Schema of assertions containing the `verified_cla
           }
         },
         "time":{
-              "type":"string",
-              "format":"time"
+          "type":"string",
+          "format":"date-time"
         },
         "document":{
           "type":"object",
@@ -1286,11 +1303,11 @@ This section contains the JSON Schema of assertions containing the `verified_cla
 </reference>
 
 # Acknowledgements {#Acknowledgements}
-      
+
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
-      
-I would like to thank Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, 
-Michael B. Jones, and Jeff Lombardo for their valuable feedback that helped to evolve this specification. 
+
+I would like to thank Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman,
+Michael B. Jones, and Jeff Lombardo for their valuable feedback that helped to evolve this specification.
 
 # Notices
 
