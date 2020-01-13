@@ -844,17 +844,17 @@ This is an example openid-configuration snippet:
       "id_document",
       "utility_bill",
       "qes"
-   ]
+   ],
    "id_documents_supported":[
        "idcard",
        "passport",
        "driving_permit"
-   ]
+   ],
    "id_documents_verification_methods_supported":[
        "pipp",
        "sripp",
        "eid"
-   ]
+   ],
    "claims_in_verified_claims_supported":[
       "given_name",
       "family_name",
