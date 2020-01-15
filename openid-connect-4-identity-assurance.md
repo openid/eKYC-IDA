@@ -173,6 +173,8 @@ The following types of evidence are defined:
 
 The following elements are contained in an `id_document` evidence sub-element.
 
+`type`: REQUIRED. Value MUST be set to "id_document".
+
 `method`: REQUIRED. The method used to verify the ID document. Predefined values are given in  [Verification Methods](#predefined_values_vm).
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
@@ -196,6 +198,8 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 The following elements are contained in a `utility_bill` evidence sub-element.
 
+`type`: REQUIRED. Value MUST be set to "utility_bill".
+
 `provider`: REQUIRED. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
 
 * `name`: String designating the provider.
@@ -206,6 +210,8 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 #### qes
 
 The following elements are contained in a `qes` evidence sub-element.
+
+`type`: REQUIRED. Value MUST be set to "qes".
 
 `issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
 
