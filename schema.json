@@ -25,7 +25,7 @@
         "type",
         "issuer",
         "serial_number",
-        "issued_at"
+        "created_at"
       ]
     },
     "utility_bill": {
@@ -240,9 +240,9 @@
     },
     "txn": {
       "type": "string"
-    },
-    "required": [
-      "verified_claims"
-    ]
-  }
+    }
+  },
+  "required": [
+    "verified_claims"
+  ]
 }
