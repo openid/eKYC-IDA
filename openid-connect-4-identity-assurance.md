@@ -147,7 +147,7 @@ The normative definition is given in the following.
 
 `verified_claims`: Object or array containing one or more verified claims objects.
 
-a single `verified_claims` object consists of the following sub-elements:
+A single `verified_claims` object consists of the following sub-elements:
 
 * `verification`: REQUIRED. Object that contains data about the verification process.
 * `claims`: REQUIRED. Object that is the container for the verified Claims about the End-User.
@@ -646,23 +646,23 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 ```JSON
 {
-  "verified_claims":[{
-    "verification":{
-      "trust_framework":"eidas_ial_substantial"
-    },
-    "claims":{
-      "given_name":"Max",
-      "family_name":"Meier",
-      "birthdate":"1956-01-28",
-      "place_of_birth":{
-        "country":"DE",
-        "locality":"Musterstadt"
+  "verified_claims":[
+    {
+      "verification": {
+        "trust_framework": "eidas_ial_substantial"
       },
-      "nationalities":[
-        "DE"
-      ]
-    }
-  }
+      "claims": {
+        "given_name": "Max",
+        "family_name": "Meier",
+        "birthdate": "1956-01-28",
+        "place_of_birth": {
+          "country": "DE",
+          "locality": "Musterstadt"
+        },
+        "nationalities": [
+          "DE"
+        ]
+      }
     },
     {
       "verification":{
