@@ -37,7 +37,9 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] to address the use case of strong identity verification of a natural person in accordance with certain laws. Examples include Anti Money Laundering Laws, Telecommunication Acts, Anti Terror Laws, and regulations on trust services, such as eIDAS [@?eIDAS].
+This specification defines an extension to OpenID Connect [@!OpenID] to address the use case of strong identity verification of a natural person in accordance with certain laws, regulations, and guidelines. 
+
+Examples include Anti Money Laundering Laws, such as the Japanese "Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds" [@?JPAML], Telecommunication Acts, Anti Terror Laws, regulations on trust services, such as the eIDAS [@?eIDAS] in the European Union, and guidelines, such as NIST SP 800-63A [@?NIST-SP-800-63a].
 
 In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source along with evidence related to the identity verification process.
 
@@ -1351,6 +1353,17 @@ This section contains the JSON Schema of assertions containing the `verified_cla
   </front>
 </reference>
 
+<reference anchor="JPAML" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
+  <front>
+    <title>Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds</title>
+    <author initials="" surname="Japanese Parliament">
+      <organization>Japanese Parliament</organization>
+    </author>
+   <date day="1" month="December" year="2019"/>
+  </front>
+</reference>
+
+
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
 	<front>
 	  <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
@@ -1429,6 +1442,7 @@ The technology described in this specification was made available from contribut
    -09
    
    * changed `verified_claims` to object-or-array pattern
+   * added “Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds” and NIST 800-63 A as examples to introduction
    * integrated source into single md file
    * fixed typos
 
