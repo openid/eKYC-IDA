@@ -92,9 +92,9 @@ Even for asserting verified Claims, this extension utilizes existing OpenID Conn
 In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying user data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
 
 * `place_of_birth`: a structured Claim representing the End-User’s place of birth. It consists of the following fields:
-	* `country`: REQUIRED. [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3]
+	* `country`: [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3]
 	* `region`: State, province, prefecture, or region component. This field might be required in some jurisdictions.
-	* `locality`: REQUIRED. City or other locality.
+	* `locality`: City or other locality.
 * `nationalities`: String array representing the user’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".
 * `birth_family_name`: Family name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.
 * `birth_given_name`: Given name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.
@@ -137,6 +137,8 @@ This section explains the structure and meaning of `verified_claims` in detail. 
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
+Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further cobstraints on the data structure.
+
 ## verification Element {#verification}
 
 This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
@@ -175,9 +177,9 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "id_document".
 
-`method`: REQUIRED. The method used to verify the ID document. Predefined values are given in  [Verification Methods](#predefined_values_vm).
+`method`: The method used to verify the ID document. Predefined values are given in  [Verification Methods](#predefined_values_vm).
 
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+`verifier`: JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: Identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
@@ -189,10 +191,10 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `type`: REQUIRED. String denoting the type of the ID document. Standardized values are defined in [Identity Documents](#predefined_values_idd). The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `number`: String representing the number of the identity document.
 * `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
-	*  `name`: REQUIRED. Designation of the issuer of the identity document.
+	*  `name`: Designation of the issuer of the identity document.
 	*  `country`: String denoting the country or organization that issued the document as ICAO 2-letter code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
-* `date_of_issuance`: REQUIRED if this attribute exists for the particular type of document. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: REQUIRED if this attribute exists for the particular type of document. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_issuance`: The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_expiry`: The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
 #### utility_bill
 
@@ -200,7 +202,7 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "utility_bill".
 
-`provider`: REQUIRED. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
+`provider`: JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
 
 * `name`: String designating the provider.
 * All elements of the OpenID Connect `address` Claim ([@!OpenID])
@@ -213,11 +215,11 @@ The following elements are contained in a `qes` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "qes".
 
-`issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
+`issuer`: String denoting the certification authority that issued the signer's certificate.
 
-`serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
+`serial_number`: String containing the serial number of the certificate used to sign.
 
-`created_at`: REQUIRED. The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm:ss±hh:mm` format.
+`created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm:ss±hh:mm` format.
 
 ## claims Element {#claimselement}
 
