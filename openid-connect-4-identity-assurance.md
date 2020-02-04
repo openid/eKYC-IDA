@@ -1425,7 +1425,7 @@ This section contains the JSON Schema of assertions containing the `verified_cla
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
 We would like to thank Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman,
-Michael B. Jones, Jeff Lombardo, and the OpenID Foundation Japan for their valuable feedback that helped to evolve this specification.
+Michael B. Jones, Jeff Lombardo, Azusa Kikuchi, Kosuke Koiwai, and the OpenID Foundation Japan for their valuable feedback that helped to evolve this specification.
 
 # Notices
 
