@@ -1356,7 +1356,7 @@ This section contains the JSON Schema of assertions containing the `verified_cla
 <reference anchor="JPAML" target=" https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=420M60000f5a001#58">
   <front>
     <title>Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds</title>
-    <author initials="" surname="Japanese Parliament">
+    <author>
       <organization>Cabinet Office,
 Ministry of Internal Affairs and Communications,
 Ministry of Justice,
