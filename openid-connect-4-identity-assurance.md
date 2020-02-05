@@ -124,22 +124,41 @@ The `txn` value MUST allow an RP to obtain these transaction details if needed.
 
 Note: The mechanism to obtain the transaction details from the OP and their format is out of scope of this specification.
 
-# Verified Data Representation
+# verified_claims Element {#verified_claims}
 
-This extension to OpenID Connect wants to ensure that RPs cannot mix up verified and unverified Claims and incidentally process unverified Claims as verified Claims.
+This specification defines a generic mechanisms to add verified claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims` to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these claims. This way RPs cannot mix up verified and unverified Claims and incidentally process unverified Claims as verified Claims.
 
-The representation proposed therefore provides the RP with the verified Claims within a container element `verified_claims`. This container is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
+A following example
 
-This section explains the structure and meaning of `verified_claims` in detail. A machine-readable syntax definition is given as JSON schema in (#json_schema). It can be used to automatically validate JSON documents containing a `verified_claims` element.
+```JSON
+{
+   "verified_claims":{
+      "verification":{
+         "trust_framework":"ial_example_gold"
+      },
+      "claims":{
+         "given_name":"Max",
+         "family_name":"Meier"
+      }
+   }
+}
+```
+would attest to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example assurance level `gold`.
 
-`verified_claims` consists of the following sub-elements:
+The normative definition is given in the following.
 
-* `verification`: REQUIRED. Object that contains all data about the verification process.
+`verified_claims`: Object or array containing one or more verified claims objects.
+
+A single `verified_claims` object consists of the following sub-elements:
+
+* `verification`: REQUIRED. Object that contains data about the verification process.
 * `claims`: REQUIRED. Object that is the container for the verified Claims about the End-User.
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
 Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
+
+A machine-readable syntax definition of `verified_claims` is given as JSON schema in (#json_schema). It can be used to automatically validate JSON documents containing a `verified_claims` element.
 
 ## verification Element {#verification}
 
@@ -621,17 +640,62 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
          },
          "nationalities":[
             "DE"
-         ],
-         "address":{
-            "locality":"Maxstadt",
-            "postal_code":"12344",
-            "country":"DE",
-            "street_address":"An der Sanddüne 22"
-         }
+         ]
       }
    }
 }
 ```
+
+## Multiple Verified Claims
+
+```JSON
+{
+  "verified_claims":[
+    {
+      "verification": {
+        "trust_framework": "eidas_ial_substantial"
+      },
+      "claims": {
+        "given_name": "Max",
+        "family_name": "Meier",
+        "birthdate": "1956-01-28",
+        "place_of_birth": {
+          "country": "DE",
+          "locality": "Musterstadt"
+        },
+        "nationalities": [
+          "DE"
+        ]
+      }
+    },
+    {
+      "verification":{
+        "trust_framework":"de_aml",
+        "time":"2012-04-23T18:25:43.511+01",
+        "verification_process":"676q3636461467647q8498785747q487",
+        "evidence":[
+          {
+            "type":"id_document",
+            "method":"pipp",
+            "document":{
+              "type":"idcard"
+            }
+          }
+        ]
+      },
+      "claims":{
+        "address":{
+          "locality":"Maxstadt",
+          "postal_code":"12344",
+          "country":"DE",
+          "street_address":"An der Sanddüne 22"
+        }
+      }
+    }
+  ]
+}
+```
+
 
 ## Verified Claims in UserInfo Response
 
@@ -963,105 +1027,119 @@ This section contains the JSON Schema of assertions containing the `verified_cla
 ```JSON
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions":{
-    "qes":{
-      "type":"object",
-      "properties":{
-        "type":{
-          "type":"string",
-          "enum":[
+  "definitions": {
+    "qes": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
             "qes"
           ]
         },
-        "issuer":{
-          "type":"string"
+        "issuer": {
+          "type": "string"
         },
-        "serial_number":{
-          "type":"string"
+        "serial_number": {
+          "type": "string"
         },
-        "created_at":{
-          "type":"string",
-          "format":"date-time"
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
         }
       },
-      "required": ["type","issuer","serial_number","issued_at"]
+      "required": [
+        "type",
+        "issuer",
+        "serial_number",
+        "created_at"
+      ]
     },
-    "utility_bill":{
-      "type":"object",
-      "properties":{
-        "type":{
-          "type":"string",
-          "enum":[
+    "utility_bill": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
             "utility_bill"
           ]
         },
-        "provider":{
-          "type":"object",
-          "properties":{
-            "name":{
-              "type":"string"
+        "provider": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
             },
-            "formatted":{
-              "type":"string"
+            "formatted": {
+              "type": "string"
             },
-            "street_address":{
-              "type":"string"
+            "street_address": {
+              "type": "string"
             },
-            "locality":{
-              "type":"string"
+            "locality": {
+              "type": "string"
             },
-            "region":{
-              "type":"string"
+            "region": {
+              "type": "string"
             },
-            "postal_code":{
-              "type":"string"
+            "postal_code": {
+              "type": "string"
             },
-            "country":{
-              "type":"string"
+            "country": {
+              "type": "string"
             }
           }
         },
-        "date":{
-          "type":"string",
-          "format":"date"
+        "date": {
+          "type": "string",
+          "format": "date"
         }
       },
-      "required": ["type","provider","date"]
+      "required": [
+        "type",
+        "provider",
+        "date"
+      ]
     },
-    "id_document":{
-      "type":"object",
-      "properties":{
-        "type":{
-          "type":"string",
-          "enum":[
+    "id_document": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
             "id_document"
           ]
         },
-        "method":{
-          "type":"string",
-          "enum":["pipp","sripp","eid","uripp"]
+        "method": {
+          "type": "string",
+          "enum": [
+            "pipp",
+            "sripp",
+            "eid",
+            "uripp"
+          ]
         },
-        "verifier":{
-          "type":"object",
-          "properties":{
-            "organization":{
-              "type":"string"
+        "verifier": {
+          "type": "object",
+          "properties": {
+            "organization": {
+              "type": "string"
             },
-            "txn":{
-              "type":"string"
+            "txn": {
+              "type": "string"
             }
           }
         },
-        "time":{
-          "type":"string",
-          "format":"date-time"
+        "time": {
+          "type": "string",
+          "format": "date-time"
         },
-        "document":{
-          "type":"object",
-          "properties":{
-            "type":{
-              "type":"string",
-              "enum":[
+        "document": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
                 "idcard",
                 "passport",
                 "driving_permit",
@@ -1082,49 +1160,46 @@ This section contains the JSON Schema of assertions containing the `verified_cla
                 "jp_residency_card"
               ]
             },
-            "number":{
-              "type":"string"
+            "number": {
+              "type": "string"
             },
-            "issuer":{
-              "type":"object",
-              "properties":{
-                "name":{
-                  "type":"string"
+            "issuer": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                "country":{
-                  "type":"string"
+                "country": {
+                  "type": "string"
                 }
               }
             },
-            "date_of_issuance":{
-              "type":"string",
-              "format":"date"
+            "date_of_issuance": {
+              "type": "string",
+              "format": "date"
             },
-            "date_of_expiry":{
-              "type":"string",
-              "format":"date"
+            "date_of_expiry": {
+              "type": "string",
+              "format": "date"
             }
           }
         }
       },
-      "required":[
+      "required": [
         "type",
         "method",
         "document"
       ]
-    }
-  },
-  "type":"object",
-  "properties":{
-    "verified_claims":{
-      "type":"object",
-      "properties":{
-        "verification":{
-          "type":"object",
-          "properties":{
-            "trust_framework":{
-              "type":"string",
-              "enum":[
+    },
+    "verified_claims_def": {
+      "type": "object",
+      "properties": {
+        "verification": {
+          "type": "object",
+          "properties": {
+            "trust_framework": {
+              "type": "string",
+              "enum": [
                 "de_aml",
                 "eidas_ial_substantial",
                 "eidas_ial_hig",
@@ -1134,45 +1209,69 @@ This section contains the JSON Schema of assertions containing the `verified_cla
                 "jp_mpiupa"
               ]
             },
-            "time":{
-              "type":"string",
-              "format":"time"
+            "time": {
+              "type": "string",
+              "format": "date-time"
             },
-            "verification_process":{
-              "type":"string"
+            "verification_process": {
+              "type": "string"
             },
-            "evidence":{
-              "type":"array",
+            "evidence": {
+              "type": "array",
               "minItems": 1,
-              "items":{
-                "oneOf":[
+              "items": {
+                "oneOf": [
                   {
-                    "$ref":"#/definitions/id_document"
+                    "$ref": "#/definitions/id_document"
                   },
                   {
-                    "$ref":"#/definitions/utility_bill"
+                    "$ref": "#/definitions/utility_bill"
                   },
                   {
-                    "$ref":"#/definitions/qes"
+                    "$ref": "#/definitions/qes"
                   }
                 ]
               }
             }
           },
-          "required":["trust_framework"],
+          "required": [
+            "trust_framework"
+          ],
           "additionalProperties": false
         },
-        "claims":{
-          "type":"object",
+        "claims": {
+          "type": "object",
           "minProperties": 1
         }
       },
-      "required":["verification","claims"],
+      "required": [
+        "verification",
+        "claims"
+      ],
       "additionalProperties": false
-    },
-    "txn": {"type": "string"}
+    }
   },
-  "required":["verified_claims"]
+  "properties": {
+    "verified_claims": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/verified_claims_def"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/verified_claims_def"
+          }
+        }
+      ]
+    },
+    "txn": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "verified_claims"
+  ]
 }
 ```
 {backmatter}
@@ -1333,9 +1432,9 @@ The technology described in this specification was made available from contribut
    
    -09
    
+   * changed `verified_claims` to object-or-array pattern
    * integrated source into single md file
    * fixed typos
-
 
    -08
    
