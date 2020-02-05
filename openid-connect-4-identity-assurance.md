@@ -91,16 +91,18 @@ Even for asserting verified Claims, this extension utilizes existing OpenID Conn
 
 In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying user data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
 
-* `place_of_birth`: a structured Claim representing the End-User’s place of birth. It consists of the following fields:
-	* `country`: REQUIRED. [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3]
-	* `region`: State, province, prefecture, or region component. This field might be required in some jurisdictions.
-	* `locality`: REQUIRED. City or other locality.
-* `nationalities`: String array representing the user’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".
-* `birth_family_name`: Family name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.
-* `birth_given_name`: Given name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.
-* `birth_middle_name`: Middle name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.
-* `salutation`: End-User’s salutation, e.g. “Mr.”
-* `title`: End-User’s title, e.g. “Dr.”
+| Claim | Type | Description |
+|:------|:-----|:------------|
+|`place_of_birth`| JSON object | End-User’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
+|||`country`: REQUIRED. String representing country in [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3] syntax.|
+|||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
+|||`locality`: REQUIRED. String representing city or locality component.|
+|`nationalities`| array | End-User’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".|
+|`birth_family_name`| string | End-User’s family name when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.|
+|`birth_given_name`| string | End-User’s given name when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.|
+|`birth_middle_name`| string | End-User’s middle name when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.|
+|`salutation`| string | End-User’s salutation, e.g. “Mr.”|
+|`title`| string | End-User’s title, e.g. “Dr.”|
 
 ## txn Claim
 
