@@ -1433,6 +1433,7 @@ The technology described in this specification was made available from contribut
    -09
    
    * changed `verified_claims` to object-or-array pattern
+   * reduced mandatory requirement for essiental fields like `trust_framework`
    * integrated source into single md file
    * fixed typos
 
