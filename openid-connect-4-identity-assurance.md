@@ -1317,6 +1317,13 @@ This specification registers the Claims defined required for eKYC and Identity A
 
 ### Registry Contents
 ```
+    Claim Name: verified_claims
+    Claim Description: This container claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
+
+    Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+    Specification Document(s): "Verified Data Representation" Section of this document
+```
+```
    Claim Name: place_of_birth
    Claim Description: a structured Claim representing the End-User’s place of birth. It consists of the following fields:
          country: REQUIRED. [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3]
@@ -1325,13 +1332,6 @@ This specification registers the Claims defined required for eKYC and Identity A
 
     Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
     Specification Document(s): "Claims" Section of this document
-```
-```
-    Claim Name: verified_claims
-    Claim Description: This container claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
-
-    Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-    Specification Document(s): "Verified Data Representation" Section of this document
 ```
 ```
    Claim Name:                nationalities
