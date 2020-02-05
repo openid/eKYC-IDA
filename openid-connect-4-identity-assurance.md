@@ -1313,7 +1313,7 @@ This section contains the JSON Schema of assertions containing the `verified_cla
 
 ## JSON Web Token additional "Claims" Registration
 
-This specification registers the Claims defined in Section entitled "Additional Claims about End-Users" into the IANA JSON Web Token Claims registry defined in [JWT].
+This specification registers the Claims defined required for eKYC and Identity Assurance into the IANA JSON Web Token Claims registry defined in [JWT].
 
 ### Registry Contents
 ```
@@ -1325,6 +1325,13 @@ This specification registers the Claims defined in Section entitled "Additional 
 
     Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
     Specification Document(s): "Claims" Section of this document
+```
+```
+    Claim Name: verified_claims
+    Claim Description: This container claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
+
+    Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+    Specification Document(s): "Verified Data Representation" Section of this document
 ```
 ```
    Claim Name:                nationalities
@@ -1368,34 +1375,6 @@ This specification registers the Claims defined in Section entitled "Additional 
 
    Change Controller:         eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
    Specification Document(s): "Claims" Section of this document
-```
-
-## JSON Web Token Claims Registration
-
-This specification registers the Claims defined in Sections entitled "Verified Data Representation" into the IANA JSON Web Token Claims registry defined in [JWT].
-
-### Registry Contents
-
-```
-    Claim Name: verified_claims
-    Claim Description: This container claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
-
-    Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-    Specification Document(s): "Verified Data Representation" Section of this document
-```
-```
-    Claim Name: verification
-    Claim Description: Sub-object of the "verified_claims" container that is the container all data about the verification process used when validating the verified claims.
-
-    Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-    Specification Document(s): "Verified Data Representation" Section of this document
-```
-```
-    Claim Name: claims
-    Claim Description: Sub-object of the "verified_claims" container that is the container for the verified Claims about the End-User
-
-    Change Controller: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-    Specification Document(s): "Verified Data Representation" Section of this document
 ```
 
 # Acknowledgements {#Acknowledgements}
