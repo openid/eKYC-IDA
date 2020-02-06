@@ -5,7 +5,7 @@
     "simple_element": {
       "type": "object",
       "properties": {
-        "essential":{
+        "essential": {
           "type": "boolean"
         },
         "purpose": {
@@ -27,7 +27,7 @@
           },
           "minItems": 1
         },
-        "essential":{
+        "essential": {
           "type": "boolean"
         },
         "purpose": {
@@ -41,124 +41,164 @@
       "properties": {
         "max_age": {
           "type": "number"
+        },
+        "essential": {
+          "type": "boolean"
+        },
+        "purpose": {
+          "type": "string"
         }
       },
       "additionalProperties": false
     },
-    "qes": {
+    "evidence": {
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "issuer": {
-          "$ref": "#/definitions/simple_element"
-        },
-        "serial_number": {
-          "$ref": "#/definitions/simple_element"
-        },
-        "created_at": {
-          "$ref": "#/definitions/simple_element"
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                "qes",
+                "id_document",
+                "utility_bill"
+              ]
+            }
+          }
         }
       },
       "required": [
         "type"
-      ]
-    },
-    "utility_bill": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "provider": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "formatted": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "street_address": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "locality": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "region": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "postal_code": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "country": {
-              "$ref": "#/definitions/simple_element"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "qes"
+              }
             }
+          },
+          "then": {
+            "properties": {
+              "issuer": {
+                "$ref": "#/definitions/simple_element"
+              },
+              "serial_number": {
+                "$ref": "#/definitions/simple_element"
+              },
+              "created_at": {
+                "$ref": "#/definitions/datetime_element"
+              }
+            }
+          },
+          "else": {
           }
         },
-        "date": {
-          "$ref": "#/definitions/datetime_element"
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "id_document": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "method": {
-          "$ref": "#/definitions/simple_element"
-        },
-        "verifier": {
-          "type": "object",
-          "properties": {
-            "organization": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "txn": {
-              "$ref": "#/definitions/simple_element"
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "id_document"
+              }
             }
-          }
-        },
-        "time": {
-          "$ref": "#/definitions/datetime_element"
-        },
-        "document": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "$ref": "#/definitions/constrainable_element"
-            },
-            "number": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "issuer": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "$ref": "#/definitions/simple_element"
-                },
-                "country": {
-                  "$ref": "#/definitions/simple_element"
+          },
+          "then": {
+            "properties": {
+              "method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
+              "verifier": {
+                "type": "object",
+                "properties": {
+                  "organization": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "txn": {
+                    "$ref": "#/definitions/simple_element"
+                  }
+                }
+              },
+              "time": {
+                "$ref": "#/definitions/datetime_element"
+              },
+              "document": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/constrainable_element"
+                  },
+                  "number": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "issuer": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "country": {
+                        "$ref": "#/definitions/simple_element"
+                      }
+                    }
+                  },
+                  "date_of_issuance": {
+                    "$ref": "#/definitions/datetime_element"
+                  },
+                  "date_of_expiry": {
+                    "$ref": "#/definitions/datetime_element"
+                  }
                 }
               }
-            },
-            "date_of_issuance": {
-              "$ref": "#/definitions/simple_element"
-            },
-            "date_of_expiry": {
-              "$ref": "#/definitions/simple_element"
             }
+          },
+          "else": {
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "utility_bill"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "provider": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "formatted": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "street_address": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "locality": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "region": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "postal_code": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "country": {
+                    "$ref": "#/definitions/simple_element"
+                  }
+                }
+              },
+              "date": {
+                "$ref": "#/definitions/datetime_element"
+              }
+            }
+          },
+          "else": {
           }
         }
-      },
-      "required": [
-        "type"
       ]
     },
     "verified_claims_def": {
@@ -168,10 +208,10 @@
           "type": "object",
           "properties": {
             "trust_framework": {
-                  "$ref": "#/definitions/constrainable_element"
+              "$ref": "#/definitions/constrainable_element"
             },
             "time": {
-                  "$ref": "#/definitions/datetime_element"
+              "$ref": "#/definitions/datetime_element"
             },
             "verification_process": {
               "$ref": "#/definitions/simple_element"
@@ -182,13 +222,7 @@
               "items": {
                 "oneOf": [
                   {
-                    "$ref": "#/definitions/id_document"
-                  },
-                  {
-                    "$ref": "#/definitions/utility_bill"
-                  },
-                  {
-                    "$ref": "#/definitions/qes"
+                    "$ref": "#/definitions/evidence"
                   }
                 ]
               }

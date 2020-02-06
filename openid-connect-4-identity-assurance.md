@@ -353,15 +353,17 @@ Elements within `verification` can be requested in the same way as defined in (#
 
 ```json
 {
-  "verified_claims":{
-    "verification":{
-      "time":null,
-      "evidence":null
-    },
-    "claims":{
-      "given_name":null,
-      "family_name":null,
-      "birthdate":null
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "time": null,
+        "evidence": null
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
     }
   }
 }
@@ -375,22 +377,26 @@ The RP may also dig one step deeper into the structure and request certain data 
 
 ```json
 {
-  "verified_claims":{
-    "verification":{
-      "time":null,
-      "evidence":[
+  "verified_claims": {
+    "verification": {
+      "time": null,
+      "evidence": [
         {
-          "method":null,
-          "document":null
+          "type": {
+            "value": "id_document"
+          },
+          "method": null,
+          "document": null
         }
       ],
-      "claims":{
-        "given_name":null,
-        "family_name":null,
-        "birthdate":null
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
       }
     }
   }
+}
 ```
 
 This example requests the `method` element and the `document` element for every evidence available for a certain user account.
@@ -401,26 +407,30 @@ The RP may also request certain data within the `document` element to be present
 
 ```json
 {
-   "verified_claims":{
-      "verification":{
-         "time":null,
-         "evidence":[
-            {
-               "method":null,
-               "document":{
-                  "issuer":null,
-                  "number":null,
-                  "date_of_issuance":null
-               }
-            }
-         ]
-      },
-      "claims":{
-        "given_name":null,
-        "family_name":null,
-        "birthdate":null
-      }
-   }
+  "verified_claims": {
+    "verification": {
+      "time": null,
+      "evidence": [
+        {
+          "type": {
+            "value": "id_document"
+          },
+          "method": null,
+          "document": {
+            "type": null,
+            "issuer": null,
+            "number": null,
+            "date_of_issuance": null
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": null,
+      "family_name": null,
+      "birthdate": null
+    }
+  }
 }
 ```
 
@@ -445,39 +455,38 @@ The following example shows that the RP wants to obtain an attestation based on 
 
 ```json
 {
-   "userinfo":{
-      "verified_claims":{
-         "verification":{
-            "trust_framework":{
-               "value":"de_aml"
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": {
+          "value": "de_aml"
+        },
+        "evidence": [
+          {
+            "type": {
+              "value": "id_document"
             },
-            "evidence":[
-               {
-                  "type":{
-                     "value":"id_document"
-                  },
-                  "method":{
-                     "value":"pipp"
-                  },
-                  "document":{
-                     "type":{
-                        "values":[
-                           "idcard",
-                           "passport"
-                        ]
-                     }
-                  }
-               }
-            ]
-         },
-      "claims":{
-        "given_name":null,
-        "family_name":null,
-        "birthdate":null
+            "method": {
+              "value": "pipp"
+            },
+            "document": {
+              "type": {
+                "values": [
+                  "idcard",
+                  "passport"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
       }
-
-      }
-   }
+    }
+  }
 }
 ```
 
@@ -491,16 +500,23 @@ The following is an example:
 
 ```json
 {
-   "userinfo":{
-      "verified_claims":{
-         "verification":{
-            "time":{
-               "max_age":63113852
-            }
-         },
-         "claims":null
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": {
+          "value": "jp_aml"
+        },
+        "time": {
+          "max_age": 63113852
+        }
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
       }
-   }
+    }
+  }
 }
 ```
 
