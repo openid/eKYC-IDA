@@ -160,7 +160,7 @@ Note: Implementations MUST ignore any sub-element not defined in this specificat
 
 Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
 
-A machine-readable syntax definition of `verified_claims` is given as JSON schema in (#json_schema). It can be used to automatically validate JSON documents containing a `verified_claims` element.
+A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@!verified_claims.json]. It can be used to automatically validate JSON documents containing a `verified_claims` element.
 
 ## verification Element {#verification}
 
@@ -1022,260 +1022,6 @@ This section defines verification method identifiers for use with this specifica
 |`eid`|Online verification of an electronic ID card.|
 |`uripp`|Unsupervised remote in-person proofing with video capture of the ID document, user self-portrait video and liveness checks.|
 
-# JSON Schema {#json_schema}
-
-This section contains the JSON Schema of assertions containing the `verified_claims` claim.
-
-```JSON
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "qes": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "qes"
-          ]
-        },
-        "issuer": {
-          "type": "string"
-        },
-        "serial_number": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "type",
-        "issuer",
-        "serial_number",
-        "created_at"
-      ]
-    },
-    "utility_bill": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "utility_bill"
-          ]
-        },
-        "provider": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "formatted": {
-              "type": "string"
-            },
-            "street_address": {
-              "type": "string"
-            },
-            "locality": {
-              "type": "string"
-            },
-            "region": {
-              "type": "string"
-            },
-            "postal_code": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            }
-          }
-        },
-        "date": {
-          "type": "string",
-          "format": "date"
-        }
-      },
-      "required": [
-        "type",
-        "provider",
-        "date"
-      ]
-    },
-    "id_document": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "id_document"
-          ]
-        },
-        "method": {
-          "type": "string",
-          "enum": [
-            "pipp",
-            "sripp",
-            "eid",
-            "uripp"
-          ]
-        },
-        "verifier": {
-          "type": "object",
-          "properties": {
-            "organization": {
-              "type": "string"
-            },
-            "txn": {
-              "type": "string"
-            }
-          }
-        },
-        "time": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "document": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "idcard",
-                "passport",
-                "driving_permit",
-                "de_idcard_foreigners",
-                "de_emergency_idcard",
-                "de_erp",
-                "de_erp_replacement_idcard",
-                "de_idcard_refugees",
-                "de_idcard_apatrids",
-                "de_certificate_of_suspension_of_deportation",
-                "de_permission_to_reside",
-                "de_replacement_idcard",
-                "jp_drivers_license",
-                "jp_residency_card_for_foreigner",
-                "jp_individual_number_card",
-                "jp_permanent_residency_card_for_foreigner",
-                "jp_health_insurance_card",
-                "jp_residency_card"
-              ]
-            },
-            "number": {
-              "type": "string"
-            },
-            "issuer": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "country": {
-                  "type": "string"
-                }
-              }
-            },
-            "date_of_issuance": {
-              "type": "string",
-              "format": "date"
-            },
-            "date_of_expiry": {
-              "type": "string",
-              "format": "date"
-            }
-          }
-        }
-      },
-      "required": [
-        "type",
-        "method",
-        "document"
-      ]
-    },
-    "verified_claims_def": {
-      "type": "object",
-      "properties": {
-        "verification": {
-          "type": "object",
-          "properties": {
-            "trust_framework": {
-              "type": "string",
-              "enum": [
-                "de_aml",
-                "eidas_ial_substantial",
-                "eidas_ial_hig",
-                "nist_800_63A_ial_2",
-                "nist_800_63A_ial_3",
-                "jp_aml",
-                "jp_mpiupa"
-              ]
-            },
-            "time": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "verification_process": {
-              "type": "string"
-            },
-            "evidence": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "#/definitions/id_document"
-                  },
-                  {
-                    "$ref": "#/definitions/utility_bill"
-                  },
-                  {
-                    "$ref": "#/definitions/qes"
-                  }
-                ]
-              }
-            }
-          },
-          "required": [
-            "trust_framework"
-          ],
-          "additionalProperties": false
-        },
-        "claims": {
-          "type": "object",
-          "minProperties": 1
-        }
-      },
-      "required": [
-        "verification",
-        "claims"
-      ],
-      "additionalProperties": false
-    }
-  },
-  "properties": {
-    "verified_claims": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/verified_claims_def"
-        },
-        {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/verified_claims_def"
-          }
-        }
-      ]
-    },
-    "txn": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "verified_claims"
-  ]
-}
-```
 {backmatter}
 
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
@@ -1374,7 +1120,6 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
 	<front>
 	  <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
@@ -1431,6 +1176,16 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
+<reference anchor="verified_claims.json" target="http://openid.net/schemas/verified_claims-09.json">
+  <front>
+    <title>JSON Schema for assertions using verified_claims</title>
+    <author>
+	    <organization>OpenID Foundation</organization>
+	  </author>
+   <date year="2020"/>
+  </front>
+</reference>
+
 # Acknowledgements {#Acknowledgements}
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
@@ -1457,6 +1212,7 @@ The technology described in this specification was made available from contribut
    * reduced mandatory requirement for essiental fields like `trust_framework`
    * integrated source into single md file
    * fixed typos
+   * removed JSON schema from draft and added reference to JSON schema file instead
 
    -08
    
