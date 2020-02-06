@@ -17,7 +17,7 @@ fullname="Torsten Lodderstedt"
 organization="yes.com"
     [author.address]
     email = "torsten@lodderstedt.net"
-
+	
 [[author]]
 initials="D."
 surname="Fett"
@@ -341,20 +341,6 @@ Example:
 }
 ```
 
-Note: A `claims` sub-element with value `null` is interpreted as a request for all possible Claims. An example is shown in the following:
-
-```json
-{
-   "userinfo":{
-      "verified_claims":{
-         "claims":null
-      }
-   }
-}
-```
-
-Note: The `claims` sub-element can be omitted, which is equivalent to a `claims` element whose value is `null`.
-
 Note: If the `claims` sub-element is empty or contains a Claim not fulfilling the requirements defined in (#claimselement), the OP will abort the transaction with an `invalid_request` error.
 
 ## Requesting Verification Data {#req_verification}
@@ -367,13 +353,17 @@ Elements within `verification` can be requested in the same way as defined in (#
 
 ```json
 {
-   "verified_claims":{
-      "verification":{
-         "time":null,
-         "evidence":null
-      },
-      "claims":null
-   }
+  "verified_claims":{
+    "verification":{
+      "time":null,
+      "evidence":null
+    },
+    "claims":{
+      "given_name":null,
+      "family_name":null,
+      "birthdate":null
+    }
+  }
 }
 ```
 
@@ -385,19 +375,22 @@ The RP may also dig one step deeper into the structure and request certain data 
 
 ```json
 {
-   "verified_claims":{
-      "verification":{
-         "time":null,
-         "evidence":[
-            {
-               "method":null,
-               "document":null
-            }
-         ]
-      },
-      "claims":null
-   }
-}
+  "verified_claims":{
+    "verification":{
+      "time":null,
+      "evidence":[
+        {
+          "method":null,
+          "document":null
+        }
+      ],
+      "claims":{
+        "given_name":null,
+        "family_name":null,
+        "birthdate":null
+      }
+    }
+  }
 ```
 
 This example requests the `method` element and the `document` element for every evidence available for a certain user account.
@@ -422,7 +415,11 @@ The RP may also request certain data within the `document` element to be present
             }
          ]
       },
-      "claims":null
+      "claims":{
+        "given_name":null,
+        "family_name":null,
+        "birthdate":null
+      }
    }
 }
 ```
@@ -473,7 +470,12 @@ The following example shows that the RP wants to obtain an attestation based on 
                }
             ]
          },
-         "claims":null
+      "claims":{
+        "given_name":null,
+        "family_name":null,
+        "birthdate":null
+      }
+
       }
    }
 }
