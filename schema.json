@@ -23,10 +23,7 @@
         }
       },
       "required": [
-        "type",
-        "issuer",
-        "serial_number",
-        "created_at"
+        "type"
       ]
     },
     "utility_bill": {
@@ -70,9 +67,7 @@
         }
       },
       "required": [
-        "type",
-        "provider",
-        "date"
+        "type"
       ]
     },
     "id_document": {
@@ -156,13 +151,14 @@
               "type": "string",
               "format": "date"
             }
-          }
+          },
+          "required": [
+            "type"
+          ]
         }
       },
       "required": [
-        "type",
-        "method",
-        "document"
+        "type"
       ]
     },
     "verified_claims_def": {
