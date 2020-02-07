@@ -345,9 +345,7 @@ Note: If the `claims` sub-element is empty or contains a Claim not fulfilling th
 
 ## Requesting Verification Data {#req_verification}
 
-The content of the `verification` element is basically determined by the respective `trust_framework` and the Claim source's policy.
-
-This specification also defines a way for the RP to explicitly request certain data to be present in the `verification` element. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request claims about the end-user. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` can be requested in the same way as defined in (#req_claims) by adding the respective element as shown in the following example:
 
@@ -356,6 +354,7 @@ Elements within `verification` can be requested in the same way as defined in (#
   "userinfo": {
     "verified_claims": {
       "verification": {
+        "trust_framework":null,
         "time": null,
         "evidence": null
       },
@@ -371,14 +370,13 @@ Elements within `verification` can be requested in the same way as defined in (#
 
 It requests the date of the verification and the available evidence to be present in the issued assertion.
 
-Note: The RP does not need to explicitly request the `trust_framework` field as it is a mandatory element of the `verified_claims` Claim.
-
 The RP may also dig one step deeper into the structure and request certain data to be present within every `evidence`. A single entry is used as prototype for all entries in the result array:
 
 ```json
 {
   "verified_claims": {
     "verification": {
+      "trust_framework":null,
       "time": null,
       "evidence": [
         {
@@ -399,9 +397,13 @@ The RP may also dig one step deeper into the structure and request certain data 
 }
 ```
 
-This example requests the `method` element and the `document` element for every evidence available for a certain user account.
+This example requests the `method` element and the `document` element for every evidence of type `id_document` available for a certain user account.
 
-Note: The RP does not need to explicitly request the `type` field as it is a mandatory element of any `evidence` entry.
+A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. 
+
+The `values` sub-element MUST NOT be used for the `evidence/type` field. 
+
+If multiple entries are present in `evidence`, these filters are linked by a logical OR.
 
 The RP may also request certain data within the `document` element to be present. This again follows the syntax rules used above.
 
@@ -409,6 +411,7 @@ The RP may also request certain data within the `document` element to be present
 {
   "verified_claims": {
     "verification": {
+      "trust_framework":null,
       "time": null,
       "evidence": [
         {
@@ -434,9 +437,7 @@ The RP may also request certain data within the `document` element to be present
 }
 ```
 
-Note: The RP does not need to explicitly request the `type` field as it is a mandatory element of any `document` entry.
-
-It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. It is also at the discretion of the OP to provide more verification data than has been requested by the RP.
+It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. 
 
 ## Defining constraints on Verification Data {#constraintedclaims}
 
