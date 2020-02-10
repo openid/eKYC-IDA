@@ -444,7 +444,7 @@ meanings and allows for other special members to be defined (while stating that 
 
 This specification re-uses that mechanism and introduces a new such member `max_age` (see below).
 
-To start with, the RP MAY limit the possible values of the elements `trust_framework`, `evidence/type`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields.
+To start with, the RP MAY limit the possible values of the elements `trust_framework`, `evidence/type`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields. In case the RP limits the possible values of any of these four elements and the OP does not understand some or all of them (i.e. their values are not listed under OP metadata), the OP MUST abort the transaction with an `invalid_request` error. The OP MAY use the accompanying `error_description` field to specify which specific value was not understood. Under no circumstances the OP can ignore some or all of the query restrictions and deliver available data that does not match the constraints.
 
 The following example shows that the RP wants to obtain an attestation based on AML and limited to users who were identified in a bank branch in person using government issued ID documents.
 
@@ -504,9 +504,9 @@ The following is an example:
 }
 ```
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach.
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. The OP MAY also return data that does not fulfill the `max_age` constraint.
 
-If the OP is unable to fulfill any of the requirements stated in this section (even in case it is marked as being `essential`), it will provide the RP with the data available and the RP may decide how to use the data. The OP MUST NOT return an error in case it cannot return all Claims requested as essential Claims.
+The OP MUST NOT return an error in case it cannot return all Claims requested as essential Claims, regardless of whether they were not present or because the End-User did not authorize their release.
 
 # Examples
 
