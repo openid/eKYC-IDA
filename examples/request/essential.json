@@ -1,0 +1,11 @@
+{
+   "userinfo":{
+      "verified_claims":{
+         "claims":{
+            "given_name":{"essential": true},
+            "family_name":{"essential": true},
+            "birthdate":null
+         }
+      }
+   }
+}

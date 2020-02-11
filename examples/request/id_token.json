@@ -1,0 +1,14 @@
+{
+   "id_token":{
+      "email":null,
+      "preferred_username":null,
+      "picture":null,
+      "verified_claims":{
+         "claims":{
+            "given_name":null,
+            "family_name":null,
+            "birthdate":null
+         }
+      }
+   }
+}
