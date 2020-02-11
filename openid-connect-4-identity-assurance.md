@@ -374,19 +374,21 @@ The RP may also dig one step deeper into the structure and request certain data 
 
 ```json
 {
-  "verified_claims": {
-    "verification": {
-      "trust_framework":null,
-      "time": null,
-      "evidence": [
-        {
-          "type": {
-            "value": "id_document"
-          },
-          "method": null,
-          "document": null
-        }
-      ],
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "id_document"
+            },
+            "method": null,
+            "document": null
+          }
+        ]
+      },
       "claims": {
         "given_name": null,
         "family_name": null,
@@ -409,29 +411,31 @@ The RP may also request certain data within the `document` element to be present
 
 ```json
 {
-  "verified_claims": {
-    "verification": {
-      "trust_framework":null,
-      "time": null,
-      "evidence": [
-        {
-          "type": {
-            "value": "id_document"
-          },
-          "method": null,
-          "document": {
-            "type": null,
-            "issuer": null,
-            "number": null,
-            "date_of_issuance": null
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "id_document"
+            },
+            "method": null,
+            "document": {
+              "type": null,
+              "issuer": null,
+              "number": null,
+              "date_of_issuance": null
+            }
           }
-        }
-      ]
-    },
-    "claims": {
-      "given_name": null,
-      "family_name": null,
-      "birthdate": null
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
     }
   }
 }
