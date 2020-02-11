@@ -12,6 +12,20 @@
 * Build the build command using docker: `docker build -t openid.net/xml2rfc .`
 * Build the HTML/TXT versions of the specification: `docker run -v `pwd`:/data openid.net/xml2rfc openid-connect-4-identity-assurance.md`
 
+### Running Tests ###
+This repository contains examples from the specifications and the JSON
+schema definitions extracted as separate files in the directories
+`examples` and `schema`, respectively. The directory `tests` contains
+tests (written in python) that check if the examples comply to the
+schema files.
+
+To run the tests, follow these instructions:
+
+* Make sure to have python >= 3.6 installed (older versions might work as well)
+* `cd tests`
+* `pip3 install -r requirements.txt` to install dependencies
+* `pytest-3` to run tests
+
 ### Contribution guidelines ###
 
 * There are two ways to contribute, creating issues and pull requests
