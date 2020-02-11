@@ -3,52 +3,73 @@
   "$id": "http://openid.net/schemas/verified_claims_request-09.json",
   "definitions": {
     "simple_element": {
-      "type": "object",
-      "properties": {
-        "essential": {
-          "type": "boolean"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "purpose": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "essential": {
+              "type": "boolean"
+            },
+            "purpose": {
+              "type": "string"
+            }
+          }
         }
-      },
+      ],
       "additionalProperties": false
     },
     "constrainable_element": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        },
-        "essential": {
-          "type": "boolean"
-        },
-        "purpose": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "essential": {
+              "type": "boolean"
+            },
+            "purpose": {
+              "type": "string"
+            }
+          }
         }
-      },
+      ],
       "additionalProperties": false
     },
     "datetime_element": {
-      "type": "object",
-      "properties": {
-        "max_age": {
-          "type": "number"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "essential": {
-          "type": "boolean"
-        },
-        "purpose": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "max_age": {
+              "type": "number"
+            },
+            "essential": {
+              "type": "boolean"
+            },
+            "purpose": {
+              "type": "string"
+            }
+          }
         }
-      },
+      ],
       "additionalProperties": false
     },
     "evidence": {
@@ -217,15 +238,22 @@
               "$ref": "#/definitions/simple_element"
             },
             "evidence": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "#/definitions/evidence"
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/definitions/evidence"
+                      }
+                    ]
                   }
-                ]
-              }
+                }
+              ],
             }
           },
           "required": [
