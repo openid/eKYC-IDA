@@ -3,7 +3,7 @@
   "$id": "http://openid.net/schemas/verified_claims_request-09.json",
   "definitions": {
     "simple_element": {
-      "anyOf": [
+      "oneOf": [
         {
           "type": "null"
         },
@@ -18,11 +18,10 @@
             }
           }
         }
-      ],
-      "additionalProperties": false
+      ]
     },
     "constrainable_element": {
-      "anyOf": [
+      "oneOf": [
         {
           "type": "null"
         },
@@ -47,11 +46,10 @@
             }
           }
         }
-      ],
-      "additionalProperties": false
+      ]
     },
     "datetime_element": {
-      "anyOf": [
+      "oneOf": [
         {
           "type": "null"
         },
@@ -69,8 +67,7 @@
             }
           }
         }
-      ],
-      "additionalProperties": false
+      ]
     },
     "evidence": {
       "type": "object",
