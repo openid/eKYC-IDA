@@ -21,10 +21,8 @@ schema files.
 
 To run the tests, follow these instructions:
 
-* Make sure to have python >= 3.6 installed (older versions might work as well)
-* `cd tests`
-* `pip3 install -r requirements.txt` to install dependencies
-* `pytest-3` to run tests
+* Build the test command using docker: `docker build -t openid.net/tests-oidc4ia tests`
+* Run the tests: `docker run -v `pwd`:/data openid.net/tests-oidc4ia`
 
 ### Contribution guidelines ###
 
