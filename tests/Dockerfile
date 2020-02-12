@@ -3,4 +3,4 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install -r /tmp/requirements.txt
 
 WORKDIR /data
-ENTRYPOINT [ "pytest", "-v", "--tb=short" ]
+ENTRYPOINT [ "pytest", "-v", "--tb=short", "--color=yes" ]
