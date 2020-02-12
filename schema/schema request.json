@@ -236,22 +236,15 @@
               "$ref": "#/definitions/simple_element"
             },
             "evidence": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/definitions/evidence"
-                      }
-                    ]
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/evidence"
                   }
-                }
-              ]
+                ]
+              }
             }
           },
           "required": [
