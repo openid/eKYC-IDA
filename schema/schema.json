@@ -85,13 +85,7 @@
           ]
         },
         "method": {
-          "type": "string",
-          "enum": [
-            "pipp",
-            "sripp",
-            "eid",
-            "uripp"
-          ]
+          "type": "string"
         },
         "verifier": {
           "type": "object",
@@ -112,27 +106,7 @@
           "type": "object",
           "properties": {
             "type": {
-              "type": "string",
-              "enum": [
-                "idcard",
-                "passport",
-                "driving_permit",
-                "de_idcard_foreigners",
-                "de_emergency_idcard",
-                "de_erp",
-                "de_erp_replacement_idcard",
-                "de_idcard_refugees",
-                "de_idcard_apatrids",
-                "de_certificate_of_suspension_of_deportation",
-                "de_permission_to_reside",
-                "de_replacement_idcard",
-                "jp_drivers_license",
-                "jp_residency_card_for_foreigner",
-                "jp_individual_number_card",
-                "jp_permanent_residency_card_for_foreigner",
-                "jp_health_insurance_card",
-                "jp_residency_card"
-              ]
+              "type": "string"
             },
             "number": {
               "type": "string"
@@ -172,16 +146,7 @@
           "type": "object",
           "properties": {
             "trust_framework": {
-              "type": "string",
-              "enum": [
-                "de_aml",
-                "eidas_ial_substantial",
-                "eidas_ial_hig",
-                "nist_800_63A_ial_2",
-                "nist_800_63A_ial_3",
-                "jp_aml",
-                "jp_mpiupa"
-              ]
+              "type": "string"
             },
             "time": {
               "type": "string",
