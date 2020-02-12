@@ -4,7 +4,17 @@
       "verification": {
         "trust_framework":null,
         "time": null,
-        "evidence": null
+        "evidence": [
+          {
+            "type": {
+              "value": "id_document"
+            },
+            "method": null,
+            "document": {
+              "type": null
+            }
+          }
+        ]
       },
       "claims": {
         "given_name": null,

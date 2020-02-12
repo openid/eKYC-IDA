@@ -10,7 +10,13 @@
               "value": "id_document"
             },
             "method": null,
-            "document": null
+            "document": {
+              "type": null,
+              "issuer": {
+                "country": null,
+                "name": null
+              }
+            }
           }
         ]
       },
