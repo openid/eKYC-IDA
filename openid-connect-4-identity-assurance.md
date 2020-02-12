@@ -544,7 +544,7 @@ The confidentiality of all user data exchanged between the protocol parties MUST
 
 Predefined Values for identifiers are defined in eKYC and Identity Assurance Working Group [wiki page][].
 
-[wiki page]:https://bitbucket.org/openid/ekyc-ida/wiki/identifiers  
+[wiki page]:https://openid.net/wg/ekyc-ida/identifiers/  
 
 ## Trust Frameworks {#predefined_values_tf}
 
