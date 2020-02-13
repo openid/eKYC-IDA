@@ -2,141 +2,155 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://openid.net/schemas/verified_claims-09.json",
   "definitions": {
-    "qes": {
+    "evidence": {
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
           "enum": [
-            "qes"
-          ]
-        },
-        "issuer": {
-          "type": "string"
-        },
-        "serial_number": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "type",
-        "issuer",
-        "serial_number",
-        "created_at"
-      ]
-    },
-    "utility_bill": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
+            "qes",
+            "id_document",
             "utility_bill"
           ]
-        },
-        "provider": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "formatted": {
-              "type": "string"
-            },
-            "street_address": {
-              "type": "string"
-            },
-            "locality": {
-              "type": "string"
-            },
-            "region": {
-              "type": "string"
-            },
-            "postal_code": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            }
-          }
-        },
-        "date": {
-          "type": "string",
-          "format": "date"
         }
       },
       "required": [
-        "type",
-        "provider",
-        "date"
-      ]
-    },
-    "id_document": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "id_document"
-          ]
-        },
-        "method": {
-          "type": "string"
-        },
-        "verifier": {
-          "type": "object",
-          "properties": {
-            "organization": {
-              "type": "string"
-            },
-            "txn": {
-              "type": "string"
+        "type"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "qes"
+              }
             }
+          },
+          "then": {
+            "properties": {
+              "issuer": {
+                "type": "string"
+              },
+              "serial_number": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "else": {
           }
         },
-        "time": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "document": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string"
-            },
-            "number": {
-              "type": "string"
-            },
-            "issuer": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "country": {
-                  "type": "string"
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "id_document"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "method": {
+                "type": "string"
+              },
+              "verifier": {
+                "type": "object",
+                "properties": {
+                  "organization": {
+                    "type": "string"
+                  },
+                  "txn": {
+                    "type": "string"
+                  }
+                }
+              },
+              "time": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "document": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "string"
+                  },
+                  "issuer": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "date_of_issuance": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "date_of_expiry": {
+                    "type": "string",
+                    "format": "date"
+                  }
                 }
               }
-            },
-            "date_of_issuance": {
-              "type": "string",
-              "format": "date"
-            },
-            "date_of_expiry": {
-              "type": "string",
-              "format": "date"
             }
+          },
+          "else": {
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "utility_bill"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "provider": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "formatted": {
+                    "type": "string"
+                  },
+                  "street_address": {
+                    "type": "string"
+                  },
+                  "locality": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  }
+                }
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          },
+          "else": {
           }
         }
-      },
-      "required": [
-        "type",
-        "method",
-        "document"
       ]
     },
     "verified_claims_def": {
@@ -161,13 +175,7 @@
               "items": {
                 "oneOf": [
                   {
-                    "$ref": "#/definitions/id_document"
-                  },
-                  {
-                    "$ref": "#/definitions/utility_bill"
-                  },
-                  {
-                    "$ref": "#/definitions/qes"
+                    "$ref": "#/definitions/evidence"
                   }
                 ]
               }
