@@ -760,6 +760,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
+<<<<<<< HEAD
 <reference anchor="verified_claims_request.json" target="http://openid.net/schemas/verified_claims_request-09.json">
   <front>
     <title>JSON Schema for requesting verified_claims</title>
@@ -770,6 +771,8 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
+=======
+>>>>>>> 84702a67074161529bc76ed097a5a26c7bcbc9df
 # Acknowledgements {#Acknowledgements}
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
@@ -797,7 +800,7 @@ The technology described in this specification was made available from contribut
    * fixed typos
    * removed JSON schema from draft and added reference to JSON schema file instead
    * clarified and simplified request syntax
-   * added request JSON schema**
+   * added request JSON schema
 
    -08
    
