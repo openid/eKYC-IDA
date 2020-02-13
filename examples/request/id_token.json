@@ -1,0 +1,17 @@
+{
+   "id_token":{
+      "email":null,
+      "preferred_username":null,
+      "picture":null,
+      "verified_claims":{
+         "verification": {
+            "trust_framework": null
+         },
+         "claims":{
+            "given_name":null,
+            "family_name":null,
+            "birthdate":null
+         }
+      }
+   }
+}

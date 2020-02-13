@@ -1,0 +1,53 @@
+{
+   "verified_claims":{
+      "verification":{
+         "trust_framework":"de_aml",
+         "time":"2012-04-23T18:25:43.511+01",
+         "verification_process":"676q3636461467647q8498785747q487",
+         "evidence":[
+            {
+               "type":"id_document",
+               "method":"pipp",
+               "document":{
+                  "type":"de_erp_replacement_idcard",
+                  "issuer":{
+                     "name":"Stadt Augsburg",
+                     "country":"DE"
+                  },
+                  "number":"53554554",
+                  "date_of_issuance":"2012-04-23",
+                  "date_of_expiry":"2022-04-22"
+               }
+            },
+            {
+               "type":"utility_bill",
+               "provider":{
+                  "name":"Stadtwerke Musterstadt",
+                  "country":"DE",
+                  "region":"Thüringen",
+                  "street_address":"Energiestrasse 33"
+               },
+               "date":"2013-01-31"
+            }
+         ]
+      },
+      "claims":{
+         "given_name":"Max",
+         "family_name":"Meier",
+         "birthdate":"1956-01-28",
+         "place_of_birth":{
+            "country":"DE",
+            "locality":"Musterstadt"
+         },
+         "nationalities":[
+            "DE"
+         ],
+         "address":{
+            "locality":"Maxstadt",
+            "postal_code":"12344",
+            "country":"DE",
+            "street_address":"An der Sanddüne 22"
+         }
+      }
+   }
+}

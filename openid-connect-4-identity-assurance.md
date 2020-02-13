@@ -17,7 +17,7 @@ fullname="Torsten Lodderstedt"
 organization="yes.com"
     [author.address]
     email = "torsten@lodderstedt.net"
-
+	
 [[author]]
 initials="D."
 surname="Fett"
@@ -132,19 +132,8 @@ This specification defines a generic mechanisms to add verified claims to JSON-b
 
 A following example
 
-```JSON
-{
-   "verified_claims":{
-      "verification":{
-         "trust_framework":"ial_example_gold"
-      },
-      "claims":{
-         "given_name":"Max",
-         "family_name":"Meier"
-      }
-   }
-}
-```
+<{{examples/response/verified_claims_simple.json}}
+
 would attest to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example assurance level `gold`.
 
 The normative definition is given in the following.
@@ -273,37 +262,13 @@ To request verified claims, the `verified_claims` element is added to the `useri
 
 Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys with a `null` value. An example is shown in the following:
 
-```json
-{
-   "userinfo":{
-      "verified_claims":{
-         "claims":{
-            "given_name":null,
-            "family_name":null,
-            "birthdate":null
-         }
-      }
-   }
-}
-```
+<{{examples/request/claims.json}}
 
 Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization.
 
 RPs MAY indicate that a certain Claim is essential to the successful completion of the user journey by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
 
-```json
-{
-   "userinfo":{
-      "verified_claims":{
-         "claims":{
-            "given_name":{"essential": true},
-            "family_name":{"essential": true},
-            "birthdate":null
-         }
-      }
-   }
-}
-```
+<{{examples/request/essential.json}}
 
 This specification introduces the additional field `purpose` to allow an RP
 to state the purpose for the transfer of a certain End-User Claim it is asking for.
@@ -322,116 +287,37 @@ localization, see (#purpose).
 
 Example:
 
-```json
-{
-   "userinfo":{
-      "verified_claims":{
-         "claims":{
-            "given_name":{
-               "essential":true,
-               "purpose":"To make communication look more personal"
-            },
-            "family_name":{
-               "essential":true
-            },
-            "birthdate":{
-               "purpose":"To send you best wishes on your birthday"
-            }
-         }
-      }
-   }
-}
-```
-
-Note: A `claims` sub-element with value `null` is interpreted as a request for all possible Claims. An example is shown in the following:
-
-```json
-{
-   "userinfo":{
-      "verified_claims":{
-         "claims":null
-      }
-   }
-}
-```
-
-Note: The `claims` sub-element can be omitted, which is equivalent to a `claims` element whose value is `null`.
+<{{examples/request/purpose.json}}
 
 Note: If the `claims` sub-element is empty or contains a Claim not fulfilling the requirements defined in (#claimselement), the OP will abort the transaction with an `invalid_request` error.
 
 ## Requesting Verification Data {#req_verification}
 
-The content of the `verification` element is basically determined by the respective `trust_framework` and the Claim source's policy.
-
-This specification also defines a way for the RP to explicitly request certain data to be present in the `verification` element. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request claims about the end-user. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` can be requested in the same way as defined in (#req_claims) by adding the respective element as shown in the following example:
 
-```json
-{
-   "verified_claims":{
-      "verification":{
-         "time":null,
-         "evidence":null
-      },
-      "claims":null
-   }
-}
-```
+<{{examples/request/verification.json}}
 
 It requests the date of the verification and the available evidence to be present in the issued assertion.
 
-Note: The RP does not need to explicitly request the `trust_framework` field as it is a mandatory element of the `verified_claims` Claim.
-
 The RP may also dig one step deeper into the structure and request certain data to be present within every `evidence`. A single entry is used as prototype for all entries in the result array:
 
-```json
-{
-   "verified_claims":{
-      "verification":{
-         "time":null,
-         "evidence":[
-            {
-               "method":null,
-               "document":null
-            }
-         ]
-      },
-      "claims":null
-   }
-}
-```
+<{{examples/request/verification_deeper.json}}
 
-This example requests the `method` element and the `document` element for every evidence available for a certain user account.
+This example requests the `method` element and the `document` element for every evidence of type `id_document` available for a certain user account.
 
-Note: The RP does not need to explicitly request the `type` field as it is a mandatory element of any `evidence` entry.
+A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. 
+
+The `values` sub-element MUST NOT be used for the `evidence/type` field. 
+
+If multiple entries are present in `evidence`, these filters are linked by a logical OR.
 
 The RP may also request certain data within the `document` element to be present. This again follows the syntax rules used above.
 
-```json
-{
-   "verified_claims":{
-      "verification":{
-         "time":null,
-         "evidence":[
-            {
-               "method":null,
-               "document":{
-                  "issuer":null,
-                  "number":null,
-                  "date_of_issuance":null
-               }
-            }
-         ]
-      },
-      "claims":null
-   }
-}
-```
+<{{examples/request/verification_document.json}}
 
-Note: The RP does not need to explicitly request the `type` field as it is a mandatory element of any `document` entry.
-
-It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. It is also at the discretion of the OP to provide more verification data than has been requested by the RP.
+It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. 
 
 ## Defining constraints on Verification Data {#constraintedclaims}
 
@@ -448,38 +334,8 @@ To start with, the RP MAY limit the possible values of the elements `trust_frame
 
 The following example shows that the RP wants to obtain an attestation based on AML and limited to users who were identified in a bank branch in person using government issued ID documents.
 
-```json
-{
-   "userinfo":{
-      "verified_claims":{
-         "verification":{
-            "trust_framework":{
-               "value":"de_aml"
-            },
-            "evidence":[
-               {
-                  "type":{
-                     "value":"id_document"
-                  },
-                  "method":{
-                     "value":"pipp"
-                  },
-                  "document":{
-                     "type":{
-                        "values":[
-                           "idcard",
-                           "passport"
-                        ]
-                     }
-                  }
-               }
-            ]
-         },
-         "claims":null
-      }
-   }
-}
-```
+<{{examples/request/verification_aml.json}}
+
 
 The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place.
 
@@ -489,20 +345,7 @@ This specification therefore defines a new member `max_age`.
 
 The following is an example:
 
-```json
-{
-   "userinfo":{
-      "verified_claims":{
-         "verification":{
-            "time":{
-               "max_age":63113852
-            }
-         },
-         "claims":null
-      }
-   }
-}
-```
+<{{examples/request/verification_max_age.json}}
 
 The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach.
 
@@ -510,7 +353,7 @@ If the OP is unable to fulfill any of the requirements stated in this section (e
 
 # Examples
 
-The following sections show examples of `verified_claims`.
+The following sections show examples of responses containing `verified_claims`.
 
 The first and second sections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different verification methods along with the actual Claims about the End-User.
 
@@ -520,183 +363,20 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 ## id_document
 
-```JSON
-{
-   "verified_claims":{
-      "verification":{
-         "trust_framework":"de_aml",
-         "time":"2012-04-23T18:25:43.511+01",
-         "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[
-            {
-               "type":"id_document",
-               "method":"pipp",
-               "document":{
-                  "type":"idcard",
-                  "issuer":{
-                     "name":"Stadt Augsburg",
-                     "country":"DE"
-                  },
-                  "number":"53554554",
-                  "date_of_issuance":"2012-04-23",
-                  "date_of_expiry":"2022-04-22"
-               }
-            }
-         ]
-      },
-      "claims":{
-         "given_name":"Max",
-         "family_name":"Meier",
-         "birthdate":"1956-01-28",
-         "place_of_birth":{
-            "country":"DE",
-            "locality":"Musterstadt"
-         },
-         "nationalities":[
-            "DE"
-         ],
-         "address":{
-            "locality":"Maxstadt",
-            "postal_code":"12344",
-            "country":"DE",
-            "street_address":"An der Sanddüne 22"
-         }
-      }
-   }
-}
-```
+<{{examples/response/id_document.json}}
 
 ## id_document + utility bill
 
-```JSON
-{
-   "verified_claims":{
-      "verification":{
-         "trust_framework":"de_aml",
-         "time":"2012-04-23T18:25:43.511+01",
-         "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[
-            {
-               "type":"id_document",
-               "method":"pipp",
-               "document":{
-                  "type":"de_erp_replacement_idcard",
-                  "issuer":{
-                     "name":"Stadt Augsburg",
-                     "country":"DE"
-                  },
-                  "number":"53554554",
-                  "date_of_issuance":"2012-04-23",
-                  "date_of_expiry":"2022-04-22"
-               }
-            },
-            {
-               "type":"utility_bill",
-               "provider":{
-                  "name":"Stadtwerke Musterstadt",
-                  "country":"DE",
-                  "region":"Thüringen",
-                  "street_address":"Energiestrasse 33"
-               },
-               "date":"2013-01-31"
-            }
-         ]
-      },
-      "claims":{
-         "given_name":"Max",
-         "family_name":"Meier",
-         "birthdate":"1956-01-28",
-         "place_of_birth":{
-            "country":"DE",
-            "locality":"Musterstadt"
-         },
-         "nationalities":[
-            "DE"
-         ],
-         "address":{
-            "locality":"Maxstadt",
-            "postal_code":"12344",
-            "country":"DE",
-            "street_address":"An der Sanddüne 22"
-         }
-      }
-   }
-}
-```
+<{{examples/response/id_document_and_utility_bill.json}}
 
 ## Notified eID system (eIDAS)
 
-```JSON
-{
-   "verified_claims":{
-      "verification":{
-         "trust_framework":"eidas_ial_substantial"
-      },
-      "claims":{
-         "given_name":"Max",
-         "family_name":"Meier",
-         "birthdate":"1956-01-28",
-         "place_of_birth":{
-            "country":"DE",
-            "locality":"Musterstadt"
-         },
-         "nationalities":[
-            "DE"
-         ]
-      }
-   }
-}
-```
+<{{examples/response/eidas.json}}
+
 
 ## Multiple Verified Claims
 
-```JSON
-{
-  "verified_claims":[
-    {
-      "verification": {
-        "trust_framework": "eidas_ial_substantial"
-      },
-      "claims": {
-        "given_name": "Max",
-        "family_name": "Meier",
-        "birthdate": "1956-01-28",
-        "place_of_birth": {
-          "country": "DE",
-          "locality": "Musterstadt"
-        },
-        "nationalities": [
-          "DE"
-        ]
-      }
-    },
-    {
-      "verification":{
-        "trust_framework":"de_aml",
-        "time":"2012-04-23T18:25:43.511+01",
-        "verification_process":"676q3636461467647q8498785747q487",
-        "evidence":[
-          {
-            "type":"id_document",
-            "method":"pipp",
-            "document":{
-              "type":"idcard"
-            }
-          }
-        ]
-      },
-      "claims":{
-        "address":{
-          "locality":"Maxstadt",
-          "postal_code":"12344",
-          "country":"DE",
-          "street_address":"An der Sanddüne 22"
-        }
-      }
-    }
-  ]
-}
-```
+<{{examples/response/multiple_verified_claims.json}}
 
 
 ## Verified Claims in UserInfo Response
@@ -709,62 +389,13 @@ The scope value is: `scope=openid email`
 
 The value of the `claims` parameter is:
 
-```json
-{
-   "userinfo":{
-       "verified_claims":{
-         "claims":{
-            "given_name":null,
-            "family_name":null,
-            "birthdate":null
-         }
-      }
-   }
-}
-```
+<{{examples/request/userinfo.json}}
 
 ### UserInfo Response
 
 The respective UserInfo response would be
 
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "verified_claims":{
-      "verification":{
-         "trust_framework":"de_aml",
-         "time":"2012-04-23T18:25:43.511+01",
-         "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[
-            {
-               "type":"id_document",
-               "method":"pipp",
-               "document":{
-                  "type":"idcard",
-                  "issuer":{
-                     "name":"Stadt Augsburg",
-                     "country":"DE"
-                  },
-                  "number":"53554554",
-                  "date_of_issuance":"2012-04-23",
-                  "date_of_expiry":"2022-04-22"
-               }
-            }
-         ]
-      },
-      "claims":{
-         "given_name":"Max",
-         "family_name":"Meier",
-         "birthdate":"1956-01-28"
-      }
-   }
-}
-```
+<{{examples/response/userinfo.http}}
 
 ## Verified Claims in ID Tokens
 
@@ -774,70 +405,13 @@ In this case, the RP requests verified Claims along with other Claims about the 
 
 The `claims` parameter value is
 
-```json
-{
-   "id_token":{
-      "email":null,
-      "preferred_username":null,
-      "picture":null,
-      "verified_claims":{
-         "claims":{
-            "given_name":null,
-            "family_name":null,
-            "birthdate":null
-         }
-      }
-   }
-}
-```
+<{{examples/request/id_token.json}}
 
 ### ID Token
 
 The respective ID Token could be
 
-```json
-{
-   "iss":"https://server.example.com",
-   "sub":"24400320",
-   "aud":"s6BhdRkqt3",
-   "nonce":"n-0S6_WzA2Mj",
-   "exp":1311281970,
-   "iat":1311280970,
-   "auth_time":1311280969,
-   "acr":"urn:mace:incommon:iap:silver",
-   "email":"janedoe@example.com",
-   "preferred_username":"j.doe",
-   "picture":"http://example.com/janedoe/me.jpg",
-   "verified_claims":{
-      "verification":{
-         "trust_framework":"de_aml",
-         "time":"2012-04-23T18:25:43.511+01",
-         "verification_process":"676q3636461467647q8498785747q487",
-         "evidence":[
-            {
-               "type":"id_document",
-               "method":"pipp",
-               "document":{
-                  "type":"idcard",
-                  "issuer":{
-                     "name":"Stadt Augsburg",
-                     "country":"DE"
-                  },
-                  "number":"53554554",
-                  "date_of_issuance":"2012-04-23",
-                  "date_of_expiry":"2022-04-22"
-               }
-            }
-         ]
-      },
-      "claims":{
-         "given_name":"Max",
-         "family_name":"Meier",
-         "birthdate":"1956-01-28"
-      }
-   }
-}
-```
+<{{examples/response/userinfo.id_token.json}}
 
 ## Aggregated Claims
 
@@ -1024,258 +598,18 @@ This section defines verification method identifiers for use with this specifica
 
 # JSON Schema {#json_schema}
 
+
+## Request
+
+<{{schema/schema request.json}}
+
+## Response
 This section contains the JSON Schema of assertions containing the `verified_claims` claim.
 
-```JSON
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "qes": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "qes"
-          ]
-        },
-        "issuer": {
-          "type": "string"
-        },
-        "serial_number": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "type",
-        "issuer",
-        "serial_number",
-        "created_at"
-      ]
-    },
-    "utility_bill": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "utility_bill"
-          ]
-        },
-        "provider": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "formatted": {
-              "type": "string"
-            },
-            "street_address": {
-              "type": "string"
-            },
-            "locality": {
-              "type": "string"
-            },
-            "region": {
-              "type": "string"
-            },
-            "postal_code": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            }
-          }
-        },
-        "date": {
-          "type": "string",
-          "format": "date"
-        }
-      },
-      "required": [
-        "type",
-        "provider",
-        "date"
-      ]
-    },
-    "id_document": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "id_document"
-          ]
-        },
-        "method": {
-          "type": "string",
-          "enum": [
-            "pipp",
-            "sripp",
-            "eid",
-            "uripp"
-          ]
-        },
-        "verifier": {
-          "type": "object",
-          "properties": {
-            "organization": {
-              "type": "string"
-            },
-            "txn": {
-              "type": "string"
-            }
-          }
-        },
-        "time": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "document": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "idcard",
-                "passport",
-                "driving_permit",
-                "de_idcard_foreigners",
-                "de_emergency_idcard",
-                "de_erp",
-                "de_erp_replacement_idcard",
-                "de_idcard_refugees",
-                "de_idcard_apatrids",
-                "de_certificate_of_suspension_of_deportation",
-                "de_permission_to_reside",
-                "de_replacement_idcard",
-                "jp_drivers_license",
-                "jp_residency_card_for_foreigner",
-                "jp_individual_number_card",
-                "jp_permanent_residency_card_for_foreigner",
-                "jp_health_insurance_card",
-                "jp_residency_card"
-              ]
-            },
-            "number": {
-              "type": "string"
-            },
-            "issuer": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "country": {
-                  "type": "string"
-                }
-              }
-            },
-            "date_of_issuance": {
-              "type": "string",
-              "format": "date"
-            },
-            "date_of_expiry": {
-              "type": "string",
-              "format": "date"
-            }
-          }
-        }
-      },
-      "required": [
-        "type",
-        "method",
-        "document"
-      ]
-    },
-    "verified_claims_def": {
-      "type": "object",
-      "properties": {
-        "verification": {
-          "type": "object",
-          "properties": {
-            "trust_framework": {
-              "type": "string",
-              "enum": [
-                "de_aml",
-                "eidas_ial_substantial",
-                "eidas_ial_hig",
-                "nist_800_63A_ial_2",
-                "nist_800_63A_ial_3",
-                "jp_aml",
-                "jp_mpiupa"
-              ]
-            },
-            "time": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "verification_process": {
-              "type": "string"
-            },
-            "evidence": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "#/definitions/id_document"
-                  },
-                  {
-                    "$ref": "#/definitions/utility_bill"
-                  },
-                  {
-                    "$ref": "#/definitions/qes"
-                  }
-                ]
-              }
-            }
-          },
-          "required": [
-            "trust_framework"
-          ],
-          "additionalProperties": false
-        },
-        "claims": {
-          "type": "object",
-          "minProperties": 1
-        }
-      },
-      "required": [
-        "verification",
-        "claims"
-      ],
-      "additionalProperties": false
-    }
-  },
-  "properties": {
-    "verified_claims": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/verified_claims_def"
-        },
-        {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/verified_claims_def"
-          }
-        }
-      ]
-    },
-    "txn": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "verified_claims"
-  ]
-}
-```
+
+<{{schema/schema.json}}
+
+
 {backmatter}
 
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
