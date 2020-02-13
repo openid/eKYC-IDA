@@ -37,9 +37,7 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] to address the use case of strong identity verification of a natural person in accordance with certain laws, regulations, and guidelines. 
-
-Examples include Anti Money Laundering Laws, such as the Japanese "Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds" [@?JPAML], Telecommunication Acts, Anti Terror Laws, regulations on trust services, such as the eIDAS [@?eIDAS] in the European Union, and guidelines, such as NIST SP 800-63A [@?NIST-SP-800-63a].
+This specification defines an extension to OpenID Connect [@!OpenID] to address the use case of strong identity verification of a natural person in accordance with certain laws. Examples include Anti Money Laundering Laws, Telecommunication Acts, Anti Terror Laws, and regulations on trust services, such as eIDAS [@?eIDAS].
 
 In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source along with evidence related to the identity verification process.
 
@@ -596,20 +594,6 @@ This section defines verification method identifiers for use with this specifica
 |`eid`|Online verification of an electronic ID card.|
 |`uripp`|Unsupervised remote in-person proofing with video capture of the ID document, user self-portrait video and liveness checks.|
 
-# JSON Schema {#json_schema}
-
-
-## Request
-
-<{{schema/schema request.json}}
-
-## Response
-This section contains the JSON Schema of assertions containing the `verified_claims` claim.
-
-
-<{{schema/schema.json}}
-
-
 {backmatter}
 
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
@@ -691,24 +675,6 @@ This section contains the JSON Schema of assertions containing the `verified_cla
   </front>
 </reference>
 
-<reference anchor="JPAML" target=" https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=420M60000f5a001#58">
-  <front>
-    <title>Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds</title>
-    <author>
-      <organization>Cabinet Office,
-Ministry of Internal Affairs and Communications,
-Ministry of Justice,
-Ministry of Finance,
-Ministry of Health, Labor and Welfare,
-Ministry of Agriculture, Forestry and Fisheries,
-Ministry of Economy, Trade and Industry,
-Ministry of Land, Infrastructure and Transport</organization>
-    </author>
-   <date day="8" month="November" year="2019"/>
-  </front>
-</reference>
-
-
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
 	<front>
 	  <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
@@ -770,7 +736,7 @@ Ministry of Land, Infrastructure and Transport</organization>
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
 We would like to thank Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman,
-Michael B. Jones, Jeff Lombardo, Azusa Kikuchi, Kosuke Koiwai, and the OpenID Foundation Japan for their valuable feedback that helped to evolve this specification.
+Michael B. Jones, and Jeff Lombardo for their valuable feedback that helped to evolve this specification.
 
 # Notices
 
@@ -787,7 +753,6 @@ The technology described in this specification was made available from contribut
    -09
    
    * changed `verified_claims` to object-or-array pattern
-   * added “Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds” and NIST 800-63 A as examples to introduction
    * reduced mandatory requirement for essiental fields like `trust_framework`
    * integrated source into single md file
    * fixed typos
