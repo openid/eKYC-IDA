@@ -3,8 +3,8 @@ from jsonschema import Draft7Validator
 from json import loads
 from pathlib import Path
 
-REQUEST_SCHEMA = Path(__file__).parent / "../schema/schema request.json"
-RESPONSE_SCHEMA = Path(__file__).parent / "../schema/schema.json"
+REQUEST_SCHEMA = Path(__file__).parent / "../schema/verified_claims_request.json"
+RESPONSE_SCHEMA = Path(__file__).parent / "../schema/verified_claims.json"
 
 
 def test_request_schema(request_example):
