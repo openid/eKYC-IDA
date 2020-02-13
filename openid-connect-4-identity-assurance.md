@@ -147,7 +147,7 @@ Note: Implementations MUST ignore any sub-element not defined in this specificat
 
 Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
 
-A machine-readable syntax definition of `verified_claims` is given as JSON schema in (#json_schema). It can be used to automatically validate JSON documents containing a `verified_claims` element.
+A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@!verified_claims.json]. It can be used to automatically validate JSON documents containing a `verified_claims` element.
 
 ## verification Element {#verification}
 
@@ -255,6 +255,8 @@ Claim names MAY be annotated with language tags as specified in Section 5.2 of t
 ## Requesting End-User Claims {#req_claims}
 
 Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@!verified_claims_request.json]. It can be used to automatically validate `claims` request parameters.
 
 To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
 
@@ -675,6 +677,23 @@ This section defines verification method identifiers for use with this specifica
   </front>
 </reference>
 
+<reference anchor="JPAML" target=" https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=420M60000f5a001#58">
+  <front>
+    <title>Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds</title>
+    <author>
+      <organization>Cabinet Office,
+Ministry of Internal Affairs and Communications,
+Ministry of Justice,
+Ministry of Finance,
+Ministry of Health, Labor and Welfare,
+Ministry of Agriculture, Forestry and Fisheries,
+Ministry of Economy, Trade and Industry,
+Ministry of Land, Infrastructure and Transport</organization>
+    </author>
+   <date day="8" month="November" year="2019"/>
+  </front>
+</reference>
+
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
 	<front>
 	  <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
@@ -731,6 +750,29 @@ This section defines verification method identifiers for use with this specifica
   </front>
 </reference>
 
+<reference anchor="verified_claims.json" target="http://openid.net/schemas/verified_claims-09.json">
+  <front>
+    <title>JSON Schema for assertions using verified_claims</title>
+    <author>
+	    <organization>OpenID Foundation</organization>
+	  </author>
+   <date year="2020"/>
+  </front>
+</reference>
+
+<<<<<<< HEAD
+<reference anchor="verified_claims_request.json" target="http://openid.net/schemas/verified_claims_request-09.json">
+  <front>
+    <title>JSON Schema for requesting verified_claims</title>
+    <author>
+	    <organization>OpenID Foundation</organization>
+	  </author>
+   <date year="2020"/>
+  </front>
+</reference>
+
+=======
+>>>>>>> 84702a67074161529bc76ed097a5a26c7bcbc9df
 # Acknowledgements {#Acknowledgements}
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
@@ -753,9 +795,12 @@ The technology described in this specification was made available from contribut
    -09
    
    * changed `verified_claims` to object-or-array pattern
-   * reduced mandatory requirement for essiental fields like `trust_framework`
+   * reduced mandatory requirement for essential fields like `trust_framework`
    * integrated source into single md file
    * fixed typos
+   * removed JSON schema from draft and added reference to JSON schema file instead
+   * clarified and simplified request syntax
+   * added request JSON schema
 
    -08
    
