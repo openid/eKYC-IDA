@@ -295,7 +295,7 @@ Note: If the `claims` sub-element is empty or contains a Claim not fulfilling th
 
 RPs request verification data in the same way they request claims about the end-user. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
-Additionally the RP MAY express requirements regarding the necessity and the values of verification data by means of the syntax defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID], specifically the query members (`essential`, `value` and `values`).
+Additionally the RP MAY express requirements regarding the necessity and the values of verification data by means of the syntax defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID], specifically by means of the query members `essential`, `value` and `values`.
 
 Elements within `verification` can be requested in the same way as defined in (#req_claims) by adding the respective element as shown in the following example:
 
@@ -313,7 +313,7 @@ A single entry in the `evidence` array represents a filter over elements of a ce
 
 If multiple entries are present in `evidence`, these filters are linked by a logical OR.
 
-The RP may also request certain data within the `document` element to be present. This again follows the syntax rules used above:
+The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
 
@@ -327,16 +327,16 @@ Examples on the usage of a restriction on `evidence/type` were given in the prev
 
 <{{examples/request/verification_aml.json}}
 
-In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand some or all of them (i.e. their values are not listed under OP metadata), the OP MUST abort the transaction with an `invalid_request` error. The OP MAY use the accompanying `error_description` field to specify which specific value was not understood.
+In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata), the OP MUST abort the transaction with an `invalid_request` error. The OP MAY use the accompanying `error_description` field to specify which specific value was not understood.
 
-If the OP does understand the value restrictions in the query, but they are not applicable or cannot be fulfilled for a certain user, it MUST NOT return an error, but will not deliver the `verified_claims` claim.
+If the OP does support the value restrictions for the aforementioned four elements in the query, but they are not applicable or cannot be fulfilled for a certain user, the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead.
 
-Under no circumstances the OP can ignore some or all of the query restrictions on possible values and deliver available data that does not match the constraints.
+The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available data that does not match these constraints.
 
 
-The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for special query members to be defined (while stating that any members that are not understood must be ignored). For that this specification introduces a new such member `max_age`:
+The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`:
 
-`max_age`: OPTIONAL. JSON number value only applicable to the age of verification data. It defines the maximum time (in seconds) to be allowed to elapse since the value of that date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
+`max_age`: OPTIONAL. JSON number value only applicable to the age of verification data. It defines the maximum time (in seconds) to be allowed to elapse since the moment of the verification process up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
 
 The following is an example:
 
