@@ -11,11 +11,7 @@
             },
             "method": null,
             "document": {
-              "type": null,
-              "issuer": {
-                "country": null,
-                "name": null
-              }
+              "type": null
             }
           }
         ]

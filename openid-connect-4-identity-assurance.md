@@ -295,19 +295,19 @@ Note: If the `claims` sub-element is empty or contains a Claim not fulfilling th
 
 RPs request verification data in the same way they request claims about the end-user. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
-Additionally the RP MAY express requirements regarding the necessity and the values of verification data by means of the syntax defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID], specifically by means of the query members `essential`, `value` and `values`.
-
-Elements within `verification` can be requested in the same way as defined in (#req_claims) by adding the respective element as shown in the following example:
+Elements within `verification` are requested by adding the respective element as shown in the following example:
 
 <{{examples/request/verification.json}}
 
-It requests the date of the verification and the available evidence to be present in the issued assertion.
+It requests the trust framework the OP complies with and the date of the verification of the user claims.
 
-The RP MAY also dig one step deeper into the structure and request certain data to be present within every `evidence`. A single entry is used as prototype for all entries in the result array:
+The RP MUST explicitely request any data it wants the OP to add to the `verification` element. 
+
+Consequently, the RP MUST dig one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `id_document`.
 
 <{{examples/request/verification_deeper.json}}
 
-This example requests the `method` element and the `document` element for every evidence of type `id_document` available for a certain user account.
+The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` claim.
 
 A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field. 
 
