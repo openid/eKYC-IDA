@@ -321,9 +321,13 @@ It is at the discretion of the OP to decide whether the requested verification d
 
 ## Defining further constraints on Verification Data {#constraintedclaims}
 
-To start with, the RP MAY limit the possible values of the elements `trust_framework`, `evidence/type`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields.
+The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
 
-Examples on the usage of a restriction on `evidence/type` were given in the previous section. The following example shows that the RP wants to obtain an attestation based on AML and limited to users who were identified in a bank branch in person using government issued ID documents.
+The value of `time` and the `date_of_issuance` and `data_of_expiry` elements of evidence of type `id_document` MAY be limited using the new `max_age` field, introduced by this specification. 
+
+Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
+
+The following example shows that the RP wants to obtain an attestation based on AML (trust framework `de_aml`) and limited to users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`.
 
 <{{examples/request/verification_aml.json}}
 
@@ -333,7 +337,6 @@ If the OP does support the value restrictions for the aforementioned four elemen
 
 The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available data that does not match these constraints.
 
-
 The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`:
 
 `max_age`: OPTIONAL. JSON number value only applicable to the age of verification data. It defines the maximum time (in seconds) to be allowed to elapse since the moment of the verification process up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
@@ -342,7 +345,7 @@ The following is an example:
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. The OP MAY also return data that does not fulfill the `max_age` constraint.
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
 
 # Examples
 
