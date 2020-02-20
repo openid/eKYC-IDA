@@ -3,18 +3,7 @@
     "verified_claims": {
       "verification": {
         "trust_framework":null,
-        "time": null,
-        "evidence": [
-          {
-            "type": {
-              "value": "id_document"
-            },
-            "method": null,
-            "document": {
-              "type": null
-            }
-          }
-        ]
+        "time": null
       },
       "claims": {
         "given_name": null,
