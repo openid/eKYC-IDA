@@ -323,7 +323,7 @@ It is at the discretion of the OP to decide whether the requested verification d
 
 The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
 
-The value of `time` and the `date_of_issuance` and `data_of_expiry` elements of evidence of type `id_document` MAY be limited using the new `max_age` field, introduced by this specification. 
+The value of `time` and the `date_of_issuance` and `date_of_expiry` elements of evidence of type `id_document` MAY be limited using the new `max_age` field, introduced by this specification. 
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
@@ -337,7 +337,7 @@ If the OP does support the value restrictions for the aforementioned four elemen
 
 The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available data that does not match these constraints.
 
-The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`:
+The RP MAY also express a requirement regarding the age of the verification data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element has taken place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`:
 
 `max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
 
