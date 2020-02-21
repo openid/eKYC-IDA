@@ -57,7 +57,7 @@
           "type": "object",
           "properties": {
             "max_age": {
-              "type": "number",
+              "type": "integer",
               "minimum": 0
             },
             "essential": {
