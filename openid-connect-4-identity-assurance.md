@@ -323,19 +323,17 @@ It is at the discretion of the OP to decide whether the requested verification d
 
 The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
 
-The RP MAY also limit the possible values of elements containing dates or timestamps (like `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `id_document` or element `date` of evidence of type `utility_bill`) by using the new `max_age` field introduced by this specification (see further down).
-
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
 The following example shows that the RP wants to obtain an attestation based on AML (trust framework `de_aml`) and limited to users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`.
 
 <{{examples/request/verification_aml.json}}
 
-In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata), the OP MUST abort the transaction with an `invalid_request` error. The OP MAY use the accompanying `error_description` field to specify which specific value was not understood.
-
-If the OP does support the value restrictions for the aforementioned four elements in the query, but they are not applicable or cannot be fulfilled for a certain user, the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead.
+In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata), the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead. Also in the case that they are supported, but not applicable or cannot be fulfilled for a certain user, the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead.
 
 The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available data that does not match these constraints.
+
+The RP MAY also limit the possible values of elements containing dates or timestamps (like `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `id_document` or element `date` of evidence of type `utility_bill`) by using the new `max_age` field introduced by this specification.
 
 The RP MAY also express a requirement regarding the age of verification data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`:
 
