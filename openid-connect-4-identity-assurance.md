@@ -329,13 +329,11 @@ The following example shows that the RP wants to obtain an attestation based on 
 
 <{{examples/request/verification_aml.json}}
 
-In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata), the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead. Also in the case that they are supported, but not applicable or cannot be fulfilled for a certain user, the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead.
+In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain user, the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead.
 
 The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available data that does not match these constraints.
 
-The RP MAY also limit the possible values of elements containing dates or timestamps (like `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `id_document` or element `date` of evidence of type `utility_bill`) by using the new `max_age` field introduced by this specification.
-
-The RP MAY also express a requirement regarding the age of verification data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`:
+The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g. `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `id_document` or element `date` of evidence of type `utility_bill`).
 
 `max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
 
