@@ -159,7 +159,7 @@ The `verification` element consists of the following elements:
 
 An example value is `eidas_ial_high`, which denotes a notified eID system under eIDAS [@?eIDAS] providing identity assurance at level of assurance "High".
 
-An initial list of standardized values is defined in [Trust Frameworks](#predefined_values_tf). Additional trust framework identifiers can be introduced [how?]. RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
+An initial list of standardized values is defined in Trust Frameworks[@!predefined_values]. Additional trust framework identifiers can be introduced [how?]. RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
@@ -187,7 +187,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "id_document".
 
-`method`: The method used to verify the ID document. Predefined values are given in  [Verification Methods](#predefined_values_vm).
+`method`: The method used to verify the ID document. Predefined values are given in Verification Methods[@!predefined_values]).
 
 `verifier`: JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -198,7 +198,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `document`: JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
-* `type`: REQUIRED. String denoting the type of the ID document. Standardized values are defined in [Identity Documents](#predefined_values_idd). The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `type`: REQUIRED. String denoting the type of the ID document. Standardized values are defined in Identity Documents[@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `number`: String representing the number of the identity document.
 * `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
 	*  `name`: Designation of the issuer of the identity document.
@@ -542,23 +542,7 @@ The confidentiality of all user data exchanged between the protocol parties MUST
 
 # Predefined Values {#predefined_values}
 
-Predefined Values for identifiers are defined in eKYC and Identity Assurance Working Group [wiki page][].
-
-[wiki page]:https://openid.net/wg/ekyc-ida/identifiers/  
-
-## Trust Frameworks {#predefined_values_tf}
-
-Trust framework identifiers for use with this specification are defined in the Trust frameworks section in the [wiki page][].
-
-
-## Identity Documents {#predefined_values_idd}
-
-Identity document identifiers for use with this specification are defined in the Identity Documents section in the [wiki page][].
-
-
-## Verification Methods {#predefined_values_vm}
-
-Verification method identifiers for use with this specification are defined in the Verification Methods section in the [wiki page][].
+Predefined Values for identifiers are defined in eKYC and Identity Assurance Working Group wiki page[@!predefined_values].
 
 
 {backmatter}
@@ -732,6 +716,16 @@ Ministry of Land, Infrastructure and Transport</organization>
 	    <organization>OpenID Foundation</organization>
 	  </author>
    <date year="2020"/>
+  </front>
+</reference>
+
+<reference anchor="predefined_values" target="https://openid.net/wg/ekyc-ida/identifiers/">
+  <front>
+    <title>JSON Schema for assertions using verified_claims</title>
+    <author>
+      <organization>OpenID Foundation</organization>
+    </author>
+    <date year="2020"/>
   </front>
 </reference>
 
