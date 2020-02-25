@@ -211,12 +211,6 @@
           }
         }
       ]
-    },
-    "txn": {
-      "type": "string"
     }
-  },
-  "required": [
-    "verified_claims"
-  ]
+  }
 }
