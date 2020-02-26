@@ -295,61 +295,57 @@ Note: If the `claims` sub-element is empty or contains a Claim not fulfilling th
 
 RPs request verification data in the same way they request claims about the end-user. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
-Elements within `verification` can be requested in the same way as defined in (#req_claims) by adding the respective element as shown in the following example:
+Elements within `verification` are requested by adding the respective element as shown in the following example:
 
 <{{examples/request/verification.json}}
 
-It requests the date of the verification and the available evidence to be present in the issued assertion.
+It requests the trust framework the OP complies with and the date of the verification of the user claims.
 
-The RP may also dig one step deeper into the structure and request certain data to be present within every `evidence`. A single entry is used as prototype for all entries in the result array:
+The RP MUST explicitely request any data it wants the OP to add to the `verification` element. 
+
+Consequently, the RP MUST dig one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `id_document`.
 
 <{{examples/request/verification_deeper.json}}
 
-This example requests the `method` element and the `document` element for every evidence of type `id_document` available for a certain user account.
+The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` claim.
 
-A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. 
-
-The `values` sub-element MUST NOT be used for the `evidence/type` field. 
+A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field. 
 
 If multiple entries are present in `evidence`, these filters are linked by a logical OR.
 
-The RP may also request certain data within the `document` element to be present. This again follows the syntax rules used above.
+The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
 
-It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. 
+It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. An OP MUST NOT return an error in case it cannot return verification data requested, even if it was marked as essential, regardless of whether they are not available or because the End-User did not authorize their release.
 
-## Defining constraints on Verification Data {#constraintedclaims}
+## Defining further constraints on Verification Data {#constraintedclaims}
 
-The RP MAY express requirements regarding the elements in the `verification` sub-element.
+### value/values
 
-This, again, requires an extension to the syntax as defined in Section 5.5 of the OpenID Connect specification [@!OpenID] due to the nested nature of the `verified_claims` claim.
+The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
 
-Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for the member value of the Claim being requested to be a JSON object with additional information/constraints on the Claim. For doing so it defines three members (`essential`, `value` and `values`) with special query
-meanings and allows for other special members to be defined (while stating that any members that are not understood must be ignored).
+Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
-This specification re-uses that mechanism and introduces a new such member `max_age` (see below).
-
-To start with, the RP MAY limit the possible values of the elements `trust_framework`, `evidence/type`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields.
-
-The following example shows that the RP wants to obtain an attestation based on AML and limited to users who were identified in a bank branch in person using government issued ID documents.
+The following example shows that the RP wants to obtain an attestation based on the German Anti Money Laundering Law (trust framework `de_aml`) and limited to users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`.
 
 <{{examples/request/verification_aml.json}}
 
+In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain user, the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead.
 
-The RP MAY also express a requirement regarding the age of the verification data, i.e., the time elapsed since the verification process asserted in the `verification` element has taken place.
+The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available verified/verification data that does not match these constraints.
 
-This specification therefore defines a new member `max_age`.
+### max_age
 
-`max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value. The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds.
+The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g. `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `id_document` or element `date` of evidence of type `utility_bill`).
 
-The following is an example:
+`max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value.
+
+The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds:
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach.
-
-If the OP is unable to fulfill any of the requirements stated in this section (even in case it is marked as being `essential`), it will provide the RP with the data available and the RP may decide how to use the data. The OP MUST NOT return an error in case it cannot return all Claims requested as essential Claims.
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
 
 # Examples
 
