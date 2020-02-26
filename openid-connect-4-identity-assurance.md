@@ -766,12 +766,117 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
+# IANA Considerations
+
+## JSON Web Token Claims Registration
+
+This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519]. 
+
+### Registry Contents
+
+{spacing="compact"}
+Claim Name:
+: `verified_claims`
+
+Claim Description:
+: This container claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
+ 
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s):
+: Section [Verified Claims](#verified_claims) of this document
+
+Claim Name: 
+: `place_of_birth`
+
+Claim Description: 
+: A structured Claim representing the End-User’s place of birth. 
+
+Change Controller: 
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+    
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name: 
+: `nationalities`
+
+Claim Description:
+: String array representing the user’s nationalities.
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name: 
+: `birth_family_name`
+
+Claim Description:
+: Family name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name:
+: `birth_given_name`
+
+Claim Description: 
+: Given name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.
+
+Change Controller: 
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name:
+: `birth_middle_name`
+
+Claim Description:
+: Middle name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name:
+: `salutation`
+
+Claim Description:
+: End-User’s salutation, e.g. “Mr.”
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name:
+: `title`
+
+Claim Description:
+: End-User’s title, e.g. “Dr.”
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
 # Acknowledgements {#Acknowledgements}
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
 We would like to thank Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman,
-Michael B. Jones, and Jeff Lombardo for their valuable feedback that helped to evolve this specification.
+Michael B. Jones, Jeff Lombardo and Mark Haine for their valuable feedback that helped to evolve this specification.
 
 # Notices
 
@@ -794,6 +899,7 @@ The technology described in this specification was made available from contribut
    * removed JSON schema from draft and added reference to JSON schema file instead
    * clarified and simplified request syntax
    * added request JSON schema
+   * Added IANA section with JSON Web Token Claims Registration
 
    -08
    
