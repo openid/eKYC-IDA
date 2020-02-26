@@ -892,13 +892,13 @@ The technology described in this specification was made available from contribut
    -09
    
    * changed `verified_claims` to object-or-array pattern
-   * reduced mandatory requirement for essential fields like `trust_framework`
-   * integrated source into single md file
-   * fixed typos
+   * clarified and simplified request syntax 
+   * reduced mandatory requirement `verified_claims` to bare minimum
    * removed JSON schema from draft and added reference to JSON schema file instead
-   * clarified and simplified request syntax
    * added request JSON schema
    * Added IANA section with JSON Web Token Claims Registration
+   * integrated source into single md file
+   * fixed typos
 
    -08
    
