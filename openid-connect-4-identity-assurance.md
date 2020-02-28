@@ -391,7 +391,7 @@ The value of the `claims` parameter is:
 
 The respective UserInfo response would be
 
-<{{examples/response/userinfo.http}}
+<{{examples/response/userinfo.json}}
 
 ## Verified Claims in ID Tokens
 

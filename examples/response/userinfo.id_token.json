@@ -14,11 +14,12 @@
       "verification":{
          "trust_framework":"de_aml",
          "time":"2012-04-23T18:25:43.511+01",
-         "verification_process":"676q3636461467647q8498785747q487",
+         "verification_process":"07f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
          "evidence":[
             {
                "type":"id_document",
                "method":"pipp",
+               "time": "2012-04-22T11:30:00+01",
                "document":{
                   "type":"idcard",
                   "issuer":{
@@ -26,8 +27,8 @@
                      "country":"DE"
                   },
                   "number":"53554554",
-                  "date_of_issuance":"2012-04-23",
-                  "date_of_expiry":"2022-04-22"
+                  "date_of_issuance":"2010-03-23",
+                  "date_of_expiry":"2020-03-22"
                }
             }
          ]
