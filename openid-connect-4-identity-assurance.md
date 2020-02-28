@@ -163,7 +163,7 @@ An initial list of standardized values is defined in [Trust Frameworks](#predefi
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date and time when identity verification took place. Presence of this element might be required for certain trust frameworks.
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked wheres this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -413,52 +413,15 @@ The respective ID Token could be
 
 Note: Line breaks for display purposes only.
 
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-   "iss":"https://server.example.com",
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "_claim_names":{
-      "verified_claims":"src1"
-   },
-   "_claim_sources":{
-      "src1":{
-      "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
-      lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
-      JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
-      mFtaWx5X25hbWUiOiJNZWllciIsImJpcnRoZGF0ZSI6IjE5NTYtMDEtMjgifX19.M8tTKxzj5LBgqGj
-      UAzFooEiCPJ4wcZVQDrnW5_ooAG4"
-      }
-   }
-}
-```
+<{{examples/response/aggregated_claims.json}}
 
 ## Distributed Claims
 
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
+<{{examples/response/distributed_claims.json}}
 
-{
-   "iss":"https://server.example.com",
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "_claim_names":{
-      "verified_claims":"src1"
-   },
-   "_claim_sources":{
-      "src1":{
-         "endpoint":"https://server.yetanotherop.com/claim_source",
-         "access_token":"ksj3n283dkeafb76cdef"
-      }
-   }
-}
-```
+## Multiple External Claim Sources
+
+<{{examples/response/multiple_external_claims_sources.json}}
 
 # OP Metadata {#opmetadata}
 

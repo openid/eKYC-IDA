@@ -196,6 +196,40 @@
         "claims"
       ],
       "additionalProperties": false
+    },
+    "aggregated_claims": {
+      "properties": {
+        "JWT": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "JWT"
+      ]
+    },
+    "distributed_claims": {
+      "properties": {
+        "endpoint": {
+          "type": "string"
+        },
+        "access_token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpoint",
+        "access_token"
+      ]
+    },
+    "_claim_sources": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/aggregated_claims"
+        },
+        {
+          "$ref": "#/definitions/distributed_claims"
+        }
+      ]
     }
   },
   "properties": {
@@ -211,6 +245,36 @@
           }
         }
       ]
+    },
+    "_claim_names": {
+      "type": "object",
+      "properties": {
+        "verified_claims": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "type": [
+            "string",
+            "array"
+          ]
+        }
+      }
+    },
+    "_claim_sources": {
+      "type": "object",
+      "properties": {
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/_claim_sources"
+      }
     }
   }
 }
