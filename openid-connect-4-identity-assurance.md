@@ -187,7 +187,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "id_document".
 
-`method`: The method used to verify the ID document. Predefined values are given in Verification Methods[@!predefined_values]).
+`method`: The method used to verify the ID document. Predefined values are given in Verification Methods[@!predefined_values].
 
 `verifier`: JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
