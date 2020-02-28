@@ -746,7 +746,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims.json" target="http://openid.net/schemas/verified_claims-09.json">
+<reference anchor="verified_claims.json" target="http://openid.net/wg/ekyc-ida/schemas/verified_claims-09.json">
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
     <author>
@@ -756,7 +756,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims_request.json" target="http://openid.net/schemas/verified_claims_request-09.json">
+<reference anchor="verified_claims_request.json" target="http://openid.net/wg/ekyc-ida/schemas/verified_claims_request-09.json">
   <front>
     <title>JSON Schema for requesting verified_claims</title>
     <author>
