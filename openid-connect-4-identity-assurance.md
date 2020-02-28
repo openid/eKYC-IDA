@@ -411,8 +411,6 @@ The respective ID Token could be
 
 ## Aggregated Claims
 
-Note: Line breaks for display purposes only.
-
 <{{examples/response/aggregated_claims.json}}
 
 ## Distributed Claims
@@ -422,6 +420,10 @@ Note: Line breaks for display purposes only.
 ## Multiple External Claim Sources
 
 <{{examples/response/multiple_external_claims_sources.json}}
+
+## OP attested ad External Claims
+
+<{{examples/response/all_in_one.json}}
 
 # OP Metadata {#opmetadata}
 
