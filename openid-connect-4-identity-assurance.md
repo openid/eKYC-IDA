@@ -159,11 +159,13 @@ The `verification` element consists of the following elements:
 
 An example value is `eidas_ial_high`, which denotes a notified eID system under eIDAS [@?eIDAS] providing identity assurance at level of assurance "High".
 
-An initial list of standardized values is defined in [Trust Frameworks](#predefined_values_tf). Additional trust framework identifiers can be introduced [how?]. RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
+For information on predefined trust framework values see [@!predefined_values]. 
+
+RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked wheres this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -187,7 +189,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "id_document".
 
-`method`: The method used to verify the ID document. Predefined values are given in  [Verification Methods](#predefined_values_vm).
+`method`: The method used to verify the ID document. For information on predefined verification method values see [@!predefined_values]. 
 
 `verifier`: JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -198,7 +200,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `document`: JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
-* `type`: REQUIRED. String denoting the type of the ID document. Standardized values are defined in [Identity Documents](#predefined_values_idd). The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `type`: REQUIRED. String denoting the type of the ID document. For information on predefined identity document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `number`: String representing the number of the identity document.
 * `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
 	*  `name`: Designation of the issuer of the identity document.
@@ -391,7 +393,7 @@ The value of the `claims` parameter is:
 
 The respective UserInfo response would be
 
-<{{examples/response/userinfo.http}}
+<{{examples/response/userinfo.json}}
 
 ## Verified Claims in ID Tokens
 
@@ -507,55 +509,11 @@ The confidentiality of all user data exchanged between the protocol parties MUST
 
 # Predefined Values {#predefined_values}
 
-## Trust Frameworks {#predefined_values_tf}
+This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
-This section defines trust framework identifiers for use with this specification.
+Each party defining such identifier MUST ensure the collision resistance of this identifers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.  
 
-| Identifier | Definition|
-|:------------|:-----------|
-|`de_aml`    |The OP verifies and maintains user identities in conformance with the German Anti-Money Laundering Law.|
-|`eidas_ial_substantial`| The OP is able to attest user identities in accordance with the EU regulation No 910/2014 (eIDAS) at the identitfication assurance level "Substantial".|
-|`eidas_ial_high`|The OP is able to attest user identities in accordance with the EU regulation No 910/2014 (eIDAS) at the identitfication assurance level "High".|
-|`nist_800_63A_ial_2`|The OP is able to attest user identities in accordance with the NIST Special Publication 800-63A at the Identity Assurance Level 2.|
-|`nist_800_63A_ial_3`|The OP is able to attest user identities in accordance with the NIST Special Publication 800-63A at the Identity Assurance Level 3.|
-|`jp_aml`|The OP verifies and maintains user identities in conformance with the Japanese Act on Prevention of Transfer of Criminal Proceeds.|
-|`jp_mpiupa`|The OP verifies and maintains user identities in conformance with the Japanese Act for Identification, etc. by Mobile Voice Communications Carriers of Their Subscribers, etc. and for Prevention of Improper Use of Mobile Voice Communications Services.|
-
-## Identity Documents {#predefined_values_idd}
-
-This section defines identity document identifiers for use with this specification.
-
-| Identifier | Definition|
-|:------------|:-----------|
-|`idcard`|An identity document issued by a country's government for the purpose of identifying a citizen.|
-|`passport`|A passport is a travel document, usually issued by a country's government, that certifies the identity and nationality of its holder primarily for the purpose of international travel.[@?OxfordPassport]|
-|`driving_permit`|Official document permitting an individual to operate motorized vehicles. In the absence of a formal identity document, a driver's license may be accepted in many countries for identity verification.|
-|`de_idcard_foreigners`|ID Card issued by the German government to foreign nationals.|
-|`de_emergency_idcard`|ID Card issued by the German government to foreign nationals as passports replacement.|
-|`de_erp`|Electronic Resident Permit issued by the German government to foreign nationals.|
-|`de_erp_replacement_idcard`|Electronic Resident Permit issued by the German government to foreign nationals as replacement for another identity document.|
-|`de_idcard_refugees`|ID Card issued by the German government to refugees as passports replacement.|
-|`de_idcard_apatrids`|ID Card issued by the German government to apatrids as passports replacement.|
-|`de_certificate_of_suspension_of_deportation`|An identity document issued to refugees in case of suspension of deportation that are marked as "ID card replacement".|
-|`de_permission_to_reside`|Permission to reside issued by the German government to foreign nationals appliying for asylum.|
-|`de_replacement_idcard`|ID Card replacement document issued by the German government to foreign nationals. (see Act on the Residence, Economic Activity and Integration of Foreigners in the Federal Territory, Residence Act, Appendix D1 ID Card replacement according to § 48 Abs. 2 i.V.m. § 78a Abs. 4)|
-|`jp_drivers_license`| Japanese driver's license.|
-|`jp_residency_card_for_foreigner`| Japanese residence card for foreigners.|
-|`jp_individual_number_card`| Japanese national ID card.|
-|`jp_permanent_residency_card_for_foreigner`| Japanese special residency card for foreigners to permit permanently resident.|
-|`jp_health_insurance_card`| Japanese health and insurance card.|
-|`jp_residency_card`| Japanese residency card.|
-
-## Verification Methods {#predefined_values_vm}
-
-This section defines verification method identifiers for use with this specification.
-
-| Identifier | Definition          |
-|:------------|---------------------|
-|`pipp`|Physical In-Person Proofing.|
-|`sripp`|Supervised remote In-Person Proofing.|
-|`eid`|Online verification of an electronic ID card.|
-|`uripp`|Unsupervised remote in-person proofing with video capture of the ID document, user self-portrait video and liveness checks.|
+The eKYC and Identity Assurance Working Group maintains a wiki page[@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
 {backmatter}
 
@@ -731,6 +689,16 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
+<reference anchor="predefined_values_page" target="https://openid.net/wg/ekyc-ida/identifiers/">
+  <front>
+    <title>Overview page for predefined values</title>
+    <author>
+      <organization>OpenID Foundation</organization>
+    </author>
+    <date year="2020"/>
+  </front>
+</reference>
+
 # IANA Considerations
 
 ## JSON Web Token Claims Registration
@@ -840,7 +808,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -855,13 +823,14 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
    
    -09
-   
+ 
    * changed `verified_claims` to object-or-array pattern
+   * cut out all definitions of pre-defined values for trust frameworks, id documents and verification methods and established wiki page as non-normative overview 
    * clarified and simplified request syntax 
    * reduced mandatory requirement `verified_claims` to bare minimum
    * removed JSON schema from draft and added reference to JSON schema file instead
    * added request JSON schema
-   * Added IANA section with JSON Web Token Claims Registration
+   * added IANA section with JSON Web Token Claims Registration
    * integrated source into single md file
    * fixed typos
 
