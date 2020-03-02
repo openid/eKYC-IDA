@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://openid.net/wg/ekyc-ida/schemas/verified_claims_request-09.json",
+  "$id": "https://openid.net/wg/ekyc-ida/schemas/verified_claims_request-09.json",
   "definitions": {
     "simple_element": {
       "oneOf": [
