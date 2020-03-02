@@ -843,7 +843,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -858,13 +858,14 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
    
    -09
-   
+ 
    * changed `verified_claims` to object-or-array pattern
+   * cut out all definitions of pre-defined values for trust frameworks, id documents and verification methods and established wiki page as non-normative overview 
    * clarified and simplified request syntax 
    * reduced mandatory requirement `verified_claims` to bare minimum
    * removed JSON schema from draft and added reference to JSON schema file instead
    * added request JSON schema
-   * Added IANA section with JSON Web Token Claims Registration
+   * added IANA section with JSON Web Token Claims Registration
    * integrated source into single md file
    * fixed typos
 
