@@ -536,6 +536,8 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 OP and RP MUST establish a legal basis before exchanging any personally identifiable information. It can be established upfront or in the course of the OpenID process.
 
+Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
+
 # Security Considerations {#Security}
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions.
