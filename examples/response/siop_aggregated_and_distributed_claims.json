@@ -1,0 +1,20 @@
+{
+  "iss": "https://https://self-issued.me",
+  "sub": "248289761001",
+  "username": "superman445",
+  "_claim_names": {
+    "verified_claims": [
+      "src1",
+      "src2"
+    ]
+  },
+  "_claim_sources": {
+    "src1": {
+      "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5..."
+    },
+    "src2": {
+      "endpoint": "https://op.mymno.com/claim_source",
+      "access_token": "ksj3n283dkeafb76cdef"
+    }
+  }
+}
