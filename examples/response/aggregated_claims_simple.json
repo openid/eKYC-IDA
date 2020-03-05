@@ -1,0 +1,19 @@
+{
+  "iss": "https://server.example.com",
+  "sub": "248289761001",
+  "email": "janedoe@example.com",
+  "email_verified": true,
+  "_claim_names": {
+    "verified_claims": "src1"
+  },
+  "_claim_sources": {
+    "src1": {
+      "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
+      lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
+      JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
+      mFtaWx5X25hbWUiOiJNZWllciIsImJpcnRoZGF0ZSI6IjE5NTYtMDEtMjgifX19.M8tTKxzj5LBgqGj
+      UAzFooEiCPJ4wcZVQDrnW5_ooAG4
+      "
+    }
+  }
+}
