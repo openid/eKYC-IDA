@@ -1,7 +1,7 @@
 %%%
 title = "OpenID Connect for Identity Assurance 1.0"
 abbrev = "openid-connect-4-identity-assurance-1_0"
-ipr = "none"
+ipr = "trust200902"
 workgroup = "connect"
 keyword = ["security", "openid", "identity assurance"]
 
@@ -165,7 +165,7 @@ RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they 
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss+/-hh:mm` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -196,7 +196,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `organization`: String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: Identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID document was verified.
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss+/-hh:mm` format representing the date when this ID document was verified.
 
 `document`: JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
@@ -231,7 +231,7 @@ The following elements are contained in a `qes` evidence sub-element.
 
 `serial_number`: String containing the serial number of the certificate used to sign.
 
-`created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
+`created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm:ss+/-hh:mm` format.
 
 ## claims Element {#claimselement}
 
@@ -251,6 +251,38 @@ and the claims defined in (#userclaims).
 The `claims` element MAY also contain other claims given the value of the respective claim was verified in the verification process represented by the sibling `verification` element.
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+
+## verified_claims Delivery
+
+OPs can deliver `verified_claims` in various ways. 
+
+A `verified_claims` element can be added to a OpenID Connect User Info response or an ID Token.
+
+OAuth Authorization Servers can use the same format in access tokens in JWT format or Token Introspections responses, either in plain JSON or JWT-protected format.
+
+Note: Given the security level typically required in identity assurance use cases, the OP SHOULD sign the assertions containing `verified_claims`. 
+
+An OP or AS MAY also include `verified_claims` in the beforementioned assertions as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
+
+In this case, every assertion provided by the external claims source MUST contain 
+
+* an `iss` claim identifying the claims source,
+* a `verified_claims` element containing one or more verified_claims objects.
+
+The following is an example of an assertion including verified claims as aggregated claims. 
+
+<{{examples/response/aggregated_claims_simple.json}}
+
+An assertion MAY include (or refer to) multiple `verified_claims` provided by different external claims sources. To support
+this use case, this specification extends the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) so the references to claims sources can also be string arrays.  
+
+The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
+
+<{{examples/response/siop_aggregated_and_distributed_claims.json}}
+
+The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself.
+
+Note: any assertion provided by an OP or AS including aggregated or distributed claims MAY contain multiple instances of the same End-User claim. 
 
 # Requesting Verified Claims
 
@@ -413,54 +445,19 @@ The respective ID Token could be
 
 ## Aggregated Claims
 
-Note: Line breaks for display purposes only.
-
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-   "iss":"https://server.example.com",
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "_claim_names":{
-      "verified_claims":"src1"
-   },
-   "_claim_sources":{
-      "src1":{
-      "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
-      lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
-      JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
-      mFtaWx5X25hbWUiOiJNZWllciIsImJpcnRoZGF0ZSI6IjE5NTYtMDEtMjgifX19.M8tTKxzj5LBgqGj
-      UAzFooEiCPJ4wcZVQDrnW5_ooAG4"
-      }
-   }
-}
-```
+<{{examples/response/aggregated_claims.json}}
 
 ## Distributed Claims
 
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
+<{{examples/response/distributed_claims.json}}
 
-{
-   "iss":"https://server.example.com",
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "_claim_names":{
-      "verified_claims":"src1"
-   },
-   "_claim_sources":{
-      "src1":{
-         "endpoint":"https://server.yetanotherop.com/claim_source",
-         "access_token":"ksj3n283dkeafb76cdef"
-      }
-   }
-}
-```
+## Multiple External Claim Sources
+
+<{{examples/response/multiple_external_claims_sources.json}}
+
+## OP attested ad External Claims
+
+<{{examples/response/all_in_one.json}}
 
 # OP Metadata {#opmetadata}
 
@@ -535,8 +532,6 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 # Privacy Consideration {#Privacy}
 
 OP and RP MUST establish a legal basis before exchanging any personally identifiable information. It can be established upfront or in the course of the OpenID process.
-
-Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
 
 # Security Considerations {#Security}
 
