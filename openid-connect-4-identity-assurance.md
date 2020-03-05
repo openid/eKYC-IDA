@@ -165,7 +165,7 @@ RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they 
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -196,7 +196,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `organization`: String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: Identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm:ss±hh:mm` format representing the date when this ID document was verified.
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID document was verified.
 
 `document`: JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
@@ -231,7 +231,7 @@ The following elements are contained in a `qes` evidence sub-element.
 
 `serial_number`: String containing the serial number of the certificate used to sign.
 
-`created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm:ss±hh:mm` format.
+`created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
 
 ## claims Element {#claimselement}
 
