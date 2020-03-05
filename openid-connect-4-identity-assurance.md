@@ -254,7 +254,9 @@ Claim names MAY be annotated with language tags as specified in Section 5.2 of t
 
 ## verified_claims Delivery
 
-OPs can deliver `verified_claims` in various ways. To start with, a `verified_claims` element can be added to a OpenID Connect User Info response or an ID Token.
+OPs can deliver `verified_claims` in various ways. 
+
+A `verified_claims` element can be added to a OpenID Connect User Info response or an ID Token.
 
 OAuth Authorization Servers can use the same format in access tokens in JWT format or Token Introspections responses, either in plain JSON or JWT-protected format.
 
@@ -265,55 +267,18 @@ An OP or AS MAY also include `verified_claims` in the beforementioned assertions
 In this case, every assertion provided by the external claims source MUST contain 
 
 * an `iss` claim identifying the claims source,
-* a `verified_claims` element containing one or more verified_claims objects.  
+* a `verified_claims` element containing one or more verified_claims objects.
 
 The following is an example of an assertion including verified claims as aggregated claims. 
 
-```json
-{ 
-   "iss":"https://server.example.com", 
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "_claim_names":{  
-      "verified_claims":"src1"
-   },
-   "_claim_sources":{  
-      "src1":{  
-      "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
-      lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
-      JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
-      mFtaWx5X25hbWUiOiJNZWllciIsImJpcnRoZGF0ZSI6IjE5NTYtMDEtMjgifX19.M8tTKxzj5LBgqGj
-      UAzFooEiCPJ4wcZVQDrnW5_ooAG4"
-      }
-   }
-}
-```
+<{{examples/response/aggregated_claims_simple.json}}
 
 An assertion MAY include (or refer to) multiple `verified_claims` provided by different external claims sources. To support
 this use case, this specification extends the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) so the references to claims sources can also be string arrays.  
 
-The following example shows an ID token containing a claim attested by the OP along with `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
+The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
 
-```json
-{
-  "iss":"https://https://self-issued.me",
-  "sub":"248289761001",
-  "username":"superman445",
-  "_claim_names":{
-    "verified_claims":["src1","src2"]
-  },
-  "_claim_sources":{
-    "src1":{
-      "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5..."
-    },
-    "src2":{
-      "endpoint":"https://op.mymno.com/claim_source",
-      "access_token":"ksj3n283dkeafb76cdef"
-    }
-  }
-}
-```
+<{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
 The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself.
 
