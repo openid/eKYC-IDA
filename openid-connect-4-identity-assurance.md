@@ -291,7 +291,11 @@ Example:
 
 <{{examples/request/purpose.json}}
 
-Note: If the `claims` sub-element is empty or contains a Claim not fulfilling the requirements defined in (#claimselement), the OP will abort the transaction with an `invalid_request` error.
+### Error Handling
+
+If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
+
+Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
 
 ## Requesting Verification Data {#req_verification}
 
@@ -318,6 +322,8 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
+
+### Error Handling
 
 It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. An OP MUST NOT return an error in case it cannot return verification data requested, even if it was marked as essential, regardless of whether they are not available or because the End-User did not authorize their release.
 
