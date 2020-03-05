@@ -1,7 +1,7 @@
 %%%
 title = "OpenID Connect for Identity Assurance 1.0"
 abbrev = "openid-connect-4-identity-assurance-1_0"
-ipr = "trust200902"
+ipr = "none"
 workgroup = "connect"
 keyword = ["security", "openid", "identity assurance"]
 
