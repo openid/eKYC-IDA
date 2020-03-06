@@ -267,6 +267,7 @@ An OP or AS MAY also include `verified_claims` in the beforementioned assertions
 In this case, every assertion provided by the external claims source MUST contain 
 
 * an `iss` claim identifying the claims source,
+* a `sub` claim identifying the user in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
 The following is an example of an assertion including verified claims as aggregated claims. 
