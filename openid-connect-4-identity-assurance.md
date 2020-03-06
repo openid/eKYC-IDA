@@ -283,7 +283,9 @@ The following example shows an ID token containing `verified_claims` from two di
 
 The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself.
 
-Note: any assertion provided by an OP or AS including aggregated or distributed claims MAY contain multiple instances of the same End-User claim. 
+If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and a embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+
+Note: any assertion provided by an OP or AS including aggregated or distributed claims MAY contain multiple instances of the same End-User claim. It is up to the RP to decide how to process those different instances. 
 
 # Requesting Verified Claims
 
