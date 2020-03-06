@@ -258,9 +258,7 @@ OPs can deliver `verified_claims` in various ways.
 
 A `verified_claims` element can be added to a OpenID Connect User Info response or an ID Token.
 
-OAuth Authorization Servers can use the same format in access tokens in JWT format or Token Introspections responses, either in plain JSON or JWT-protected format.
-
-Note: Given the security level typically required in identity assurance use cases, the OP SHOULD sign the assertions containing `verified_claims`. 
+OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspections responses, either in plain JSON or JWT-protected format.
 
 An OP or AS MAY also include `verified_claims` in the beforementioned assertions as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
 
@@ -270,12 +268,15 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `sub` claim identifying the user in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
+Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
+The way a RP determines the key material used for validation is out of scope, the recommended way is to determine the claims source's public keys by obtaining the JWKS URL from its `openid-configuration` using the `iss` URL of the particular JWT.  
+
 The following is an example of an assertion including verified claims as aggregated claims. 
 
 <{{examples/response/aggregated_claims_simple.json}}
 
 An assertion MAY include (or refer to) multiple `verified_claims` provided by different external claims sources. To support
-this use case, this specification extends the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) so the references to claims sources can also be string arrays.  
+this use case, this specification extends the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) to also allow references to multiple claims sources as string array.  
 
 The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
 
