@@ -269,7 +269,7 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `verified_claims` element containing one or more verified_claims objects.
 
 Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
-The way a RP determines the key material used for validation is out of scope, the recommended way is to determine the claims source's public keys by obtaining the JWKS URL from its `openid-configuration` using the `iss` URL of the particular JWT.  
+The way a RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.  
 
 The following is an example of an assertion including verified claims as aggregated claims. 
 
