@@ -876,6 +876,7 @@ The technology described in this specification was made available from contribut
    * added request JSON schema
    * added IANA section with JSON Web Token Claims Registration
    * integrated source into single md file
+   * added privacy considerations regarding time zone data, enhanced syntax definition of time and date-time fields in spec and response schema
    * fixed typos
 
    -08
