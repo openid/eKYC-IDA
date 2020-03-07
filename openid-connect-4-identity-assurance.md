@@ -49,9 +49,9 @@ Identity assurance therefore requires a way to convey assurance data along with 
 
 ## Terminology
 
-This section defines some terms relevant to the topic covered in this document, heavily inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
+This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
 
-* Identity Proofing - process in which a user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP to assert that identification at a useful identity assurance level.
+* Identity Proofing - process in which a user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful identity assurance level.
 
 * Identify Verification - process conducted by the OP or a claim provider to verify the user's identity.
 
@@ -59,23 +59,25 @@ This section defines some terms relevant to the topic covered in this document, 
 
 * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular user account was verified in the course of an identity verification process.
 
-[1]: https://pages.nist.gov/800-63-3/sp800-63a.html "NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements"
-
 # Scope and Requirements
 
 The scope of the extension is to define a mechanism to assert verified Claims, in general, and to introduce new Claims about the End-User required in the identity assurance space; one example would be the place of birth.
 
 The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data and the evidence and the identity verification processes employed by the OP.
 
-This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS notified eID systems, as well as other OPs. Strictly regulated OPs can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability.
+This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation. 
 
-For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state takes the liability for the identities asserted by its notified eID systems. Every other OP not operating under such well-defined conditions is typically required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, it shall be possible to use identity data maintained in accordance with the Anti Money Laundering Law to fulfill requirements defined by eIDAS.
+It is assumed that OPs operating under a suitable regulation can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state takes the liability for the identities asserted by its notified eID systems. 
+
+Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with Anti Money Laundering Law, it shall be possible for a RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS. 
+
+The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsility of the RP to assess this data and map it into its own legal context. 
 
 From a technical perspective, this means this specification allows the OP to attest verified Claims along with information about the respective trust framework (and assurance level) but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be attested in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
+The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be attested in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
 
-This extension is intended to be truly international and support identity assurance for different and across jurisdictions. The extension is therefore extensible to support additional trust frameworks, verification methods, and identity evidence.
+This extension is intended to be truly international and support identity assurance for different and across jurisdictions. The extension is therefore extensible to support various trust frameworks, verification methods, and identity evidence.
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
@@ -256,7 +258,7 @@ Claim names MAY be annotated with language tags as specified in Section 5.2 of t
 
 OPs can deliver `verified_claims` in various ways. 
 
-A `verified_claims` element can be added to a OpenID Connect User Info response or an ID Token.
+A `verified_claims` element can be added to a OpenID Connect UserInfo response or an ID Token.
 
 OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspections responses, either in plain JSON or JWT-protected format.
 
@@ -869,7 +871,7 @@ The technology described in this specification was made available from contribut
    -09
  
    * `verified_claims` element may contain one or more verified claims objects
-   * individual assertion may contain `verified_claims` elements in assertion itself and any aggregated or distributed claim set it includes or refers to, respectively
+   * individual assertion may contain `verified_claims` elements in assertion the itself and any aggregated or distributed claim set it includes or refers to, respectively
    * cut out all definitions of pre-defined values for trust frameworks, id documents and verification methods and established wiki page as non-normative overview 
    * clarified and simplified request syntax 
    * reduced mandatory requirement `verified_claims` to bare minimum
