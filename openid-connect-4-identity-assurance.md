@@ -252,6 +252,42 @@ The `claims` element MAY also contain other claims given the value of the respec
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
 
+## verified_claims Delivery
+
+OPs can deliver `verified_claims` in various ways. 
+
+A `verified_claims` element can be added to a OpenID Connect User Info response or an ID Token.
+
+OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspections responses, either in plain JSON or JWT-protected format.
+
+An OP or AS MAY also include `verified_claims` in the beforementioned assertions as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
+
+In this case, every assertion provided by the external claims source MUST contain 
+
+* an `iss` claim identifying the claims source,
+* a `sub` claim identifying the user in the context of the claim source,
+* a `verified_claims` element containing one or more verified_claims objects.
+
+Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
+The way a RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.  
+
+The following is an example of an assertion including verified claims as aggregated claims. 
+
+<{{examples/response/aggregated_claims_simple.json}}
+
+An assertion MAY include (or refer to) multiple `verified_claims` provided by different external claims sources. To support
+this use case, this specification extends the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) to also allow references to multiple claims sources as string array.  
+
+The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
+
+<{{examples/response/siop_aggregated_and_distributed_claims.json}}
+
+The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself.
+
+If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and a embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+
+Note: any assertion provided by an OP or AS including aggregated or distributed claims MAY contain multiple instances of the same End-User claim. It is up to the RP to decide how to process those different instances. 
+
 # Requesting Verified Claims
 
 ## Requesting End-User Claims {#req_claims}
@@ -419,54 +455,19 @@ The respective ID Token could be
 
 ## Aggregated Claims
 
-Note: Line breaks for display purposes only.
-
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-   "iss":"https://server.example.com",
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "_claim_names":{
-      "verified_claims":"src1"
-   },
-   "_claim_sources":{
-      "src1":{
-      "JWT":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3NlcnZlci5vdGh
-      lcm9wLmNvbSIsInZlcmlmaWVkX2NsYWltcyI6eyJ2ZXJpZmljYXRpb24iOnsidHJ1c3RfZnJhbWV3b3
-      JrIjoiZWlkYXNfaWFsX3N1YnN0YW50aWFsIn0sImNsYWltcyI6eyJnaXZlbl9uYW1lIjoiTWF4IiwiZ
-      mFtaWx5X25hbWUiOiJNZWllciIsImJpcnRoZGF0ZSI6IjE5NTYtMDEtMjgifX19.M8tTKxzj5LBgqGj
-      UAzFooEiCPJ4wcZVQDrnW5_ooAG4"
-      }
-   }
-}
-```
+<{{examples/response/aggregated_claims.json}}
 
 ## Distributed Claims
 
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
+<{{examples/response/distributed_claims.json}}
 
-{
-   "iss":"https://server.example.com",
-   "sub":"248289761001",
-   "email":"janedoe@example.com",
-   "email_verified":true,
-   "_claim_names":{
-      "verified_claims":"src1"
-   },
-   "_claim_sources":{
-      "src1":{
-         "endpoint":"https://server.yetanotherop.com/claim_source",
-         "access_token":"ksj3n283dkeafb76cdef"
-      }
-   }
-}
-```
+## Multiple External Claim Sources
+
+<{{examples/response/multiple_external_claims_sources.json}}
+
+## OP attested ad External Claims
+
+<{{examples/response/all_in_one.json}}
 
 # OP Metadata {#opmetadata}
 
