@@ -220,6 +220,23 @@
         }
       ]
     },
+    "verified_claims": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/verified_claims_def"
+              }
+            ]
+          }
+        },
+        {
+          "$ref": "#/definitions/verified_claims_def"
+        }
+      ]
+    },
     "verified_claims_def": {
       "type": "object",
       "properties": {
@@ -269,7 +286,7 @@
       "type": "object",
       "properties": {
         "verified_claims": {
-          "$ref": "#/definitions/verified_claims_def"
+          "$ref": "#/definitions/verified_claims"
         }
       }
     },
@@ -277,7 +294,7 @@
       "type": "object",
       "properties": {
         "verified_claims": {
-          "$ref": "#/definitions/verified_claims_def"
+          "$ref": "#/definitions/verified_claims"
         }
       }
     }

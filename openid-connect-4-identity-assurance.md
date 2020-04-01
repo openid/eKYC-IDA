@@ -7,7 +7,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid-connect-4-identity-assurance-1_0-09"
+value = "openid-connect-4-identity-assurance-1_0-10"
 status = "standard"
 
 [[author]]
@@ -328,6 +328,12 @@ localization, see (#purpose).
 Example:
 
 <{{examples/request/purpose.json}}
+
+It is possible requesting different verification methods for different claims. To do that, instead of sending `verified_claims` as an object, include more than one object inside an array.
+
+Example:
+
+<{{examples/request/verification_claims_trust_frameworks.json}}
 
 ### Error Handling
 
@@ -868,6 +874,10 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
    
+   -10
+ 
+   * `verified_claims` element within request may contain one or more objects
+  
    -09
  
    * `verified_claims` element may contain one or more verified claims objects
