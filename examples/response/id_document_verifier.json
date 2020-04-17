@@ -7,7 +7,7 @@
          "evidence":[
             {
                "type":"id_document",
-               "method":"sripp",
+               "method":"pipp",
                "verifier":{
                   "organization":"Deutsche Post",
                   "txn":"1aa05779-0775-470f-a5c4-9f1f5e56cf06"
