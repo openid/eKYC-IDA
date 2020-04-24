@@ -43,7 +43,7 @@
                 "type": "string"
               },
               "created_at": {
-                "$ref": "#/definitions/date_type"
+                "$ref": "#/definitions/time_type"
               }
             }
           },
