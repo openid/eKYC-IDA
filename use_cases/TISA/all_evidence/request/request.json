@@ -1,0 +1,28 @@
+{  
+    "userinfo":{  
+       "verified_claims":{  
+          "verification":{  
+             "trust_framework":{  
+                "value":"tisa_aml"
+             },
+             "verification_result":null,   // return the verification result from the IdP //
+             "evidence":null  // All evidence sent back to RP to allow decisioning or record keeping" //
+          },
+          "claims":{  
+             "name"{ 
+                "title":null,
+                "given_name":{"essential": true},
+  **              [ middle_name: null ],
+                "family_name":{"essential": true}
+                }
+             "birthdate":{"essential": true},
+             "current_address":{"essential": true},
+             "NINO":null,
+             "contact_details"';null',
+  **           "previous_name”: null,
+             [ "previous_address”:null ],
+  **           "evidenced_by": null"     // for each claim element returned show and arrany of which evidences the claim has come from. This could be requested at an individual claim element level, but that would be messy //
+          }
+       }
+    }
+    
