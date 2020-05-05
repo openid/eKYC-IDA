@@ -273,16 +273,20 @@ In this case, every assertion provided by the external claims source MUST contai
 Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
 The way a RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.  
 
-The following is an example of an assertion including verified claims as aggregated claims. 
+The following are examples of assertions including verified claims as aggregated claims 
 
 <{{examples/response/aggregated_claims_simple.json}}
 
-An assertion MAY include (or refer to) multiple `verified_claims` provided by different external claims sources. To support
+and distributed claims.
+
+<{{examples/response/distributed_claims.json}}
+
+An external assertion MAY include (or refer to) multiple `verified_claims` provided by different external claims sources. To support
 this use case, this specification extends the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) to also allow references to multiple claims sources as string array.  
 
 The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
 
-<{{examples/response/siop_aggregated_and_distributed_claims.json}}
+<{{examples/response/multiple_external_claims_sources.json}}
 
 The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself.
 
@@ -455,21 +459,20 @@ The respective ID Token could be
 
 <{{examples/response/userinfo.id_token.json}}
 
-## Aggregated Claims
+## OP-attested and External Claims
 
-<{{examples/response/aggregated_claims.json}}
-
-## Distributed Claims
-
-<{{examples/response/distributed_claims.json}}
-
-## Multiple External Claim Sources
-
-<{{examples/response/multiple_external_claims_sources.json}}
-
-## OP attested ad External Claims
+This examples shows how an OP can mix own claims and claims attested by  
+external sources in a single ID token. 
 
 <{{examples/response/all_in_one.json}}
+
+## Self-Issued OpenID Connect Provider and External Claims
+
+This example shows how a Self-Issued OpenID Connect Provider (SIOP) 
+may include verified claims obtained from different external claim
+sources into a ID Token.
+
+<{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
 # OP Metadata {#opmetadata}
 
