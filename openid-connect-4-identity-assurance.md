@@ -7,7 +7,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid-connect-4-identity-assurance-1_0-09"
+value = "openid-connect-4-identity-assurance-1_0-10"
 status = "standard"
 
 [[author]]
@@ -134,7 +134,7 @@ A following example
 
 <{{examples/response/verified_claims_simple.json}}
 
-would attest to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example assurance level `gold`.
+would attest to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `ial_example_gold`.
 
 The normative definition is given in the following.
 
@@ -288,7 +288,7 @@ The following example shows an ID token containing `verified_claims` from two di
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself.
+The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself (see (#op_attested_and_external_claims)).
 
 If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and a embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
@@ -459,9 +459,9 @@ The respective ID Token could be
 
 <{{examples/response/userinfo.id_token.json}}
 
-## OP-attested and External Claims
+## OP-attested and External Claims {#op_attested_and_external_claims}
 
-This examples shows how an OP can mix own claims and claims attested by  
+This example shows how an OP can mix own claims and claims attested by  
 external sources in a single ID token. 
 
 <{{examples/response/all_in_one.json}}
@@ -562,7 +562,7 @@ This specification focuses on the technical mechanisms to convey verified claims
 
 Each party defining such identifier MUST ensure the collision resistance of this identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
 
-The eKYC and Identity Assurance Working Group maintains a wiki page[@!predefined_values_page] that can be utilized to share predefined values with other parties.
+The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
 {backmatter}
 
@@ -718,7 +718,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-09.json">
+<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-10.json">
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
     <author>
@@ -728,7 +728,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-09.json">
+<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-10.json">
   <front>
     <title>JSON Schema for requesting verified_claims</title>
     <author>
@@ -857,7 +857,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -870,6 +870,11 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -10
+
+   * Editorial improvements
+   * Improved JSON schema (alignment with spec and bug fix)
    
    -09
  
