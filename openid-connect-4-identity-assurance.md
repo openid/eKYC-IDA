@@ -39,7 +39,7 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 This specification defines an extension to OpenID Connect [@!OpenID] to address the use case of strong identity verification of a natural person in accordance with certain laws. Examples include Anti Money Laundering Laws, Telecommunication Acts, Anti Terror Laws, and regulations on trust services, such as eIDAS [@?eIDAS].
 
-In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source along with evidence related to the identity verification process.
+In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source, along with evidence related to the identity verification process.
 
 The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to attest information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
@@ -67,17 +67,17 @@ The RP will be able to request the minimal data set it needs (data minimization)
 
 This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation. 
 
-It is assumed that OPs operating under a suitable regulation can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state takes the liability for the identities asserted by its notified eID systems. 
+It is assumed that OPs operating under a suitable regulation can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
 
-Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with Anti Money Laundering Law, it shall be possible for a RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS. 
+Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for a RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS.
 
-The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsility of the RP to assess this data and map it into its own legal context. 
+The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
-From a technical perspective, this means this specification allows the OP to attest verified Claims along with information about the respective trust framework (and assurance level) but also supports the externalization of information about the identity verification process.
+From a technical perspective, this means this specification allows the OP to attest verified Claims along with information about the respective trust framework (and assurance level), but also supports the externalization of information about the identity verification process.
 
 The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be attested in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
 
-This extension is intended to be truly international and support identity assurance for different and across jurisdictions. The extension is therefore extensible to support various trust frameworks, verification methods, and identity evidence.
+This extension is intended to be truly international and support identity assurance for different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, verification methods, and identity evidence.
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
@@ -128,7 +128,7 @@ Note: The mechanism to obtain the transaction details from the OP and their form
 
 # verified_claims Element {#verified_claims}
 
-This specification defines a generic mechanisms to add verified claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims` to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these claims. This way RPs cannot mix up verified and unverified Claims and incidentally process unverified Claims as verified Claims.
+This specification defines a generic mechanism to add verified claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims` to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these claims. This way RPs cannot mix up verified and unverified Claims and accidentally process unverified Claims as verified Claims.
 
 A following example
 
@@ -167,7 +167,7 @@ RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they 
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -196,7 +196,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 `verifier`: JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: String denoting the organization which performed the verification on behalf of the OP.
-* `txn`: Identifier refering to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+* `txn`: Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
 `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID document was verified.
 
@@ -250,7 +250,7 @@ The `claims` element MAY contain one or more of the following Claims as defined 
 
 and the claims defined in (#userclaims).
 
-The `claims` element MAY also contain other claims given the value of the respective claim was verified in the verification process represented by the sibling `verification` element.
+The `claims` element MAY also contain other claims provided the value of the respective claim was verified in the verification process represented by the sibling `verification` element.
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
 
@@ -260,7 +260,7 @@ OPs can deliver `verified_claims` in various ways.
 
 A `verified_claims` element can be added to a OpenID Connect UserInfo response or an ID Token.
 
-OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspections responses, either in plain JSON or JWT-protected format.
+OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
 
 An OP or AS MAY also include `verified_claims` in the beforementioned assertions as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
 
@@ -321,7 +321,7 @@ Claim, but a Claim cannot have more than one associated purpose.
 
 `purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
 longer than 300 characters. If this rule is violated, the authentication
-request MUST fail and the OP returns an error `invalid_request` to the RP.
+request MUST fail and the OP return an error `invalid_request` to the RP.
 The OP MUST display this purpose in the respective user consent screen(s)
 in order to inform the user about the designated use of the data to be
 transferred or the authorization to be approved. If the parameter `purpose`
@@ -349,9 +349,9 @@ Elements within `verification` are requested by adding the respective element as
 
 It requests the trust framework the OP complies with and the date of the verification of the user claims.
 
-The RP MUST explicitely request any data it wants the OP to add to the `verification` element. 
+The RP MUST explicitly request any data it wants the OP to add to the `verification` element.
 
-Consequently, the RP MUST dig one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `id_document`.
+Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `id_document`.
 
 <{{examples/request/verification_deeper.json}}
 
@@ -367,7 +367,7 @@ The RP MAY also request certain data within the `document` element to be present
 
 ### Error Handling
 
-It is at the discretion of the OP to decide whether the requested verification data is provided to the RP. An OP MUST NOT return an error in case it cannot return verification data requested, even if it was marked as essential, regardless of whether they are not available or because the End-User did not authorize their release.
+The OP has the discretion to decide whether the requested verification data is to be provided to the RP. An OP MUST NOT return an error in case it cannot return a requested verification data, even if it was marked as essential, regardless of the data being unavailable or the End-User not authorizing its release.
 
 ## Defining further constraints on Verification Data {#constraintedclaims}
 
@@ -381,7 +381,7 @@ The following example shows that the RP wants to obtain an attestation based on 
 
 <{{examples/request/verification_aml.json}}
 
-In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain user, the OP MUST NOT return an error, but not deliver at all the `verified_claims` claim instead.
+In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain user, the OP MUST NOT return an error, but instead not deliver at all the `verified_claims` claim.
 
 The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available verified/verification data that does not match these constraints.
 
@@ -560,7 +560,7 @@ The confidentiality of all user data exchanged between the protocol parties MUST
 
 This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
-Each party defining such identifier MUST ensure the collision resistance of this identifers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.  
+Each party defining such identifier MUST ensure the collision resistance of this identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
 
 The eKYC and Identity Assurance Working Group maintains a wiki page[@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
@@ -874,9 +874,9 @@ The technology described in this specification was made available from contribut
    -09
  
    * `verified_claims` element may contain one or more verified claims objects
-   * individual assertion may contain `verified_claims` elements in assertion the itself and any aggregated or distributed claim set it includes or refers to, respectively
-   * cut out all definitions of pre-defined values for trust frameworks, id documents and verification methods and established wiki page as non-normative overview 
-   * clarified and simplified request syntax 
+   * an individual assertion may contain `verified_claims` elements in the assertion itself and any aggregated or distributed claims sets it includes or refers to, respectively
+   * moved all definitions of pre-defined values for trust frameworks, id documents and verification methods to a wiki page as non-normative overview
+   * clarified and simplified request syntax
    * reduced mandatory requirement `verified_claims` to bare minimum
    * removed JSON schema from draft and added reference to JSON schema file instead
    * added request JSON schema
