@@ -2,7 +2,7 @@
 title = "OpenID Connect for Identity Assurance 1.0"
 abbrev = "openid-connect-4-identity-assurance-1_0"
 ipr = "none"
-workgroup = "connect"
+workgroup = "eKYC-IDA"
 keyword = ["security", "openid", "identity assurance", "ekyc"]
 
 [seriesInfo]
@@ -861,7 +861,7 @@ We would like to thank Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa K
 
 # Notices
 
-Copyright (c) 2019 The OpenID Foundation.
+Copyright (c) 2020 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
