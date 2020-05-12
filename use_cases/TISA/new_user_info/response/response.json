@@ -9,6 +9,9 @@
           "given_name":"Max",
           "middle_name": [ "Johan", "Wolfgang"],
           "family_name":"Meier",
+          "previous_name": [ { "given_name":"Maxine",
+            "middle_name": [ "Joan"],
+            "family_name": "Meier"} ],
           "birthdate":"1956-01-28",
           "place_of_birth":{  
              "country":"DE",
@@ -18,7 +21,7 @@
           "national_identifier": { 
               "NINO":"GH 78 67 34 C",
               "HealthID":"12345678"
-          }
+          },
           "address":{  
              "locality":"Maxstadt",
              "postal_code":"12344",

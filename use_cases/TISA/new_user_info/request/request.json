@@ -13,15 +13,11 @@
                },
             "birthdate":{"essential": true},
             "current_address":{"essential": true},
-            "NINO":null,
+            "national_identifier":null,
             "contact_details": null,
-            "previous_name": null,
+            "previous_name": [ null ],
             "previous_address": [ null ]
             }
        }
     }
- }
- 
-
-
-
+}
