@@ -1,0 +1,27 @@
+{
+    "userinfo":{
+       "verified_claims":{
+          "verification": {
+             "trust_framework": null
+          },
+          "claims":{  
+            "name":{ 
+               "title":null,
+               "given_name":{"essential": true},
+               "middle_name": [ null ],
+               "family_name":{"essential": true}
+               },
+            "birthdate":{"essential": true},
+            "current_address":{"essential": true},
+            "NINO":null,
+            "contact_details": null,
+            "previous_name": null,
+            "previous_address": [ null ]
+            }
+       }
+    }
+ }
+ 
+
+
+

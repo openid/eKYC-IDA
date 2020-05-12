@@ -1,0 +1,52 @@
+{  
+    "verified_claims":{  
+       "verification":{  
+          "trust_framework":"tisa_aml",
+          "time":"2012-04-23T18:25:43.511+01",
+          "verification_process":"676q3636461467647q8498785747q487"
+       },
+       "claims":{  
+          "given_name":"Max",
+          "middle_name": [ "Johan", "Wolfgang"],
+          "family_name":"Meier",
+          "birthdate":"1956-01-28",
+          "place_of_birth":{  
+             "country":"DE",
+             "locality":"Musterstadt"
+          },
+          "nationality":"DE",
+          "national_identifier": { 
+              "NINO":"GH 78 67 34 C",
+              "HealthID":"12345678"
+          }
+          "address":{  
+             "locality":"Maxstadt",
+             "postal_code":"12344",
+             "country":"DE",
+             "street_address":"An der Sanddüne 22",
+             "start_date": "1982-06-27"
+          },
+          "previous_addresses": [
+              { "address":{  
+                "locality":"Cologne",
+                "postal_code":"65321",
+                "country":"DE",
+                "street_address":"An der Sanddüne 22",
+                "start_date": "1979-01-27",
+                "end_date": "1982-06-27"
+             }
+            },
+             { "address":{  
+                "locality":"Dresden",
+                "postal_code":"25321",
+                "country":"DE",
+                "street_address":"An der Sanddüne 22",
+                "start_date": "1976-01-27",
+                "end_date": "1979-01-27"
+             }
+            }
+          ]
+       }
+    }
+ }
+

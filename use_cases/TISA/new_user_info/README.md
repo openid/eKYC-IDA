@@ -8,36 +8,9 @@ An array of previous addresses is required
 
 A UK address format is required.
 
+Suggest use of "previous_addresses" array
+Suggest addition of "start_date" and "end_date" as attributes of address
+Suggest array of "national_identifier" containing a list of identifiers that are requested
+
 NINO is required (for support for multiple user unique IDs)
-
-Example request:
-
-       "claims":{  
-            "name"{ 
-               "title":null,
-               "given_name":{"essential": true},
-               [ middle_name: null ],
-               "family_name":{"essential": true}
-               }
-            "birthdate":{"essential": true},
-            "current_address":{"essential": true},
-            "NINO":null,
-            "contact_details"';null',
-            "previous_name”: null,
-            [ "previous_address”:null ],
-              }
-
-Example response:
-
-   "claims":{  
-         "name"{ 
-            "title":"Miss" ,
-            "given_name":"Rita",
-             [ middle_name:"Jane" ] ,
-            },
-          "birthdate":"1972-05-12", 
-         "current_address":{ // complex UK address to be agreed //, 
-        "NINO":"GH 78 67 34 C"
-       }
-
 
