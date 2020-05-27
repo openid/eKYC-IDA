@@ -1,7 +1,7 @@
 {
-  "iss": "https://https://self-issued.me",
+  "iss": "https://self-issued.me",
   "sub": "248289761001",
-  "username": "superman445",
+  "preferred_username": "superman445",
   "_claim_names": {
     "verified_claims": [
       "src1",
