@@ -333,11 +333,21 @@ Example:
 
 <{{examples/request/purpose.json}}
 
-It is possible requesting different verification methods for different claims. To do that, instead of sending `verified_claims` as an object, include more than one object inside an array.
+It is possible as well, requesting different trust frameworks and verification methods for different claims. To do that, instead of sending `verified_claims` as an object, include more than one object inside an array.
 
 Example:
 
-<{{examples/request/verification_claims_trust_frameworks.json}}
+<{{examples/request/verification_claims_by_trust_frameworks.json}}
+
+When requesting multiple verifications as described above, if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
+
+On the other hand, if the client specifies multiple `trust_framework` using `values`, the OP will deliver the value along with the respective `trust_framework` value.
+
+Example:
+
+<{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}} 
+
+In above request, RP asks for family and given name either under trust framework `gold` with an evidence of type `id_document` or under trust framework `silver` or `bronze` but with an evidence `utility_bill`.
 
 ### Error Handling
 
@@ -882,10 +892,6 @@ The technology described in this specification was made available from contribut
    * Editorial improvements
    * Improved JSON schema (alignment with spec and bug fix)
    
-   -10
- 
-   * `verified_claims` element within request may contain one or more objects
-  
    -09
  
    * `verified_claims` element may contain one or more verified claims objects
