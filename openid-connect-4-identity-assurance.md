@@ -7,7 +7,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid-connect-4-identity-assurance-1_0-10"
+value = "openid-connect-4-identity-assurance-1_0-12"
 status = "standard"
 
 [[author]]
@@ -105,6 +105,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`birth_middle_name`| string | End-User’s middle name when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.|
 |`salutation`| string | End-User’s salutation, e.g. “Mr.”|
 |`title`| string | End-User’s title, e.g. “Dr.”|
+|`msisdn`| string | End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
 
 ## txn Claim
 
@@ -748,6 +749,16 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
+<reference anchor="E.164" target="https://www.itu.int/rec/T-REC-E.164/en">
+  <front>
+    <title>Recommendation ITU-T E.164</title>
+    <author>
+      <organization>ITU-T</organization>
+    </author>
+    <date year="2010" month="11"/>
+  </front>
+</reference>
+
 # IANA Considerations
 
 ## JSON Web Token Claims Registration
@@ -853,11 +864,25 @@ Change Controller:
 Specification Document(s): 
 : Section [Claims](#claims) of this document
 
+Claim Name:
+: `msisdn`
+
+Claim Description:
+: End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
+
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
 # Acknowledgements {#Acknowledgements}
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Bjorn Hjelm, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -871,6 +896,10 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
+   -12
+
+   * added `msisdn` claim
+  
    -10
 
    * Editorial improvements
