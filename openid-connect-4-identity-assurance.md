@@ -7,7 +7,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid-connect-4-identity-assurance-1_0-10"
+value = "openid-connect-4-identity-assurance-1_0-12"
 status = "standard"
 
 [[author]]
@@ -349,7 +349,7 @@ Elements within `verification` are requested by adding the respective element as
 
 It requests the trust framework the OP complies with and the date of the verification of the user claims.
 
-The RP MUST explicitly request any data it wants the OP to add to the `verification` element.
+The RP MUST explicitly request any data it wants the OP to add to the `verification` element. 
 
 Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `id_document`.
 
@@ -364,6 +364,8 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
+
+The OP MUST only send verification data if requested by the RP. It MAY omit verification data at its discretion even if requested by the RP.
 
 ### Error Handling
 
@@ -870,6 +872,10 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -12
+   
+   * clarified that OP MUST not provide more verification data than requested by the RP
 
    -10
 
