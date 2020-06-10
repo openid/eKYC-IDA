@@ -296,6 +296,10 @@ Note: any assertion provided by an OP or AS including aggregated or distributed 
 
 # Requesting Verified Claims
 
+Verified Claims and related verification data can be requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+As a general rule, the OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
+
 ## Requesting End-User Claims {#req_claims}
 
 Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
@@ -364,8 +368,6 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
-
-The OP MUST only send verification data if requested by the RP. It MAY omit verification data at its discretion even if requested by the RP.
 
 ### Error Handling
 
