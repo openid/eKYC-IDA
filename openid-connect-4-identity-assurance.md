@@ -65,7 +65,7 @@ This specification defines the technical mechanisms to allow Relying Parties to 
 
 Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liabilty), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules"). 
 
-Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfil different legal and commercial requirements in jurisdictations around the world. Consequently, such requirements will be discussed in this specification as examples. 
+Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfil different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples. 
 
 # Requirements
 
