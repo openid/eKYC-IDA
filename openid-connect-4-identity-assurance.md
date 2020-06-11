@@ -39,7 +39,7 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statememt about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong identity assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
 
-In such use cases, the Relying Partie (RP) needs to know the rules applied by the OpenID Connect Provider (OP) or any other trusted source to obtain, verify, and maintain the Claims about the End-User, along with process-related information and evidence used to verify the user Claims.
+In such use cases, the Relying Party (RP) needs to know the rules the OpenID Connect Provider (OP) or any other trusted source complies with when obtaining, verifying, and maintaining the Claims about the End-User, along with process-related information and evidence used to verify the user Claims.
 
 The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
@@ -55,7 +55,7 @@ This section defines some terms relevant to the topic covered in this document, 
 
 * Identify Verification - process conducted by the OP or a claim provider to verify the user's identity.
 
-* Identity Assurance - process in which the OP or a claim provider affirms identity data of a certain user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+* Identity Assurance - process in which the OP or a claim provider asserts identity data of a certain user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
 
 * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular user account was verified in the course of an identity verification process.
 
@@ -65,7 +65,7 @@ This specification defines the technical mechanisms to allow Relying Parties to 
 
 Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liabilty), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules"). 
 
-Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfil different legal and commercial requirements in jurisdictations around world. Consequently, such requirements will be discussed in this specification as examples. 
+Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfil different legal and commercial requirements in jurisdictations around the world. Consequently, such requirements will be discussed in this specification as examples. 
 
 # Requirements
 
@@ -140,7 +140,7 @@ A following example
 
 <{{examples/response/verified_claims_simple.json}}
 
-would assure to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `ial_example_gold`.
+would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `ial_example_gold`.
 
 The normative definition is given in the following.
 
