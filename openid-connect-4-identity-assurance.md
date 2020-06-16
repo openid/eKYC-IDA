@@ -339,12 +339,6 @@ Example:
 
 <{{examples/request/purpose.json}}
 
-### Error Handling
-
-If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
-
-Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
-
 ## Requesting Verification Data {#req_verification}
 
 RPs request verification data in the same way they request claims about the end-user. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
@@ -383,7 +377,11 @@ The RP MAY limit the possible values of the elements `trust_framework`, `evidenc
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
-The following example shows that the RP wants to obtain claims verified in accordance with the German Anti Money Laundering Law (trust framework `de_aml`) and limited to users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`.
+The following example shows how a RP may request claims either complying with trust framework `gold` or `silver`.
+
+<{{examples/request/verification_claims_different_trust_frameworks.json}} 
+
+The following example shows that the RP wants to obtain an attestation based on the German Anti Money Laundering Law (trust framework `de_aml`) and limited to users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`.
 
 <{{examples/request/verification_aml.json}}
 
@@ -402,6 +400,28 @@ The following is an example of a request for Claims where the verification proce
 <{{examples/request/verification_max_age.json}}
 
 The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
+
+### Requesting claims sets with different verification requirements
+
+It is also possible to request different trust frameworks and verification methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
+
+The following example illustrates this functionality.
+
+<{{examples/request/verification_claims_by_trust_frameworks.json}}
+ 
+When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
+
+The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
+
+<{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}} 
+
+In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `id_document` or under trust framework `silver` or `bronze` but with an evidence `utility_bill`.
+
+### Error Handling
+
+If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
+
+Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
 
 # Examples
 
@@ -861,7 +881,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Stéphane Mouy, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Stéphane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -876,8 +896,10 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -11
-   * clarified scope of this specification
   
+   * Added support for requesting different sets of claims with different requirements regarding trust_framework and other verification elements (e.g. evidence)
+   * clarified scope of this specification
+
    -10
 
    * Editorial improvements
