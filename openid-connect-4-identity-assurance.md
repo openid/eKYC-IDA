@@ -7,7 +7,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid-connect-4-identity-assurance-1_0-12"
+value = "openid-connect-4-identity-assurance-1_0-11"
 status = "standard"
 
 [[author]]
@@ -891,7 +891,7 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
-   -12
+   -11
    * Added support for requesting different sets of claims with different requirements regarding trust_framework and other verification elements (e.g. evidence)
 
    -10
