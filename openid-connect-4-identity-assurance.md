@@ -33,21 +33,21 @@ organization="yes.com"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person in compliance with a certain law.
+This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person.
 
 {mainmatter}
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] to address the use case of strong identity verification of a natural person in accordance with certain laws. Examples include Anti Money Laundering Laws, Telecommunication Acts, Anti Terror Laws, and regulations on trust services, such as eIDAS [@?eIDAS].
+This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statememt about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong identity assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
 
-In such use cases, the Relying Parties (RPs) need to know the assurance level of the Claims about the End-User attested by the OpenID Connect Providers (OPs) or any other trusted source, along with evidence related to the identity verification process.
+In such use cases, the Relying Party (RP) needs to understand the trustworhthiness or assurance level of the Claim about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the user Claims.
 
-The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to attest information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
+The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
-For example, the assurance an OP typically will be able to attest for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of a user, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
+For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of a user, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
 
-Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification proposes a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
+Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
 
 ## Terminology
 
@@ -57,27 +57,33 @@ This section defines some terms relevant to the topic covered in this document, 
 
 * Identify Verification - process conducted by the OP or a claim provider to verify the user's identity.
 
-* Identity Assurance - process in which the OP or a claim provider attests identity data of a certain user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+* Identity Assurance - process in which the OP or a claim provider asserts identity data of a certain user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
 
 * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular user account was verified in the course of an identity verification process.
 
-# Scope and Requirements
+# Scope
 
-The scope of the extension is to define a mechanism to assert verified Claims, in general, and to introduce new Claims about the End-User required in the identity assurance space; one example would be the place of birth.
+This specification defines the technical mechanisms to allow Relying Parties to request verified Claims and to enable OpenID Providers to provide Reyling Parties with verified Claims ("the tools"). 
+
+Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liabilty), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules"). 
+
+Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfil different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples. 
+
+# Requirements
 
 The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data and the evidence and the identity verification processes employed by the OP.
 
 This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation. 
 
-It is assumed that OPs operating under a suitable regulation can attest identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
+It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
 
 Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for a RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS.
 
 The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
-From a technical perspective, this means this specification allows the OP to attest verified Claims along with information about the respective trust framework (and assurance level), but also supports the externalization of information about the identity verification process.
+From a technical perspective, this means this specification allows the OP to provide verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be attested in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
+The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
 
 This extension is intended to be truly international and support identity assurance for different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, verification methods, and identity evidence.
 
@@ -87,7 +93,7 @@ For example, OpenID Connect [@!OpenID] defines Claims for representing family na
 
 In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension.
 
-Even for asserting verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as verified Claims.
+Even for representing verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as verified Claims.
 
 # Claims {#claims}
 
@@ -137,7 +143,7 @@ A following example
 
 <{{examples/response/verified_claims_simple.json}}
 
-would attest to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `ial_example_gold`.
+would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `ial_example_gold`.
 
 The normative definition is given in the following.
 
@@ -174,7 +180,7 @@ The `trust_framework` value determines what further data is provided to the RP i
 
 `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
-Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP attested the user's verified identity data towards an RP.
+Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP provided the user's verified identity data towards an RP.
 
 `evidence`: JSON array containing information about the evidence the OP used to verify the user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
@@ -291,7 +297,7 @@ The following example shows an ID token containing `verified_claims` from two di
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The OP MAY combine aggregated and distributed claims with `verified_claims` attested by itself (see (#op_attested_and_external_claims)).
+The OP MAY combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
 If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and a embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
@@ -482,9 +488,9 @@ The respective ID Token could be
 
 <{{examples/response/userinfo.id_token.json}}
 
-## OP-attested and External Claims {#op_attested_and_external_claims}
+## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
-This example shows how an OP can mix own claims and claims attested by  
+This example shows how an OP can mix own claims and claims provided by  
 external sources in a single ID token. 
 
 <{{examples/response/all_in_one.json}}
@@ -568,8 +574,6 @@ If the parameter `purpose` is not present in the request, the OP MAY utilize a d
 Note: In order to prevent injection attacks, the OP MUST escape the text appropriately before it will be shown in a user interface. The OP MUST expect special characters in the URL decoded purpose text provided by the RP. The OP MUST ensure that any special characters in the purpose text cannot be used to inject code into the web interface of the OP (e.g., cross-site scripting, defacing). Proper escaping MUST be applied by the OP. The OP SHALL NOT remove characters from the purpose text to this end.
 
 # Privacy Consideration {#Privacy}
-
-OP and RP MUST establish a legal basis before exchanging any personally identifiable information. It can be established upfront or in the course of the OpenID process.
 
 Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
 
@@ -904,7 +908,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Bjorn Hjelm, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.master
+We would like to thank Bjorn Hjelm, Stéphane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -920,8 +924,10 @@ The technology described in this specification was made available from contribut
 
 
    -11
+  
    * Added support for requesting different sets of claims with different requirements regarding trust_framework and other verification elements (e.g. evidence)
    * added `msisdn` claim
+   * clarified scope of this specification
 
    -10
 
