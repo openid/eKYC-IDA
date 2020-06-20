@@ -1,0 +1,50 @@
+{
+    "verified_claims":[
+      {
+        "verification": {
+          "trust_framework": "tisa_aml",
+          "time":"2019-04-23T18:25Z",
+          "verification_process":"513645-e44b-4951-942c-7091cf7d891d",
+          "evidence":{
+                "type":"id_document",
+                "method":"pipp",
+                "time": "2019-04-22T11:30Z",
+                "document":{
+                   "type":"passport",
+                   "number":"53554554",
+                   "date_of_expiry":"2025-04-22"
+                }
+            }
+        },
+        "claims": {
+          "given_name": "Max",
+          "family_name": "Meier",
+          "birthdate": "1956-01-28"
+        }
+      },
+      {
+        "verification":{
+          "trust_framework":"tisa_aml",
+          "time":"2019-04-23T18:25Z",
+          "verification_process":"f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
+          "evidence":[
+            {
+                "type":"utility_bill",
+                "provider":{
+                   "name":"South Water",
+                   "country":"UK",
+                   "region":"Hampshire",
+                   "street_address":"1 Beer Street"
+                },
+                "date":"2019-01-31"
+             }
+          ]
+        },
+        "claims":{
+            "given_name": "Maxwell",
+            "family_name": "Meier"
+          }
+      }
+    ]
+  }
+  

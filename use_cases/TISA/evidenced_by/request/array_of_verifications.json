@@ -1,0 +1,63 @@
+{
+    "userinfo": {
+        "verified_claims": [
+            {
+                "verification": {
+                    "trust_framework": 
+                    {
+                        "value":"tisa_aml"
+                    },
+                    "time": null,
+                    "evidence":[
+                        {
+                            "type":{
+                                "value":"id_document"
+                            },
+                            "method":{
+                                "value":"pipp"
+                            },
+                            "time": null,
+                            "document":{
+                                "type":{
+                                    "value":"passport"
+                                },
+                                "number":{
+                                    "value": null
+                                },
+                                "date_of_expiry":{
+                                    "value": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                "claims": {
+                    "given_name": null,
+                    "family_name": null,
+                    "birthdate": null 
+                }
+            },
+            {
+                "verification": {
+                    "trust_framework": {
+                        "value":"tisa_aml"
+                    },
+                    "evidence":[
+                        {
+                            "type":{
+                                "value":"utility_bill"
+                            },
+                            "provider": null,
+                            "date": null
+                        }
+                    ]
+                },
+                "claims": {
+                    "given_name": null,
+                    "family_name": null,
+                    "birthdate": null
+                }
+            }
+        ]
+    }
+}
