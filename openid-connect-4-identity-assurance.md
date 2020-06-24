@@ -300,7 +300,7 @@ Note: any assertion provided by an OP or AS including aggregated or distributed 
 
 Verified Claims and related verification data can be requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
 
-As a general rule, the OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
+Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
 
 ## Requesting End-User Claims {#req_claims}
 
