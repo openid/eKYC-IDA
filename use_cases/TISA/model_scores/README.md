@@ -11,12 +11,12 @@ In the TISA AML standard it would score:
 Validation: 3
 Verification: 2
 
-Suggest a new tag called “trust_framework_model_element_scores” that contains sub-tags to convey this information. 
+Suggest a new tag called “proofing_scores” that contains sub-tags to convey this information. 
 
 Response Example: 
 
-       "trust_framework_model_element_scores”: 
+       "proofing_scores”: 
                   [ 
-                     { "trust_framework_model_element":"validation", "score":"2"},
-                     { "trust_framework_model_element":"verification", "score":"2"}
+                     { "proofing_score":"validation", "score":"2"},
+                     { "proofing_score":"verification", "score":"2"}
                   ], // Allows combination for sripp and online banking logon //
