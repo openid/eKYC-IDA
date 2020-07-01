@@ -305,6 +305,10 @@ Note: any assertion provided by an OP or AS including aggregated or distributed 
 
 # Requesting Verified Claims
 
+Verified Claims and related verification data can be requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
+
 ## Requesting End-User Claims {#req_claims}
 
 Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
@@ -352,7 +356,7 @@ Elements within `verification` are requested by adding the respective element as
 
 It requests the trust framework the OP complies with and the date of the verification of the user claims.
 
-The RP MUST explicitly request any data it wants the OP to add to the `verification` element.
+The RP MUST explicitly request any data it wants the OP to add to the `verification` element. 
 
 Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `id_document`.
 
