@@ -1,0 +1,14 @@
+{  
+    "userinfo":{  
+       "verified_claims":{  
+          "verification":{  
+             "trust_framework":{  
+                "value":"tisa_aml"
+             },
+             "verification_result":null
+          },
+          "claims":{  
+             "name": null
+          }
+       }
+    }

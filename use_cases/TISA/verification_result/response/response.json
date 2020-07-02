@@ -1,0 +1,18 @@
+{  
+    "verified_claims":{  
+       "verification":{  
+          "trust_framework":"tisa_aml",
+          "time":"2012-04-23T18:25:43.511+01",
+          "verification_process":"676q3636461467647q8498785747q487",
+          "verification_result": "pending"
+       },
+       "claims":{  
+          "name": { 
+             "title":"Miss",
+             "given_name":"Rita",
+             "family_name":"Shandu"
+          }
+       }
+    }
+ }
+ 
