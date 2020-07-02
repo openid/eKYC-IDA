@@ -1,4 +1,4 @@
-A new tag to incite the “status” of the evidence.
+A new tag to indicate the “status” of the evidence.
 
 The example form the TISA project is “pending”. A document may be scanned for verifcation. The verification process may be offline and involve a human operator assessing the scanned document for authenticity and cross checking this to a selfie. 
 
