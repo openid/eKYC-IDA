@@ -1,4 +1,8 @@
-New tag to request and communicate the result go the verification request to the IdP.    
+New tag to request and communicate the status of the verification request from the IdP to the RP.
+
+Some the status indicate an interim state: pending, part verified.
+Some the the status indidate a currently final state: verified
+Other status indicate a result of a user decision: not_consented.
 
 Request format:
 "verification_result":null,   // return the verification result from the IdP //
