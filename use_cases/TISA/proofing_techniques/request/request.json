@@ -1,0 +1,14 @@
+{
+    "userinfo":{
+       "verified_claims":{
+          "verification": {
+             "trust_framework": null,
+             "evidence": null
+          },
+          "claims":{  
+               "given_name":{"essential": true},
+               "family_name":{"essential": true}
+               }
+            }
+       }
+    }
