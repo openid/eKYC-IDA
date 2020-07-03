@@ -12,4 +12,4 @@ Expired may used in the TISA project at point of periodic revalidation by the us
 
 Example response:
 
-               "status":"pending",
+               "evidence_status":"pending",
