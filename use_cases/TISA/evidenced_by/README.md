@@ -1,3 +1,6 @@
+## TISA Evidenced by README.md 
+by Nick Mothershaw
+
 A way of indicating which pieces of evidence provided a particular user_info claim. 
 
 This allows traceability of where each claim came from. 
@@ -19,8 +22,9 @@ Example response:
             { "title":"Miss", "evidenced_by" [ "txn":"676q3636461467647q8498785747q487" , "txn":"676q3636461467647q8498785747q487" ] },
             { "given_name":"Rita", "evidenced_by" [ "txn":"676q3636461467647q8498785747q487" , "txn":"676q3636461467647q8498785747q487" ] },
             { [ middle_name:"Jane" ], "evidenced_by" [ "txn":"676q3636461467647q8498785747q487" ] },
-            {"family_name":"Shandu”, "evidenced_by" [ "txn":"676q3636461467647q8498785747q487" , "txn":"676q3636461467647q8498785747q487" ] },
+            {"family_name":"Shanduï¿½, "evidenced_by" [ "txn":"676q3636461467647q8498785747q487" , "txn":"676q3636461467647q8498785747q487" ] },
             },
          { "birthdate":"1972-05-12", "evidenced_by" [ "txn":"676q3636461467647q8498785747q487" , "txn":"676q3636461467647q8498785747q487" ] }, 
          { "current_address":{ // complex UK address to be agreed // }, "evidenced_by" [ "txn":"676q3636461467647q8498785747q487" , "txn":"676q3636461467647q8498785747q487" ] },
 ```
+
