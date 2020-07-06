@@ -749,7 +749,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-10.json">
+<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-11.json">
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
     <author>
@@ -759,7 +759,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-10.json">
+<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-11.json">
   <front>
     <title>JSON Schema for requesting verified_claims</title>
     <author>
@@ -925,7 +925,6 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
-
 
    -11
   
