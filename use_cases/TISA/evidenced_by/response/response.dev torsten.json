@@ -1,0 +1,110 @@
+{
+   "verified_claims": [
+      {
+         "verification": {
+            "trust_framework": "de_aml",
+            "time": "2012-04-23T18:25Z",
+            "verification_process": "513645-e44b-4951-942c-7091cf7d891d",
+            "evidence": [
+               {
+                  "type": "id_document",
+                  "method": "pipp",
+                  "evidence_ref": "676q3636461467647",
+                  "time": "2012-04-22T11:30Z",
+                  "document": {
+                     "type": "de_erp_replacement_idcard",
+                     "issuer": {
+                        "name": "Stadt Augsburg",
+                        "country": "DE"
+                     },
+                     "number": "53554554",
+                     "date_of_issuance": "2010-04-23",
+                     "date_of_expiry": "2020-04-22"
+                  }
+               },
+               {
+                  "type": "utility_bill",
+                  "evidence_ref": "q8498785747q487",
+                  "provider": {
+                     "name": "Stadtwerke Musterstadt",
+                     "country": "DE",
+                     "region": "Thüringen",
+                     "street_address": "Energiestrasse 33"
+                  },
+                  "date": "2013-01-31"
+               }
+            ]
+         },
+         "claims": {
+            "given_name": "Max",
+            "family_name": "Meier",
+            "birthdate": "1956-01-28",
+            "place_of_birth": {
+               "country": "DE",
+               "locality": "Musterstadt"
+            },
+            "address": {
+               "locality": "Maxstadt",
+               "postal_code": "12344",
+               "country": "DE",
+               "street_address": "An der Sanddüne 22"
+            }
+         }
+      },
+      {
+         "verification": {
+            "trust_framework": "de_aml",
+            "time": "2012-04-23T18:25Z",
+            "verification_process": "513645-e44b-4951-942c-7091cf7d891d",
+            "evidence": [
+               {
+                  "type": "id_document",
+                  "method": "pipp",
+                  "evidence_ref": "676q3636461467647",
+                  "time": "2012-04-22T11:30Z",
+                  "document": {
+                     "type": "de_erp_replacement_idcard",
+                     "issuer": {
+                        "name": "Stadt Augsburg",
+                        "country": "DE"
+                     },
+                     "number": "53554554",
+                     "date_of_issuance": "2010-04-23",
+                     "date_of_expiry": "2020-04-22"
+                  }
+               }
+            ]
+         },
+         "claims": {
+            "nationalities": [
+               "DE"
+            ]
+         }
+      },
+      {
+         "verification": {
+            "trust_framework": "de_aml",
+            "time": "2012-04-23T18:25Z",
+            "verification_process": "513645-e44b-4951-942c-7091cf7d891d",
+            "evidence": [
+               {
+                  "type": "utility_bill",
+                  "evidence_ref": "q8498785747q487",
+                  "provider": {
+                     "name": "Stadtwerke Musterstadt",
+                     "country": "DE",
+                     "region": "Thüringen",
+                     "street_address": "Energiestrasse 33"
+                  },
+                  "date": "2013-01-31"
+               }
+            ]
+         },
+         "claims": {
+            "nationalities": [
+               "AU"
+            ]
+         }
+      }
+   ]
+}
