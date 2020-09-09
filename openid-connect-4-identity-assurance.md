@@ -55,7 +55,7 @@ This section defines some terms relevant to the topic covered in this document, 
 
 * Identity Proofing - process in which a user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful identity assurance level.
 
-* Identify Verification - process conducted by the OP or a claim provider to verify the user's identity.
+* Identity Verification - process conducted by the OP or a claim provider to verify the user's identity.
 
 * Identity Assurance - process in which the OP or a claim provider asserts identity data of a certain user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
 
@@ -63,21 +63,21 @@ This section defines some terms relevant to the topic covered in this document, 
 
 # Scope
 
-This specification defines the technical mechanisms to allow Relying Parties to request verified Claims and to enable OpenID Providers to provide Reyling Parties with verified Claims ("the tools"). 
+This specification defines the technical mechanisms to allow Relying Parties to request verified Claims and to enable OpenID Providers to provide Relying Parties with verified Claims ("the tools").
 
-Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liabilty), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules"). 
+Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
 
-Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfil different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples. 
+Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
 
 # Requirements
 
-The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data and the evidence and the identity verification processes employed by the OP.
+The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data, the evidence and the identity verification processes employed by the OP.
 
 This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation. 
 
 It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
 
-Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for a RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS.
+Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS.
 
 The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
@@ -85,7 +85,7 @@ From a technical perspective, this means this specification allows the OP to pro
 
 The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
 
-This extension is intended to be truly international and support identity assurance for different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, verification methods, and identity evidence.
+This extension is intended to be truly international and support identity assurance across different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, verification methods, and identity evidence.
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
@@ -108,12 +108,12 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 |||`locality`: String representing city or locality component.|
 |`nationalities`| array | End-User’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".|
-|`birth_family_name`| string | End-User’s family name when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.|
-|`birth_given_name`| string | End-User’s given name when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.|
-|`birth_middle_name`| string | End-User’s middle name when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.|
+|`birth_family_name`| string | End-User’s family name when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.|
+|`birth_given_name`| string | End-User’s given name when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.|
+|`birth_middle_name`| string | End-User’s middle name when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.|
 |`salutation`| string | End-User’s salutation, e.g. “Mr.”|
 |`title`| string | End-User’s title, e.g. “Dr.”|
-|`msisdn`| string | End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
+|`msisdn`| string | End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
 
 ## txn Claim
 
@@ -139,7 +139,7 @@ Note: The mechanism to obtain the transaction details from the OP and their form
 
 This specification defines a generic mechanism to add verified claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims` to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these claims. This way RPs cannot mix up verified and unverified Claims and accidentally process unverified Claims as verified Claims.
 
-A following example
+The following example
 
 <{{examples/response/verified_claims_simple.json}}
 
@@ -267,7 +267,7 @@ Claim names MAY be annotated with language tags as specified in Section 5.2 of t
 
 OPs can deliver `verified_claims` in various ways. 
 
-A `verified_claims` element can be added to a OpenID Connect UserInfo response or an ID Token.
+A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
 
 OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
 
@@ -280,7 +280,7 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `verified_claims` element containing one or more verified_claims objects.
 
 Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
-The way a RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.  
+The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
 
 The following are examples of assertions including verified claims as aggregated claims 
 
@@ -384,7 +384,7 @@ The RP MAY limit the possible values of the elements `trust_framework`, `evidenc
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
-The following example shows how a RP may request claims either complying with trust framework `gold` or `silver`.
+The following example shows how an RP may request claims either complying with trust framework `gold` or `silver`.
 
 <{{examples/request/verification_claims_different_trust_frameworks.json}} 
 
@@ -838,7 +838,7 @@ Claim Name:
 : `birth_family_name`
 
 Claim Description:
-: Family name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the family name later in life for any reason.
+: Family name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -850,7 +850,7 @@ Claim Name:
 : `birth_given_name`
 
 Claim Description: 
-: Given name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the given name later in life for any reason.
+: Given name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.
 
 Change Controller: 
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -862,7 +862,7 @@ Claim Name:
 : `birth_middle_name`
 
 Claim Description:
-: Middle name someone has when he or she is born, or at least from the time he or she is a child. This term can be used by a person who changes the middle name later in life for any reason.
+: Middle name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
