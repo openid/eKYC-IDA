@@ -23,12 +23,12 @@ To run the tests, follow these instructions:
 * Build the test command using docker: 
 
 ```
-docker build -t openid.net/tests-oidc4ia tests
+docker build -t openid.net/tests-oidc4ida tests
 ```
 
 * Run the tests: 
 
-```docker run -v `pwd`:/data openid.net/tests-oidc4ia```
+```docker run -v `pwd`:/data openid.net/tests-oidc4ida```
 
 ### Contribution guidelines ###
 
