@@ -583,9 +583,19 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security Considerations {#Security}
 
-The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions.
+This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
+web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
+in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
 
-The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer.
+This specification does not define or require a particular security profile since there exists or evolve several security 
+profiles and implementers shall be given flexibility to select the security profile suiting their needs the best. Implementers 
+might consider [@?FAPI-1-RW] or [@?FAPI-2-BL].
+
+The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
+The Claims source MUST therefore cryptographically sign all assertions.
+
+The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
+methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
@@ -635,6 +645,26 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization> Illumila </organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
+  <front>
+    <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
+<reference anchor="FAPI-2-BL" target="https://bitbucket.org/openid/fapi/src/master/FAPI_2_0_Baseline_Profile.md">
+  <front>
+    <title>FAPI 2.0 Baseline Profile </title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
   </front>
 </reference>
 
