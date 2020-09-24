@@ -192,7 +192,7 @@ The following types of evidence are defined:
 
 * `id_document`: Verification based on any kind of government issued identity document.
 * `utility_bill`: Verification based on a utility bill.
-* `electronic_signature`: Verification based on an eIDAS Qualified Electronic Signature.
+* `electronic_signature`: Verification based on an electronic signature.
 
 #### id_document
 
