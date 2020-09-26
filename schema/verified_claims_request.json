@@ -2,6 +2,22 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://openid.net/schemas/verified_claims_request-11.json",
   "definitions": {
+    "at_least_age": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer"
+        }
+      }
+    },
+    "at_most_age": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer"
+        }
+      }
+    },
     "simple_element": {
       "oneOf": [
         {
@@ -14,8 +30,8 @@
               "type": "boolean"
             },
             "purpose": {
-              "type": "string" ,
-              "minLength": 3 ,
+              "type": "string",
+              "minLength": 3,
               "maxLength": 300
             }
           }
@@ -44,8 +60,8 @@
               "type": "boolean"
             },
             "purpose": {
-              "type": "string" ,
-              "minLength": 3 ,
+              "type": "string",
+              "minLength": 3,
               "maxLength": 300
             }
           }
@@ -68,8 +84,8 @@
               "type": "boolean"
             },
             "purpose": {
-              "type": "string" ,
-              "minLength": 3 ,
+              "type": "string",
+              "minLength": 3,
               "maxLength": 300
             }
           }
@@ -117,8 +133,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -177,8 +192,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -221,8 +235,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         }
       ]
     },
@@ -278,9 +291,19 @@
         "claims": {
           "type": "object",
           "minProperties": 1,
+          "properties": {
+            "at_least_age": {
+              "$ref": "#/definitions/at_least_age"
+            },
+            "at_most_age": {
+              "$ref": "#/definitions/at_most_age"
+            }
+          },
           "additionalProperties": {
-            "anyOf":[
-              {"type": "null"},
+            "anyOf": [
+              {
+                "type": "null"
+              },
               {
                 "type": "object",
                 "properties": {
@@ -288,8 +311,8 @@
                     "type": "boolean"
                   },
                   "purpose": {
-                    "type": "string" ,
-                    "minLength": 3 ,
+                    "type": "string",
+                    "minLength": 3,
                     "maxLength": 300
                   }
                 }
@@ -309,6 +332,12 @@
     "userinfo": {
       "type": "object",
       "properties": {
+        "at_least_age": {
+          "$ref": "#/definitions/at_least_age"
+        },
+        "at_most_age": {
+          "$ref": "#/definitions/at_most_age"
+        },
         "verified_claims": {
           "$ref": "#/definitions/verified_claims"
         }
@@ -317,6 +346,12 @@
     "id_token": {
       "type": "object",
       "properties": {
+        "at_least_age": {
+          "$ref": "#/definitions/at_least_age"
+        },
+        "at_most_age": {
+          "$ref": "#/definitions/at_most_age"
+        },
         "verified_claims": {
           "$ref": "#/definitions/verified_claims"
         }

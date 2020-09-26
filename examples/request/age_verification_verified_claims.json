@@ -1,0 +1,14 @@
+{
+    "userinfo": {
+        "verified_claims": {
+            "verification": {
+                "trust_framework": null
+            },
+            "claims": {
+                "at_least_age": {
+                    "value": 21
+                }
+            }
+        }
+    }
+}

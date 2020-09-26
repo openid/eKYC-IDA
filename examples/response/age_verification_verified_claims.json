@@ -1,0 +1,10 @@
+{
+    "verified_claims": {
+        "verification": {
+            "trust_framework": "ial_example_gold"
+        },
+        "claims": {
+            "at_least_age": 21
+        }
+    }
+}

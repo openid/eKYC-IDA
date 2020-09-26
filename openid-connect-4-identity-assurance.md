@@ -115,6 +115,26 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`title`| string | End-User’s title, e.g. “Dr.”|
 |`msisdn`| string | End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
 
+## Age Verification
+
+This specification defines the following claims to support age verification use cases in a privacy preserving manner:
+
+`at_least_age`: the value is a JSON number as a non-negative integer that indicates a minimum age that the subject is. 
+
+`at_most_age`: the value is a JSON number as a non-negative integer that indicates a minimaximum age that the subject is. 
+
+The RP MUST always request a certain value for these claims. In case of the claims parameter, the `value` field is used for that purpose. 
+
+For example, the RP MAY ask whether the End-User is at least 21 years old by setting the `value` at the claim `at_least_age` to 21 as shown in the following
+
+<{{examples/request/age_verification.json}}
+
+If the user fulfils the constraint defined by the `value`, the OP asserts this as the claim as show in the following
+
+<{{examples/response/age_verification.json}}
+
+If the user does not fulfill the constraint, the claim is omited in the respective assertion. 
+
 ## txn Claim
 
 Strong identity verification typically requires the participants to keep an audit trail of the whole process.
@@ -345,6 +365,12 @@ localization, see (#purpose).
 Example:
 
 <{{examples/request/purpose.json}}
+
+### Age Verification
+
+The following example shows how the claims for age verification can be used in conjunction with `verified_claims`.
+
+<{{examples/request/age_verification_verified_claims.json}}
 
 ## Requesting Verification Data {#req_verification}
 
@@ -895,6 +921,20 @@ Specification Document(s):
 : Section [Claims](#claims) of this document
 
 Claim Name:
+: `at_least_age`
+
+Claim Description:
+: the value is a JSON number as a non-negative integer that indicates a minimum age that the subject is.
+
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name:
 : `msisdn`
 
 Claim Description:
@@ -908,11 +948,25 @@ Change Controller:
 Specification Document(s): 
 : Section [Claims](#claims) of this document
 
+Claim Name:
+: `at_most_age`
+
+Claim Description:
+: the value is a JSON number as a non-negative integer that indicates a minimaximum age that the subject is.
+
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
 # Acknowledgements {#Acknowledgements}
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Brian Campbell Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -925,6 +979,9 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   - 12
+   * added claims for age verification
 
    -11
   

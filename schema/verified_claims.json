@@ -2,6 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://openid.net/schemas/verified_claims-11.json",
   "definitions": {
+    "at_least_age": {
+      "type": "integer"
+    },
+    "at_most_age": {
+      "type": "integer"
+    },   
     "date_type": {
       "type": "string",
       "pattern": "^(?:(?:(?:(?:(?:[1-9]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:[2468][048]|[13579][26])00))(\\/|-|\\.)(?:0?2\\1(?:29)))|(?:(?:[1-9]\\d{3})(\\/|-|\\.)(?:(?:(?:0?[13578]|1[02])\\2(?:31))|(?:(?:0?[13-9]|1[0-2])\\2(?:29|30))|(?:(?:0?[1-9])|(?:1[0-2]))\\2(?:0?[1-9]|1\\d|2[0-8])))))$"
@@ -190,7 +196,15 @@
         },
         "claims": {
           "type": "object",
-          "minProperties": 1
+          "minProperties": 1,
+          "properties": {
+            "at_least_age": {
+              "$ref": "#/definitions/at_least_age"
+            },
+            "at_most_age": {
+              "$ref": "#/definitions/at_most_age"
+            }
+          }
         }
       },
       "required": [
@@ -235,6 +249,12 @@
     }
   },
   "properties": {
+    "at_least_age": {
+      "$ref": "#/definitions/at_least_age"
+    },
+    "at_most_age": {
+      "$ref": "#/definitions/at_most_age"
+    },
     "verified_claims": {
       "anyOf": [
         {
