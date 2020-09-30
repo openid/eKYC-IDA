@@ -299,7 +299,7 @@ The following example shows an ID token containing `verified_claims` from two di
 
 The OP MAY combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
-If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and a embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and an embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
 Note: any assertion provided by an OP or AS including aggregated or distributed claims MAY contain multiple instances of the same End-User claim. It is up to the RP to decide how to process those different instances. 
 
@@ -406,7 +406,7 @@ The following is an example of a request for Claims where the verification proce
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
 
 ### Requesting claims sets with different verification requirements
 
@@ -591,7 +591,7 @@ The confidentiality of all user data exchanged between the protocol parties MUST
 
 This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
-Each party defining such identifier MUST ensure the collision resistance of this identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
+Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
 
 The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
