@@ -49,7 +49,7 @@ For example, the assurance an OP typically will be able to give for an e-mail ad
 
 Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
 
-Note: this specifications fulfills the requirements for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity] .
+Note: this specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity] .
 
 ## Terminology
 
