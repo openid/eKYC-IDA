@@ -587,9 +587,9 @@ This specification focuses on mechanisms to carry End-User claims and accompanyi
 web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
 in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
 
-This specification does not define or require a particular security profile since there exists or evolve several security 
-profiles and implementers shall be given flexibility to select the security profile suiting their needs the best. Implementers 
-might consider [@?FAPI-1-RW] or [@?FAPI-2-BL].
+This specification does not define or require a particular security profile since there are several security 
+profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
+their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL].
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
 The Claims source MUST therefore cryptographically sign all assertions.
