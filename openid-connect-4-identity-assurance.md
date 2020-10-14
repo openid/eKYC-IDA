@@ -114,6 +114,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`salutation`| string | End-User’s salutation, e.g. “Mr.”|
 |`title`| string | End-User’s title, e.g. “Dr.”|
 |`msisdn`| string | End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
+|`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
 
 ## txn Claim
 
@@ -900,10 +901,20 @@ Claim Name:
 Claim Description:
 : End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
 
-
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
+Specification Document(s):
+: Section [Claims](#claims) of this document
+
+Claim Name:
+: `also_known_as`
+
+Claim Description:
+: Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s): 
 : Section [Claims](#claims) of this document
