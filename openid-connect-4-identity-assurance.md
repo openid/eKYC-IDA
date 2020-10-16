@@ -937,6 +937,9 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
+   -12
+   * Added claim `also_known_as`
+
    -11
   
    * Added support for requesting different sets of claims with different requirements regarding trust_framework and other verification elements (e.g. evidence)
