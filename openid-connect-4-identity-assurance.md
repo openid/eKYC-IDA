@@ -139,7 +139,7 @@ The RP MAY also ask the OP to determine the user's age relative to a certain dat
 
 This specification introduces the new field `on_date` for that purpose.
 
-`on_date`: specifies the date in ISO 8601:2004 [ISO8601‑2004] YYYY-MM-DD format used to determine the value of the respective claim in a claims request. 
+`on_date`: date in [@!ISO8601-2004] YYYY-MM-DD format used to determine the value of the respective claim in a claims request. 
 
 This is an example:
 
@@ -206,7 +206,7 @@ RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they 
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: Time stamp in [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -237,7 +237,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `organization`: String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID document was verified.
+`time`: Time stamp in [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID document was verified.
 
 `document`: JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
@@ -246,8 +246,8 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
 	*  `name`: Designation of the issuer of the identity document.
 	*  `country`: String denoting the country or organization that issued the document as ICAO 2-letter code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
-* `date_of_issuance`: The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_issuance`: The date the document was issued in [@!ISO8601-2004] `YYYY-MM-DD` format.
+* `date_of_expiry`: The date the document will expire in [@!ISO8601-2004] `YYYY-MM-DD` format.
 
 #### utility_bill
 
@@ -260,7 +260,7 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 * `name`: String designating the provider.
 * All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
-`date`: String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
+`date`: String in [@!ISO8601-2004] `YYYY-MM-DD` format containing the date when this bill was issued.
 
 #### qes
 
@@ -272,7 +272,7 @@ The following elements are contained in a `qes` evidence sub-element.
 
 `serial_number`: String containing the serial number of the certificate used to sign.
 
-`created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
+`created_at`: The time the signature was created in [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 
 ## claims Element {#claimselement}
 
