@@ -122,7 +122,7 @@ This specification defines the following claims to support age verification use 
 
 `age_is_at_least`: the value is a JSON number as a non-negative integer that indicates a minimum age that the subject is. 
 
-`age_is_at_most`: the value is a JSON number as a non-negative integer that indicates a minimaximum age that the subject is. 
+`age_is_at_most`: the value is a JSON number as a non-negative integer that indicates a maximum age that the subject is. 
 
 The RP MUST always request a certain value for these claims. In case of the claims parameter, the `value` field is used for that purpose. 
 
