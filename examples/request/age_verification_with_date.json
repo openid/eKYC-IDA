@@ -1,0 +1,8 @@
+{
+    "userinfo": {
+        "age_is_at_least": {
+            "value": 21,
+            "on_date": "2020-08-23"
+        }
+    }
+}

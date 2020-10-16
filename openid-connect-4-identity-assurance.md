@@ -135,6 +135,16 @@ If the user fulfils the constraint defined by the `value`, the OP asserts this a
 
 If the user does not fulfill the constraint, the claim is omited in the respective assertion. 
 
+The RP MAY also ask the OP to determine the user's age relative to a certain date. 
+
+This specification introduces the new field `on_date` for that purpose.
+
+`on_date`: specifies the date in ISO 8601:2004 [ISO8601‑2004] YYYY-MM-DD format used to determine the value of the respective claim in a claims request. 
+
+This is an example:
+
+<{{examples/request/age_verification_with_date.json}}
+
 ## txn Claim
 
 Strong identity verification typically requires the participants to keep an audit trail of the whole process.
