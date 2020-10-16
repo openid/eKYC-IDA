@@ -119,17 +119,17 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 This specification defines the following claims to support age verification use cases in a privacy preserving manner:
 
-`at_least_age`: the value is a JSON number as a non-negative integer that indicates a minimum age that the subject is. 
+`age_is_at_least`: the value is a JSON number as a non-negative integer that indicates a minimum age that the subject is. 
 
-`at_most_age`: the value is a JSON number as a non-negative integer that indicates a minimaximum age that the subject is. 
+`age_is_at_most`: the value is a JSON number as a non-negative integer that indicates a minimaximum age that the subject is. 
 
 The RP MUST always request a certain value for these claims. In case of the claims parameter, the `value` field is used for that purpose. 
 
-For example, the RP MAY ask whether the End-User is at least 21 years old by setting the `value` at the claim `at_least_age` to 21 as shown in the following
+For example, the RP MAY ask whether the End-User is at least 21 years old by setting the `value` at the claim `age_is_at_least` to 21 as shown in the following
 
 <{{examples/request/age_verification.json}}
 
-If the user fulfils the constraint defined by the `value`, the OP asserts this as the claim as show in the following
+If the user fulfils the constraint defined by the `value`, the OP asserts this as shown
 
 <{{examples/response/age_verification.json}}
 
@@ -921,7 +921,20 @@ Specification Document(s):
 : Section [Claims](#claims) of this document
 
 Claim Name:
-: `at_least_age`
+: `msisdn`
+
+Claim Description:
+: End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
+
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s): 
+: Section [Claims](#claims) of this document
+
+Claim Name:
+: `age_is_at_least`
 
 Claim Description:
 : the value is a JSON number as a non-negative integer that indicates a minimum age that the subject is.
@@ -935,24 +948,10 @@ Specification Document(s):
 : Section [Claims](#claims) of this document
 
 Claim Name:
-: `msisdn`
+: `age_is_at_most`
 
 Claim Description:
-: End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
-
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-
-Specification Document(s): 
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `at_most_age`
-
-Claim Description:
-: the value is a JSON number as a non-negative integer that indicates a minimaximum age that the subject is.
+: the value is a JSON number as a non-negative integer that indicates a maximum age that the subject is.
 
 
 Change Controller:
@@ -966,7 +965,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Brian Campbell Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Brian Campbell, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 

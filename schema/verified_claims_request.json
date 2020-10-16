@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://openid.net/schemas/verified_claims_request-12.json",
   "definitions": {
-    "at_least_age": {
+    "age_is_at_least": {
       "type": "object",
       "properties": {
         "value": {
@@ -10,7 +10,7 @@
         }
       }
     },
-    "at_most_age": {
+    "age_is_at_most": {
       "type": "object",
       "properties": {
         "value": {
@@ -292,11 +292,11 @@
           "type": "object",
           "minProperties": 1,
           "properties": {
-            "at_least_age": {
-              "$ref": "#/definitions/at_least_age"
+            "age_is_at_least": {
+              "$ref": "#/definitions/age_is_at_least"
             },
-            "at_most_age": {
-              "$ref": "#/definitions/at_most_age"
+            "age_is_at_most": {
+              "$ref": "#/definitions/age_is_at_most"
             }
           },
           "additionalProperties": {
@@ -332,11 +332,11 @@
     "userinfo": {
       "type": "object",
       "properties": {
-        "at_least_age": {
-          "$ref": "#/definitions/at_least_age"
+        "age_is_at_least": {
+          "$ref": "#/definitions/age_is_at_least"
         },
-        "at_most_age": {
-          "$ref": "#/definitions/at_most_age"
+        "age_is_at_most": {
+          "$ref": "#/definitions/age_is_at_most"
         },
         "verified_claims": {
           "$ref": "#/definitions/verified_claims"
@@ -346,11 +346,11 @@
     "id_token": {
       "type": "object",
       "properties": {
-        "at_least_age": {
-          "$ref": "#/definitions/at_least_age"
+        "age_is_at_least": {
+          "$ref": "#/definitions/age_is_at_least"
         },
-        "at_most_age": {
-          "$ref": "#/definitions/at_most_age"
+        "age_is_at_most": {
+          "$ref": "#/definitions/age_is_at_most"
         },
         "verified_claims": {
           "$ref": "#/definitions/verified_claims"

@@ -4,7 +4,7 @@
             "trust_framework": "ial_example_gold"
         },
         "claims": {
-            "at_least_age": 21
+            "age_is_at_least": 21
         }
     }
 }

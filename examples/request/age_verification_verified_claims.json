@@ -5,7 +5,7 @@
                 "trust_framework": null
             },
             "claims": {
-                "at_least_age": {
+                "age_is_at_least": {
                     "value": 21
                 }
             }
