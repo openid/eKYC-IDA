@@ -589,7 +589,11 @@ in security sensitive use cases, implementers MUST combine this specification wi
 
 This specification does not define or require a particular security profile since there are several security 
 profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
-their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL].
+their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL]. 
+
+Implementers are recommended to select a security profile that has a certification program 
+or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and 
+interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
 The Claims source MUST therefore cryptographically sign all assertions.
