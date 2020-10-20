@@ -136,7 +136,7 @@ If the user fulfils the constraint defined by the `value`, the OP asserts this a
 
 If the user does not fulfill the constraint, the claim is omited in the respective assertion. 
 
-Note: The OP MUST consider the particular `value` when storing the user consent for `age_is_at_least` or `age_is_at_most`. 
+Note: The OP MUST consider the particular `value` when storing the user consent for `age_is_at_least` or `age_is_at_most`. So when a RP asks `for age_at_least` 20 and next time for `age_at_least` 24, the user MUST be asked for consent again.
 
 The RP MAY also ask the OP to determine the user's age relative to a certain date. 
 
