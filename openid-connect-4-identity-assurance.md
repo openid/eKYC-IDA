@@ -136,6 +136,8 @@ If the user fulfils the constraint defined by the `value`, the OP asserts this a
 
 If the user does not fulfill the constraint, the claim is omited in the respective assertion. 
 
+Note: The OP MUST consider the particular `value` when storing the user consent for `age_is_at_least` or `age_is_at_most`. 
+
 The RP MAY also ask the OP to determine the user's age relative to a certain date. 
 
 This specification introduces the new field `on_date` for that purpose.
