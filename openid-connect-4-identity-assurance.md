@@ -49,6 +49,8 @@ For example, the assurance an OP typically will be able to give for an e-mail ad
 
 Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
 
+Note: this specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity] .
+
 ## Terminology
 
 This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
@@ -584,9 +586,23 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security Considerations {#Security}
 
-The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions.
+This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
+web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
+in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
 
-The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer.
+This specification does not define or require a particular security profile since there are several security 
+profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
+their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL]. 
+
+Implementers are recommended to select a security profile that has a certification program 
+or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and 
+interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
+
+The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
+The Claims source MUST therefore cryptographically sign all assertions.
+
+The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
+methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
@@ -639,6 +655,26 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
+<reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
+  <front>
+    <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
+<reference anchor="FAPI-2-BL" target="https://bitbucket.org/openid/fapi/src/master/FAPI_2_0_Baseline_Profile.md">
+  <front>
+    <title>FAPI 2.0 Baseline Profile </title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -674,6 +710,16 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>European Parliament</organization>
     </author>
    <date day="23" month="July" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="FATF-Digital-Identity" target="https://www.fatf-gafi.org/media/fatf/documents/recommendations/Guidance-on-Digital-Identity.pdf">
+  <front>
+    <title>Guidance on Digital Identity</title>
+    <author initials="" surname="FATF">
+      <organization>Financial Action Task Force (FATF)</organization>
+    </author>
+   <date month="March" year="2020"/>
   </front>
 </reference>
 
