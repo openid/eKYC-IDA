@@ -110,9 +110,9 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 |||`locality`: String representing city or locality component.|
 |`nationalities`| array | End-User’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".|
-|`birth_family_name`| string | End-User’s family name when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.|
-|`birth_given_name`| string | End-User’s given name when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.|
-|`birth_middle_name`| string | End-User’s middle name when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.|
+|`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
+|`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
+|`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
 |`salutation`| string | End-User’s salutation, e.g. “Mr.”|
 |`title`| string | End-User’s title, e.g. “Dr.”|
 |`msisdn`| string | End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
@@ -885,7 +885,7 @@ Claim Name:
 : `birth_family_name`
 
 Claim Description:
-: Family name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.
+: Family name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name(s) later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -897,7 +897,7 @@ Claim Name:
 : `birth_given_name`
 
 Claim Description: 
-: Given name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.
+: Given name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.
 
 Change Controller: 
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -909,7 +909,7 @@ Claim Name:
 : `birth_middle_name`
 
 Claim Description:
-: Middle name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.
+: Middle name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
