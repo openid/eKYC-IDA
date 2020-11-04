@@ -599,7 +599,6 @@ or other resources that allow both OpenID Providers and Relying Parties to ensur
 interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
-The Claims source MUST therefore cryptographically sign all assertions.
 
 The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
 methods at transport or application layer.
