@@ -984,7 +984,10 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -12
+
    * Added claim `also_known_as`
+   * Added text regarding security profiles
+   * Editorial improvements
 
    -11
   

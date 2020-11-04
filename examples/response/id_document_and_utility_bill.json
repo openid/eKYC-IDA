@@ -25,7 +25,7 @@
                "provider":{
                   "name":"Stadtwerke Musterstadt",
                   "country":"DE",
-                  "region":"Thüringen",
+                  "region":"Niedersachsen",
                   "street_address":"Energiestrasse 33"
                },
                "date":"2013-01-31"
@@ -47,7 +47,7 @@
             "locality":"Maxstadt",
             "postal_code":"12344",
             "country":"DE",
-            "street_address":"An der Sanddüne 22"
+            "street_address":"An der Weide 22"
          }
       }
    }
