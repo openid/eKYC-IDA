@@ -440,7 +440,7 @@ Claims unknown to the OP or not available as verified claims MUST be ignored and
 
 Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
-When using this approach the claims associated with a `scope` are administratively defined at the OP.  The set of claims are then either returned via the UserInfo endpoint if an access token is returned, as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID], or in the ID Token if a response type that does not return an access token is used.
+When using this approach the claims associated with a `scope` are administratively defined at the OP.  The set of claims are then either returned via the UserInfo endpoint if an access token is returned, as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID], or in the ID Token if an authorization 'response_type' that does not return an access token is used.
 
 # Examples
 
