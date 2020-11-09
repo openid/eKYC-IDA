@@ -128,7 +128,7 @@ If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at
 
 * the transaction ID,
 * the authentication method employed, and
-* the transaction type (e.g. scope values or the claims requested and returned).
+* the transaction type (e.g. the claims returned).
 
 This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
 
