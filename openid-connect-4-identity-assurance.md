@@ -436,7 +436,7 @@ If the `claims` sub-element is empty, the OP MUST abort the transaction with an 
 Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
 
 
-## Requesting sets of claims by `scope` {#req_scope}
+## Requesting sets of claims by scope {#req_scope}
 
 Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
