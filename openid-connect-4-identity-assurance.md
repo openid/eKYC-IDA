@@ -128,7 +128,7 @@ If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at
 
 * the transaction ID,
 * the authentication method employed, and
-* the transaction type (e.g. the claims returned).
+* the transaction type (e.g. the set of claims returned).
 
 This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
 
@@ -308,7 +308,9 @@ Note: any assertion provided by an OP or AS including aggregated or distributed 
 
 # Requesting Verified Claims
 
-Verified Claims and related verification data can be requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+Making a request for verified claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+It is also possible to use the `scope` parameter to request that specific pre-defined sets of information be made available as Claim Values as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
 Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
 
@@ -432,6 +434,13 @@ In the above example, the RP asks for family and given name either under trust f
 If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
 
 Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
+
+
+## Requesting sets of claims by `scope` {#req_scope}
+
+Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+
+When using this approach the claims associated with a `scope` are administratively defined at the OP.  The set of claims are then either returned via the UserInfo endpoint if an access token is returned, as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID], or in the ID Token if a response type that does not return an access token is used.
 
 # Examples
 
@@ -583,6 +592,8 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 # Privacy Consideration {#Privacy}
 
 Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
+
+The use of scopes might prove a useful shortcut to request a pre-defined set of claims but if an implementation uses them then it might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation.  From a privacy perspective the RP SHOULD be required to specify the claims (and associated verification metadata elements) that are required.
 
 # Security Considerations {#Security}
 
