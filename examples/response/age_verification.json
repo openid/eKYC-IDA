@@ -1,3 +1,7 @@
 {
-    "age_is_at_least": 21
+    "age_is_at_least": {
+        "age": 18,
+        "on_date": "2020-08-23",
+        "result": true
+    }
 }
