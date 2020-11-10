@@ -1,0 +1,7 @@
+{
+    "age_is_at_most": {
+        "age": 65,
+        "on_date": "2020-08-23",
+        "result": true
+    }
+}

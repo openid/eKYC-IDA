@@ -6,7 +6,9 @@
             },
             "claims": {
                 "age_is_at_least": {
-                    "value": 21
+                    "age": {
+                        "value": 21
+                    }
                 }
             }
         }

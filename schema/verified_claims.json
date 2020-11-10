@@ -3,11 +3,22 @@
   "$id": "https://openid.net/schemas/verified_claims-12.json",
   "definitions": {
     "age_is_at_least": {
-      "type": "integer"
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer"
+        },
+        "on_date": {
+          "$ref": "#/definitions/date_type"
+        },
+        "result": {
+          "type": "boolean"
+        }
+      }
     },
     "age_is_at_most": {
-      "type": "integer"
-    },   
+      "$ref": "#/definitions/age_is_at_least"
+    },
     "date_type": {
       "type": "string",
       "pattern": "^(?:(?:(?:(?:(?:[1-9]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:[2468][048]|[13579][26])00))(\\/|-|\\.)(?:0?2\\1(?:29)))|(?:(?:[1-9]\\d{3})(\\/|-|\\.)(?:(?:(?:0?[13578]|1[02])\\2(?:31))|(?:(?:0?[13-9]|1[0-2])\\2(?:29|30))|(?:(?:0?[1-9])|(?:1[0-2]))\\2(?:0?[1-9]|1\\d|2[0-8])))))$"
@@ -53,8 +64,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -113,8 +123,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -157,8 +166,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         }
       ]
     },
@@ -292,8 +300,7 @@
     },
     "_claim_sources": {
       "type": "object",
-      "properties": {
-      },
+      "properties": {},
       "additionalProperties": {
         "$ref": "#/definitions/_claim_sources"
       }
