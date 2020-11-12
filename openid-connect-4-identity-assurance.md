@@ -310,7 +310,7 @@ Note: any assertion provided by an OP or AS including aggregated or distributed 
 
 Making a request for verified claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
 
-It is also possible to use the `scope` parameter to request that specific pre-defined claim sets of information as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+It is also possible to use the `scope` parameter to request that specific pre-defined claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
 Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
 
@@ -439,7 +439,7 @@ Claims unknown to the OP or not available as verified claims MUST be ignored and
 
 Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
-When using this approach the claims associated with a `scope` are administratively defined at the OP and the configuration and request parameters will affect the interface that the resulting claim set is returned via.  The set of claims will be returned via the UserInfo endpoint if an access token is returned, or in the ID Token if an authorization 'response_type' that does not return an access token is used, as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
+When using this approach the claims associated with a `scope` are administratively defined at the OP and the configuration and request parameters will affect the interface that returns the claims.  The set of claims will be returned via the UserInfo endpoint if an access token is returned, or in the ID Token if an authorization 'response_type' that does not return an access token is used, as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
 # Examples
 
