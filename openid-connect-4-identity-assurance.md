@@ -132,36 +132,33 @@ This specification defines the claims `age_is_at_least` and `age_is_at_most` to 
 * `on_date`: reference date in [@!ISO8601-2004] YYYY-MM-DD format used to determine the age of the End-User. 
 * `result`:  a JSON boolean indicating whether the End-User has the maximum age as determined by the `age` field on the reference date.  
 
-The RP MUST always request a certain value for the `age` field in these claims. In case of the claims parameter, the `value` field is used for that purpose. 
+The RP MUST always request a certain value for the `age` and `on_date` fields in these claims. In case of the claims parameter, the `value` field is used for that purpose. 
 
-For example, the RP MAY ask whether the End-User is at least 21 years old by setting the `value` at the claim `age_is_at_least` to 21 as shown in the following
+Note: the RP is required to specifiy the reference date to ensure the assertion about the End-User's age is valid 
+in the RP's time zone in case of RP and OP are located in different time zones. 
+
+For example, the RP MAY ask whether the End-User is at least 21 years old on the 23th of August 2020 by setting 
+the `value` of `age` and the value of `on_date` to "2020-08-23" in the claim `age_is_at_least` as shown in the following
 
 <{{examples/request/age_verification.json}}
 
-If the user fulfils the constraint defined by the `value`, the OP asserts this as shown
+If the user fulfils the constraints, the OP asserts this as shown
 
 <{{examples/response/age_verification.json}}
 
-The OP MUST always add the reference date used to calculate the value of `result` in the claim. 
-
-The RP MAY request the OP to determine the user's age relative to a certain date.  
-
-This is an example:
-
-<{{examples/request/age_verification_with_date.json}}
-
-This feature is especially useful to ensure the assertion about the End-User's age is valid in the RP's time zone 
-in case of RP and OP are located in different time zones. It is at the discretion of the OP to consider the requested 
-reference date, i.e. the RP MUST check whether the asserted reference date is the requested date. 
+All fields as defined above MUST be present in the assertion. 
 
 ### Privacy Considerations
 
-The OP MUST consider the particular `value` when storing the user consent for `age_is_at_least` or `age_is_at_most`. For example, if a RP asks 
+The OP MUST consider the particular `value` for `age` when storing the user consent 
+for `age_is_at_least` or `age_is_at_most`. For example, if a RP asks 
 `for age_at_least` 20 and next time for `age_at_least` 24, the user MUST be asked for consent again.
 
-In order to prevent discovery of the End-User's date of birth, the OP SHOULD limit the number of requests for 
-`age_is_at_least` and `age_is_at_most` per user. It MAY also consider to allow certain age values only and to limit the value range 
-of `on_date`, e.g. to +/- one day from the current date.
+In order to prevent discovery of the End-User's date of birth, the OP SHOULD consider to implement one or multiple of the following countermeasures:
+
+* Limit the number of requests for `age_is_at_least` and `age_is_at_most` per user. 
+* Allow certain age values only
+* Limit the value range of `on_date`, e.g. to +/- one day from the current date.
 
 ### Security Considerations
 
