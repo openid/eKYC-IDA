@@ -49,6 +49,8 @@ For example, the assurance an OP typically will be able to give for an e-mail ad
 
 Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
 
+Note: this specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity] .
+
 ## Terminology
 
 This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
@@ -108,9 +110,9 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 |||`locality`: String representing city or locality component.|
 |`nationalities`| array | End-User’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".|
-|`birth_family_name`| string | End-User’s family name when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.|
-|`birth_given_name`| string | End-User’s given name when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.|
-|`birth_middle_name`| string | End-User’s middle name when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.|
+|`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
+|`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
+|`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
 |`salutation`| string | End-User’s salutation, e.g. “Mr.”|
 |`title`| string | End-User’s title, e.g. “Dr.”|
 |`msisdn`| string | End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
@@ -644,9 +646,23 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security Considerations {#Security}
 
-The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions.
+This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
+web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
+in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
 
-The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer.
+This specification does not define or require a particular security profile since there are several security 
+profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
+their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL]. 
+
+Implementers are recommended to select a security profile that has a certification program 
+or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and 
+interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
+
+The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
+The Claims source MUST therefore cryptographically sign all assertions.
+
+The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
+methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
@@ -699,6 +715,26 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
+<reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
+  <front>
+    <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
+<reference anchor="FAPI-2-BL" target="https://bitbucket.org/openid/fapi/src/master/FAPI_2_0_Baseline_Profile.md">
+  <front>
+    <title>FAPI 2.0 Baseline Profile </title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -734,6 +770,16 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>European Parliament</organization>
     </author>
    <date day="23" month="July" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="FATF-Digital-Identity" target="https://www.fatf-gafi.org/media/fatf/documents/recommendations/Guidance-on-Digital-Identity.pdf">
+  <front>
+    <title>Guidance on Digital Identity</title>
+    <author initials="" surname="FATF">
+      <organization>Financial Action Task Force (FATF)</organization>
+    </author>
+   <date month="March" year="2020"/>
   </front>
 </reference>
 
@@ -899,7 +945,7 @@ Claim Name:
 : `birth_family_name`
 
 Claim Description:
-: Family name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.
+: Family name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name(s) later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -911,7 +957,7 @@ Claim Name:
 : `birth_given_name`
 
 Claim Description: 
-: Given name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.
+: Given name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.
 
 Change Controller: 
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -923,7 +969,7 @@ Claim Name:
 : `birth_middle_name`
 
 Claim Description:
-: Middle name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.
+: Middle name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -1027,6 +1073,8 @@ The technology described in this specification was made available from contribut
    - 12
    * added claims for age verification
    * Added claim `also_known_as`
+   * Added text regarding security profiles
+   * Editorial improvements
 
    -11
   
