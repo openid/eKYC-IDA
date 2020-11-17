@@ -1,0 +1,39 @@
+{
+    "userinfo": {
+        "verified_claims": {
+            "verification": {
+                "trust_framework": null,
+                "time": null,
+                "evidence": [
+                    {
+                        "type": {
+                            "value": "id_document"
+                        },
+                        "method": null,
+                        "document": {
+                            "type": {
+                                "values": [
+                                    "idcard",
+                                    "passport"
+                                ]
+                            },
+                            "issuer": {
+                                "country": {
+                                    "value": "DE"
+                                },
+                                "name": null
+                            },
+                            "number": null,
+                            "date_of_issuance": null
+                        }
+                    }
+                ]
+            },
+            "claims": {
+                "given_name": null,
+                "family_name": null,
+                "birthdate": null
+            }
+        }
+    }
+}
