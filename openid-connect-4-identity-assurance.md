@@ -39,7 +39,7 @@ organization="Considrd.Consulting Ltd"
 [[author]]
 initials="A."
 surname="Pulido"
-fullname="DAlberto Pulido"
+fullname="Alberto Pulido"
 organization="Santander"
     [author.address]
     email = "alberto.pulido@santander.co.uk"
