@@ -439,7 +439,7 @@ Claims unknown to the OP or not available as verified claims MUST be ignored and
 
 Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
-When using this approach the claims associated with a `scope` are administratively defined at the OP and the configuration and request parameters will affect the interface that returns the claims.  The set of claims will be returned via the UserInfo endpoint if an access token is returned, or in the ID Token if an authorization 'response_type' that does not return an access token is used, as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
+When using this approach the claims associated with a `scope` are administratively defined at the OP and the OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
 # Examples
 
@@ -592,7 +592,7 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
 
-The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation.  From a privacy perspective the RP SHOULD be required to specify the claims (and associated verification metadata elements) that are required.
+The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation.  the RP SHOULD only request end-user claims and metadata it requires.
 
 # Security Considerations {#Security}
 
