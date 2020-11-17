@@ -28,6 +28,37 @@ organization="yes.com"
     [author.address]
     email = "mail@danielfett.de"
 
+[[author]]
+initials="M."
+surname="Haine"
+fullname="Mark Haine"
+organization="Considrd.Consulting Ltd"
+    [author.address]
+    email = "mark@considrd.consulting"
+
+[[author]]
+initials="A."
+surname="Pulido"
+fullname="DAlberto Pulido"
+organization="Santander"
+    [author.address]
+    email = "alberto.pulido@santander.co.uk"
+
+[[author]]
+initials="K."
+surname="Lehmann"
+fullname="Kai Lehmann"
+organization="1&1 Mail & Media Development & Technology GmbH"
+    [author.address]
+    email = "kai.lehmann@1und1.de"
+
+[[author]]
+initials="K."
+surname="Koiwai"
+fullname="Kosuke Koiwai"
+organization="KDDI Corporation"
+    [author.address]
+    email = "ko-koiwai@kddi.com"
 
 %%%
 
@@ -988,6 +1019,7 @@ The technology described in this specification was made available from contribut
    * Added claim `also_known_as`
    * Added text regarding security profiles
    * Editorial improvements
+   * Added further co-authors
 
    -11
   
