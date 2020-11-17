@@ -310,7 +310,7 @@ Note: any assertion provided by an OP or AS including aggregated or distributed 
 
 Making a request for verified claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
 
-It is also possible to use the `scope` parameter to request that specific pre-defined claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+It is also possible to use the `scope` parameter to request one or more specific pre-defined claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
 Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
 
