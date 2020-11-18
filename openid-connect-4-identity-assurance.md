@@ -156,7 +156,7 @@ The OP MUST consider the particular `value` for `age` when storing the user cons
 for `age_is_at_least` or `age_is_at_most`. For example, if a RP asks 
 `for age_at_least` 20 and next time for `age_at_least` 24, the user MUST be asked for consent again.
 
-In order to prevent discovery of the End-User's date of birth, the OP SHOULD consider to implement one or multiple of the following countermeasures:
+In order to prevent discovery of the End-User's date of birth, the OP SHOULD consider to implement one or more of the following countermeasures:
 
 * Limit the number of requests for `age_is_at_least` and `age_is_at_most` per user. 
 * Allow certain age values only
