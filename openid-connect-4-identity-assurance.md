@@ -621,9 +621,14 @@ This is an example openid-configuration snippet:
 
 The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
 
-The OP MAY publish the age values it supports using the new parameter `age_values_supported`.
+The OP MAY publish the age values it supports using the metadata parameter `age_values_supported`.
 
 `age_values_supported`: JSON array containing the age values supported by the OP.
+
+If the OP restricts the time windows of the `on_date` field of `age_is_at_least` and `age_is_at_most` it SHOULD publish the time window using the following 
+metadata parameter:
+
+`age_on_date_time_window`: JSON number indicating the maximum negative or positive offset of `on_date` relaive to the date at the OP
 
 # Transaction-specific Purpose {#purpose}
 
