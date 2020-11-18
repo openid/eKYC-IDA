@@ -165,7 +165,7 @@ In order to prevent discovery of the End-User's date of birth, the OP SHOULD con
 ### Security Considerations
 
 The request may be tampered by the End-User, e.g. to change the value of the requested age. The RP SHOULD use an integrity
-protected transport, e.g. signed authentication requests or [@?I-D.ietf-oauth-par], to mitigate this threat. Alternatively, the RP MAY rely on the comparison of
+protected transport, e.g. signed authentication requests or [@?I-D.ietf-oauth-par], to mitigate this threat. Alternatively, the RP MUST rely on the comparison of
 the requested and asserted values to detect modifications.
 
 ## txn Claim
