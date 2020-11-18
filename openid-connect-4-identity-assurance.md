@@ -313,7 +313,7 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `sub` claim identifying the user in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
-Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
+Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
 The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
 
 The following are examples of assertions including verified claims as aggregated claims 
@@ -630,7 +630,6 @@ or other resources that allow both OpenID Providers and Relying Parties to ensur
 interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
-The Claims source MUST therefore cryptographically sign all assertions.
 
 The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
 methods at transport or application layer.
