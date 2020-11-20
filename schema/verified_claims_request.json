@@ -177,6 +177,9 @@
                     "$ref": "#/definitions/datetime_element"
                   }
                 }
+              },
+              "attachments": {
+                "$ref": "#/definitions/simple_element"
               }
             }
           },
@@ -221,6 +224,9 @@
               },
               "date": {
                 "$ref": "#/definitions/datetime_element"
+              },
+              "attachments": {
+                "$ref": "#/definitions/simple_element"
               }
             }
           },
@@ -271,6 +277,9 @@
                   }
                 ]
               }
+            },
+            "attachments": {
+              "$ref": "#/definitions/simple_element"
             }
           },
           "required": [

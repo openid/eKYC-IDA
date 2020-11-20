@@ -1,0 +1,32 @@
+{
+  "verified_claims": {
+    "verification": {
+      "trust_framework":"eidas_ial_substantial",
+      "attachments": [
+        {
+          "desc": "Front of id document",
+          "digest": {
+            "alg": "SHA-256",
+            "value": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
+          },
+          "url": "https://example.com/attachments/pGL9yz4hZQ",
+          "access_token": "ksj3n283dke",
+          "expires_in": 3600
+        },
+        {
+          "desc": "Back of id document",
+          "digest": {
+            "alg": "SHA-256",
+            "value": "/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM="
+          },
+          "url": "https://example.com/attachments/4Ag8IpOf95"
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Mustermann",
+      "birthdate": "1956-01-28"
+    }
+  }
+}

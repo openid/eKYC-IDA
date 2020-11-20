@@ -1,0 +1,24 @@
+{
+  "verified_claims": {
+    "verification": {
+      "trust_framework":"eidas_ial_substantial",
+      "attachments": [
+        {
+          "desc": "Front of id document",
+          "content_type": "image/png",
+          "content": "Wkd0bWFtVnlhWFI2Wlc0Mk16VER2RFUyY0RRMWFUbDBNelJ1TlRjd31dzdaM1pTQXJaWGRsTXpNZ2RETmxDZwo="
+        },
+        {
+          "desc": "Back of id document",
+          "content_type": "image/png",
+          "content": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAADSFsjdkhjwhAABJRU5ErkJggg=="
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Mustermann",
+      "birthdate": "1956-01-28"
+    }
+  }
+}

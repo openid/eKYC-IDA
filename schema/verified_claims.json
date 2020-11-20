@@ -107,6 +107,9 @@
                     "$ref": "#/definitions/date_type"
                   }
                 }
+              },
+              "attachments": {
+                "$ref": "#/definitions/attachments"
               }
             }
           },
@@ -151,6 +154,9 @@
               },
               "date": {
                 "$ref": "#/definitions/date_type"
+              },
+              "attachments": {
+                "$ref": "#/definitions/attachments"
               }
             }
           },
@@ -158,6 +164,81 @@
           }
         }
       ]
+    },
+    "digest": {
+      "type": "object",
+      "properties": {
+        "alg": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "contentEncoding": "base64"
+        }
+      },
+      "required": [
+        "alg",
+        "value"
+      ]
+    },
+    "external_attachment": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string"
+        },
+        "digest": {
+          "$ref": "#/definitions/digest"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "access_token": {
+          "type": "string"
+        },
+        "expires_in": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "digest",
+        "url"
+      ]
+    },
+    "embedded_attachment": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string"
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string",
+          "contentEncoding": "base64"
+        }
+      },
+      "required": [
+        "content_type",
+        "content"
+      ]
+    },
+    "attachments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/external_attachment"
+          },
+          {
+            "$ref": "#/definitions/embedded_attachment"
+          }
+        ]
+      }
     },
     "verified_claims_def": {
       "type": "object",
@@ -184,6 +265,9 @@
                   }
                 ]
               }
+            },
+            "attachments": {
+              "$ref": "#/definitions/attachments"
             }
           },
           "required": [

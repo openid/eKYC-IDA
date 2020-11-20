@@ -218,6 +218,8 @@ Note: While `verification_process` refers to the identity verification process a
 
 `evidence`: JSON array containing information about the evidence the OP used to verify the user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
+`attachments`: Array of JSON objects representing documents containing artifacts relevant for the identity verification. This can be copies or scans of id documents, certificates, or documents containing protocols or scans of filled and signed forms. See below on how an attachment is structured.
+
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
 ### Evidence
@@ -253,6 +255,8 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `date_of_issuance`: The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
+`attachments`: Array of JSON objects representing attachments like photocopies of the id document. See below on how an attachment is structured.
+
 #### utility_bill
 
 The following elements are contained in a `utility_bill` evidence sub-element.
@@ -265,6 +269,8 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 * All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
 `date`: String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
+
+`attachments`: Array of JSON objects representing attachments like photocopies of the evidence. See below on how an attachment is structured.
 
 #### electronic_signature
 
@@ -279,6 +285,61 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 `serial_number`: String containing the serial number of the certificate used to sign.
 
 `created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
+
+`attachments`: Array of JSON objects representing attachments like photocopies or the certificate of the evidence. See below on how an attachment is structured.
+
+### Attachments
+
+During the identity verification process, specific document artefacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artefacts can later be reviewed during audits or quality control for example. Those artefacts include, but are not limited to:
+
+* scans of filled and signed forms documenting/certifying the verification process itself
+* scans or photocopies of the documents used to verify the identity of end users
+* video recordings of the verification process
+* certificates of electronic signatures
+
+Depending on the trust framework or individual agreements between OpenID Connect Providers and Relying Parties, those artefacts can be attached to the verified claims response allowing Relying Parties to store those artefacts along with the verified claim information.
+
+An attachment is represented by a JSON object. This specification allows two types of representations:
+
+#### Embedded
+
+All the information of the document (including the content itself) is provided within a JSON object having the following elements:
+
+`desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OpenId Connect Provider.
+
+`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC7519]. Multipart or message media types are not allowed. Example: "image/png"
+
+`content`: REQUIRED. Base64 encoded representation of the document content.
+
+Embedded attachments are not appropriate when embedding verified claims in access tokens or ID tokens.
+
+The following example shows embedded attachments. The actual contents of the documents are truncated:
+
+<{{examples/response/embedded_attachments.json}} 
+
+#### External
+
+External attachments are similar to distributed claims. The reference to the external document is provided in a JSON object with the following elements: 
+
+`desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OpenId Connect Provider.
+
+`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element. 
+`access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document SHOULD be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MAY use the Access Token issued by the OpenId Connect Provider in the Token Response. Alternatively the RP may need to retrieve the Access Token out of band or use an Access Token that was pre-negotiated between the Provider and RP, or the Provider MAY reauthenticate the End-User and/or reauthorize the RP.
+`expires_in`: OPTIONAL. If a specific `access_token`for accessing the `url` is given, this integer value represents the number of seconds the `access_token` is valid.
+`digest`: JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
+
+* `alg`: Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OpenId Connect Provider during Client Registration or Management.
+* `value`: Base64 encoded representation of the cryptographic hash.
+
+External attachments are suitable when embedding verified claims in Tokens. However, the verified claims element is not self-contained. The documents need to be retrieved separately and the digest values MUST be calculated and validated to ensure integrity.
+
+The following example shows external attachments:
+
+<{{examples/response/external_attachments.json}} 
+
+#### Privacy concerns
+
+As attachments will most likely contain more personal information than was requested by the Relying Party with specific claim names, OpenId Connect Providers MUST ensure that end users are well aware of when and what kind of attachments are about to be transferred to the Relying Party. If possible or applicable, the OpenId Connect Provider SHOULD allow the end users to review the content of those attachments before giving consent to the transaction.
 
 ## claims Element {#claimselement}
 
