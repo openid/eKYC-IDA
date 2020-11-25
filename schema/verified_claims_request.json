@@ -14,8 +14,8 @@
               "type": "boolean"
             },
             "purpose": {
-              "type": "string" ,
-              "minLength": 3 ,
+              "type": "string",
+              "minLength": 3,
               "maxLength": 300
             }
           }
@@ -44,8 +44,8 @@
               "type": "boolean"
             },
             "purpose": {
-              "type": "string" ,
-              "minLength": 3 ,
+              "type": "string",
+              "minLength": 3,
               "maxLength": 300
             }
           }
@@ -68,8 +68,8 @@
               "type": "boolean"
             },
             "purpose": {
-              "type": "string" ,
-              "minLength": 3 ,
+              "type": "string",
+              "minLength": 3,
               "maxLength": 300
             }
           }
@@ -279,8 +279,10 @@
           "type": "object",
           "minProperties": 1,
           "additionalProperties": {
-            "anyOf":[
-              {"type": "null"},
+            "anyOf": [
+              {
+                "type": "null"
+              },
               {
                 "type": "object",
                 "properties": {
@@ -288,8 +290,8 @@
                     "type": "boolean"
                   },
                   "purpose": {
-                    "type": "string" ,
-                    "minLength": 3 ,
+                    "type": "string",
+                    "minLength": 3,
                     "maxLength": 300
                   }
                 }

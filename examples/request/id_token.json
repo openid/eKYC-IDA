@@ -1,38 +1,38 @@
 {
-   "id_token": {
-      "email": null,
-      "preferred_username": null,
-      "picture": null,
-      "verified_claims": {
-         "verification": {
-            "trust_framework": null,
+  "id_token": {
+    "email": null,
+    "preferred_username": null,
+    "picture": null,
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null,
+        "time": null,
+        "verification_process": null,
+        "evidence": [
+          {
+            "type": {
+              "value": "id_document"
+            },
+            "method": null,
             "time": null,
-            "verification_process": null,
-            "evidence": [
-               {
-                  "type": {
-                     "value": "id_document"
-                  },
-                  "method": null,
-                  "time": null,
-                  "document": {
-                     "type": null,
-                     "issuer": {
-                        "name": null,
-                        "country": null
-                     },
-                     "number": null,
-                     "date_of_issuance": null,
-                     "date_of_expiry": null
-                  }
-               }
-            ]
-         },
-         "claims": {
-            "given_name": null,
-            "family_name": null,
-            "birthdate": null
-         }
+            "document": {
+              "type": null,
+              "issuer": {
+                "name": null,
+                "country": null
+              },
+              "number": null,
+              "date_of_issuance": null,
+              "date_of_expiry": null
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
       }
-   }
+    }
+  }
 }

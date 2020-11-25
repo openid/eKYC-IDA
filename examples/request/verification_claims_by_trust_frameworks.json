@@ -4,7 +4,7 @@
       {
         "verification": {
           "trust_framework": {
-            "value": "eidas_ial_substantial"  
+            "value": "eidas_ial_substantial"
           }
         },
         "claims": {
@@ -15,7 +15,10 @@
       {
         "verification": {
           "trust_framework": {
-            "values": ["eidas_ial_high", "eidas_ial_substantial"]  
+            "values": [
+              "eidas_ial_high",
+              "eidas_ial_substantial"
+            ]
           }
         },
         "claims": {
