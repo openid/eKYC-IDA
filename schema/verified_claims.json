@@ -36,6 +36,9 @@
           },
           "then": {
             "properties": {
+              "signature_type":{
+                "type": "string"
+              },
               "issuer": {
                 "type": "string"
               },
@@ -186,7 +189,7 @@
           "required": [
             "trust_framework"
           ],
-          "additionalProperties": false
+          "additionalProperties": true
         },
         "claims": {
           "type": "object",

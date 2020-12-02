@@ -28,6 +28,37 @@ organization="yes.com"
     [author.address]
     email = "mail@danielfett.de"
 
+[[author]]
+initials="M."
+surname="Haine"
+fullname="Mark Haine"
+organization="Considrd.Consulting Ltd"
+    [author.address]
+    email = "mark@considrd.consulting"
+
+[[author]]
+initials="A."
+surname="Pulido"
+fullname="Alberto Pulido"
+organization="Santander"
+    [author.address]
+    email = "alberto.pulido@santander.co.uk"
+
+[[author]]
+initials="K."
+surname="Lehmann"
+fullname="Kai Lehmann"
+organization="1&1 Mail & Media Development & Technology GmbH"
+    [author.address]
+    email = "kai.lehmann@1und1.de"
+
+[[author]]
+initials="K."
+surname="Koiwai"
+fullname="Kosuke Koiwai"
+organization="KDDI Corporation"
+    [author.address]
+    email = "ko-koiwai@kddi.com"
 
 %%%
 
@@ -48,6 +79,8 @@ The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!
 For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of a user, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
 
 Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
+
+Note: this specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity] .
 
 ## Terminology
 
@@ -108,12 +141,13 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 |||`locality`: String representing city or locality component.|
 |`nationalities`| array | End-User’s nationalities in ICAO 2-letter codes [@!ICAO-Doc9303], e.g. "US" or "DE". 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "EUE".|
-|`birth_family_name`| string | End-User’s family name when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.|
-|`birth_given_name`| string | End-User’s given name when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.|
-|`birth_middle_name`| string | End-User’s middle name when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.|
+|`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
+|`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
+|`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
 |`salutation`| string | End-User’s salutation, e.g. “Mr.”|
 |`title`| string | End-User’s title, e.g. “Dr.”|
 |`msisdn`| string | End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
+|`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
 
 ## txn Claim
 
@@ -125,7 +159,7 @@ If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at
 
 * the transaction ID,
 * the authentication method employed, and
-* the transaction type (e.g. scope values).
+* the transaction type (e.g. the set of claims returned).
 
 This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
 
@@ -238,6 +272,8 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 
 `type`: REQUIRED. Value MUST be set to "electronic_signature".
 
+`signature_type`: String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework. 
+
 `issuer`: String denoting the certification authority that issued the signer's certificate.
 
 `serial_number`: String containing the serial number of the certificate used to sign.
@@ -279,7 +315,7 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `sub` claim identifying the user in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
-Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
+Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
 The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
 
 The following are examples of assertions including verified claims as aggregated claims 
@@ -299,13 +335,15 @@ The following example shows an ID token containing `verified_claims` from two di
 
 The OP MAY combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
-If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and a embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and an embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
 Note: any assertion provided by an OP or AS including aggregated or distributed claims MAY contain multiple instances of the same End-User claim. It is up to the RP to decide how to process those different instances. 
 
 # Requesting Verified Claims
 
-Verified Claims and related verification data can be requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+Making a request for verified claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+It is also possible to use the `scope` parameter to request one or more specific pre-defined claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
 Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
 
@@ -406,7 +444,7 @@ The following is an example of a request for Claims where the verification proce
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending her through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
 
 ### Requesting claims sets with different verification requirements
 
@@ -429,6 +467,12 @@ In the above example, the RP asks for family and given name either under trust f
 If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
 
 Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
+
+## Requesting sets of claims by scope {#req_scope}
+
+Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+
+When using this approach the claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
 # Examples
 
@@ -581,17 +625,32 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
 
+The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request end-user claims and metadata it requires.
+
 # Security Considerations {#Security}
 
-The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. The Claims source MUST therefore cryptographically sign all assertions.
+This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
+web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
+in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
 
-The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer.
+This specification does not define or require a particular security profile since there are several security 
+profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
+their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL]. 
+
+Implementers are recommended to select a security profile that has a certification program 
+or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and 
+interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
+
+The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
+
+The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
+methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
 This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
-Each party defining such identifier MUST ensure the collision resistance of this identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
+Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
 
 The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
@@ -638,6 +697,26 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
+<reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
+  <front>
+    <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
+<reference anchor="FAPI-2-BL" target="https://bitbucket.org/openid/fapi/src/master/FAPI_2_0_Baseline_Profile.md">
+  <front>
+    <title>FAPI 2.0 Baseline Profile </title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -673,6 +752,16 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>European Parliament</organization>
     </author>
    <date day="23" month="July" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="FATF-Digital-Identity" target="https://www.fatf-gafi.org/media/fatf/documents/recommendations/Guidance-on-Digital-Identity.pdf">
+  <front>
+    <title>Guidance on Digital Identity</title>
+    <author initials="" surname="FATF">
+      <organization>Financial Action Task Force (FATF)</organization>
+    </author>
+   <date month="March" year="2020"/>
   </front>
 </reference>
 
@@ -838,7 +927,7 @@ Claim Name:
 : `birth_family_name`
 
 Claim Description:
-: Family name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason.
+: Family name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name(s) later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -850,7 +939,7 @@ Claim Name:
 : `birth_given_name`
 
 Claim Description: 
-: Given name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason.
+: Given name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.
 
 Change Controller: 
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -862,7 +951,7 @@ Claim Name:
 : `birth_middle_name`
 
 Claim Description:
-: Middle name someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason.
+: Middle name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -900,10 +989,20 @@ Claim Name:
 Claim Description:
 : End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
 
-
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
+Specification Document(s):
+: Section [Claims](#claims) of this document
+
+Claim Name:
+: `also_known_as`
+
+Claim Description:
+: Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s): 
 : Section [Claims](#claims) of this document
@@ -929,6 +1028,10 @@ The technology described in this specification was made available from contribut
    -12
 
    * changed evidence type `qes` to `electronic_signature` 
+   * Added claim `also_known_as`
+   * Added text regarding security profiles
+   * Editorial improvements
+   * Added further co-authors
 
    -11
   
