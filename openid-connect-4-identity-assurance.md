@@ -28,6 +28,37 @@ organization="yes.com"
     [author.address]
     email = "mail@danielfett.de"
 
+[[author]]
+initials="M."
+surname="Haine"
+fullname="Mark Haine"
+organization="Considrd.Consulting Ltd"
+    [author.address]
+    email = "mark@considrd.consulting"
+
+[[author]]
+initials="A."
+surname="Pulido"
+fullname="Alberto Pulido"
+organization="Santander"
+    [author.address]
+    email = "alberto.pulido@santander.co.uk"
+
+[[author]]
+initials="K."
+surname="Lehmann"
+fullname="Kai Lehmann"
+organization="1&1 Mail & Media Development & Technology GmbH"
+    [author.address]
+    email = "kai.lehmann@1und1.de"
+
+[[author]]
+initials="K."
+surname="Koiwai"
+fullname="Kosuke Koiwai"
+organization="KDDI Corporation"
+    [author.address]
+    email = "ko-koiwai@kddi.com"
 
 %%%
 
@@ -128,7 +159,7 @@ If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at
 
 * the transaction ID,
 * the authentication method employed, and
-* the transaction type (e.g. scope values).
+* the transaction type (e.g. the set of claims returned).
 
 This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
 
@@ -282,7 +313,7 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `sub` claim identifying the user in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
-Claims sources SHOULD sign the assertions containing `verified_claims` in order to protect integrity and authenticity. 
+Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
 The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
 
 The following are examples of assertions including verified claims as aggregated claims 
@@ -308,7 +339,9 @@ Note: any assertion provided by an OP or AS including aggregated or distributed 
 
 # Requesting Verified Claims
 
-Verified Claims and related verification data can be requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+Making a request for verified claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+It is also possible to use the `scope` parameter to request one or more specific pre-defined claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
 Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
 
@@ -432,6 +465,12 @@ In the above example, the RP asks for family and given name either under trust f
 If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
 
 Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
+
+## Requesting sets of claims by scope {#req_scope}
+
+Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+
+When using this approach the claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
 # Examples
 
@@ -584,6 +623,8 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
 
+The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request end-user claims and metadata it requires.
+
 # Security Considerations {#Security}
 
 This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
@@ -599,7 +640,6 @@ or other resources that allow both OpenID Providers and Relying Parties to ensur
 interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
-The Claims source MUST therefore cryptographically sign all assertions.
 
 The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
 methods at transport or application layer.
@@ -988,6 +1028,7 @@ The technology described in this specification was made available from contribut
    * Added claim `also_known_as`
    * Added text regarding security profiles
    * Editorial improvements
+   * Added further co-authors
 
    -11
   
