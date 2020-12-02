@@ -1,5 +1,5 @@
 {
-  "verified_claims":[
+  "verified_claims": [
     {
       "verification": {
         "trust_framework": "eidas_ial_substantial"
@@ -18,27 +18,27 @@
       }
     },
     {
-      "verification":{
-        "trust_framework":"de_aml",
-        "time":"2012-04-23T18:25Z",
-        "verification_process":"f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
-        "evidence":[
+      "verification": {
+        "trust_framework": "de_aml",
+        "time": "2012-04-23T18:25Z",
+        "verification_process": "f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
+        "evidence": [
           {
-            "type":"id_document",
-            "method":"pipp",
+            "type": "id_document",
+            "method": "pipp",
             "time": "2012-04-22T11:30Z",
-            "document":{
-              "type":"idcard"
+            "document": {
+              "type": "idcard"
             }
           }
         ]
       },
-      "claims":{
-        "address":{
-          "locality":"Maxstadt",
-          "postal_code":"12344",
-          "country":"DE",
-          "street_address":"An der Sanddüne 22"
+      "claims": {
+        "address": {
+          "locality": "Maxstadt",
+          "postal_code": "12344",
+          "country": "DE",
+          "street_address": "An der Weide 22"
         }
       }
     }
