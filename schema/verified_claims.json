@@ -186,7 +186,7 @@
           "required": [
             "trust_framework"
           ],
-          "additionalProperties": false
+          "additionalProperties": true
         },
         "claims": {
           "type": "object",
