@@ -16,7 +16,7 @@
         "type": {
           "type": "string",
           "enum": [
-            "qes",
+            "electronic_signature",
             "id_document",
             "utility_bill"
           ]
@@ -30,12 +30,15 @@
           "if": {
             "properties": {
               "type": {
-                "value": "qes"
+                "value": "electronic_signature"
               }
             }
           },
           "then": {
             "properties": {
+              "signature_type":{
+                "type": "string"
+              },
               "issuer": {
                 "type": "string"
               },
