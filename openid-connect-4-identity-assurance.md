@@ -410,9 +410,7 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
-### Error Handling
-
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP. An OP MUST NOT return an error in case it cannot return a requested verification data, even if it was marked as essential, regardless of the data being unavailable or the End-User not authorizing its release.
+The OP has the discretion to decide whether the requested verification data is to be provided to the RP. 
 
 ## Defining further constraints on Verification Data {#constraintedclaims}
 
@@ -430,8 +428,6 @@ The following example shows that the RP wants to obtain an attestation based on 
 
 <{{examples/request/verification_aml.json}}
 
-In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain user, the OP MUST NOT return an error, but instead not deliver at all the `verified_claims` claim.
-
 The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available verified/verification data that does not match these constraints.
 
 ### max_age
@@ -444,7 +440,7 @@ The following is an example of a request for Claims where the verification proce
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach.
 
 ### Requesting claims sets with different verification requirements
 
@@ -462,11 +458,69 @@ The RP MAY combine multiple `verified_claims` claims in the request with multipl
 
 In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `id_document` or under trust framework `silver` or `bronze` but with an evidence `utility_bill`.
 
+## Handling Unfulfillable Requests and Unavailable Data
+An RP can define the expected behavior of an OP when certain data is not available, when a user does not consent to the release of the data, or when restrictions defined using `value`, `values`, or `max_age` cannot be fulfilled. To this end, the RP can use the following three "case keys":
+
+ * `if_unavailable` describes the case that the OP does not have data about this
+   claim or does not support this claim. 
+ * `if_not_consented` describes the case that the user has not consented to the
+   release of the data. This can only apply if the user interface of the OP allows the user to deselect single claims. If the user does not consent to the whole transaction, standard OpenID Connect logic applies. 
+ * `if_no_match` describes the case that the restrictions expressed using
+   `value`, `values` or `max_age` cannot be fulfilled with the available data.
+   Will be ignored if no restriction was defined.
+
+If more than one condition applies, the first one in the list takes precedence. For each of these three keys, one of the following expected behaviors can be defined using these "behavior keys":
+
+ * `omit`: Omit this particular claim from the response. If omitting claims
+   leads to an empty `claims` sub-element, the OP MUST omit the
+   `verified_claims` element. If an element is to be omitted that is required
+   for a valid response, its parent elements MUST be omitted as well,
+   recursively until the response is valid.
+ * `omit_verified_claims`: Omit the whole `verified_claims` section (default for
+   claims within `verified_claims`). Only valid within the `verified_claims`
+   section.
+ * `abort`: Abort the transaction. TODO: Which error code?
+
+The following table shows the default behaviors when `if_*`-keys are omitted:
+
+|                    | within `verified_claims/verification` | else   |
+| ------------------ | ------------------------------------- | ------ |
+| `if_unavailable`   | `omit`                                | `omit` |
+| `if_not_consented` | `omit`                                | `omit` |
+| `if_no_match`      | `omit_verified_claims`                | `omit` |
+
+Example:
+```json
+{
+  "phone_number": {
+    "if_unavailable": "abort"
+  },
+  "given_name": {
+    "value": "Mustermann",
+    "if_unavailable": "omit",
+    "if_no_match": "abort"
+  },
+  "verified_claims": {
+    "verification": {
+      "trust_framework": {
+        "value": "de_aml",
+        "if_no_match": "abort"
+      }
+    }
+    "claims": {
+      "address": {
+        "if_not_consented": "omit_verified_claims"
+      }
+    }
+  }
+}
+```
+
+Important: All of these behaviors are independent from the use of `essential`, except that the use of `essential` can control whether a user can select or deselect certain claims (`if_not_consented`).
+
 ### Error Handling
 
-If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
-
-Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
+If the `claims` sub-element is empty or if a behavior key is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key (starting with `if_`) is used that is unknown to the OP, it MUST be ignored.
 
 ## Requesting sets of claims by scope {#req_scope}
 
