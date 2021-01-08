@@ -459,12 +459,16 @@ The RP MAY combine multiple `verified_claims` claims in the request with multipl
 In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `id_document` or under trust framework `silver` or `bronze` but with an evidence `utility_bill`.
 
 ## Handling Unfulfillable Requests and Unavailable Data
-An RP can define the expected behavior of an OP when certain data is not available, when a user does not consent to the release of the data, or when restrictions defined using `value`, `values`, or `max_age` cannot be fulfilled. To this end, the RP can use the following three "case keys":
+An RP can define the expected behavior of an OP when certain data is not available, when a user does not consent to the release of the data, or when restrictions defined using `value`, `values`, or `max_age` cannot be fulfilled. 
+
+This is in particular useful when some of the claims (e.g., verified claims) are
+priced and the RP is only interested to pay for the respective claims
+if certain conditions are met.
+
+The RP can use the following three "case keys" on all standard OpenID Connect claims, verified claims, and verification elements:
 
  * `if_unavailable` describes the case that the OP does not have data about this
-   claim or does not support this claim. 
- * `if_not_consented` describes the case that the user has not consented to the
-   release of the data. This can only apply if the user interface of the OP allows the user to deselect single claims. If the user does not consent to the whole transaction, standard OpenID Connect logic applies. 
+   claim or does not support this claim, or that the user did not consent to the release of the data. Note that the latter can only apply if the user interface of the OP allows the user to deselect single claims. If the user does not consent to the whole transaction, standard OpenID Connect logic applies. 
  * `if_no_match` describes the case that the restrictions expressed using
    `value`, `values` or `max_age` cannot be fulfilled with the available data.
    Will be ignored if no restriction was defined.
@@ -476,17 +480,20 @@ If more than one condition applies, the first one in the list takes precedence. 
    `verified_claims` element. If an element is to be omitted that is required
    for a valid response, its parent elements MUST be omitted as well,
    recursively until the response is valid.
- * `omit_verified_claims`: Omit the whole `verified_claims` section (default for
-   claims within `verified_claims`). Only valid within the `verified_claims`
-   section.
- * `abort`: Abort the transaction. TODO: Which error code?
+ * `omit_set`: Omit this particular claim and all claims for which the same case
+   key and same behavior key are set. This can be used by the RP to
+   define a set of claims that is only useful when delivered in full.
+ * `omit_verified_claims`: Omit this particular claim and the whole
+   `verified_claims` section (default for claims within `verified_claims`). Only
+   valid within the `verified_claims` section.
+ * `abort`: Abort the whole transaction by returning an authentication error
+   response using the error code `access_denied` to the RP. The `error_description` SHOULD indicate which rule led to the abort of the transaction if and only if the behavior key is `if_unavailable` or the user has consented to the release of the data (see (#privacy_if_no) below).
 
 The following table shows the default behaviors when `if_*`-keys are omitted:
 
 |                    | within `verified_claims/verification` | else   |
 | ------------------ | ------------------------------------- | ------ |
 | `if_unavailable`   | `omit`                                | `omit` |
-| `if_not_consented` | `omit`                                | `omit` |
 | `if_no_match`      | `omit_verified_claims`                | `omit` |
 
 Example:
@@ -496,7 +503,7 @@ Example:
     "if_unavailable": "abort"
   },
   "given_name": {
-    "value": "Mustermann",
+    "value": "Max",
     "if_unavailable": "omit",
     "if_no_match": "abort"
   },
@@ -509,18 +516,42 @@ Example:
     }
     "claims": {
       "address": {
-        "if_not_consented": "omit_verified_claims"
+        "if_unavailable": "omit_verified_claims"
       }
     }
   }
 }
 ```
 
-Important: All of these behaviors are independent from the use of `essential`, except that the use of `essential` can control whether a user can select or deselect certain claims (`if_not_consented`).
+Important: All of these behaviors are independent from the use of `essential`.
 
 ### Error Handling
 
 If the `claims` sub-element is empty or if a behavior key is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key (starting with `if_`) is used that is unknown to the OP, it MUST be ignored.
+
+### Privacy Implications {#privacy_if_no}
+
+An RP might be able to derive information from a response even if the response is an error response or claims are omitted. For example, the following request can be used to derive whether or not the user is named `Max`:
+
+```json
+{
+  "given_name": {
+    "value": "Max",
+    "if_no_match": "abort",
+    "if_unavailable": "omit"
+  }
+}
+```
+
+When the request is aborted, the user is not called Max. In a naive implementation, the abort of the request might happen before the user has consented to the release of the data. In this case, using a series of carefully crafted requests, an RP might be able to derive substantial information about a user even if the user's name is never transferred from the OP to the RP directly. A malicious RP can use this to derive user information without the user's consent or without paying for the data.
+
+To avoid that user information is leaked through this mechanism without the user's consent, implementations MUST avoid evaluating `if_not_match` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. 
+
+OPs MUST also consider whether the (un)availability of data (`if_unavailable`)
+can leak data in a similar way in the respective application and, if so, apply
+the same restrictions. 
+
+To the same end, and to avoid relying parties not paying for data, OPs SHOULD additionally consider rate-limiting requests and monitoring requests for anomalies (frequent dynamic changes in request structure, frequent aborts).
 
 ## Requesting sets of claims by scope {#req_scope}
 
