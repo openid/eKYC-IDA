@@ -132,7 +132,7 @@ OpenID
 
 # Scope and Requirements
 
-Use cases relating to Legal entities and initiated by an end-user relate to "authority to act" where the user themselves is authorising the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the delegated authority including:
+Use cases relating to Legal entities and initiated by an end-user relate to "authority to act" where the user themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the delegated authority including:
 
 - Which entity the authority applies to
 - Claims about the entity that has the authority to act
@@ -226,13 +226,13 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
-|`organisation_name`|String|legal entity name|
+|`organization_name`|String|legal entity name|
 |`registration_number`|String|Registration number|
 |`lei`|String|Legal Entity Identifier|
-|`organisation_type`|String|Legal entity type (limited, charity, not-for-profit)|
+|`organization_type`|String|Legal entity type (limited, charity, not-for-profit)|
 |`registered_address`| JSON object | Registered address. The value of this member is a JSON structure containing Claims as defined in Section 5.1.1 of the OpenID Connect specification [@!OpenID]|
 |`registered_jurisdiction`|String|String representing the Jurisdiction that the legal entity is registered in|
-|`organisation_status`|String|status (active, dormant, closed)|
+|`organization_status`|String|status (active, dormant, closed)|
 |`incorporation_date`|String| A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of incorporation of the legal entity|
 |`last_accounts_date`|String|A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of the most recent accounts by the legal entity|
 |`trading_as`|array|Trading name(s)|
@@ -270,7 +270,7 @@ The `applies_to` sub-element is intended to convey claims that allow unique iden
 
 In the case that the authority applies to a Legal entity the `applies_to` element MAY contain one or more of the following Claims (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims:
 
-* `organisation_name`
+* `organization_name`
 * `registration_number`
 * `lei`
 * `type`
