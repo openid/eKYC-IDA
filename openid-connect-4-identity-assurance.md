@@ -297,7 +297,7 @@ During the identity verification process, specific document artefacts will be cr
 * video recordings of the verification process
 * certificates of electronic signatures
 
-Depending on the trust framework or individual agreements between OpenID Connect Providers and Relying Parties, those artefacts can be attached to the verified claims response allowing Relying Parties to store those artefacts along with the verified claim information.
+Depending on the trust framework, general agreements between OpenID Connect Providers and Relying Parties, or when explicitly requested by the Relying Party, those artefacts can be attached to the verified claims response allowing Relying Parties to store those artefacts along with the verified claim information.
 
 An attachment is represented by a JSON object. This specification allows two types of representations:
 
@@ -307,7 +307,7 @@ All the information of the document (including the content itself) is provided w
 
 `desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OpenId Connect Provider.
 
-`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC7519]. Multipart or message media types are not allowed. Example: "image/png"
+`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
 
 `content`: REQUIRED. Base64 encoded representation of the document content.
 
@@ -315,15 +315,15 @@ Embedded attachments are not appropriate when embedding verified claims in acces
 
 The following example shows embedded attachments. The actual contents of the documents are truncated:
 
-<{{examples/response/embedded_attachments.json}} 
+<{{examples/response/embedded_attachments.json}}
 
 #### External
 
-External attachments are similar to distributed claims. The reference to the external document is provided in a JSON object with the following elements: 
+External attachments are similar to distributed claims. The reference to the external document is provided in a JSON object with the following elements:
 
 `desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OpenId Connect Provider.
 
-`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element. 
+`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
 `access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document SHOULD be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MAY use the Access Token issued by the OpenId Connect Provider in the Token Response. Alternatively the RP may need to retrieve the Access Token out of band or use an Access Token that was pre-negotiated between the Provider and RP, or the Provider MAY reauthenticate the End-User and/or reauthorize the RP.
 `expires_in`: OPTIONAL. If a specific `access_token`for accessing the `url` is given, this integer value represents the number of seconds the `access_token` is valid.
 `digest`: JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
@@ -335,7 +335,7 @@ External attachments are suitable when embedding verified claims in Tokens. Howe
 
 The following example shows external attachments:
 
-<{{examples/response/external_attachments.json}} 
+<{{examples/response/external_attachments.json}}
 
 #### Privacy concerns
 
@@ -471,6 +471,14 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
+## Requesting attachments
+
+RPs can explicitly request to receive attachments along with the verified claims:
+
+<{{examples/request/verification_with_attachments.json}}
+
+As with other claims, the attachment claim can be marked as essential in the request as well.
+
 ### Error Handling
 
 The OP has the discretion to decide whether the requested verification data is to be provided to the RP. An OP MUST NOT return an error in case it cannot return a requested verification data, even if it was marked as essential, regardless of the data being unavailable or the End-User not authorizing its release.
@@ -562,7 +570,6 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 <{{examples/response/multiple_verified_claims.json}}
 
-
 ## Verified Claims in UserInfo Response
 
 ### Request
@@ -628,32 +635,36 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 
+`attachments_supported`: JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
+
+`digest_algorithms_supported`: JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `SHA-256` MUST be supported by the OP as well. For information on predefined digest algorithm values see [@!predefined_values].
+
 This is an example openid-configuration snippet:
 
 ```json
 {
 ...
-   "verified_claims_supported":true,
-   "trust_frameworks_supported":[
+   "verified_claims_supported": true,
+   "trust_frameworks_supported": [
      "nist_800_63A_ial_2",
      "nist_800_63A_ial_3"
    ],
-   "evidence_supported":[
+   "evidence_supported": [
       "id_document",
       "utility_bill",
       "electronic_signature"
    ],
-   "id_documents_supported":[
+   "id_documents_supported": [
        "idcard",
        "passport",
        "driving_permit"
    ],
-   "id_documents_verification_methods_supported":[
+   "id_documents_verification_methods_supported": [
        "pipp",
        "sripp",
        "eid"
    ],
-   "claims_in_verified_claims_supported":[
+   "claims_in_verified_claims_supported": [
       "given_name",
       "family_name",
       "birthdate",
@@ -661,11 +672,24 @@ This is an example openid-configuration snippet:
       "nationalities",
       "address"
    ],
+  "attachments_supported": [
+    "external",
+    "embedded"
+  ],
+  "digest_algorithms_supported": [
+    "SHA-256"
+  ],
 ...
 }
 ```
 
 The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
+
+# Client Registration and Management
+
+During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@?RFC7592] the following additional properties are available:
+
+`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `SHA-256` will be used by default.
 
 # Transaction-specific Purpose {#purpose}
 
@@ -753,6 +777,22 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization> Illumila </organization>
+    </author>
+   <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="OpenID-Registration" target="https://openid.net/specs/openid-connect-registration-1_0.html">
+  <front>
+    <title>OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1</title>
+    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
+      <organization>NRI</organization>
+    </author>
+    <author initials="J." surname="Bradley" fullname="John Bradley">
+      <organization>Ping Identity</organization>
+    </author>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>
