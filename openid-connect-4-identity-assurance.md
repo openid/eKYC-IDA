@@ -226,7 +226,7 @@ The following types of evidence are defined:
 
 * `id_document`: Verification based on any kind of government issued identity document.
 * `utility_bill`: Verification based on a utility bill.
-* `qes`: Verification based on an eIDAS Qualified Electronic Signature.
+* `electronic_signature`: Verification based on an electronic signature.
 
 #### id_document
 
@@ -266,11 +266,13 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 
 `date`: String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
 
-#### qes
+#### electronic_signature
 
-The following elements are contained in a `qes` evidence sub-element.
+The following elements are contained in a `electronic_signature` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to "qes".
+`type`: REQUIRED. Value MUST be set to "electronic_signature".
+
+`signature_type`: String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework. 
 
 `issuer`: String denoting the certification authority that issued the signer's certificate.
 
@@ -578,7 +580,7 @@ This is an example openid-configuration snippet:
    "evidence_supported":[
       "id_document",
       "utility_bill",
-      "qes"
+      "electronic_signature"
    ],
    "id_documents_supported":[
        "idcard",
@@ -1025,6 +1027,7 @@ The technology described in this specification was made available from contribut
 
    -12
 
+   * changed evidence type `qes` to `electronic_signature` 
    * Added claim `also_known_as`
    * Added text regarding security profiles
    * Editorial improvements
