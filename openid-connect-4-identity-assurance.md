@@ -324,7 +324,6 @@ External attachments are similar to distributed claims. The reference to the ext
 
 `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
 `access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OpenId Connect Provider in the Token Response.
-`expires_in`: OPTIONAL. If a specific `access_token`for accessing the `url` is given, this integer value represents the number of seconds the `access_token` is valid.
 `digest`: JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
 
 * `alg`: Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OpenId Connect Provider during Client Registration or Management.
