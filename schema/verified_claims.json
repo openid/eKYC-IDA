@@ -20,6 +20,9 @@
             "id_document",
             "utility_bill"
           ]
+        },
+        "attachments": {
+          "$ref": "#/definitions/attachments"
         }
       },
       "required": [
@@ -107,9 +110,6 @@
                     "$ref": "#/definitions/date_type"
                   }
                 }
-              },
-              "attachments": {
-                "$ref": "#/definitions/attachments"
               }
             }
           },
@@ -154,9 +154,6 @@
               },
               "date": {
                 "$ref": "#/definitions/date_type"
-              },
-              "attachments": {
-                "$ref": "#/definitions/attachments"
               }
             }
           },
@@ -265,9 +262,6 @@
                   }
                 ]
               }
-            },
-            "attachments": {
-              "$ref": "#/definitions/attachments"
             }
           },
           "required": [

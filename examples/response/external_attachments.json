@@ -2,24 +2,41 @@
   "verified_claims": {
     "verification": {
       "trust_framework":"eidas_ial_substantial",
-      "attachments": [
+      "evidence": [
         {
-          "desc": "Front of id document",
-          "digest": {
-            "alg": "SHA-256",
-            "value": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
+          "type": "id_document",
+          "method": "pipp",
+          "time": "2012-04-22T11:30Z",
+          "document": {
+            "type": "idcard",
+            "issuer": {
+              "name": "Stadt Augsburg",
+              "country": "DE"
+            },
+            "number": "53554554",
+            "date_of_issuance": "2010-03-23",
+            "date_of_expiry": "2020-03-22"
           },
-          "url": "https://example.com/attachments/pGL9yz4hZQ",
-          "access_token": "ksj3n283dke",
-          "expires_in": 3600
-        },
-        {
-          "desc": "Back of id document",
-          "digest": {
-            "alg": "SHA-256",
-            "value": "/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM="
-          },
-          "url": "https://example.com/attachments/4Ag8IpOf95"
+          "attachments": [
+            {
+              "desc": "Front of id document",
+              "digest": {
+                "alg": "SHA-256",
+                "value": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
+              },
+              "url": "https://example.com/attachments/pGL9yz4hZQ",
+              "access_token": "ksj3n283dke",
+              "expires_in": 3600
+            },
+            {
+              "desc": "Back of id document",
+              "digest": {
+                "alg": "SHA-256",
+                "value": "/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM="
+              },
+              "url": "https://example.com/attachments/4Ag8IpOf95"
+            }
+          ]
         }
       ]
     },

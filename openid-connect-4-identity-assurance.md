@@ -218,17 +218,22 @@ Note: While `verification_process` refers to the identity verification process a
 
 `evidence`: JSON array containing information about the evidence the OP used to verify the user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
-`attachments`: Array of JSON objects representing documents containing artifacts relevant for the identity verification. This can be copies or scans of id documents, certificates, or documents containing protocols or scans of filled and signed forms. See below on how an attachment is structured.
-
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
 ### Evidence
+
+The evidence is generally structured with the following elements:
+
+`type`: REQUIRED. The value defines the type of the evidence.
+`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See below on how an attachment is structured.
 
 The following types of evidence are defined:
 
 * `id_document`: Verification based on any kind of government issued identity document.
 * `utility_bill`: Verification based on a utility bill.
 * `electronic_signature`: Verification based on an electronic signature.
+
+Depending on the evidence type additional elements are defined.
 
 #### id_document
 
@@ -255,8 +260,6 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `date_of_issuance`: The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
-`attachments`: Array of JSON objects representing attachments like photocopies of the id document. See below on how an attachment is structured.
-
 #### utility_bill
 
 The following elements are contained in a `utility_bill` evidence sub-element.
@@ -269,8 +272,6 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 * All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
 `date`: String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
-
-`attachments`: Array of JSON objects representing attachments like photocopies of the evidence. See below on how an attachment is structured.
 
 #### electronic_signature
 
@@ -286,8 +287,6 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 
 `created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
 
-`attachments`: Array of JSON objects representing attachments like photocopies or the certificate of the evidence. See below on how an attachment is structured.
-
 ### Attachments
 
 During the identity verification process, specific document artefacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artefacts can later be reviewed during audits or quality control for example. Those artefacts include, but are not limited to:
@@ -297,7 +296,7 @@ During the identity verification process, specific document artefacts will be cr
 * video recordings of the verification process
 * certificates of electronic signatures
 
-Depending on the trust framework, general agreements between OpenID Connect Providers and Relying Parties, or when explicitly requested by the Relying Party, those artefacts can be attached to the verified claims response allowing Relying Parties to store those artefacts along with the verified claim information.
+Depending on the trust framework, general agreements between OP and RP, or when explicitly requested by the RP, those artefacts can be attached to the verified claims response allowing the RP to store those artefacts along with the verified claim information.
 
 An attachment is represented by a JSON object. This specification allows two types of representations:
 
@@ -324,7 +323,7 @@ External attachments are similar to distributed claims. The reference to the ext
 `desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OpenId Connect Provider.
 
 `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
-`access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document SHOULD be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MAY use the Access Token issued by the OpenId Connect Provider in the Token Response. Alternatively the RP may need to retrieve the Access Token out of band or use an Access Token that was pre-negotiated between the Provider and RP, or the Provider MAY reauthenticate the End-User and/or reauthorize the RP.
+`access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OpenId Connect Provider in the Token Response.
 `expires_in`: OPTIONAL. If a specific `access_token`for accessing the `url` is given, this integer value represents the number of seconds the `access_token` is valid.
 `digest`: JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
 
@@ -471,7 +470,7 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
-## Requesting attachments
+### Attachments
 
 RPs can explicitly request to receive attachments along with the verified claims:
 
