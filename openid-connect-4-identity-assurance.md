@@ -326,7 +326,7 @@ External attachments are similar to distributed claims. The reference to the ext
 `access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OpenId Connect Provider in the Token Response.
 `digest`: JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
 
-* `alg`: Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OpenId Connect Provider during Client Registration or Management.
+* `alg`: Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
 * `value`: Base64 encoded representation of the cryptographic hash.
 
 External attachments are suitable when embedding verified claims in Tokens. However, the verified claims element is not self-contained. The documents need to be retrieved separately and the digest values MUST be calculated and validated to ensure integrity.
@@ -635,7 +635,7 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `attachments_supported`: JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
 
-`digest_algorithms_supported`: JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `SHA-256` MUST be supported by the OP as well. For information on predefined digest algorithm values see [@!predefined_values].
+`digest_algorithms_supported`: JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
 
 This is an example openid-configuration snippet:
 
@@ -675,7 +675,7 @@ This is an example openid-configuration snippet:
     "embedded"
   ],
   "digest_algorithms_supported": [
-    "SHA-256"
+    "sha-256"
   ],
 ...
 }
@@ -687,7 +687,7 @@ The OP MUST support the `claims` parameter and needs to publish this in its open
 
 During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@?RFC7592] the following additional properties are available:
 
-`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `SHA-256` will be used by default.
+`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
 # Transaction-specific Purpose {#purpose}
 
@@ -974,6 +974,16 @@ Ministry of Land, Infrastructure and Transport</organization>
       <organization>ITU-T</organization>
     </author>
     <date year="2010" month="11"/>
+  </front>
+</reference>
+
+<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
+  <front>
+    <title>Named Information Hash Algorithm Registry</title>
+    <author>
+      <organization>IANA</organization>
+    </author>
+    <date year="2016" month="09"/>
   </front>
 </reference>
 
