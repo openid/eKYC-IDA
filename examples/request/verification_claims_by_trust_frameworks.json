@@ -4,7 +4,10 @@
       {
         "verification": {
           "trust_framework": {
-            "value": "eidas_ial_substantial"
+            "value": "eidas"
+          },
+          "identity_assurance_level": {
+            "value": "high"
           }
         },
         "claims": {
@@ -15,9 +18,12 @@
       {
         "verification": {
           "trust_framework": {
-            "values": [
-              "eidas_ial_high",
-              "eidas_ial_substantial"
+            "value": "eidas"
+          },
+          "identity_assurance_level":{
+            "values":[
+              "high",
+              "substantial"
             ]
           }
         },

@@ -255,6 +255,9 @@
             "trust_framework": {
               "$ref": "#/definitions/constrainable_element"
             },
+            "identity_assurance_level": {
+              "$ref": "#/definitions/constrainable_element"
+            },
             "time": {
               "$ref": "#/definitions/datetime_element"
             },
@@ -276,7 +279,7 @@
           "required": [
             "trust_framework"
           ],
-          "additionalProperties": false
+          "additionalProperties": true
         },
         "claims": {
           "type": "object",

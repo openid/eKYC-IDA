@@ -200,11 +200,16 @@ This element contains the information about the process conducted to verify a pe
 
 The `verification` element consists of the following elements:
 
-`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process and the identity assurance level of the OP.
+`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
 
-An example value is `eidas_ial_high`, which denotes a notified eID system under eIDAS [@?eIDAS] providing identity assurance at level of assurance "High".
+An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
 
-For information on predefined trust framework values see [@!predefined_values]. 
+`identity_assurance_level`: OPTIONAL. String determining the identity assurance level the End-User claims in the respective `verified_claims` element fulfill. The value 
+range depends on the respective `trust_framework` value. 
+
+For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial`. and `high`
+
+For information on predefined trust framework and identity assurance level values see [@!predefined_values]. 
 
 RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
 
@@ -448,7 +453,7 @@ The OP SHOULD try to fulfill this requirement. If the verification data of the u
 
 ### Requesting claims sets with different verification requirements
 
-It is also possible to request different trust frameworks and verification methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
+It is also possible to request different trust frameworks, identity assurance levels, and verification methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
 
 The following example illustrates this functionality.
 
@@ -456,7 +461,7 @@ The following example illustrates this functionality.
  
 When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
 
-The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
+The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `identity_assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
 <{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}} 
 
@@ -574,8 +579,8 @@ This is an example openid-configuration snippet:
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
-     "nist_800_63A_ial_2",
-     "nist_800_63A_ial_3"
+     "nist_800_63A",
+     "nist_800_63A"
    ],
    "evidence_supported":[
       "id_document",
@@ -1032,6 +1037,7 @@ The technology described in this specification was made available from contribut
    * Added text regarding security profiles
    * Editorial improvements
    * Added further co-authors
+   * Added `assurance_level` field
 
    -11
   
