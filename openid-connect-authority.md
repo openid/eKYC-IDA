@@ -1,16 +1,16 @@
 %%%
 title = "OpenID Connect Authority claims extension"
-abbrev = "ler-auth-code"
+abbrev = "openid-connect-authority-1_0"
 ipr = "none"
 area = "Identity"
 workgroup = "eKYC_IDA"
-keyword = ["security", "openid", "authorization", "trust", "legal entity", "authority", delegate"]
-
-date = 2020-06-21T12:00:00Z
+keyword = ["security", "openid", "authorization", "trust", "legal entity", "authority", "delegate"]
 
 [seriesInfo]
 name = "Internet-Draft"
+
 value = "openid-authority-00"
+
 status = "standard"
 
 [[author]]
@@ -31,7 +31,7 @@ organization="Beruku"
 
 %%%
 
-# Abstract
+.# Abstract
 
 This document defines an extension of OpenID Connect for providing Relying Parties with verified Claims about the relationships between entities, in a secure way, using OIDC and OAuth 2.0 protocols.  This extension is intended to be used to communicate a relationship between a natural person and another entity in a way that can be relied upon.
 That second related entity could be a legal entity or another natural person.
@@ -84,23 +84,21 @@ This specification uses the terms:
 * "Refresh Token",  
 * "Response Type",
 * and "Token Endpoint" 
-defined by [@!OAuth2.0]
+defined by [@!RFC6749]
 
 the terms: 
 * "Claim Name", 
 * "Claim Value" 
 * and "JSON Web Token (JWT)" 
-defined by [@!JWT]
+defined by [@!RFC7519]
 
 the terms: 
 * "Header Parameter", 
 * "JOSE Header" 
 * and "JSON Web Signature (JWS)" 
-defined by [@!JWS]
+defined by [@!RFC7519]
 
 the term "User Agent" defined by [@!RFC2616]
-
-the term "Response Mode" defined by [@!OAuth.Multiple.Responses]
 
 the terms:
 * "Authentication", 
@@ -123,22 +121,22 @@ the terms:
 * "UserInfo Endpoint", 
 * "Validation", 
 * "Verification" 
-defined by OpenID Connect [@!OIDC]
+defined by OpenID Connect [@!OpenID]
 
 This specification also use to the following terms:
 
 OpenID
-: References to "openid" in this documentation are about OpenID connect specification [@!OIDC]
+: References to "openid" in this documentation are about OpenID connect specification [@!OpenID]
 
 # Scope and Requirements
 
 Use cases relating to Legal entities and initiated by an end-user relate to "authority to act" where the user themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the delegated authority including:
 
-- Which entity the authority applies to
-- Claims about the entity that has the authority to act
-- Claims that define the scope of the authority
-- Claims that may apply limitations of the authority
-- Claims about how the authority is granted
+* Which entity the authority applies to
+* Claims about the entity that has the authority to act
+* Claims that define the scope of the authority
+* Claims that may apply limitations of the authority
+* Claims about how the authority is granted
 
 ## In Scope Use Cases
 
@@ -146,6 +144,7 @@ There are a number of use cases that were considered when writing this document 
 
 ### Get authority of natural person over legal entity
 "As a relying party I require specific attributes about the relationship a natural person has to a legal entity and how the details of the relationship were established"
+
 > - Key attributes relating to the natural person e.g.
 >   - name
 >   - address
@@ -295,7 +294,7 @@ The `permission` sub-element consists of an array of objects that contain the fo
 
 * `role`: REQUIRED. Object that reflects the role held by the end user in relation to the target entity
 * `validity`: OPTIONAL. Object that contains an array that MUST have either a `start` or `end` and can optionally have both.  Both the `start` and `end` objects are a reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent and are used to define the date limits of the authority being conveyed.
-* `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements.  This object is intended to describe the maximum extent of the end user's financial authority.  The `value` object will be a string that includes a decimal point and accurate to two decimal places.  The `currency` object will contain the alphabetic format defined in [@!ISO4217:2015] (Currency codes) and defines which financial currency the value is in.
+* `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements. This object is intended to describe the maximum extent of the end user's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
 * `audience`: Limitation of the scope of entity or entities that the end user may communicate with when acting on behalf of the entity defined in the `applies_to` element
 * `function`: Limitation of the scope of action that the end-user may take by functional domain
 
@@ -511,6 +510,26 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
+<reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
+  <front>
+    <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
+<reference anchor="FAPI-2-BL" target="https://bitbucket.org/openid/fapi/src/master/FAPI_2_0_Baseline_Profile.md">
+  <front>
+    <title>FAPI 2.0 Baseline Profile </title>
+    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
+      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    </author>
+   <date day="9" month="Sep" year="2020"/>
+  </front>
+</reference>
+
 
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
@@ -644,19 +663,9 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-11.json">
+<reference anchor="authority.json" target="https://openid.net/schemas/authority-00.json">
   <front>
-    <title>JSON Schema for assertions using verified_claims</title>
-    <author>
-	    <organization>OpenID Foundation</organization>
-	  </author>
-   <date year="2020"/>
-  </front>
-</reference>
-
-<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-11.json">
-  <front>
-    <title>JSON Schema for requesting verified_claims</title>
+    <title>JSON Schema for assertions using authority claims</title>
     <author>
 	    <organization>OpenID Foundation</organization>
 	  </author>
