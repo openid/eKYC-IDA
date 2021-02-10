@@ -7,18 +7,11 @@
         "evidence": [
           {
             "type": {
-              "value": "id_document"
+              "value": "electronic_signature"
             },
-            "method": null,
-            "document": {
-              "type": null,
-              "issuer": {
-                "country": null,
-                "name": null
-              },
-              "number": null,
-              "date_of_issuance": null
-            }
+            "issuer": null,
+            "serial_number": null,
+            "created_at": null
           }
         ]
       },
