@@ -204,7 +204,7 @@ The `verification` element consists of the following elements:
 
 An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
 
-`identity_assurance_level`: OPTIONAL. String determining the identity assurance level the End-User claims in the respective `verified_claims` element fulfill. The value 
+`identity_assurance_level`: OPTIONAL. String determining the identity assurance level associated with the End-User claims in the respective `verified_claims`. The value 
 range depends on the respective `trust_framework` value. 
 
 For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial`. and `high`
@@ -579,8 +579,7 @@ This is an example openid-configuration snippet:
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
-     "nist_800_63A",
-     "nist_800_63A"
+     "nist_800_63A_3"
    ],
    "evidence_supported":[
       "id_document",
