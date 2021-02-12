@@ -525,7 +525,11 @@ If the `claims` sub-element is empty or if an action is used that is unknown to 
 
 ## Meta Information on Matched/Unavailable Data
 
-In case a request is not aborted, the OP MAY provide the RP with meta information on the rules that led to the omission of data from the response. To this end, the OP adds a new top-level Claim `__response_metadata` into the response, containing the keys `unavailable` and `different`. Each of these keys lists the Claims, using the original structure, for which the case keys `if_unavailable` or `if_different` applied, respectively:
+The OP SHOULD provide the RP with meta information on the rules that led to the omission of data from the response. This helps the RP to identify cases where restrictions need to be relaxed in order to retrieve useful data more consistently, to better handle error cases, and greatly helps with debugging new implementations. 
+
+To this end, the OP adds a new top-level Claim `__response_metadata` into the response, containing the keys `unavailable` and `different`. Each of these keys lists the Claims, using the original structure, for which the case keys `if_unavailable` or `if_different` applied, respectively.
+
+In the example, the OP indicates that data for `given_name` and the `verification_process` where not available, and the restrictions defined by the RP for the verified Claims `nationalities` and `address` could not be fulfilled with available data. Together with the original request, the RP can identify the restrictions that led to the omission of data.
 
 ```json
 {
