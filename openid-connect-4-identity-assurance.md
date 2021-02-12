@@ -523,6 +523,42 @@ This example would yield the following results (among other outcomes, always ass
 
 If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
 
+## Meta Information on Matched/Unavailable Data
+
+In case a request is not aborted, the OP MAY provide the RP with meta information on the rules that led to the omission of data from the response. To this end, the OP adds a new top-level Claim `__response_metadata` into the response, containing the keys `unavailable` and `different`. Each of these keys lists the Claims, using the original structure, for which the case keys `if_unavailable` or `if_different` applied, respectively:
+
+```json
+{
+  "family_name": "Meier",
+  "__response_metadata": {
+    "unavailable": {
+      "given_name": null,
+      "verified_claims": {
+        "verification": {
+          "verification_process": null
+        }
+      }
+    },
+    "different": {
+      "verified_claims": {
+        "claims": {
+          "nationalities": null,
+          "address": null
+        }
+      }
+    }
+  }
+}
+```
+
+As described in the next section, OPs generally MUST NOT expose to an RP when claims are different unless the user has consented to the release of the Claim contents.
+
+TODO: There should also be a way to communicate this data for error responses (`abort`). Our options:
+ * Add a new parameter to the error response; RFC6749 does not strictly forbid this, but also does not allow it explicitly. The parameter `error_json` could contain the JSON of `__response_metadata` as above.
+ * Use the existing parameter `error_description` and give it a machine-readable format. This will not work well, as RFC6749 does not allow the character '"' in this parameter.
+ * Use the existing parameter `error_uri` with a `data:` URI, encoding JSON.
+ * Other ideas?
+
 ### Privacy {#privacy_if_no}
 
 In the interest of data minimization, RPs SHOULD use the mechanisms shown above to limit cases in which incomplete data sets are provided by the OP that are not useful to the RP.
