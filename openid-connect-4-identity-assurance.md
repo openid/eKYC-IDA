@@ -225,6 +225,7 @@ Important: Implementations MUST ignore any sub-element not defined in this speci
 The evidence is generally structured with the following elements:
 
 `type`: REQUIRED. The value defines the type of the evidence.
+
 `attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See below on how an attachment is structured.
 
 The following types of evidence are defined:
@@ -323,7 +324,9 @@ External attachments are similar to distributed claims. The reference to the ext
 `desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
 `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
+
 `access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OpenId Connect Provider in the Token Response.
+
 `digest`: JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
 
 * `alg`: Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
@@ -335,7 +338,7 @@ The following example shows external attachments:
 
 <{{examples/response/external_attachments.json}}
 
-#### Privacy concerns
+#### Privacy Considerations
 
 As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP MUST ensure that end users are well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the end users to review the content of those attachments before giving consent to the transaction.
 
@@ -1136,6 +1139,7 @@ The technology described in this specification was made available from contribut
 
    -12
 
+   * added support to attach document artifacts
    * changed evidence type `qes` to `electronic_signature` 
    * Added claim `also_known_as`
    * Added text regarding security profiles
