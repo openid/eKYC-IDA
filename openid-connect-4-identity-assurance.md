@@ -305,7 +305,7 @@ An attachment is represented by a JSON object. This specification allows two typ
 
 All the information of the document (including the content itself) is provided within a JSON object having the following elements:
 
-`desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OpenId Connect Provider.
+`desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
 
 `content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
 
@@ -325,7 +325,7 @@ External attachments are similar to distributed claims. The reference to the ext
 
 `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
 
-`access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OpenId Connect Provider in the Token Response.
+`access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OP in the Token Response.
 
 `digest`: JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
 
