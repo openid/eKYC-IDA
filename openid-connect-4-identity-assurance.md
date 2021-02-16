@@ -296,7 +296,7 @@ During the identity verification process, specific document artefacts will be cr
 * video recordings of the verification process
 * certificates of electronic signatures
 
-Depending on the trust framework, general agreements between OP and RP, or when explicitly requested by the RP, those artefacts can be attached to the verified claims response allowing the RP to store those artefacts along with the verified claim information.
+When requested by the RP, those artefacts can be attached to the verified claims response allowing the RP to store those artefacts along with the verified claim information.
 
 An attachment is represented by a JSON object. This specification allows two types of representations:
 
@@ -320,7 +320,7 @@ The following example shows embedded attachments. The actual contents of the doc
 
 External attachments are similar to distributed claims. The reference to the external document is provided in a JSON object with the following elements:
 
-`desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OpenId Connect Provider.
+`desc`: Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
 `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
 `access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OpenId Connect Provider in the Token Response.
@@ -329,7 +329,7 @@ External attachments are similar to distributed claims. The reference to the ext
 * `alg`: Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
 * `value`: Base64 encoded representation of the cryptographic hash.
 
-External attachments are suitable when embedding verified claims in Tokens. However, the verified claims element is not self-contained. The documents need to be retrieved separately and the digest values MUST be calculated and validated to ensure integrity.
+External attachments are suitable when embedding verified claims in Tokens. However, the verified claims element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
 The following example shows external attachments:
 
@@ -337,7 +337,7 @@ The following example shows external attachments:
 
 #### Privacy concerns
 
-As attachments will most likely contain more personal information than was requested by the Relying Party with specific claim names, OpenId Connect Providers MUST ensure that end users are well aware of when and what kind of attachments are about to be transferred to the Relying Party. If possible or applicable, the OpenId Connect Provider SHOULD allow the end users to review the content of those attachments before giving consent to the transaction.
+As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP MUST ensure that end users are well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the end users to review the content of those attachments before giving consent to the transaction.
 
 ## claims Element {#claimselement}
 
