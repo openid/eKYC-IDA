@@ -226,7 +226,7 @@ The evidence is generally structured with the following elements:
 
 `type`: REQUIRED. The value defines the type of the evidence.
 
-`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See below on how an attachment is structured.
+`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
 
 The following types of evidence are defined:
 
@@ -288,7 +288,7 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 
 `created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
 
-### Attachments
+### Attachments {#attachments}
 
 During the identity verification process, specific document artefacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artefacts can later be reviewed during audits or quality control for example. Those artefacts include, but are not limited to:
 
@@ -311,11 +311,11 @@ All the information of the document (including the content itself) is provided w
 
 `content`: REQUIRED. Base64 encoded representation of the document content.
 
-Embedded attachments are not appropriate when embedding verified claims in access tokens or ID tokens.
-
 The following example shows embedded attachments. The actual contents of the documents are truncated:
 
 <{{examples/response/embedded_attachments.json}}
+
+Note: Due to their size, embedded attachments are not appropriate when embedding verified claims in access tokens or ID tokens.
 
 #### External
 
