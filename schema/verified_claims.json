@@ -108,6 +108,9 @@
                   },
                   "date_of_expiry": {
                     "$ref": "#/definitions/date_type"
+                  },
+                  "document_identifier": {
+                    "type": "string"
                   }
                 }
               }
