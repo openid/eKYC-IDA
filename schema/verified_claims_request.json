@@ -126,6 +126,9 @@
               ]
             }
           }
+        },
+        "attachments": {
+          "$ref": "#/definitions/simple_element"
         }
       },
       "required": [
