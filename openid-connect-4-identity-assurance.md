@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-11"
+value = "openid-connect-4-identity-assurance-1_0-12"
 
 status = "standard"
 
@@ -204,8 +204,7 @@ The `verification` element consists of the following elements:
 
 An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
 
-`identity_assurance_level`: OPTIONAL. String determining the identity assurance level associated with the End-User claims in the respective `verified_claims`. The value 
-range depends on the respective `trust_framework` value. 
+`identity_assurance_level`: OPTIONAL. String determining the identity assurance level associated with the End-User claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
 
 For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial`. and `high`
 
@@ -1127,7 +1126,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -1149,7 +1148,7 @@ The technology described in this specification was made available from contribut
    * Added text regarding security profiles
    * Editorial improvements
    * Added further co-authors
-   * Added `assurance_level` field
+   * Added `identity_assurance_level` field
 
    -11
   
