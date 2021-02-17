@@ -33,7 +33,11 @@
             }
           }
         }
-      }
+      },
+      "required": [
+        "age",
+        "on_date"
+      ]
     },
     "age_is_at_most": {
       "$ref": "#/definitions/age_is_at_least"
@@ -307,6 +311,9 @@
                   }
                 ]
               }
+            },
+            "attachments": {
+              "$ref": "#/definitions/simple_element"
             }
           },
           "required": [
