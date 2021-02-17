@@ -242,6 +242,9 @@
             "trust_framework": {
               "type": "string"
             },
+            "identity_assurance_level": {
+              "type": "string"
+            },
             "time": {
               "$ref": "#/definitions/time_type"
             },
