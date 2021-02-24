@@ -235,7 +235,8 @@ The evidence is generally structured with the following elements:
 The following types of evidence are defined:
 
 * `id_document`: Verification based on any kind of government issued identity document.
-* `utility_bill`: Verification based on a utility bill.
+* `id_evidence`: Verification based on any kind of document or data recognized under the trust framework as a valid form of identity that are not a government issued identity document.
+* `utility_bill`: Verification based on a utility bill. (this is to be deprecated in future releases and implementers are recommended to use the id_evidence type instead)
 * `electronic_signature`: Verification based on an electronic signature.
 
 Depending on the evidence type additional elements are defined.
@@ -264,6 +265,37 @@ The following elements are contained in an `id_document` evidence sub-element.
 	*  `country`: OPTIONAL. String denoting the country or organization that issued the document as ICAO 2-letter code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `number`: String representing the number of the identity document.
+* `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
+	*  `name`: Designation of the issuer of the identity document.
+	*  `country`: String denoting the country or organization that issued the document as ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+* `date_of_issuance`: The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_expiry`: The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* All elements of the OpenID Connect `address` Claim ([@!OpenID])
+
+#### id_evidence
+
+The following elements are contained in an `id_evidence` sub-element.
+
+`type`: REQUIRED. Value MUST be set to "id_evidence".
+
+`verifier`: JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+
+* `organization`: String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+
+`method`: The method used to verify the ID evidence. For information on predefined verification method values see [@!predefined_values]. 
+
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID evidence was verified.
+
+`evidence`: JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
+
+* `type`: REQUIRED. String denoting the type of the ID evidence. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `number`: String representing a unique reference number relating to the evidence or identity claim.
+* `issuer`: Designation of the issuer of the identity evidence.
+* `date_of_issuance`: The date the evidence was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_expiry`: The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
 #### utility_bill
 
@@ -277,6 +309,12 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 * All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
 `date`: OPTIONAL. String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
+
+`method`: The method used to verify the ID evidence. For information on predefined verification method values see [@!predefined_values]. 
+
+`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
+
+`date`: String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
 
 #### electronic_signature
 
