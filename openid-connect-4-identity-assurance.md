@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-11"
+value = "openid-connect-4-identity-assurance-1_0-12"
 
 status = "standard"
 
@@ -200,11 +200,15 @@ This element contains the information about the process conducted to verify a pe
 
 The `verification` element consists of the following elements:
 
-`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process and the identity assurance level of the OP.
+`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
 
-An example value is `eidas_ial_high`, which denotes a notified eID system under eIDAS [@?eIDAS] providing identity assurance at level of assurance "High".
+An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
 
-For information on predefined trust framework values see [@!predefined_values]. 
+`identity_assurance_level`: OPTIONAL. String determining the identity assurance level associated with the End-User claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
+
+For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial`. and `high`
+
+For information on predefined trust framework and identity assurance level values see [@!predefined_values]. 
 
 RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
 
@@ -222,11 +226,19 @@ Important: Implementations MUST ignore any sub-element not defined in this speci
 
 ### Evidence
 
+The evidence is generally structured with the following elements:
+
+`type`: REQUIRED. The value defines the type of the evidence.
+
+`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
+
 The following types of evidence are defined:
 
 * `id_document`: Verification based on any kind of government issued identity document.
 * `utility_bill`: Verification based on a utility bill.
 * `electronic_signature`: Verification based on an electronic signature.
+
+Depending on the evidence type additional elements are defined.
 
 #### id_document
 
@@ -279,6 +291,60 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 `serial_number`: String containing the serial number of the certificate used to sign.
 
 `created_at`: The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
+
+### Attachments {#attachments}
+
+During the identity verification process, specific document artefacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artefacts can later be reviewed during audits or quality control for example. Those artefacts include, but are not limited to:
+
+* scans of filled and signed forms documenting/certifying the verification process itself
+* scans or photocopies of the documents used to verify the identity of end users
+* video recordings of the verification process
+* certificates of electronic signatures
+
+When requested by the RP, those artefacts can be attached to the verified claims response allowing the RP to store those artefacts along with the verified claim information.
+
+An attachment is represented by a JSON object. This specification allows two types of representations:
+
+#### Embedded
+
+All the information of the document (including the content itself) is provided within a JSON object having the following elements:
+
+`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
+
+`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
+
+`content`: REQUIRED. Base64 encoded representation of the document content.
+
+The following example shows embedded attachments. The actual contents of the documents are truncated:
+
+<{{examples/response/embedded_attachments.json}}
+
+Note: Due to their size, embedded attachments are not appropriate when embedding verified claims in access tokens or ID tokens.
+
+#### External
+
+External attachments are similar to distributed claims. The reference to the external document is provided in a JSON object with the following elements:
+
+`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
+
+`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
+
+`access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OP in the Token Response.
+
+`digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
+
+* `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
+* `value`: REQUIRED. Base64 encoded representation of the cryptographic hash.
+
+External attachments are suitable when embedding verified claims in Tokens. However, the verified claims element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
+
+The following example shows external attachments:
+
+<{{examples/response/external_attachments.json}}
+
+#### Privacy Considerations
+
+As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP MUST ensure that end users are well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the end users to review the content of those attachments before giving consent to the transaction.
 
 ## claims Element {#claimselement}
 
@@ -409,6 +475,15 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
+### Attachments
+
+RPs can explicitly request to receive attachments along with the verified claims:
+
+<{{examples/request/verification_with_attachments.json}}
+
+As with other claims, the attachment claim can be marked as essential in the request as well.
+
+### Error Handling
 
 The OP has the discretion to decide whether the requested verification data is to be provided to the RP. 
 
@@ -444,7 +519,7 @@ The OP SHOULD try to fulfill this requirement. If the verification data of the u
 
 ### Requesting claims sets with different verification requirements
 
-It is also possible to request different trust frameworks and verification methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
+It is also possible to request different trust frameworks, identity assurance levels, and verification methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
 
 The following example illustrates this functionality.
 
@@ -452,7 +527,7 @@ The following example illustrates this functionality.
  
 When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
 
-The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
+The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `identity_assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
 <{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}} 
 
@@ -582,7 +657,6 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 <{{examples/response/multiple_verified_claims.json}}
 
-
 ## Verified Claims in UserInfo Response
 
 ### Request
@@ -648,6 +722,10 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 
+`attachments_supported`: JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
+
+`digest_algorithms_supported`: JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
+
 This is an example openid-configuration snippet:
 
 ```json
@@ -655,25 +733,24 @@ This is an example openid-configuration snippet:
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
-     "nist_800_63A_ial_2",
-     "nist_800_63A_ial_3"
+     "nist_800_63A_3"
    ],
-   "evidence_supported":[
+   "evidence_supported": [
       "id_document",
       "utility_bill",
       "electronic_signature"
    ],
-   "id_documents_supported":[
+   "id_documents_supported": [
        "idcard",
        "passport",
        "driving_permit"
    ],
-   "id_documents_verification_methods_supported":[
+   "id_documents_verification_methods_supported": [
        "pipp",
        "sripp",
        "eid"
    ],
-   "claims_in_verified_claims_supported":[
+   "claims_in_verified_claims_supported": [
       "given_name",
       "family_name",
       "birthdate",
@@ -681,11 +758,24 @@ This is an example openid-configuration snippet:
       "nationalities",
       "address"
    ],
+  "attachments_supported": [
+    "external",
+    "embedded"
+  ],
+  "digest_algorithms_supported": [
+    "sha-256"
+  ],
 ...
 }
 ```
 
 The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
+
+# Client Registration and Management
+
+During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@?RFC7592] the following additional properties are available:
+
+`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
 # Transaction-specific Purpose {#purpose}
 
@@ -773,6 +863,22 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization> Illumila </organization>
+    </author>
+   <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="OpenID-Registration" target="https://openid.net/specs/openid-connect-registration-1_0.html">
+  <front>
+    <title>OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1</title>
+    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
+      <organization>NRI</organization>
+    </author>
+    <author initials="J." surname="Bradley" fullname="John Bradley">
+      <organization>Ping Identity</organization>
+    </author>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>
@@ -959,6 +1065,16 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
+<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
+  <front>
+    <title>Named Information Hash Algorithm Registry</title>
+    <author>
+      <organization>IANA</organization>
+    </author>
+    <date year="2016" month="09"/>
+  </front>
+</reference>
+
 # IANA Considerations
 
 ## JSON Web Token Claims Registration
@@ -1092,7 +1208,7 @@ Specification Document(s):
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, and Mark Haine for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
@@ -1108,11 +1224,13 @@ The technology described in this specification was made available from contribut
 
    -12
 
+   * added support to attach document artifacts
    * changed evidence type `qes` to `electronic_signature` 
    * Added claim `also_known_as`
    * Added text regarding security profiles
    * Editorial improvements
    * Added further co-authors
+   * Added `identity_assurance_level` field
 
    -11
   
