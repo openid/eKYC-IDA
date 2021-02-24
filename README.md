@@ -5,6 +5,10 @@
 * This is the repository for OpenID Foundation's [eKYC and Identity Assurance WG](https://openid.net/wg/ekyc-ida/).
 * The document(s) are written in [markdown](https://bitbucket.org/tutorials/markdowndemo) and translated to html using [mmark](https://github.com/mmarkdown/mmark)
 
+### Current version
+
+The current SNAPSHOT version is being built automatically from the master branch and can be [downloaded here](../../downloads/openid-connect-4-identity-assurance.html).
+
 ### How do I get set up? ###
 
 * Clone the repository
