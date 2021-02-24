@@ -2,7 +2,8 @@
   "verified_claims": [
     {
       "verification": {
-        "trust_framework": "eidas_ial_substantial"
+        "trust_framework": "eidas",
+        "identity_assurance_level": "substantial"
       },
       "claims": {
         "given_name": "Max",
