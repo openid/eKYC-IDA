@@ -1,0 +1,46 @@
+image: atlassian/default-image:2
+
+pipelines:
+  default:
+    - step:
+        name: test
+        services:
+          - docker
+        script:
+          - docker build -t openid.net/tests-oidc4ida tests
+          - docker run -v `pwd`:/data openid.net/tests-oidc4ida
+    - step:
+        name: build
+        services:
+          - docker
+        script:
+          - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
+          - mv openid-connect-4-identity-assurance-*.html openid-connect-4-identity-assurance.html
+        artifacts:
+          - openid-connect-4-identity-assurance*.html
+  branches:
+    master:
+      - step:
+          name: test
+          services:
+            - docker
+          script:
+            - docker build -t openid.net/tests-oidc4ida tests
+            - docker run -v `pwd`:/data openid.net/tests-oidc4ida
+      - step:
+          name: build
+          services:
+            - docker
+          script:
+            - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
+            - mv openid-connect-4-identity-assurance-*.html openid-connect-4-identity-assurance.html
+          artifacts:
+            - openid-connect-4-identity-assurance*.html
+      - step:
+          name: publish
+          script:
+            - pipe: atlassian/bitbucket-upload-file:0.1.2
+              variables:
+                BITBUCKET_USERNAME: $PUBLISH_USERNAME
+                BITBUCKET_APP_PASSWORD: $PUBLISH_PASSWORD
+                FILENAME: "openid-connect-4-identity-assurance.html"
