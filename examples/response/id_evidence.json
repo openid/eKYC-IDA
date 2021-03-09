@@ -1,0 +1,43 @@
+{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "se_bankid",
+      "time": "2021-03-03T09:42Z",
+      "verification_process": "4346D80F-57E0-4E26-9543-26B41FC22",
+      "evidence": [
+        {
+          "type": "id_evidence",
+          "method": "registry",
+          "time": "2021-02-15T16:51Z",
+          "document": {
+            "type": "npr",
+            "issuer": {
+              "name": "Skatteverket",
+              "country": "SE"
+            },
+            "number": "4901224131",
+            "date_of_issuance": "1949-01-22"
+          }
+        }
+      ]
+    },
+    "claims": {
+      "given_name": "Fredrik",
+      "family_name": "Strömberg",
+      "birthdate": "1949-01-22",
+      "place_of_birth": {
+        "country": "SE",
+        "locality": "Örnsköldsvik"
+      },
+      "nationalities": [
+        "SE"
+      ],
+      "address": {
+        "locality": "Karlstad",
+        "postal_code": "65344",
+        "country": "SE",
+        "street_address": "Gatunamn 221b"
+      }
+    }
+  }
+}
