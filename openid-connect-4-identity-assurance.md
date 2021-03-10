@@ -314,8 +314,6 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 
 `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
 
-`date`: String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
-
 #### electronic_signature
 
 The following elements are contained in a `electronic_signature` evidence sub-element.
