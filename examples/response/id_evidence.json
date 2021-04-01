@@ -2,23 +2,24 @@
   "verified_claims": {
     "verification": {
       "trust_framework": "se_bankid",
+	  "identity_assurance_level": "AL_3",
       "time": "2021-03-03T09:42Z",
       "verification_process": "4346D80F-57E0-4E26-9543-26B41FC22",
       "evidence": [
-        {
+		{
           "type": "id_evidence",
-          "method": "registry",
+          "method": "secure_mail",
           "time": "2021-02-15T16:51Z",
-          "document": {
-            "type": "npr",
-            "issuer": {
+          "provider": {
               "name": "Skatteverket",
               "country": "SE"
-            },
+		  },
+          "evidence_details": {
+            "type": "population_registry",
             "number": "4901224131",
             "date_of_issuance": "1949-01-22"
           }
-        }
+		}
       ]
     },
     "claims": {

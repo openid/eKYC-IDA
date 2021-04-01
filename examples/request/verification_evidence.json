@@ -10,12 +10,9 @@
               "value": "id_evidence"
             },
             "method": null,
-            "document": {
+			"provider": null,
+            "evidence_details": {
               "type": null,
-              "issuer": {
-                "country": null,
-                "name": null
-              },
               "number": null,
               "date_of_issuance": null
             }

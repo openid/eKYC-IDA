@@ -259,19 +259,12 @@ The following elements are contained in an `id_document` evidence sub-element.
 `document`: OPTIONAL. JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the ID document. For information on predefined identity document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `number`: OPTIONAL. String representing the number of the identity document.
-* `issuer`: OPTIONAL. JSON object containing information about the issuer of this identity document. This object consists of the following properties:
-	*  `name`: OPTIONAL. Designation of the issuer of the identity document.
-	*  `country`: OPTIONAL. String denoting the country or organization that issued the document as ICAO 2-letter code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
-* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 * `number`: String representing the number of the identity document.
 * `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
 	*  `name`: Designation of the issuer of the identity document.
 	*  `country`: String denoting the country or organization that issued the document as ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
 * `date_of_issuance`: The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
-* All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
 #### id_evidence
 
@@ -288,13 +281,15 @@ The following elements are contained in an `id_evidence` sub-element.
 
 `time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID evidence was verified.
 
-`evidence`: JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
+`evidence_details`: JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the ID evidence. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `number`: String representing a unique reference number relating to the evidence or identity claim.
-* `issuer`: Designation of the issuer of the identity evidence.
 * `date_of_issuance`: The date the evidence was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+
+`provider`: OPTIONAL. JSON object identifying the entity that provided/issued the evidence. The object consists of the following properties:
+* `name`: REQUIRED. String designating the name of the provider/issuer of the evidence.
 * All elements of the OpenID Connect `address` Claim ([@!OpenID])
 
 #### utility_bill
