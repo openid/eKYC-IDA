@@ -35,6 +35,14 @@ TBD
 # Scope
 TBD
 
+# Transformed Claims
+
+# Abort/Omit
+
+# Data Availability Feedback
+
+
+
 # Privacy Consideration {#Privacy}
 
 TBD
