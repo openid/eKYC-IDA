@@ -486,7 +486,7 @@ As with other claims, the attachment claim can be marked as essential in the req
 
 ### Error Handling
 
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP. An OP MUST NOT return an error in case it cannot return a requested verification data, even if it was marked as essential, regardless of the data being unavailable or the End-User not authorizing its release.
+The OP has the discretion to decide whether the requested verification data is to be provided to the RP. 
 
 ## Defining further constraints on Verification Data {#constraintedclaims}
 
@@ -504,9 +504,7 @@ The following example shows that the RP wants to obtain an attestation based on 
 
 <{{examples/request/verification_aml.json}}
 
-In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain user, the OP MUST NOT return an error, but instead not deliver at all the `verified_claims` claim.
-
-The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available verified/verification data that does not match these constraints.
+The OP MUST NOT ignore some or all of the query restrictions on possible values and MUST NOT deliver available verified/verification data that does not match these constraints.
 
 ### max_age
 
@@ -518,7 +516,7 @@ The following is an example of a request for Claims where the verification proce
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
+The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach.
 
 ### Requesting claims sets with different verification requirements
 
@@ -535,6 +533,31 @@ The RP MAY combine multiple `verified_claims` claims in the request with multipl
 <{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}} 
 
 In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `id_document` or under trust framework `silver` or `bronze` but with an evidence `utility_bill`.
+
+## Handling Unfulfillable Requests and Unavailable Data
+In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
+
+Extensions of this specificiation MAY define additional rules or override these rules, for example
+
+* to allow or disallow the use of Claims depending on a scheme-specific checks,
+* to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
+* to abort transactions (return error codes) in cases where requests cannot be fulfilled.
+
+Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
+### Unavailable Data
+If the RP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. If the End-User does not consent to the whole transaction, standard OpenID Connect logic applies. 
+
+If an element is to be omitted that is required for a valid response, its parent elements MUST be omitted as well, recursively until the response is valid.
+
+### Data not Matching Requirements
+When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
+
+ * If the respective requirement was expressed for a Claim within `verified_claims/verification`, the whole `verified_claims` element MUST be omitted. 
+ * Otherwise, the respective Claim MUST be omitted from the response.
+
+In both cases, the OP MUST NOT return an error to the RP.
+
+As above, if an element is to be omitted that is required for a valid response, its parent elements MUST be omitted as well, recursively until the response is valid.
 
 ### Error Handling
 
