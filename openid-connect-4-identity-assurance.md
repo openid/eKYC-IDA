@@ -727,7 +727,7 @@ in security sensitive use cases, implementers MUST
 
 ## End-User Authentication
 
-Secure identification of End-Users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himselves as the other user at a RP with a high identity assurance level. To prevent this kind of attack, RPs SHOULD request the OP to authenticate the user at a reasonable level, typically using multi factor authentication, when requesting verified End-User claims. OpenID Connect supports this by way of the `acr_values` request parameter. 
+Secure identification of End-Users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs SHOULD request the OP to authenticate the user at a reasonable level, typically using multi factor authentication, when requesting verified End-User claims. OpenID Connect supports this by way of the `acr_values` request parameter. 
 
 ## Security Profile
 
