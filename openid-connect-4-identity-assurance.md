@@ -720,7 +720,16 @@ The use of scopes is a potential shortcut to request a pre-defined set of claims
 
 This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
 web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
-in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
+in security sensitive use cases, implementers MUST 
+
+* ensure End-Users are authenticated on an approriate authentication assurance level, and
+* combine this specification with an appropriate security profile for OpenID Connect. 
+
+## End-User Authentication
+
+Secure identification of End-Users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himselves as the other user at a RP with a high identity assurance level. To prevent this kind of attack, RPs SHOULD request the OP to authenticate the user at a reasonable level, typically using multi factor authentication, when requesting verified End-User claims. OpenID Connect supports this by way of the `acr_values` request parameter. 
+
+## Security Profile
 
 This specification does not define or require a particular security profile since there are several security 
 profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
@@ -1149,6 +1158,7 @@ The technology described in this specification was made available from contribut
    * Editorial improvements
    * Added further co-authors
    * Added `identity_assurance_level` field
+   * Added text about dependency between identity assurance and authentication assurance
 
    -11
   
