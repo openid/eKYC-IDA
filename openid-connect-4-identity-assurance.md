@@ -1149,6 +1149,7 @@ The technology described in this specification was made available from contribut
    * Editorial improvements
    * Added further co-authors
    * Added `identity_assurance_level` field
+   * Relaxed requirements for showing purpose
 
    -11
   
