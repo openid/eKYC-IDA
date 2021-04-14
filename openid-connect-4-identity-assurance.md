@@ -689,6 +689,8 @@ This is an example openid-configuration snippet:
 
 The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
 
+If the OP supports distributed and/or aggregated claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
+
 # Client Registration and Management
 
 During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@?RFC7592] the following additional properties are available:
@@ -1263,4 +1265,3 @@ The technology described in this specification was made available from contribut
    *  added several examples (ID Token vs UserInfo, unverified & verified claims, aggregated & distributed claims)
    *  incorporated text proposal of Marcos Sanz regarding max_age
    *  added IANA registration for new error code `unable_to_meet_requirement`
-
