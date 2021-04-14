@@ -86,6 +86,7 @@
               "enum": [
                 "electronic_signature",
                 "id_document",
+				"id_evidence",
                 "utility_bill"
               ]
             }
