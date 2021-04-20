@@ -673,6 +673,10 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `id_documents_verification_methods_supported`: JSON array containing the ID document verification methods the OP supports as defined in (#verification).
 
+`id_evidence_supported`: JSON array containing all ID evidence utilized by the OP for identity verification.
+
+`id_evidence_methods_supported`: JSON array containing the ID evidence methods the OP supports as defined in (#verification).
+
 `claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 
 `attachments_supported`: JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
