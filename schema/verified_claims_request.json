@@ -220,7 +220,7 @@
                   "type": {
                     "$ref": "#/definitions/constrainable_element"
                   },
-                  "number": {
+                  "identifier": {
                     "$ref": "#/definitions/simple_element"
                   },
                   "date_of_issuance": {

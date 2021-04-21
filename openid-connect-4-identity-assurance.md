@@ -284,9 +284,9 @@ The following elements are contained in an `id_evidence` sub-element.
 `evidence_details`: OPTIONAL. JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the ID evidence. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `number`: String representing a unique reference number or identifier relating to the evidence or identity.
-* `date_of_issuance`: The date the evidence was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `identifier`: OPTIONAL. String representing a unique reference number or identifier relating to the evidence or identity.
+* `date_of_issuance`: OPTIONAL. The date the evidence was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
 `provider`: OPTIONAL. JSON object identifying the entity that provided/issued the evidence. The object consists of the following properties:
 * `name`: REQUIRED. String designating the name of the provider/issuer of the evidence.
