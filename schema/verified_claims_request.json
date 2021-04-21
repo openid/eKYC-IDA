@@ -231,7 +231,7 @@
                   }
                 }
               },
-              "provider": {
+              "providern": {
                 "type": "object",
                 "properties": {
                   "name": {
