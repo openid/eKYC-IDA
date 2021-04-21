@@ -272,19 +272,19 @@ The following elements are contained in an `id_evidence` sub-element.
 
 `type`: REQUIRED. Value MUST be set to "id_evidence".
 
-`verifier`: JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+`method`: OPTIONAL. The method used to verify the ID evidence. For information on predefined verification method values see [@!predefined_values]. 
 
-* `organization`: String denoting the organization which performed the verification on behalf of the OP.
-* `txn`: Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
-`method`: The method used to verify the ID evidence. For information on predefined verification method values see [@!predefined_values]. 
+* `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID evidence was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID evidence was verified.
 
-`evidence_details`: JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
+`evidence_details`: OPTIONAL. JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the ID evidence. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `number`: String representing a unique reference number relating to the evidence or identity claim.
+* `number`: String representing a unique reference number relating to the evidence or identity.
 * `date_of_issuance`: The date the evidence was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
@@ -305,9 +305,9 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 
 `date`: OPTIONAL. String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
 
-`method`: The method used to verify the ID evidence. For information on predefined verification method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined verification method values see [@!predefined_values]. 
 
-`time`: Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
 
 #### electronic_signature
 

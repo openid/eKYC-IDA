@@ -231,7 +231,7 @@
                   }
                 }
               },
-              "providerI": {
+              "provider": {
                 "type": "object",
                 "properties": {
                   "name": {
@@ -272,7 +272,7 @@
           },
           "then": {
             "properties": {
-              "providerU": {
+              "provider": {
                 "type": "object",
                 "properties": {
                   "name": {
