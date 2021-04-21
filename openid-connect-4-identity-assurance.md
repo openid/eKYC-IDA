@@ -259,12 +259,12 @@ The following elements are contained in an `id_document` evidence sub-element.
 `document`: OPTIONAL. JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the ID document. For information on predefined identity document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `number`: String representing the number of the identity document.
-* `issuer`: JSON object containing information about the issuer of this identity document. This object consists of the following properties:
-	*  `name`: Designation of the issuer of the identity document.
-	*  `country`: String denoting the country or organization that issued the document as ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-* `date_of_issuance`: The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `number`: OPTIONAL. String representing the number of the identity document.
+* `issuer`: OPTIONAL. JSON object containing information about the issuer of this identity document. This object consists of the following properties:
+	*  `name`: OPTIONAL. Designation of the issuer of the identity document.
+	*  `country`: OPTIONAL. String denoting the country or organization that issued the document as ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
 #### id_evidence
 
