@@ -19,7 +19,7 @@ fullname="Torsten Lodderstedt"
 organization="yes.com"
     [author.address]
     email = "torsten@lodderstedt.net"
-	
+
 [[author]]
 initials="D."
 surname="Fett"
@@ -261,8 +261,8 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `type`: REQUIRED. String denoting the type of the ID document. For information on predefined identity document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `number`: OPTIONAL. String representing the number of the identity document.
 * `issuer`: OPTIONAL. JSON object containing information about the issuer of this identity document. This object consists of the following properties:
-	*  `name`: OPTIONAL. Designation of the issuer of the identity document.
-	*  `country`: OPTIONAL. String denoting the country or organization that issued the document as ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `name`: OPTIONAL. Designation of the issuer of the identity document.
+    * `country`: OPTIONAL. String denoting the country or organization that issued the document as ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
@@ -284,7 +284,7 @@ The following elements are contained in an `id_evidence` sub-element.
 `evidence_details`: OPTIONAL. JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the ID evidence. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `number`: String representing a unique reference number relating to the evidence or identity.
+* `number`: String representing a unique reference number or identifier relating to the evidence or identity.
 * `date_of_issuance`: The date the evidence was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
@@ -927,38 +927,36 @@ Ministry of Land, Infrastructure and Transport</organization>
 </reference>
 
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
-	<front>
-	  <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
-	  Representation of dates and times</title>
-	  <author surname="International Organization for Standardization">
-	    <organization abbrev="ISO">International Organization for
-	    Standardization</organization>
-	  </author>
-	  <date year="2004" />
-	</front>
+    <front>
+      <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
+      Representation of dates and times</title>
+      <author surname="International Organization for Standardization">
+        <organization abbrev="ISO">International Organization for Standardization</organization>
+      </author>
+      <date year="2004" />
+    </front>
 </reference>
 
 <reference anchor="ISO3166-1" target="https://www.iso.org/standard/63545.html">
-	<front>
-	  <title>ISO 3166-1:1997. Codes for the representation of names of
-	  countries and their subdivisions -- Part 1: Country codes</title>
-	  <author surname="International Organization for Standardization">
-	    <organization abbrev="ISO">International Organization for
-	    Standardization</organization>
-	  </author>
-	  <date year="2013" />
-	</front>
+    <front>
+      <title>ISO 3166-1:1997. Codes for the representation of names of
+      countries and their subdivisions -- Part 1: Country codes</title>
+      <author surname="International Organization for Standardization">
+        <organization abbrev="ISO">International Organization for Standardization</organization>
+      </author>
+      <date year="2013" />
+    </front>
 </reference>
 
 <reference anchor="ISO3166-3" target="https://www.iso.org/standard/63547.html">
-	<front>
-	  <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
-	  <author surname="International Organization for Standardization">
-	    <organization abbrev="ISO">International Organization for
-	    Standardization</organization>
-	  </author>
-	  <date year="2013" />
-	</front>
+    <front>
+      <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
+      <author surname="International Organization for Standardization">
+        <organization abbrev="ISO">International Organization for
+        Standardization</organization>
+      </author>
+      <date year="2013" />
+    </front>
 </reference>
 
 <reference anchor="OxfordPassport" target="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">
@@ -975,9 +973,9 @@ Ministry of Land, Infrastructure and Transport</organization>
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
     <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
-    	  <author surname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
-	    <organization>INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
-	  </author>
+      <author surname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
+        <organization>INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
+      </author>
    <date year="2015"/>
   </front>
 </reference>
@@ -986,8 +984,8 @@ Ministry of Land, Infrastructure and Transport</organization>
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
     <author>
-	    <organization>OpenID Foundation</organization>
-	  </author>
+        <organization>OpenID Foundation</organization>
+      </author>
    <date year="2020"/>
   </front>
 </reference>
@@ -996,8 +994,8 @@ Ministry of Land, Infrastructure and Transport</organization>
   <front>
     <title>JSON Schema for requesting verified_claims</title>
     <author>
-	    <organization>OpenID Foundation</organization>
-	  </author>
+        <organization>OpenID Foundation</organization>
+      </author>
    <date year="2020"/>
   </front>
 </reference>
