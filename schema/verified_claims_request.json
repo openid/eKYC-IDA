@@ -86,7 +86,7 @@
               "enum": [
                 "electronic_signature",
                 "id_document",
-				"id_evidence",
+                "id_evidence",
                 "utility_bill"
               ]
             }
@@ -256,12 +256,12 @@
                     "$ref": "#/definitions/simple_element"
                   }
                 }
-              }			  
+              }
             }
           },
           "else": {
           }
-        },		
+        },
         {
           "if": {
             "properties": {
