@@ -50,7 +50,7 @@ pipelines:
             - git config --global push.default simple
             - git clone git@bitbucket.org:openid/openid.bitbucket.io.git
             - mkdir -p openid.bitbucket.io/ekyc/
-            - cp openid-connect-4-identity-assurance.html openid-authority.html penid.bitbucket.io/ekyc/
+            - cp openid-connect-4-identity-assurance.html openid-authority.html openid.bitbucket.io/ekyc/
             - cd openid.bitbucket.io/ekyc
             - git add *
             - git commit -m "Update eKYC drafts"
