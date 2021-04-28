@@ -702,7 +702,7 @@ to state the purpose for the transfer of user data it is asking for.
 
 `purpose`: OPTIONAL. String describing the purpose for obtaining certain user data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
 
-The OP SHOULD use the purpose provided by the RP to inform the respective user about the designated use of the data to be transferred or the authorization to be approved.
+The OP SHOULD use the purpose provided by the RP to inform the respective End-User about the designated use of the data to be transferred or the authorization to be approved.
 
 In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
 
