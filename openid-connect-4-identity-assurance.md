@@ -72,11 +72,11 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statememt about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong identity assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
 
-In such use cases, the Relying Party (RP) needs to understand the trustworhthiness or assurance level of the Claim about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the user Claims.
+In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claim about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims.
 
 The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
-For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of a user, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
+For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an End-User, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
 
 Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
 
@@ -86,13 +86,13 @@ Note: this specifications fulfills the criteria for portability and interoperabi
 
 This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
 
-* Identity Proofing - process in which a user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful identity assurance level.
+* Identity Proofing - process in which an End-User provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful identity assurance level.
 
-* Identity Verification - process conducted by the OP or a claim provider to verify the user's identity.
+* Identity Verification - process conducted by the OP or a claim provider to verify the End-User's identity.
 
-* Identity Assurance - process in which the OP or a claim provider asserts identity data of a certain user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+* Identity Assurance - process in which the OP or a claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
 
-* Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular user account was verified in the course of an identity verification process.
+* Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process.
 
 # Scope
 
@@ -122,7 +122,7 @@ This extension is intended to be truly international and support identity assura
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
-For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of a user without a verification status. Those Claims can be used in the same OpenID Connect assertion beside verified Claims represented according to this extension.
+For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of an End-User without a verification status. Those Claims can be used in the same OpenID Connect assertion beside verified Claims represented according to this extension.
 
 In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension.
 
@@ -132,7 +132,7 @@ Even for representing verified Claims, this extension utilizes existing OpenID C
 
 ## Additional Claims about End-Users {#userclaims}
 
-In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying user data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
+In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
@@ -218,9 +218,9 @@ The `trust_framework` value determines what further data is provided to the RP i
 
 `verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
-Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP provided the user's verified identity data towards an RP.
+Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
 
-`evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
+`evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
@@ -297,7 +297,7 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 During the identity verification process, specific document artefacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artefacts can later be reviewed during audits or quality control for example. Those artefacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself
-* scans or photocopies of the documents used to verify the identity of end users
+* scans or photocopies of the documents used to verify the identity of End-Users
 * video recordings of the verification process
 * certificates of electronic signatures
 
@@ -344,7 +344,7 @@ The following example shows external attachments:
 
 #### Privacy Considerations
 
-As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP MUST ensure that end users are well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the end users to review the content of those attachments before giving consent to the transaction.
+As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of those attachments before giving consent to the transaction.
 
 ## claims Element {#claimselement}
 
@@ -378,7 +378,7 @@ An OP or AS MAY also include `verified_claims` in the beforementioned assertions
 In this case, every assertion provided by the external claims source MUST contain 
 
 * an `iss` claim identifying the claims source,
-* a `sub` claim identifying the user in the context of the claim source,
+* a `sub` claim identifying the End-User in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
 Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
@@ -427,7 +427,7 @@ Since `verified_claims` contains the effective Claims about the End-User in a ne
 
 Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization.
 
-RPs MAY indicate that a certain Claim is essential to the successful completion of the user journey by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
+RPs MAY indicate that a certain Claim is essential to the successful completion of the request for verified claims by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
 
 <{{examples/request/essential.json}}
 
@@ -439,8 +439,8 @@ Claim, but a Claim cannot have more than one associated purpose.
 `purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
 longer than 300 characters. If this rule is violated, the authentication
 request MUST fail and the OP return an error `invalid_request` to the RP.
-The OP MUST display this purpose in the respective user consent screen(s)
-in order to inform the user about the designated use of the data to be
+The OP MUST display this purpose in the respective End-User consent screen(s)
+in order to inform the End-User about the designated use of the data to be
 transferred or the authorization to be approved. If the parameter `purpose`
 is not present in the request, the OP MAY display a
 value that was pre-configured for the respective RP. For details on UI
@@ -452,13 +452,13 @@ Example:
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request claims about the end-user. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` are requested by adding the respective element as shown in the following example:
 
 <{{examples/request/verification.json}}
 
-It requests the trust framework the OP complies with and the date of the verification of the user claims.
+It requests the trust framework the OP complies with and the date of the verification of the End-User claims.
 
 The RP MUST explicitly request any data it wants the OP to add to the `verification` element. 
 
@@ -500,11 +500,11 @@ The following example shows how an RP may request claims either complying with t
 
 <{{examples/request/verification_claims_different_trust_frameworks.json}} 
 
-The following example shows that the RP wants to obtain an attestation based on the German Anti Money Laundering Law (trust framework `de_aml`) and limited to users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`.
+The following example shows that the RP wants to obtain an attestation based on the German Anti Money Laundering Law (trust framework `de_aml`) and limited to End-Users who were identified in a bank branch in person (physical in person proofing - method `pipp`) using either an `idcard` or a `passport`.
 
 <{{examples/request/verification_aml.json}}
 
-In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain user, the OP MUST NOT return an error, but instead not deliver at all the `verified_claims` claim.
+In case the RP limits the possible values of any of the aforementioned four elements and the OP does not understand/support some or all of them (i.e. their values are not listed under its OP metadata) or they are not applicable/fulfillable for a certain End-User, the OP MUST NOT return an error, but instead not deliver at all the `verified_claims` claim.
 
 The OP MUST NOT ignore some or all of the query restrictions on possible values and deliver available verified/verification data that does not match these constraints.
 
@@ -518,7 +518,7 @@ The following is an example of a request for Claims where the verification proce
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the user is older than the requested `max_age`, the OP MAY attempt to refresh the user’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
+The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP MAY attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach. If the OP is unable to fulfill the `max_age` constraint it MUST NOT deliver the `verified_claims` claim at all.
 
 ### Requesting claims sets with different verification requirements
 
@@ -528,7 +528,7 @@ The following example illustrates this functionality.
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
  
-When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
+When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
 
 The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `identity_assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
@@ -689,6 +689,8 @@ This is an example openid-configuration snippet:
 
 The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
 
+If the OP supports distributed and/or aggregated claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
+
 # Client Registration and Management
 
 During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@?RFC7592] the following additional properties are available:
@@ -698,9 +700,9 @@ During Client Registration (see [@!OpenID-Registration]) as well as during Clien
 # Transaction-specific Purpose {#purpose}
 
 This specification introduces the request parameter `purpose` to allow an RP
-to state the purpose for the transfer of user data it is asking for.
+to state the purpose for the transfer of End-User data it is asking for.
 
-`purpose`: OPTIONAL. String describing the purpose for obtaining certain user data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
+`purpose`: OPTIONAL. String describing the purpose for obtaining certain End-User data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
 
 The OP SHOULD use the purpose provided by the RP to inform the respective End-User about the designated use of the data to be transferred or the authorization to be approved.
 
@@ -714,7 +716,7 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
 
-The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request end-user claims and metadata it requires.
+The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request End-User claims and metadata it requires.
 
 # Security Considerations {#Security}
 
@@ -732,7 +734,7 @@ interoperability requirements, such as the OpenID Foundation Certification Progr
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
 
-The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
+The confidentiality of all End-User data exchanged between the protocol parties MUST be ensured using suitable 
 methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
@@ -1030,7 +1032,7 @@ Claim Name:
 : `nationalities`
 
 Claim Description:
-: String array representing the user’s nationalities.
+: String array representing the End-User’s nationalities.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -1264,4 +1266,3 @@ The technology described in this specification was made available from contribut
    *  added several examples (ID Token vs UserInfo, unverified & verified claims, aggregated & distributed claims)
    *  incorporated text proposal of Marcos Sanz regarding max_age
    *  added IANA registration for new error code `unable_to_meet_requirement`
-
