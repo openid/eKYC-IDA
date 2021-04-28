@@ -45,13 +45,13 @@ pipelines:
       - step:
           name: publish
           script:
-            - pipe: atlassian/bitbucket-upload-file:0.1.2
-              variables:
-                BITBUCKET_USERNAME: $PUBLISH_USERNAME
-                BITBUCKET_APP_PASSWORD: $PUBLISH_PASSWORD
-                FILENAME: "openid-connect-4-identity-assurance.html"
-            - pipe: atlassian/bitbucket-upload-file:0.1.2
-              variables:
-                BITBUCKET_USERNAME: $PUBLISH_USERNAME
-                BITBUCKET_APP_PASSWORD: $PUBLISH_PASSWORD
-                FILENAME: "openid-authority.html"
+            - git config --global user.email "pipeline@bitbucket.org"
+            - git config --global user.name "Bitbucket eKYC Pipeline"
+            - git config --global push.default simple
+            - git clone git@bitbucket.org:openid/openid.bitbucket.io.git
+            - mkdir -p openid.bitbucket.io/ekyc/
+            - cp openid-connect-4-identity-assurance.html openid-authority.html openid.bitbucket.io/ekyc/
+            - cd openid.bitbucket.io/ekyc
+            - git add *
+            - git commit -m "Update eKYC drafts"
+            - git push origin master
