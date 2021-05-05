@@ -169,6 +169,12 @@ The `txn` value MUST allow an RP to obtain these transaction details if needed.
 
 Note: The mechanism to obtain the transaction details from the OP and their format is out of scope of this specification.
 
+## Extended address Claim
+
+This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
+
+`country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g. "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used in some circumstances for compatibility reasons. `country_code` may be used as alternative to the existing `country` field. 
+
 # verified_claims Element {#verified_claims}
 
 This specification defines a generic mechanism to add verified claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims` to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these claims. This way RPs cannot mix up verified and unverified Claims and accidentally process unverified Claims as verified Claims.
@@ -746,7 +752,16 @@ The use of scopes is a potential shortcut to request a pre-defined set of claims
 
 This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
 web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
-in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
+in security sensitive use cases, implementers MUST 
+
+* ensure End-Users are authenticated using appropriately strong authentication methods, and
+* combine this specification with an appropriate security profile for OpenID Connect. 
+
+## End-User Authentication
+
+Secure identification of End-Users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs SHOULD request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified End-User claims. OpenID Connect supports this by way of the `acr_values` request parameter. 
+
+## Security Profile
 
 This specification does not define or require a particular security profile since there are several security 
 profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
@@ -1175,6 +1190,8 @@ The technology described in this specification was made available from contribut
    * Editorial improvements
    * Added further co-authors
    * Added `identity_assurance_level` field
+   * Added text about dependency between identity assurance and authentication assurance
+   * Added new field `country_code` to `address` Claim
    * Relaxed requirements for showing purpose
 
    -11
