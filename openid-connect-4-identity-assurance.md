@@ -539,13 +539,14 @@ In some cases, OPs cannot deliver the requested data to an RP, for example, beca
 
 Extensions of this specificiation MAY define additional rules or override these rules, for example
 
-* to allow or disallow the use of Claims depending on a scheme-specific checks,
+* to allow or disallow the use of Claims depending on scheme-specific checks,
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
 * to abort transactions (return error codes) in cases where requests cannot be fulfilled.
 
 Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
+
 ### Unavailable Data
-If the RP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. If the End-User does not consent to the whole transaction, standard OpenID Connect logic applies. 
+If the RP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. If the End-User does not consent to the whole transaction, standard OpenID Connect logic applies, as defined in Section 3.1.2.6 of [@!OpenID]. 
 
 If an element is to be omitted that is required for a valid response, its parent elements MUST be omitted as well, recursively until the response is valid.
 
