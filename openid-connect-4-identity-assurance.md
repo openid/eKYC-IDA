@@ -173,7 +173,7 @@ Note: The mechanism to obtain the transaction details from the OP and their form
 
 This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
 
-`country_code`: country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g. "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used in some circumstances for compatibility reasons. `country_code` may be used as alternative to the exting `country` field. 
+`country_code`: country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g. "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used in some circumstances for compatibility reasons. `country_code` may be used as alternative to the existing `country` field. 
 
 # verified_claims Element {#verified_claims}
 
