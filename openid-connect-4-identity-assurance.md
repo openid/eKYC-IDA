@@ -235,8 +235,8 @@ The evidence is generally structured with the following elements:
 The following types of evidence are defined:
 
 * `id_document`: Verification based on any kind of government issued identity document.
-* `id_evidence`: Verification based on any kind of document or data recognized under the trust framework as a valid form of identity that are not a government issued identity document.
-* `utility_bill`: Verification based on a utility bill. (this is to be deprecated in future releases and implementers are recommended to use the id_evidence type instead)
+* `other`: Verification based on any kind of document or data recognized under the trust framework or supported by the RP as a valid form of identity that is not a government issued identity document.
+* `utility_bill`: Verification based on a utility bill. (this is to be deprecated in future releases and implementers are recommended to use the `other` type instead)
 * `electronic_signature`: Verification based on an electronic signature.
 
 Depending on the evidence type additional elements are defined.
@@ -266,11 +266,11 @@ The following elements are contained in an `id_document` evidence sub-element.
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 
-#### id_evidence
+#### other
 
-The following elements are contained in an `id_evidence` sub-element.
+The following elements are contained in an `other` sub-element.
 
-`type`: REQUIRED. Value MUST be set to "id_evidence".
+`type`: REQUIRED. Value MUST be set to "other".
 
 `method`: OPTIONAL. The method used to verify the ID evidence. For information on predefined verification method values see [@!predefined_values]. 
 
@@ -593,9 +593,9 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 <{{examples/response/id_document.json}}
 
-## id_evidence
+## other
 
-<{{examples/response/id_evidence.json}}
+<{{examples/response/other.json}}
 
 ## id_document + utility bill
 
@@ -673,9 +673,9 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `id_documents_verification_methods_supported`: JSON array containing the ID document verification methods the OP supports as defined in (#verification).
 
-`id_evidence_supported`: JSON array containing all ID evidence utilized by the OP for identity verification.
+`other_supported`: JSON array containing all other types of documents or data utilized by the OP for identity verification that are not a government issued ID document.
 
-`id_evidence_methods_supported`: JSON array containing the ID evidence methods the OP supports as defined in (#verification).
+`other_methods_supported`: JSON array containing the methods used to verify `other` documents and data supported by the OP as defined in (#verification).
 
 `claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 

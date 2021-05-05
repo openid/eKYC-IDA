@@ -18,7 +18,7 @@
           "enum": [
             "electronic_signature",
             "id_document",
-            "id_evidence",
+            "other",
             "utility_bill"
           ]
         },
@@ -121,7 +121,7 @@
           "if": {
             "properties": {
               "type": {
-                "value": "id_evidence"
+                "value": "other"
               }
             }
           },

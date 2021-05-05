@@ -7,7 +7,7 @@
       "verification_process": "4346D80F-57E0-4E26-9543-26B41FC22",
       "evidence": [
         {
-          "type": "id_evidence",
+          "type": "other",
           "method": "secure_mail",
           "time": "2021-02-15T16:51Z",
           "provider": {
@@ -17,7 +17,7 @@
           "evidence_details": {
             "type": "population_registry",
             "identifier": "4901224131",
-            "date_of_issuance": "1949-01-22"
+            "date_of_issuance": "1979-01-22"
           }
         }
       ]
@@ -25,7 +25,7 @@
     "claims": {
       "given_name": "Fredrik",
       "family_name": "Strömberg",
-      "birthdate": "1949-01-22",
+      "birthdate": "1979-01-22",
       "place_of_birth": {
         "country": "SE",
         "locality": "Örnsköldsvik"
