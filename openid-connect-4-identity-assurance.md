@@ -270,6 +270,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 	*  `country`: OPTIONAL. String denoting the country or organization that issued the document as ICAO 2-letter code [@!ICAO-Doc9303], e.g. "JP". ICAO 3-letter codes MAY be used when there is no corresponding ISO 2-letter code, such as "UNO".
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `document_identifier`: OPTIONAL. String used in electronic id card systems as a unique identifier based on the id card and the client certificate. Depending on the id card system, the identifier may change when the id card of the End-User is replaced.
 
 #### utility_bill
 
@@ -1169,6 +1170,7 @@ The technology described in this specification was made available from contribut
    * Added text about dependency between identity assurance and authentication assurance
    * Added new field `country_code` to `address` Claim
    * Relaxed requirements for showing purpose
+   * Added `document_identifier` field
 
    -11
   
