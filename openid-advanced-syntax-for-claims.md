@@ -87,7 +87,7 @@ Note: Implementations not supporting Transformed Claims will ignore this definit
 
 ### Requesting Transformed Claims
 
-To request a Transformed Claim, the RP uses the name of the Transformed Claim where it would normally use the base Claim. A `$` sign is prepended to avoid confusion with potentially existing normal Claims. 
+To request a Transformed Claim, the RP uses the name of the Transformed Claim where it would normally use the base Claim. A colon (`:`) is prepended to avoid confusion with potentially existing normal Claims. 
 
 Example:
 ```json
@@ -107,7 +107,7 @@ Example:
   "id_token": {
     "given_name": null,
     "family_name": null,
-    "$above_18": null
+    ":above_18": null
   }
 }
 
@@ -115,17 +115,17 @@ Example:
 
 In some circumstances, the same Claim name can appear in different locations within the `claims` parameter with different meanings. For example, in [@ekyc], `birthdate` can also be used within `verified_claims/claims`. Therefore, the reference to the base Claim shall be evaluated relative to the location where the Transformed Claim is used. 
 
-Example: In [@ekyc], yhe same `above_18` Claim defined above can be evaluated based on the 'verified Claim' `birthdate` when used like this:
+Example: In [@ekyc], the same `above_18` Claim defined above can be evaluated based on the 'Verified Claim' `birthdate` when used like this:
 
 ```json
 {
   ...
   "id_token": {
-    "given_name": null,
-    "family_name": null,
     "verified_claims": {
       "claims": {
-        "$above_18": null
+        "given_name": null,
+        "family_name": null,
+        ":above_18": null
       },
       ...
     }
@@ -133,6 +133,8 @@ Example: In [@ekyc], yhe same `above_18` Claim defined above can be evaluated ba
 }
 
 ```
+It is therefore theoretically possible to use the same Transformed Claim in two
+different locations in the request, yielding potentially different values.
 
 Any option available for normal Claims can also be used with Transformed Claims. The evaluation of these options (e.g., a constraint defined using `value`) is always performed based on the transformed value.
 
@@ -142,7 +144,7 @@ Any option available for normal Claims can also be used with Transformed Claims.
   "id_token": {
     "given_name": null,
     "family_name": null,
-    "$above_18": {
+    ":above_18": {
       "value": true,
       "essential": true
     }
@@ -150,14 +152,21 @@ Any option available for normal Claims can also be used with Transformed Claims.
 }
 ```
 
+There is no requirement to use all defined Transformed Claims within a request.
+
 ## Data Types 
 Claims defined in [!@OpenID] and [@ekyc] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
 
 Todo: Define input formats for date and datetime.
 
-## Functions
+## Transformation Functions
 
-Functions are usually defined only for a limited set of data types. 
+In the following, a base set of transformation functions is defined. OPs supporting Transformed Claims shall support at least one transformation function.
+
+In the following, the first function argument `Input` refers to the value of the
+base Claim, or, if multiple functions are to be applied, the output of the
+previous function. For other arguments, the RP defines a constant value in each
+request. Optional arguments may be omitted.
 
 This specification defines the following functions:
 
@@ -170,15 +179,30 @@ If only an input date or datetime is provided, returns the number of years elaps
 Note: If the year of the `Input` date is `0000`, the resulting Claim shall be unavailable.
 
 Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
-### Number Comparison Functions
+
+### Equality
+Function signatures:
+ * `eq(string Input, string Compare) → boolean`
+ * `eq(number Input, number Compare) → boolean`
+ * `eq(boolean Input, boolean Compare) → boolean`
+ * `eq(date|datetime Input, date|datetime Compare) → boolean`
+
+Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. For comparisons between `date` and `datetime` values, the time of day is ignored unless `Input` and `Compare` are both of type `datetime`.
+### Number/Date/Datetime Comparison
 Function signatures:
 
- * `gt(number Input, number Threshold): → boolean` 
- * `lt(number Input, number Threshold): → boolean` 
- * `gte(number Input, number Threshold): → boolean`
- * `lte(number Input, number Threshold): → boolean`
+ * `gt(number Input, number Compare): → boolean` 
+ * `gt(date|datetime Input, date|datetime Compare): → boolean` 
+ * `lt(number Input, number Compare): → boolean` 
+ * `lt(date|datetime Input, date|datetime Compare): → boolean` 
+ * `gte(number Input, number Compare): → boolean`
+ * `gte(date|datetime Input, date|datetime Compare): → boolean`
+ * `lte(number Input, number Compare): → boolean`
+ * `lte(date|datetime Input, date|datetime Compare): → boolean`
 
-Evaluate whether `Input` is greather/less than (or equal to) the given `Threshold`.
+Evaluate whether `Input` is greather/less than (or equal to) the given
+`Compare`. For comparisons between `date` and `datetime` values, the time of day
+is ignored unless `Input` and `Compare` are both of type `datetime`.
 
 Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
 
@@ -189,15 +213,6 @@ Function signatures:
  * `none(array of booleans Input) → boolean`
 
 Return `true` if and only if any, all, or none of the boolean values in the `Input` array are `true`. Return `false` otherwise.
-
-### Equality
-Function signatures:
- * `eq(string Input, string Compare) → boolean`
- * `eq(number Input, number Compare) → boolean`
- * `eq(boolean Input, boolean Compare) → boolean`
- * `eq(date|datetime Input, date|datetime Compare) → boolean`
-
-Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. For comparisons between `date` and `datetime` values, the time of day is ignored unless `Input` and `Compare` are both of type `datetime`.
 ### JSON Object Access
 
 Function signature: `get(JSON object Input, string Key) → *`
@@ -211,22 +226,133 @@ Function signature: `match(string Input, string RegEx) → boolean`
 Return `true` if and only if the `RegEx` matches the `Input` string. The match
 can be at any location within `Input` unless further constrained by `RegEx`. Return `false` otherwise.
 
-TODO: Define Regex dialect to use.
+Important: OPs implementing this function shall take precautions against 'catastrophic backtracking', i.e., regular expressions that are designed to exhaust the computing power of the server. To this end, a reasonably brief time limit on the execution time for the regular expression matching operation shall be imposed, e.g., a few milliseconds. If the execution takes longer, the resulting Claim shall be unavailable.
 
-## Transformed Claims Metadata
+TODO: Define Regex dialect to use. PCRE, PCRE2?
+
+
+### Extending the Transformation Functions
+
+Extensions of this specification may define further Transformation Functions.
+New Transformation Functions defined outside official standards shall use the
+prefix `x-` to avoid naming collisions with standardized Transformation
+Functions.
+
+TODO: Registry? Prefixing considered harmful? 
+
+All Transformation Functions shall follow the following conventions:
+
+ * To avoid information leakage to the RP, a Transformation Function shall be designed such that it does not open a side-channel to other information stored at the OP. To this end, a Transformation Function shall only make use of information that is either
+   * directly provided via the static function arguments,
+   * can be derived from the `Input`, or 
+   * is available to the RP from other sources, e.g., public information like time and date.
+ * The application of Transformation Functions shall have no side effects on other Claim values.
+ * Transformation Functions shall be safe to execute for the OP for all combinations of inputs and arguments, as the requests generally come from an untrusted source. This includes security against Denial-of-Service attacks.
+
+
+## Transformed Claims Metadata and Predefined Transformed Claims (PTC)
 
 An OP supporting Transformed Claims shall publish the key `transformed_claims_functions_supported` containing an array of supported functions (only the function names) in its OP Metadata.
 
 Example:
 
-```
+```json
 ...
-    "transformed_claims_functions_supported": ["eq", "match", "years_ago"]
+  "transformed_claims_functions_supported": ["eq", "match", "years_ago"],
 ...
 ```
 
 An RP can use the presence of this key to determine general support for Transformed Claims at the OP.
 
+An OP may predefine Transformed Claims. This avoids repetitions in requests and enables RPs to use Transformed Claims without requiring specific software support.
+
+To predefine a Transformed Claim, the OP publishes the key `transformed_claims_predefined` in its OP metadata. Its contents follow the same syntax as `transformed_claims` in the `claims` object:
+
+```json
+...
+  "transformed_claims_predefined": {
+    "above_18": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          18
+        ]
+      ]
+    }, 
+    "above_21": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          21
+        ]
+      ]
+    }
+  }
+...
+```
+
+RPs may use PTCs in a request to the OP as if the respective Transformed Claims
+were defined in `transformed_claims` in the request. However, two colons (`::`) are prepended to distinguish predefined from custom Transformed Claims:
+
+```json
+{
+  "id_token": {
+    "given_name": null,
+    "family_name": null,
+    "::above_18": {
+      "value": true,
+      "essential": true
+    }
+  }
+}
+```
+
+An OP may further set the key `transformed_claims_restricted` to `true` to
+denote that only PTCs can be used and custom Transformed Claims are not
+supported. In this case, the OP shall ignore all contents of
+`transformed_claims` in the `claims` request object.
+
+Example:
+
+```json
+...
+  "transformed_claims_functions_supported": ["years_ago", "gte"],
+  "transformed_claims_restricted": true,
+  "transformed_claims_predefined": {
+    "above_18": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          18
+        ]
+      ]
+    }
+  },
+...
+```
+
+## UX and Privacy Considerations
+
+The consent of the End-User is typically required before data can be released by the OP to the RP. An OP cannot be expected to automatically parse and understand all potential combinations of transformation functions and their arguments in order to create a detailed consent prompt for the End-User.
+
+OPs can use a number of strategies to ensure that End-User consent is always given in a meaningful way and to provide a good user experience (UX):
+
+ * Simple cases, for example the combination of `years_ago` and `gte(x)` applied
+   to `birthdate` shown above, can be translated into a statement like "The RP
+   wants to know that you are above age `x`". OPs can prepare a number of
+   patterns to match against the RP's request for common use cases in their
+   ecosystem.
+ * Since PTCs are predefined by the OP, the OP shall be able to provide a
+   meaningful consent text for all its PTCs.
+ * In all other cases, the OP can ask the End-User for
+   their consent to release the full information of the base Claim, e.g., to ask
+   for the consent to release the birthdate instead of verification of age. This is a safe overapproximation due to the guidelines for transformation functions described above.
 
 # Abort/Omit
 
