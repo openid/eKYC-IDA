@@ -130,7 +130,7 @@ OpenID
 
 # Scope and Requirements
 
-Use cases relating to Legal entities and initiated by an end-user relate to "authority to act" where the user themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the delegated authority including:
+Use cases relating to Legal entities and initiated by an End-User relate to "authority to act" where the End-User themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the delegated authority including:
 
 * Which entity the authority applies to
 * Claims about the entity that has the authority to act
@@ -210,12 +210,12 @@ This use case is the secondary focus of this document
 ### Get details of legal entity
 "As a relying party I require specific attributes about a legal entity"
 
-While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the end-user.
+While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the End-User.
 
 ### Details of the relationship of legal entity to another legal entity
 "As a relying party I require specific attributes about the relationship between two legal entities and how that relationship was established"
 
-While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the end-user.
+While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the End-User.
 
 # Claims
 
@@ -239,7 +239,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 ## authority Element {#authority}
 
 This specification defines a generic mechanism to allow communication of authority claims via JSON-based assertions. The basic idea is to use a container element, called `authority` to provide the RP with a set of claims that can be used to express the authority that may exist of one entity over another.
-This set of `authority` claims are presented as claims about the end user and it allows for the use of the sub-elements `applies_to`, `permission`, and `granted_by`.
+This set of `authority` claims are presented as claims about the End-User and it allows for the use of the sub-elements `applies_to`, `permission`, and `granted_by`.
 
 The following example uses the verified claims structure from the draft eKYC & Identity assurance specification:
 
@@ -254,8 +254,8 @@ The normative definition is given of the following.
 A single `authority` object consists of the following sub-elements:
 
 * `applies_to`: REQUIRED. Object that contains data about the entity that the authority applies to.
-* `permission`: REQUIRED. Object that is the container used for defining the actions that the end user is permitted to take in relation to the entity defined in the `applies_to` sub element of `authority`.
-* `granted_by`: OPTIONAL. Object that is the container for definition of how the authority was granted to the end user.
+* `permission`: REQUIRED. Object that is the container used for defining the actions that the End-User is permitted to take in relation to the entity defined in the `applies_to` sub element of `authority`.
+* `granted_by`: OPTIONAL. Object that is the container for definition of how the authority was granted to the End-User.
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
@@ -288,27 +288,27 @@ In the case that the authority applies to a natural person the `applies_to` elem
 
 ## `permission` element
 
-The `permission` sub-element is intended to convey the range of actions that the end user is allowed to take when acting for the entity identified in the `applies_to` sub-element.
+The `permission` sub-element is intended to convey the range of actions that the End-User is allowed to take when acting for the entity identified in the `applies_to` sub-element.
 
 The `permission` sub-element consists of an array of objects that contain the following objects and MAY contain further objects that describe any additional extensions or restrictions of the rights has over the target entity:
 
-* `role`: REQUIRED. Object that reflects the role held by the end user in relation to the target entity
+* `role`: REQUIRED. Object that reflects the role held by the End-User in relation to the target entity
 * `validity`: OPTIONAL. Object that contains an array that MUST have either a `start` or `end` and can optionally have both.  Both the `start` and `end` objects are a reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent and are used to define the date limits of the authority being conveyed.
-* `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements. This object is intended to describe the maximum extent of the end user's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
-* `audience`: Limitation of the scope of entity or entities that the end user may communicate with when acting on behalf of the entity defined in the `applies_to` element
-* `function`: Limitation of the scope of action that the end-user may take by functional domain
+* `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements. This object is intended to describe the maximum extent of the End-User's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
+* `audience`: Limitation of the scope of entity or entities that the End-User may communicate with when acting on behalf of the entity defined in the `applies_to` element
+* `function`: Limitation of the scope of action that the End-User may take by functional domain
 
 ## `granted_by` element
 
-The `granted_by` sub-element is intended to convey the manner in which the permission came to be associated with the end user. 
-The `granted_by` sub-element MAY contain the claims described below and MAY contain further objects that describe any additional data about how the authority was vested in the end-user:
+The `granted_by` sub-element is intended to convey the manner in which the permission came to be associated with the End-User. 
+The `granted_by` sub-element MAY contain the claims described below and MAY contain further objects that describe any additional data about how the authority was vested in the End-User:
 
-* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the end-user.  In an implementation tere SHOULD be a defined set of valid values, these values MAY include:
->  * "delegated": Where a holder of authority passes some or all of their authority on to the end-user. e.g. director of company delegates some authority to a member of staff
-> * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the end-user.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person.
-> * "self asserted": Where the end-user themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
-* `granting_body`: OPTIONAL.  The `granting_body` claim is used to identify the body that vested the authority in the end-user.  e.g. The High Court of London or another member of staff at the end-user's employer that already has the authority and has the authority to delegate that authority.
-* `reason`: OPTIONAL. The `reason` claim is a description of why the authority was granted to the end-user.
+* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation tere SHOULD be a defined set of valid values, these values MAY include:
+>  * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff
+> * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the End-User.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person.
+> * "self asserted": Where the End-User themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
+* `granting_body`: OPTIONAL.  The `granting_body` claim is used to identify the body that vested the authority in the End-User.  e.g. The High Court of London or another member of staff at the End-User's employer that already has the authority and has the authority to delegate that authority.
+* `reason`: OPTIONAL. The `reason` claim is a description of why the authority was granted to the End-User.
 
 ** Question - should there be a chain of authority built or should it just be a summary of the overall grant process? perhaps with clearer definition in the trust framework ** 
 
@@ -440,7 +440,7 @@ The OP MUST support the `claims` parameter and needs to publish this in its open
 
 # Privacy Consideration {#Privacy}
 
-The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request end-user claims and metadata it requires.
+The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request End-User claims and metadata it requires.
 
 # Security Considerations {#Security}
 
@@ -456,7 +456,7 @@ interoperability requirements, such as the OpenID Foundation Certification Progr
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
 The Claims source MUST therefore cryptographically sign all assertions.
 
-The confidentiality of all user data exchanged between the protocol parties MUST be ensured using suitable 
+The confidentiality of all End-User data exchanged between the protocol parties MUST be ensured using suitable 
 methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
