@@ -153,7 +153,7 @@ Any option available for normal Claims can also be used with Transformed Claims.
 There is no requirement to use all defined Transformed Claims within a request.
 
 ## Data Types 
-Claims defined in [!@OpenID] and [@ekyc] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
+Claims defined in [@!OpenID] and [@ekyc] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
 
 Todo: Define input formats for date and datetime.
 
