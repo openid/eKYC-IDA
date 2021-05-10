@@ -83,8 +83,6 @@ For example, the Transformed Claim for age verification from above could be defi
 
 Note: There can be multiple Transformed Claims defined on the same base Claim. 
 
-Note: Implementations not supporting Transformed Claims will ignore this definition.
-
 ### Requesting Transformed Claims
 
 To request a Transformed Claim, the RP uses the name of the Transformed Claim where it would normally use the base Claim. A colon (`:`) is prepended to avoid confusion with potentially existing normal Claims. 
@@ -250,7 +248,7 @@ All Transformation Functions shall follow the following conventions:
  * Transformation Functions shall be safe to execute for the OP for all combinations of inputs and arguments, as the requests generally come from an untrusted source. This includes security against Denial-of-Service attacks.
 
 
-## Transformed Claims Metadata and Predefined Transformed Claims (PTC)
+## OP Metadata and Predefined Transformed Claims (PTC)
 
 An OP supporting Transformed Claims shall publish the key `transformed_claims_functions_supported` containing an array of supported functions (only the function names) in its OP Metadata.
 
@@ -353,6 +351,10 @@ OPs can use a number of strategies to ensure that End-User consent is always giv
  * In all other cases, the OP can ask the End-User for
    their consent to release the full information of the base Claim, e.g., to ask
    for the consent to release the birthdate instead of verification of age. This is a safe overapproximation due to the guidelines for transformation functions described above.
+
+## Compatibility Considerations
+
+An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined below, the `if_unknown` case will be triggered.
 
 # Abort/Omit
 
