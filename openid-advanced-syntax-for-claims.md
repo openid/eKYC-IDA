@@ -83,6 +83,8 @@ For example, the Transformed Claim for age verification from above could be defi
 
 Note: There can be multiple Transformed Claims defined on the same base Claim. 
 
+TODO: Define charset for transformed claim names, shall not start with ':'. 
+
 ### Requesting Transformed Claims
 
 To request a Transformed Claim, the RP uses the name of the Transformed Claim where it would normally use the base Claim. A colon (`:`) is prepended to avoid confusion with potentially existing normal Claims. 
