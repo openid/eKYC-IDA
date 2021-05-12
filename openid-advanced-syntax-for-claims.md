@@ -103,8 +103,8 @@ This example would yield the following results (among other outcomes, always ass
 | Condition                                                             | Result                                                                  |
 | --------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `phone_number` not available                                          | Transaction is aborted.                                                 |
-| `email_verified` not available                                        | `email_verified` is omitted.                                            |
-| `email_verified` is not `test@example.com`                            | Transaction is aborted.                                                 |
+| `email` not available                                        | `email` is omitted.                                            |
+| `email` is not `test@example.com`                            | Transaction is aborted.                                                 |
 | `trust_framework` is not `de_aml` or is unavailable                   | Transaction is aborted.                                                 |
 | `verification_process` is unavailable                                 | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |
 | verified `address` is unavailable                                     | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |

@@ -3,7 +3,7 @@
         "phone_number": {
             "if_unavailable": "abort"
         },
-        "email_verified": {
+        "email": {
             "value": "test@example.com",
             "if_unavailable": "omit",
             "if_different": "abort"
