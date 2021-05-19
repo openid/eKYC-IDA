@@ -282,6 +282,12 @@
       ],
       "additionalProperties": false
     },
+    "distributed_claims_available_def": {
+      "type": "object",
+      "verified_claims_available": {
+        "$ref": "#/definitions/verified_claims_def"
+      }
+    },
     "aggregated_claims": {
       "properties": {
         "JWT": {
@@ -334,7 +340,7 @@
     "_claim_names": {
       "type": "object",
       "properties": {
-        "verified_claims": {
+        "verified_claims": {                
           "anyOf": [
             {
               "type": "string"
@@ -344,12 +350,22 @@
               "items": {
                 "type": "string"
               }
+            },
+            {
+              "$ref": "#/definitions/distributed_claims_available_def"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/distributed_claims_available_def"
+              }
             }
           ],
           "type": [
             "string",
+            "object",
             "array"
-          ]
+          ]          
         }
       }
     },
