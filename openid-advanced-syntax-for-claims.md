@@ -226,7 +226,7 @@ Function signature: `match(string Input, string RegEx) → boolean`
 Return `true` if and only if the `RegEx` matches the `Input` string. The match
 can be at any location within `Input` unless further constrained by `RegEx`. Return `false` otherwise.
 
-Important: OPs implementing this function shall take precautions against 'catastrophic backtracking', i.e., regular expressions that are designed to exhaust the computing power of the server. To this end, a reasonably brief time limit on the execution time for the regular expression matching operation shall be imposed, e.g., a few milliseconds. If the execution takes longer, the resulting Claim shall be unavailable.
+Important: OPs implementing this function shall take precautions against 'catastrophic backtracking', i.e., regular expressions that are designed to exhaust the computing power of the OP. To this end, a reasonably brief time limit on the execution time for the regular expression matching operation shall be imposed, e.g., a few milliseconds. If the execution takes longer, the resulting Claim shall be unavailable.
 
 TODO: Define Regex dialect to use. PCRE, PCRE2?
 
@@ -357,6 +357,13 @@ OPs can use a number of strategies to ensure that End-User consent is always giv
 ## Compatibility Considerations
 
 An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined below, the `if_unknown` case will be triggered.
+
+## Examples
+
+The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined below are used as well.
+
+
+<{{examples/request/asc_tc_partial_matching.json}}
 
 # Abort/Omit
 
