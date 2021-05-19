@@ -554,7 +554,6 @@ Important: The behavior described below is independent from the use of `essentia
 ### Unavailable Data
 If the RP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. If the End-User does not consent to the whole transaction, standard OpenID Connect logic applies, as defined in Section 3.1.2.6 of [@!OpenID]. 
 
-If an element is to be omitted that is required for a valid response, its parent elements MUST be omitted as well, recursively until the response is valid.
 
 ### Data not Matching Requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
@@ -564,7 +563,9 @@ When the available data does not fulfill the requirements of the RP expressed th
 
 In both cases, the OP MUST NOT return an error to the RP.
 
-As above, if an element is to be omitted that is required for a valid response, its parent elements MUST be omitted as well, recursively until the response is valid.
+### Omitting Elements
+
+If an element is to be omitted according to the rules above, but is required for a valid response, its parent element MUST be omitted as well. This process MUST be repeated until the response is valid.
 
 ### Error Handling
 
