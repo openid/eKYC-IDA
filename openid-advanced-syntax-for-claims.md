@@ -34,10 +34,6 @@ This specification defines an extension of OpenID Connect to enable new features
 TBD
 # Scope
 TBD
-
-# Transformed Claims
-
-<<<<<<< HEAD
 # Selective Abort/Omit
 
 Using Selective Abort/Omit (SAO), an RP can define the expected behavior of an OP when certain data is not available, when a user does not consent to the release of the data, or when restrictions defined on claims using `value`, `values`, or `max_age` cannot be fulfilled. 
@@ -157,7 +153,10 @@ An OP supporting SAO shall publish the key `selective_abort_omit_supported` in i
 ## Compatibility Considerations
 
 An OP not supporting SAO will ignore the additional keys as defined in Section 5.5.1 of [@!OpenID]. The RP may therefore receive data from such an OP when aborting the transaction was requested instead. RPs can avoid this by checking for SAO support at the OP before sending the request.
-=======
+
+
+# Transformed Claims
+
 Using Transformed Claims (TC), a claim value can be transformed using a limited set of functions before any further evaluation on the claim value is performed and before the claim value is returned to the RP.
 
 Each Transformed Claim is based off exactly one Claim provided by the OP. For example, the Claim `birthdate` can be used to derive a Transformed Claim for age verification (End-User is above a certain age) by applying a suitable chain of functions.
@@ -485,9 +484,6 @@ The following example shows two custom Transformed Claims being defined and used
 
 
 <{{examples/request/asc_tc_partial_matching.json}}
-
-# Abort/Omit
->>>>>>> master
 
 # Data Availability Feedback
 
