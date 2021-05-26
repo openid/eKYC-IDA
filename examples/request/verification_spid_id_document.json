@@ -10,7 +10,7 @@
               "value": "id_document"
             },
             "validation_method": null,
-            "verification_method": "biometric_mobile",
+            "verification_method": null,
             "document": {
               "type": null,
               "issuer": {

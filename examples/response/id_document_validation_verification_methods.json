@@ -8,7 +8,7 @@
         {
           "type": "id_document",
           "validation_method": "chip",
-          "verification_method": "biometric_mobile"
+          "verification_method": "biometric_mobile",
           "time": "2019-04-20T20:11Z",
           "document": {
             "type": "passport",
