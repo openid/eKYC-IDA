@@ -136,6 +136,12 @@
           },
           "then": {
             "properties": {
+              "validation_method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
+              "verification_method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
               "method": {
                 "$ref": "#/definitions/constrainable_element"
               },

@@ -118,7 +118,7 @@ From a technical perspective, this means this specification allows the OP to pro
 
 The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
 
-This extension is intended to be truly international and support identity assurance across different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation methods and verification processes.
+This extension is intended to be truly international and support identity assurance across different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation and verification processes.
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
@@ -252,11 +252,11 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "id_document".
 
-`validation_method`: OPTIONAL. The method used to check the authenticity of the ID document. For information on predefined validation_method values see [@!predefined_values].
+`validation_method`: OPTIONAL. The method used to check the authenticity of the evidence. For information on predefined validation_method values see [@!predefined_values].
 
-`verification_method`: OPTIONAL. The method used to verify that the person is the one the ID document was issued to. For information on predefined verification_method values see [@!predefined_values].
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the evidence relates too. For information on predefined verification_method values see [@!predefined_values].
 
-`method`: OPTIONAL. The method used to validate the ID document and verify the person is the owner of it. This is a combination of validation_method & verification_method and kept for backward compatibility, implementers are recommended to use the validation_method & verification_method types instead. For information on predefined method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to validate the evidence and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -646,7 +646,11 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `id_documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
 
-`id_documents_verification_methods_supported`: JSON array containing the ID document verification methods the OP supports as defined in (#verification).
+`id_documents_methods_supported`: JSON array containing the ID document methods the OP supports as defined in (#verification).
+
+`id_documents_validation_methods_supported`: JSON array containing the ID document validation methods the OP supports as defined in (#verification).
+
+`id_documents_verification_methods_supported`: JSON array containing the verification methods the OP supports as defined in (#verification).
 
 `claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 
@@ -673,7 +677,7 @@ This is an example openid-configuration snippet:
        "passport",
        "driving_permit"
    ],
-   "id_documents_verification_methods_supported": [
+   "id_documents_methods_supported": [
        "pipp",
        "sripp",
        "eid"
