@@ -2,7 +2,9 @@
   "userinfo": {
     "verified_claims": {
       "verification": {
-        "trust_framework": "it_spid",
+        "trust_framework": {
+          "value": "it_spid",
+        }
         "time": null,
         "evidence": [
           {
