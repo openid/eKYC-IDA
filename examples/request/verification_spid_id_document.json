@@ -3,7 +3,7 @@
     "verified_claims": {
       "verification": {
         "trust_framework": {
-          "value": "it_spid",
+          "value": "it_spid"
         },
         "time": null,
         "evidence": [
