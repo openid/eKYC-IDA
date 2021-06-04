@@ -406,6 +406,12 @@ The following example shows an ID token containing `verified_claims` from two di
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
+This simple example shows the method of requesting verified_claims from multiple different sources, but this structure does not allow the RP to ascertain which OP can provide responses to which claims.
+This lookahead requirement exists to prevent RP's from the need to actually get the request from each potential OP, which may involve extra time, cost, data collisions, etc.
+To address this, the OP can specify which parts of the request it is able to service. An example of such a response is given:
+
+<<{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
+
 The OP MAY combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
 If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and an embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
