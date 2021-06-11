@@ -4,84 +4,79 @@
   "email": "janedoe@example.com",
   "email_verified": true,
   "_claim_names": {
- "verified_claims":
-     {
-      "src1":   { 
-        "verified_claims_available": {
-            "verification": {
-                "trust_framework": {
-                  "value": "grids_kyb"
-                },
-                "evidence": [
-                 {
-                  "type": {
-                      "value": "company_register"
-                  },
-                  "registry": {
-                    "country": {
-                      "essential": true,
-                      "purpose": "string",
-                      "value": "ES"
-                    }
-                  },
-                  "document": {
-                    "SKU": {
-                      "value": "REX"
-                    }
-                  }
-                 }
-                ]
-            },
-            "claims": {
-                "legal_name": null,
-                "legal_person_identifier": null,
-                "lei": null,
-                "vat_registration": null,
-                "address": null,
-                "tax_reference": null,
-                "sic": null,
-                "business_role": null,
-                "sub_jurisdiction": null,
-                "trading_status": null
+    "verified_claims": {
+      "src1": {
+        "verification": {
+          "trust_framework": {
+            "value": "grids_kyb"
+          },
+          "evidence": [
+            {
+              "type": {
+                "value": "id_document"
+              },
+              "registry": {
+                "country": {
+                  "essential": true,
+                  "purpose": "string",
+                  "value": "ES"
+                }
+              },
+              "document": {
+                "SKU": {
+                  "value": "REX"
+                }
+              }
             }
+          ]
+        },
+        "claims": {
+          "legal_name": null,
+          "legal_person_identifier": null,
+          "lei": null,
+          "vat_registration": null,
+          "address": null,
+          "tax_reference": null,
+          "sic": null,
+          "business_role": null,
+          "sub_jurisdiction": null,
+          "trading_status": null
         }
       },
-      "src2":   {
-        "verified_claims_available": {
-            "verification": {
-                "trust_framework": {
-                  "value": "grids_kyb"
-                },
-                "evidence": [
-                 {
-                  "type": {
-                      "value": "company_register"
-                  },
-                  "registry": {
-                    "country": {
-                      "essential": true,
-                      "purpose": "string",
-                      "value": "ES"
-                    }
-                  },
-                  "document": {
-                    "SKU": {
-                      "value": "REX"
-                    }
-                  }
-                 }
-                ]
-            },
-            "claims": {
-                "legal_name": null,
-                "legal_person_identifier": null,
-                "sic": null,
-                "business_role": null,
-                "sub_jurisdiction": null,
-                "trading_status": null
+      "src2": {
+        "verification": {
+          "trust_framework": {
+            "value": "grids_kyb"
+          },
+          "evidence": [
+            {
+              "type": {
+                "value": "id_document"
+              },
+              "registry": {
+                "country": {
+                  "essential": true,
+                  "purpose": "string",
+                  "value": "ES"
+                }
+              },
+              "document": {
+                "SKU": {
+                  "value": "REX"
+                }
+              }
             }
-          }
+          ]
+        },
+        "claims": {
+          "legal_name": null,
+          "legal_person_identifier": null,
+          "sic": null,
+          "business_role": null,
+          "sub_jurisdiction": null,
+          "trading_status": null
         }
+      }
     }
   },
   "_claim_sources": {
@@ -94,6 +89,3 @@
     }
   }
 }
-
-
-
