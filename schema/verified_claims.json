@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://openid.net/schemas/verified_claims-11.json",
+  "$id": "https://openid.net/schemas/verified_claims_request-11.json",
   "definitions": {
     "date_type": {
       "type": "string",
@@ -39,7 +39,7 @@
           },
           "then": {
             "properties": {
-              "signature_type":{
+              "signature_type": {
                 "type": "string"
               },
               "issuer": {
@@ -53,8 +53,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -116,8 +115,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -160,8 +158,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         }
       ]
     },
@@ -284,8 +281,9 @@
     },
     "distributed_claims_available_def": {
       "type": "object",
-      "verified_claims_available": {
-        "$ref": "#/definitions/verified_claims_def"
+      "properties": {},
+      "additionalProperties": {
+        "$ref": "verified_claims_request-10.json#definitions/verified_claims_def"
       }
     },
     "aggregated_claims": {
@@ -340,7 +338,7 @@
     "_claim_names": {
       "type": "object",
       "properties": {
-        "verified_claims": {                
+        "verified_claims": {
           "anyOf": [
             {
               "type": "string"
@@ -353,26 +351,15 @@
             },
             {
               "$ref": "#/definitions/distributed_claims_available_def"
-            },
-            {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/distributed_claims_available_def"
-              }
             }
-          ],
-          "type": [
-            "string",
-            "object",
-            "array"
-          ]          
+          ]
         }
-      }
+      },
+      "additionalProperties": false
     },
     "_claim_sources": {
       "type": "object",
-      "properties": {
-      },
+      "properties": {},
       "additionalProperties": {
         "$ref": "#/definitions/_claim_sources"
       }
