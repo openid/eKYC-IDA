@@ -22,18 +22,29 @@
               "desc": "Front of id document",
               "digest": {
                 "alg": "SHA-256",
-                "value": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
+                "value": "nVW19w6EVNWNQ8fmRCxrxqw4xLUs+T8eI0tpjZo820Bc"
               },
               "url": "https://example.com/attachments/pGL9yz4hZQ",
-              "access_token": "ksj3n283dke"
+              "access_token": "ksj3n283dke",
+              "expires_in": 30
             },
             {
               "desc": "Back of id document",
               "digest": {
                 "alg": "SHA-256",
-                "value": "/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM="
+                "value": "2QcDeLJ/qeXJn4nP+v3nijMgxOBCT9WJaV0LjRS4aT8"
               },
               "url": "https://example.com/attachments/4Ag8IpOf95"
+            },
+            {
+              "desc": "Signed document",
+              "digest": {
+                "alg": "SHA-256",
+                "value": "i3O7U79LiyKmmesIgULKT2Q8LAxNO0CpwJVcbepaYf8"
+              },
+              "url": "https://example.com/attachments/4Ag8IpOf95",
+              "access_token": null,
+              "expires_in": 30
             }
           ]
         }

@@ -336,7 +336,9 @@ External attachments are similar to distributed claims. The reference to the ext
 
 `url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
 
-`access_token`: OPTIONAL. Access Token enabling retrieval of the document from the given `url` by using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol. The document MUST be requested using the Authorization Request header field and Providers MUST support this method. If the Access Token is not available, RPs MUST use the Access Token issued by the OP in the Token Response.
+`access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the document from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
+
+`expires_in`: OPTIONAL. Positive integer representing the number of seconds until the attachment becomes unavailable and/or the provided `access_token` becomes invalid.
 
 `digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
 
