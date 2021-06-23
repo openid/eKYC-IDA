@@ -646,11 +646,11 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `id_documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
 
-`id_documents_methods_supported`: JSON array containing the ID document methods the OP supports as defined in (#methods).
+`id_documents_methods_supported`: JSON array containing the ID document methods the OP supports (see @!predefined_values).
 
-`id_documents_validation_methods_supported`: JSON array containing the ID document validation methods the OP supports as defined in (#validation).
+`id_documents_validation_methods_supported`: JSON array containing the ID document validation methods the OP supports (see @!predefined_values).
 
-`id_documents_verification_methods_supported`: JSON array containing the verification methods the OP supports as defined in (#verification).
+`id_documents_verification_methods_supported`: JSON array containing the verification methods the OP supports (see @!predefined_values).
 
 `claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 
