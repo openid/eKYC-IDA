@@ -256,7 +256,7 @@ The following elements are contained in an `id_document` evidence sub-element.
 
 `verification_method`: OPTIONAL. The method used to verify that the user is the person that the evidence relates too. For information on predefined verification_method values see [@!predefined_values].
 
-`method`: OPTIONAL. The method used to validate the evidence and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to validate the evidence and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -646,9 +646,9 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `id_documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
 
-`id_documents_methods_supported`: JSON array containing the ID document methods the OP supports as defined in (#verification).
+`id_documents_methods_supported`: JSON array containing the ID document methods the OP supports as defined in (#methods).
 
-`id_documents_validation_methods_supported`: JSON array containing the ID document validation methods the OP supports as defined in (#verification).
+`id_documents_validation_methods_supported`: JSON array containing the ID document validation methods the OP supports as defined in (#validation).
 
 `id_documents_verification_methods_supported`: JSON array containing the verification methods the OP supports as defined in (#verification).
 
