@@ -87,18 +87,18 @@
                 "$ref": "#/definitions/time_type"
               },
               "document_details": {
-                "$id": "#document_details",
+                "$id": "#/document_details",
                 "type": "object",
                 "properties": {
                   "type": {
                     "type": "string"
                   },
                   "document_number": {
-                    "$id": "#document_number",
+                    "$id": "#/document_details/document_number",
                     "type": "string"
                   },
                   "number": {
-                    "$ref": "#document_number"
+                    "$ref": "#/document_details/document_number"
                   },                    
                   "personal_number": {
                     "type": "string"
@@ -148,7 +148,7 @@
                 }
               },
               "document": {
-                "$ref": "#document_details"
+                "$ref": "#/document_details"
               }
             }
           },
