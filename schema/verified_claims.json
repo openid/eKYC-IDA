@@ -148,7 +148,7 @@
                 }
               },
               "document": {
-                 "$ref": "#document_details"
+                "$ref": "#document_details"
               }
             }
           },
@@ -182,7 +182,7 @@
               "time": {
                 "$ref": "#/definitions/time_type"
               },
-              "attestation": {
+              "record": {
                 "type": "object",
                 "properties": {
                   "type": {
@@ -260,7 +260,7 @@
               "time": {
                 "$ref": "#/definitions/time_type"
               },
-              "record": {
+              "attestation": {
                 "type": "object",
                 "properties": {
                   "type": {
@@ -283,6 +283,9 @@
                     "properties": {
                       "name": {
                         "type": "string"
+                      },
+                      "birthdate": {
+                        "$ref": "#/definitions/date_type"
                       },
                       "formatted": {
                         "type": "string"

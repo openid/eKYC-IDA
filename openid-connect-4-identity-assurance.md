@@ -246,7 +246,7 @@ Depending on the evidence type additional elements are defined.
 
 The following elements are contained in an `document` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document" .
+`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
 
 `method`: OPTIONAL. The method used to verify the document. For information on predefined verification method values see [@!predefined_values]. 
 
@@ -269,7 +269,7 @@ The following elements are contained in an `document` evidence sub-element.
     * `name`: OPTIONAL. Designation of the issuer of the document.
     * All elements of the OpenID Connect `address` Claim ([@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL String containing the name of the region / state / province / municipality that issuer has jurisdiction over (if it’s not national)
+    * `jurisdiction`: OPTIONAL. String containing the name of the region / state / province / municipality that issuer has jurisdiction over (if it’s not national).
 
 #### electronic_record
 
@@ -322,10 +322,10 @@ The following elements are contained in an `vouch` sub-element.
 * `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 * `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
     * `name`: OPTIONAL. String containing the name of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
-    * `birthdate`: String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
+    * `birthdate`: OPTIONAL. String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
     * All elements of the OpenID Connect `address` Claim ([@!OpenID])
-    * `occupation`: String containing the occupation or other authority of the person giving the vouch/reference.
-    * `organization`: String containing the name of the organization the voucher is representing.
+    * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
+    * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
 
 #### utility_bill
 
