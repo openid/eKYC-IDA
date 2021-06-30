@@ -157,7 +157,7 @@
                 "$ref": "#/definitions/datetime_element"
               },
               "document_details": {
-                "$id": "#document_details",
+                "$id": "/document_details",
                 "type": "object",
                 "properties": {
                   "type": {
@@ -213,7 +213,7 @@
                 }
               },
               "document": {
-                "$ref": "#document_details"
+                "$ref": "/document_details"
               }
             }
           },
