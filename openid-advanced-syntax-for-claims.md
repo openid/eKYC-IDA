@@ -503,7 +503,7 @@ An OP not supporting Transformed Claims will ignore the additional element in th
 The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined below are used as well.
 
 
-<{{examples/request/asc_tc_partial_matching.json}}
+<{{asc/examples/request/asc_tc_partial_matching.json}}
 
 # Data Availability Feedback
 
