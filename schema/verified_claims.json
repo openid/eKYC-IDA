@@ -18,7 +18,9 @@
           "enum": [
             "electronic_signature",
             "id_document",
-            "other",
+            "document",
+            "electronic_record",
+            "vouch",
             "utility_bill"
           ]
         },
@@ -61,7 +63,7 @@
           "if": {
             "properties": {
               "type": {
-                "value": "id_document"
+                "pattern": "^(id_)*document$"
               }
             }
           },
@@ -84,14 +86,26 @@
               "time": {
                 "$ref": "#/definitions/time_type"
               },
-              "document": {
+              "^document*(_details)$": {
                 "type": "object",
                 "properties": {
                   "type": {
                     "type": "string"
                   },
-                  "number": {
+                  "^(document_)*number$": {
                     "type": "string"
+                  },
+                  "personal_number": {
+                    "type": "string"
+                  },
+                  "serial_number": {
+                    "type": "string"
+                  },
+                  "date_of_issuance": {
+                    "$ref": "#/definitions/date_type"
+                  },
+                  "date_of_expiry": {
+                    "$ref": "#/definitions/date_type"
                   },
                   "issuer": {
                     "type": "object",
@@ -99,17 +113,36 @@
                       "name": {
                         "type": "string"
                       },
+                      "name": {
+                        "type": "string"
+                      },
+                      "formatted": {
+                        "type": "string"
+                      },
+                      "street_address": {
+                        "type": "string"
+                      },
+                      "locality": {
+                        "type": "string"
+                      },
+                      "region": {
+                        "type": "string"
+                      },
+                      "postal_code": {
+                        "type": "string"
+                      },
                       "country": {
                         "type": "string"
-                      }
+                      },
+                      "country_code": {
+                        "type": "string"
+                      },
+                      "jurisdiction": {
+                        "type": "string"
+                      }                     
                     }
-                  },
-                  "date_of_issuance": {
-                    "$ref": "#/definitions/date_type"
-                  },
-                  "date_of_expiry": {
-                    "$ref": "#/definitions/date_type"
                   }
+
                 }
               }
             }

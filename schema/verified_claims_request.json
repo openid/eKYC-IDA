@@ -86,7 +86,9 @@
               "enum": [
                 "electronic_signature",
                 "id_document",
-                "other",
+                "document",
+                "electronic_record",
+                "vouch",
                 "utility_bill"
               ]
             }

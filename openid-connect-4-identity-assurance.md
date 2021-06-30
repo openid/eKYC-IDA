@@ -234,63 +234,98 @@ The evidence is generally structured with the following elements:
 
 The following types of evidence are defined:
 
-* `id_document`: Verification based on any kind of government issued identity document.
-* `other`: Verification based on any kind of document or data recognized under the trust framework or supported by the RP as a valid form of identity that is not a government issued identity document.
-* `utility_bill`: Verification based on a utility bill. (this is to be deprecated in future releases and implementers are recommended to use the `other` type instead)
+* `document`: Verification based on any kind of physical or electronic document provided by the End-User.
+* `electronic_record`: Verification based on data or information obtained electronically from an approved or recognised source.
+* `vouch`: Verification based on an attestation or reference given by an approved or recognised person declaring they believe to the best of their knowledge that the claim(s) are genuine and true.
+* `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
 
 Depending on the evidence type additional elements are defined.
 
-#### id_document
+#### document
 
-The following elements are contained in an `id_document` evidence sub-element.
+The following elements are contained in an `document` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to "id_document".
+`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document" .
 
-`method`: OPTIONAL. The method used to verify the ID document. For information on predefined verification method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to verify the document. For information on predefined verification method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID document was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
 
-`document`: OPTIONAL. JSON object representing the ID document used to perform the identity verification. It consists of the following properties:
+`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: "document" is an alias for "document_details" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document_details". It consists of the following properties:
 
-* `type`: REQUIRED. String denoting the type of the ID document. For information on predefined identity document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `number`: OPTIONAL. String representing the number of the identity document.
-* `issuer`: OPTIONAL. JSON object containing information about the issuer of this identity document. This object consists of the following properties:
-    * `name`: OPTIONAL. Designation of the issuer of the identity document.
-    * `country`: OPTIONAL. String denoting the country or organization that issued the document as ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+* `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g. a passport number, certificate number, etc. Note: `number` is an alias for this element for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
+* `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
+* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalisation information (this usually only applies to physical artefacts and is present before personalisation.
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `issuer`: OPTIONAL. JSON object containing information about the issuer of this document. This object consists of the following properties:
+    * `name`: OPTIONAL. Designation of the issuer of the document.
+    * All elements of the OpenID Connect `address` Claim ([@!OpenID])
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `jurisdiction`: OPTIONAL String containing the name of the region / state / province / municipality that issuer has jurisdiction over (if it’s not national)
 
-#### other
+#### electronic_record
 
-The following elements are contained in an `other` sub-element.
+The following elements are contained in an `electronic_record` sub-element.
 
-`type`: REQUIRED. Value MUST be set to "other".
+`type`: REQUIRED. Value MUST be set to "electronic_record".
 
-`method`: OPTIONAL. The method used to verify the ID evidence. For information on predefined verification method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to verify the electronic record. For information on predefined verification method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this ID evidence was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
 
-`evidence_details`: OPTIONAL. JSON object representing the evidence used to perform the identity verification. It consists of the following properties:
+`record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
-* `type`: REQUIRED. String denoting the type of the ID evidence. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `identifier`: OPTIONAL. String representing a unique reference number or identifier relating to the evidence or identity.
-* `date_of_issuance`: OPTIONAL. The date the evidence was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
+* `created_at`: OPTIONAL. The time the record was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
 * `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `source`: OPTIONAL. JSON object containing information about the source of this record. This object consists of the following properties:
+    * `name`: OPTIONAL. Designation of the issuer of the document.
+    * All elements of the OpenID Connect `address` Claim ([@!OpenID])
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+ 
 
-`provider`: OPTIONAL. JSON object identifying the entity that provided/issued the evidence. The object consists of the following properties:
-* `name`: REQUIRED. String designating the name of the provider/issuer of the evidence.
-* All elements of the OpenID Connect `address` Claim ([@!OpenID])
+#### vouch
+
+The following elements are contained in an `vouch` sub-element.
+
+`type`: REQUIRED. Value MUST be set to "vouch".
+
+`method`: OPTIONAL. The method used to verify the vouch. For information on predefined verification method values see [@!predefined_values]. 
+
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+
+* `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
+
+`attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
+
+* `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
+* `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
+* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
+    * `name`: OPTIONAL. String containing the name of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
+    * `birthdate`: String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
+    * All elements of the OpenID Connect `address` Claim ([@!OpenID])
+    * `occupation`: String containing the occupation or other authority of the person giving the vouch/reference.
+    * `organization`: String containing the name of the organization the voucher is representing.
 
 #### utility_bill
 
