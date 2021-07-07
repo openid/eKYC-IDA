@@ -76,6 +76,61 @@
         }
       ]
     },
+    "document_details": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "document_number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "personal_number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "serial_number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "date_of_issuance": {
+          "$ref": "#/definitions/datetime_element"
+        },
+        "date_of_expiry": {
+          "$ref": "#/definitions/datetime_element"
+        },
+        "issuer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "formatted": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "street_address": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "locality": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "region": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "postal_code": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "country": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "country_code": {
+              "$ref": "#/definitions/simple_element"
+            }
+          }
+        }
+      }
+    },
     "evidence": {
       "type": "object",
       "properties": {
@@ -112,7 +167,7 @@
           },
           "then": {
             "properties": {
-              "signature_type":{
+              "signature_type": {
                 "$ref": "#/definitions/simple_element"
               },
               "issuer": {
@@ -126,8 +181,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -157,68 +211,14 @@
                 "$ref": "#/definitions/datetime_element"
               },
               "document_details": {
-                "$id": "/document_details",
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "$ref": "#/definitions/constrainable_element"
-                  },
-                  "document_number": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "number": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "personal_number": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "serial_number": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "date_of_issuance": {
-                    "$ref": "#/definitions/datetime_element"
-                  },
-                  "date_of_expiry": {
-                    "$ref": "#/definitions/datetime_element"
-                  },
-                  "issuer": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "$ref": "#/definitions/simple_element"
-                      },
-                      "formatted": {
-                         "$ref": "#/definitions/simple_element"
-                      },
-                      "street_address": {
-                        "$ref": "#/definitions/simple_element"
-                      },
-                      "locality": {
-                        "$ref": "#/definitions/simple_element"
-                      },
-                       "region": {
-                        "$ref": "#/definitions/simple_element"
-                      },
-                      "postal_code": {
-                        "$ref": "#/definitions/simple_element"
-                      },
-                      "country": {
-                        "$ref": "#/definitions/simple_element"
-                      },
-                      "country_code": {
-                        "$ref": "#/definitions/simple_element"
-                      }
-                    }
-                  }
-                }
+                "$ref": "#/definitions/document_details"
               },
               "document": {
-                "$ref": "/document_details"
+                "$ref": "#/definitions/document_details"
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -269,7 +269,7 @@
                         "$ref": "#/definitions/simple_element"
                       },
                       "formatted": {
-                         "$ref": "#/definitions/simple_element"
+                        "$ref": "#/definitions/simple_element"
                       },
                       "street_address": {
                         "$ref": "#/definitions/simple_element"
@@ -277,7 +277,7 @@
                       "locality": {
                         "$ref": "#/definitions/simple_element"
                       },
-                       "region": {
+                      "region": {
                         "$ref": "#/definitions/simple_element"
                       },
                       "postal_code": {
@@ -295,8 +295,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -350,10 +349,10 @@
                         "$ref": "#/definitions/simple_element"
                       },
                       "birthdate": {
-                         "$ref": "#/definitions/datetime_element"
-                      },                         
+                        "$ref": "#/definitions/datetime_element"
+                      },
                       "formatted": {
-                         "$ref": "#/definitions/simple_element"
+                        "$ref": "#/definitions/simple_element"
                       },
                       "street_address": {
                         "$ref": "#/definitions/simple_element"
@@ -361,7 +360,7 @@
                       "locality": {
                         "$ref": "#/definitions/simple_element"
                       },
-                       "region": {
+                      "region": {
                         "$ref": "#/definitions/simple_element"
                       },
                       "postal_code": {
@@ -372,7 +371,7 @@
                       },
                       "occupation": {
                         "$ref": "#/definitions/simple_element"
-                      },  
+                      },
                       "organization": {
                         "$ref": "#/definitions/simple_element"
                       }
@@ -382,8 +381,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -426,8 +424,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         }
       ]
     },
