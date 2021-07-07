@@ -1,0 +1,46 @@
+{
+    "transformed_claims": {
+        "company_email": {
+            "claim": "email",
+            "fn": [
+                [
+                    "match",
+                    "@company\\.com$"
+                ]
+            ]
+        },
+        "nationality_usa": {
+            "claim": "nationalities",
+            "fn": [
+                [
+                    "eq",
+                    "USA"
+                ],
+                "any"
+            ]
+        }
+    },
+    "id_token": {
+        "given_name": null,
+        "family_name": null,
+        ":company_email": {
+            "value": true,
+            "if_different": "abort"
+        },
+        "email_verified": {
+            "value": true,
+            "if_different": "abort"
+        },
+        "verified_claims": {
+            "claims": {
+                ":nationality_usa": {
+                    "value": true,
+                    "if_different": "abort"
+                }
+            },
+            "verification": {
+                "trust_framework": null
+            }
+        }
+    }
+}
