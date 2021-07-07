@@ -331,9 +331,9 @@ Function signature: `hash(string Input, string HashAlgorithm) → string`
 
 Returns the hash of the UTF-8 representation of the input string, encoded as a
 lowercase hex string. `HashAlgorithm` refers to the hash algorithm to be used,
-with valid values being `SHA256` and `SHA512`.
+with valid values being `sha-256` and `sha-512`.
 
-Example: `hash('Jörg', 'SHA256')` produces the string
+Example: `hash('Jörg', 'sha-256')` produces the string
 `8e63741c42f7c08025339f1a380d98030a698aa04f1fa3c595dcb581632af452`.
 
 This function can be used together with the `eq` operator or a restriction
