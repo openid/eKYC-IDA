@@ -659,10 +659,6 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 <{{examples/response/id_document.json}}
 
-## other
-
-<{{examples/response/other.json}}
-
 ## id_document + utility bill
 
 <{{examples/response/id_document_and_utility_bill.json}}
