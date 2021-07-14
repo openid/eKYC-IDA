@@ -667,6 +667,8 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 <{{examples/response/eidas.json}}
 
+## electronic_record
+<{{examples/response/electronic_record.json}}
 
 ## Multiple Verified Claims
 
