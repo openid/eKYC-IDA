@@ -263,7 +263,7 @@ The following elements are contained in an `document` evidence sub-element.
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
 
-`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: 'document' can be used as an alias for 'document_details' for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document_details". It consists of the following properties:
+`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g. a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
