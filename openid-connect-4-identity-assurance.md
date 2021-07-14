@@ -655,20 +655,29 @@ The third section illustrates how the contents of this object could look like in
 
 Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
-## id_document
+## id_document [deprecated format]
 
 <{{examples/response/id_document.json}}
 
-## id_document + utility bill
+## document 
 
-<{{examples/response/id_document_and_utility_bill.json}}
+<{{examples/response/document.json}}
+
+## document + utility bill
+
+<{{examples/response/document_and_utility_bill.json}}
 
 ## Notified eID system (eIDAS)
 
 <{{examples/response/eidas.json}}
 
 ## electronic_record
+
 <{{examples/response/electronic_record.json}}
+
+## vouch
+
+<{{examples/response/vouch.json}}
 
 ## Multiple Verified Claims
 
@@ -733,9 +742,9 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `evidence_supported`: JSON array containing all types of identity evidence the OP uses.
 
-`id_documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
+`documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
 
-`id_documents_verification_methods_supported`: JSON array containing the ID document verification methods the OP supports as defined in (#verification).
+`documents_verification_methods_supported`: JSON array containing the ID document verification methods the OP supports as defined in (#verification).
 
 `other_supported`: JSON array containing all other types of documents or data utilized by the OP for identity verification that are not a government issued ID document.
 
@@ -757,16 +766,16 @@ This is an example openid-configuration snippet:
      "nist_800_63A_3"
    ],
    "evidence_supported": [
-      "id_document",
+      "document",
       "utility_bill",
       "electronic_signature"
    ],
-   "id_documents_supported": [
+   "documents_supported": [
        "idcard",
        "passport",
        "driving_permit"
    ],
-   "id_documents_verification_methods_supported": [
+   "documents_verification_methods_supported": [
        "pipp",
        "sripp",
        "eid"

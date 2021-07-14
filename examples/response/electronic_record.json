@@ -15,7 +15,7 @@
             "source": {
                 "name": "Skatteverket",
                 "country": "Sverige",
-                "country_code": "SE"
+                "country_code": "SWE"
             },
             "personal_number": "4901224131",
             "created_at": "1979-01-22"
@@ -28,7 +28,7 @@
       "family_name": "Strömberg",
       "birthdate": "1979-01-22",
       "place_of_birth": {
-        "country": "SE",
+        "country": "SWE",
         "locality": "Örnsköldsvik"
       },
       "nationalities": [
@@ -37,7 +37,7 @@
       "address": {
         "locality": "Karlstad",
         "postal_code": "65344",
-        "country": "SE",
+        "country": "SWE",
         "street_address": "Gatunamn 221b"
       }
     }
