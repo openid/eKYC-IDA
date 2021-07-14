@@ -300,7 +300,7 @@ The following elements are contained in an `electronic_record` sub-element.
 * `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 * `source`: OPTIONAL. JSON object containing information about the source of this record. This object consists of the following properties:
     * `name`: OPTIONAL. Designation of the issuer of the document.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID])
+    * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
  
 
@@ -329,7 +329,7 @@ The following elements are contained in an `vouch` sub-element.
 * `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
     * `name`: OPTIONAL. String containing the name of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
     * `birthdate`: OPTIONAL. String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID])
+    * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
 

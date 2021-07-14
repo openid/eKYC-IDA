@@ -9,7 +9,7 @@
           "type": "document",
           "method": "pipp",
           "time": "2012-04-22T11:30Z",
-          "document": {
+          "document_details": {
             "type": "de_erp_replacement_idcard",
             "issuer": {
               "name": "Stadt Augsburg",
