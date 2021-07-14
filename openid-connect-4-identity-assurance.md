@@ -388,7 +388,7 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `sub` claim identifying the End-User in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
-The `verified_claims` element MUST have one of the following forms:
+The `verified_claims` element in a response MUST have one of the following forms:
 
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
