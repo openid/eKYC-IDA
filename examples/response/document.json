@@ -8,7 +8,8 @@
       "evidence": [
         {
           "type": "document",
-          "method": "uripp",
+          "validation_method": "remote_inspection",
+          "verification_method": "remote_face_check",
           "time": "2021-04-09T14:12Z",
           "document_details": {
             "type": "driving_permit",

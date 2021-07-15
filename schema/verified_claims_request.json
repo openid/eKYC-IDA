@@ -236,7 +236,7 @@
           },
           "then": {
             "properties": {
-              "method": {
+              "verification_method": {
                 "$ref": "#/definitions/constrainable_element"
               },
               "verifier": {
@@ -313,7 +313,10 @@
           },
           "then": {
             "properties": {
-              "method": {
+              "validation_method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
+              "verification_method": {
                 "$ref": "#/definitions/constrainable_element"
               },
               "verifier": {

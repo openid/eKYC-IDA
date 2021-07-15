@@ -8,7 +8,7 @@
       "evidence": [
         {
           "type": "electronic_record",
-          "method": "secure_mail",
+          "verification_method": "code_by_secure_mail",
           "time": "2021-02-15T16:51Z",
           "record": {
             "type": "population_registry",

@@ -254,12 +254,11 @@ The following elements are contained in an `document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
 
+`validation_method`: OPTIONAL. The method used to check the authenticity of the document. For information on predefined validation_method values see [@!predefined_values].
 
-`validation_method`: OPTIONAL. The method used to check the authenticity of the evidence. For information on predefined validation_method values see [@!predefined_values].
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the document relates too. For information on predefined verification_method values see [@!predefined_values].
 
-`verification_method`: OPTIONAL. The method used to verify that the user is the person that the evidence relates too. For information on predefined verification_method values see [@!predefined_values].
-
-`method`: OPTIONAL. The method used to validate the evidence and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -288,7 +287,7 @@ The following elements are contained in an `electronic_record` sub-element.
 
 `type`: REQUIRED. Value MUST be set to "electronic_record".
 
-`method`: OPTIONAL. The method used to verify the electronic record. For information on predefined verification method values see [@!predefined_values]. 
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the electronic record relates too. For information on predefined verification_method values see [@!predefined_values].
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -315,7 +314,9 @@ The following elements are contained in an `vouch` sub-element.
 
 `type`: REQUIRED. Value MUST be set to "vouch".
 
-`method`: OPTIONAL. The method used to verify the vouch. For information on predefined verification method values see [@!predefined_values]. 
+`validation_method`: OPTIONAL. The method used to check the authenticity of the vouch. For information on predefined validation_method values see [@!predefined_values].
+
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the evidence relates too. For information on predefined verification_method values see [@!predefined_values].
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -340,7 +341,7 @@ The following elements are contained in an `vouch` sub-element.
 
 #### utility_bill
 
-The following elements are contained in a `utility_bill` evidence sub-element.
+The following elements are contained in a `utility_bill` evidence sub-element. NOTE: This type is to be deprecated in future releases. Implementers are recommended to use 'document' instead.
 
 `type`: REQUIRED. Value MUST be set to "utility_bill".
 
@@ -683,6 +684,10 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 ## vouch
 
 <{{examples/response/vouch.json}}
+
+## document with validation and verification details
+
+<{{examples/response/document_validation_verification_methods.json}}
 
 ## Multiple Verified Claims
 
