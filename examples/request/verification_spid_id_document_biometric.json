@@ -9,13 +9,13 @@
         "evidence": [
           {
             "type": {
-              "value": "id_document"
+              "value": "document"
             },
             "validation_method": null,
             "verification_method": {
               "value": "biometric_mobile"
             },
-            "document": {
+            "document_details": {
               "type": null,
               "issuer": {
                 "country": null,

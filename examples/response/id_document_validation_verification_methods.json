@@ -6,11 +6,11 @@
       "verification_process": "b54c6f-6d3f-4ec5-973e-b0d8506f3bc7",
       "evidence": [
         {
-          "type": "id_document",
+          "type": "document",
           "validation_method": "chip",
           "verification_method": "biometric_mobile",
           "time": "2019-04-20T20:11Z",
-          "document": {
+          "document_details": {
             "type": "passport",
             "issuer": {
               "name": "Ministro Affari Esteri",
