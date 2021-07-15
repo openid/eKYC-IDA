@@ -118,7 +118,7 @@ From a technical perspective, this means this specification allows the OP to pro
 
 The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
 
-This extension is intended to be truly international and support identity assurance across different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, verification methods, and identity evidence.
+This extension is intended to be truly international and support identity assurance across different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation and verification processes.
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
@@ -254,7 +254,12 @@ The following elements are contained in an `document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
 
-`method`: OPTIONAL. The method used to verify the document. For information on predefined verification method values see [@!predefined_values]. 
+
+`validation_method`: OPTIONAL. The method used to check the authenticity of the evidence. For information on predefined validation_method values see [@!predefined_values].
+
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the evidence relates too. For information on predefined verification_method values see [@!predefined_values].
+
+`method`: OPTIONAL. The method used to validate the evidence and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -564,7 +569,7 @@ The OP has the discretion to decide whether the requested verification data is t
 
 ### value/values
 
-The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
+The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/verification_method', `evidence/validation_method` and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
@@ -592,7 +597,7 @@ The OP SHOULD try to fulfill this requirement. If the verification data of the E
 
 ### Requesting claims sets with different verification requirements
 
-It is also possible to request different trust frameworks, identity assurance levels, and verification methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
+It is also possible to request different trust frameworks, identity assurance levels, and methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
 
 The following example illustrates this functionality.
 
@@ -649,7 +654,7 @@ When using this approach the claims associated with a `scope` are administrative
 
 The following sections show examples of responses containing `verified_claims`.
 
-The first and second sections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different verification methods along with the actual Claims about the End-User.
+The first and second sections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
 
 The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
 
@@ -744,11 +749,13 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
 
-`documents_verification_methods_supported`: JSON array containing the ID document verification methods the OP supports as defined in (#verification).
+`documents_verification_methods_supported`: JSON array containing the document verification methods the OP supports as defined in (#verification).
 
-`other_supported`: JSON array containing all other types of documents or data utilized by the OP for identity verification that are not a government issued ID document.
+`documents_methods_supported`: JSON array containing the ID document methods the OP supports (see @!predefined_values).
 
-`other_methods_supported`: JSON array containing the methods used to verify `other` documents and data supported by the OP as defined in (#verification).
+`documents_validation_methods_supported`: JSON array containing the document validation methods the OP supports (see @!predefined_values).
+
+`documents_verification_methods_supported`: JSON array containing the verification methods the OP supports (see @!predefined_values).
 
 `claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
 
@@ -860,7 +867,7 @@ methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
-This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
+This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
 Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
 

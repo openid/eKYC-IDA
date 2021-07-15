@@ -129,6 +129,12 @@
           },
           "then": {
             "properties": {
+              "validation_method": {
+                "type": "string"
+              },
+              "verification_method": {
+                "type": "string"
+              },
               "method": {
                 "type": "string"
               },
