@@ -400,7 +400,11 @@
           "format": "uri"
         },
         "access_token": {
-          "type": "string"
+          "type": ["string", "null"]
+        },
+        "expires_in": {
+          "type": "integer",
+          "minimum": 1
         }
       },
       "required": [
