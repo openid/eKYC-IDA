@@ -776,7 +776,9 @@ This is an example openid-configuration snippet:
    ],
    "evidence_supported": [
       "document",
-      "electronic_record"
+      "electronic_record",
+      "vouch",
+      "electronic_signature"
    ],
    "documents_supported": [
        "idcard",
