@@ -743,27 +743,27 @@ sources into a ID Token.
 
 The OP advertises its capabilities with respect to verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-`verified_claims_supported`: Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension.
+`verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension.
 
-`trust_frameworks_supported`: JSON array containing all supported trust frameworks.
+`trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks.
 
-`evidence_supported`: JSON array containing all types of identity evidence the OP uses.
+`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses.
 
-`documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
+`documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
 
-`documents_verification_methods_supported`: JSON array containing the document verification methods the OP supports as defined in (#verification).
+`documents_methods_supported`: OPTIONAL. JSON array containing the ID document methods the OP supports (see @!predefined_values).
 
-`documents_methods_supported`: JSON array containing the ID document methods the OP supports (see @!predefined_values).
+`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see @!predefined_values).
 
-`documents_validation_methods_supported`: JSON array containing the document validation methods the OP supports (see @!predefined_values).
+`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see @!predefined_values).
 
-`documents_verification_methods_supported`: JSON array containing the verification methods the OP supports (see @!predefined_values).
+`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic_record". JSON array containing all electronic record types the OP supports (see @!predefined_values).
 
-`claims_in_verified_claims_supported`: JSON array containing all claims supported within `verified_claims`.
+`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all claims supported within `verified_claims`.
 
-`attachments_supported`: JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
+`attachments_supported`: REQUIRED when OP supports external attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
 
-`digest_algorithms_supported`: JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
+`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
 
 This is an example openid-configuration snippet:
 
@@ -776,8 +776,7 @@ This is an example openid-configuration snippet:
    ],
    "evidence_supported": [
       "document",
-      "utility_bill",
-      "electronic_signature"
+      "electronic_record"
    ],
    "documents_supported": [
        "idcard",
@@ -789,6 +788,9 @@ This is an example openid-configuration snippet:
        "sripp",
        "eid"
    ],
+   "electronic_records_supported": [
+       "secure_mail"
+   ],   
    "claims_in_verified_claims_supported": [
       "given_name",
       "family_name",
