@@ -751,7 +751,7 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the ID document methods the OP supports (see @!predefined_values).
+`documents_methods_supported`: OPTIONAL. JSON array containing the ID document validation & verification methods the OP supports (see @!predefined_values).
 
 `documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see @!predefined_values).
 
