@@ -6,16 +6,16 @@
       "verification_process": "513645-e44b-4951-942c-7091cf7d891d",
       "evidence": [
         {
-          "type": "document",
+          "type": "id_document",
           "method": "pipp",
           "time": "2012-04-22T11:30Z",
-          "document_details": {
+          "document": {
             "type": "de_erp_replacement_idcard",
             "issuer": {
               "name": "Stadt Augsburg",
               "country": "DE"
             },
-            "document_number": "53554554",
+            "number": "53554554",
             "date_of_issuance": "2010-04-23",
             "date_of_expiry": "2020-04-22"
           }

@@ -352,7 +352,7 @@ The following elements are contained in a `utility_bill` evidence sub-element. N
 
 `date`: OPTIONAL. String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
 
-`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined verification method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values]. 
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
 
@@ -554,6 +554,30 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
+# Examples
+The following section show examples of requests for `verified_claims`.
+
+# Verification of claims by a document
+
+<{{examples/response/verification_deeper.json}}
+
+## Verification of claims by trust framework and evidence types
+
+<{{examples/response/verification_claims_trust_frameworks_evidence.json}}
+
+## Verification of claims by trust framework and verification method
+
+<{{examples/response/verification_spid_document_biometric.json}}
+
+## Verification of claims by trust framework with a document and include attachments
+
+<{{examples/response/verification_aml_with_attachments.json}}
+
+## Verification of claims by electronic signature
+
+<{{examples/response/verification_electronic_signature.json}}
+
+
 ### Attachments
 
 RPs can explicitly request to receive attachments along with the verified claims:
@@ -661,31 +685,51 @@ The third section illustrates how the contents of this object could look like in
 
 Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
-## id_document [deprecated format]
+## ID document [deprecated format]
 
 <{{examples/response/id_document.json}}
 
-## document 
+## Document 
 
 <{{examples/response/document.json}}
 
-## document + utility bill
+## Document and verifier details
 
-<{{examples/response/document_and_utility_bill.json}}
+<{{examples/response/document_verifier.json}}
+
+## Document with external attachments
+
+<{{examples/response/document_with_attachments.json}}
+
+## Utility statement with attachments
+
+<{{examples/response/utility_statement_with_attachments.json}}
+
+## Document + utility statement
+
+<{{examples/response/document_and_utility_statement.json}}
+
+## ID document + utility bill [deprecated format]
+
+<{{examples/response/id_document_and_utility_bill.json}}
 
 ## Notified eID system (eIDAS)
 
 <{{examples/response/eidas.json}}
 
-## electronic_record
+## Electronic_record
 
 <{{examples/response/electronic_record.json}}
 
-## vouch
+## Vouch
 
 <{{examples/response/vouch.json}}
 
-## document with validation and verification details
+## Vouch with embedded attachments
+
+<{{examples/response/vouch_with_attachments.json}}
+
+## Document with validation and verification details
 
 <{{examples/response/document_validation_verification_methods.json}}
 
@@ -754,9 +798,7 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `documents_supported`: JSON array containing all identity documents utilized by the OP for identity verification.
 
-`documents_verification_methods_supported`: JSON array containing the document verification methods the OP supports as defined in (#verification).
-
-`documents_methods_supported`: JSON array containing the ID document methods the OP supports (see @!predefined_values).
+`documents_methods_supported`: JSON array containing the document methods the OP supports (see @!predefined_values).
 
 `documents_validation_methods_supported`: JSON array containing the document validation methods the OP supports (see @!predefined_values).
 
@@ -787,7 +829,7 @@ This is an example openid-configuration snippet:
        "passport",
        "driving_permit"
    ],
-   "documents_verification_methods_supported": [
+   "documents_methods_supported": [
        "pipp",
        "sripp",
        "eid"
@@ -872,7 +914,7 @@ methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
-This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
+This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
 Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
 
@@ -1102,7 +1144,7 @@ Ministry of Land, Infrastructure and Transport</organization>
     <author>
       <organization>OpenID Foundation</organization>
     </author>
-    <date year="2020"/>
+    <date year="2021"/>
   </front>
 </reference>
 

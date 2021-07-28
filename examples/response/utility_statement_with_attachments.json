@@ -6,14 +6,18 @@
       "verification_process": "513645-e44b-4951-942c-7091cf7d891d",
       "evidence": [
         {
-          "type": "utility_bill",
-          "provider": {
-            "name": "Stadtwerke Musterstadt",
-            "country": "DE",
-            "region": "Niedersachsen",
-            "street_address": "Energiestrasse 33"
-          },
-          "date": "2013-01-31",
+          "type": "document",
+          "validation_method": "vpip",
+          "time": "2021-04-09T14:12Z",
+          "document_details": {
+            "type": "utility_statement",
+            "date_of_issuance": "2013-01-31",
+            "issuer": {
+                "name": "Stadtwerke Musterstadt",
+                "country": "DE",
+                "region": "Niedersachsen",
+                "street_address": "Energiestrasse 33"
+            },
           "attachments": [
             {
               "desc": "scan of bill",

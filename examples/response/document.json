@@ -8,8 +8,8 @@
       "evidence": [
         {
           "type": "document",
-          "validation_method": "remote_inspection",
-          "verification_method": "remote_face_check",
+          "validation_method": "vri",
+          "verification_method": "pvr",
           "time": "2021-04-09T14:12Z",
           "document_details": {
             "type": "driving_permit",

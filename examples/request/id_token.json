@@ -11,17 +11,17 @@
         "evidence": [
           {
             "type": {
-              "value": "id_document"
+              "value": "document"
             },
             "method": null,
             "time": null,
-            "document": {
+            "document_details": {
               "type": null,
               "issuer": {
                 "name": null,
                 "country": null
               },
-              "number": null,
+              "document_number": null,
               "date_of_issuance": null,
               "date_of_expiry": null
             }

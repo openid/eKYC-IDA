@@ -7,10 +7,10 @@
         "evidence": [
           {
             "type": {
-              "value": "id_document"
+              "value": "document"
             },
             "method": null,
-            "document": {
+            "document_details": {
               "type": null
             }
           }

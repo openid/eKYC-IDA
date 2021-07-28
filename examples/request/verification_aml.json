@@ -8,7 +8,7 @@
         "evidence": [
           {
             "type": {
-              "value": "id_document"
+              "value": "document"
             },
             "method": {
               "value": "pipp"

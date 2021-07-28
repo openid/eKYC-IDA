@@ -1,7 +1,7 @@
 {
   "verified_claims": {
     "verification": {
-      "trust_framework": "ial_example_gold"
+      "trust_framework": "trust_framework_example"
     },
     "claims": {
       "given_name": "Max",

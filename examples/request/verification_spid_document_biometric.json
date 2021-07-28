@@ -13,7 +13,7 @@
             },
             "validation_method": null,
             "verification_method": {
-              "value": "biometric_mobile"
+              "value": " bvr"
             },
             "document_details": {
               "type": null,
@@ -21,7 +21,7 @@
                 "country": null,
                 "name": null
               },
-              "number": null,
+              "document_number": null,
               "date_of_issuance": null
             }
           }
