@@ -745,9 +745,9 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension.
 
-`trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks.
+`trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array must have at least one member.
 
-`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses.
+`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array may have zero or more members.
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
 
