@@ -76,6 +76,61 @@
         }
       ]
     },
+    "document_details": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "document_number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "personal_number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "serial_number": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "date_of_issuance": {
+          "$ref": "#/definitions/datetime_element"
+        },
+        "date_of_expiry": {
+          "$ref": "#/definitions/datetime_element"
+        },
+        "issuer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "formatted": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "street_address": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "locality": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "region": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "postal_code": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "country": {
+              "$ref": "#/definitions/simple_element"
+            },
+            "country_code": {
+              "$ref": "#/definitions/simple_element"
+            }
+          }
+        }
+      }
+    },
     "evidence": {
       "type": "object",
       "properties": {
@@ -86,6 +141,9 @@
               "enum": [
                 "electronic_signature",
                 "id_document",
+                "document",
+                "electronic_record",
+                "vouch",
                 "utility_bill"
               ]
             }
@@ -109,7 +167,7 @@
           },
           "then": {
             "properties": {
-              "signature_type":{
+              "signature_type": {
                 "$ref": "#/definitions/simple_element"
               },
               "issuer": {
@@ -123,14 +181,56 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
             "properties": {
               "type": {
-                "value": "id_document"
+                "pattern": "^(id_)*document$"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "validation_method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
+              "verification_method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
+              "method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
+              "verifier": {
+                "type": "object",
+                "properties": {
+                  "organization": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "txn": {
+                    "$ref": "#/definitions/simple_element"
+                  }
+                }
+              },
+              "time": {
+                "$ref": "#/definitions/datetime_element"
+              },
+              "document_details": {
+                "$ref": "#/definitions/document_details"
+              },
+              "document": {
+                "$ref": "#/definitions/document_details"
+              }
+            }
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "electronic_record"
               }
             }
           },
@@ -153,38 +253,141 @@
               "time": {
                 "$ref": "#/definitions/datetime_element"
               },
-              "document": {
+              "record": {
                 "type": "object",
                 "properties": {
                   "type": {
                     "$ref": "#/definitions/constrainable_element"
                   },
-                  "number": {
+                  "personal_number": {
                     "$ref": "#/definitions/simple_element"
                   },
-                  "issuer": {
+                  "created_at": {
+                    "$ref": "#/definitions/datetime_element"
+                  },
+                  "date_of_expiry": {
+                    "$ref": "#/definitions/datetime_element"
+                  },
+                  "source": {
                     "type": "object",
                     "properties": {
                       "name": {
                         "$ref": "#/definitions/simple_element"
                       },
+                      "formatted": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "street_address": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "locality": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "region": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "postal_code": {
+                        "$ref": "#/definitions/simple_element"
+                      },
                       "country": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "country_code": {
                         "$ref": "#/definitions/simple_element"
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "value": "vouch"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "method": {
+                "$ref": "#/definitions/constrainable_element"
+              },
+              "verifier": {
+                "type": "object",
+                "properties": {
+                  "organization": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "txn": {
+                    "$ref": "#/definitions/simple_element"
+                  }
+                }
+              },
+              "time": {
+                "$ref": "#/definitions/datetime_element"
+              },
+              "attestation": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/constrainable_element"
+                  },
+                  "reference_number": {
+                    "$ref": "#/definitions/simple_element"
+                  },
+                  "personal_number": {
+                    "$ref": "#/definitions/simple_element"
                   },
                   "date_of_issuance": {
                     "$ref": "#/definitions/datetime_element"
                   },
                   "date_of_expiry": {
                     "$ref": "#/definitions/datetime_element"
+                  },
+                  "voucher": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "birthdate": {
+                        "$ref": "#/definitions/datetime_element"
+                      },
+                      "formatted": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "street_address": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "locality": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "region": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "postal_code": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "country": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "occupation": {
+                        "$ref": "#/definitions/simple_element"
+                      },
+                      "organization": {
+                        "$ref": "#/definitions/simple_element"
+                      }
+                    }
                   }
                 }
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         },
         {
           "if": {
@@ -227,8 +430,7 @@
               }
             }
           },
-          "else": {
-          }
+          "else": {}
         }
       ]
     },
