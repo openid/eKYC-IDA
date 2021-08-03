@@ -7,28 +7,25 @@
       "evidence": [
         {
           "type": "document",
-          "method": "pipp",
-          "time": "2012-04-22T11:30Z",
+          "validation_method": "vpip",
+          "time": "2021-04-09T14:12Z",
           "document_details": {
-            "type": "de_erp_replacement_idcard",
+            "type": "utility_statement",
+            "date_of_issuance": "2013-01-31",
             "issuer": {
-              "name": "Stadt Augsburg",
-              "country": "DE"
-            },
-            "document_number": "53554554",
-            "date_of_issuance": "2010-04-23",
-            "date_of_expiry": "2020-04-22"
-          }
-        },
-        {
-          "type": "utility_bill",
-          "provider": {
-            "name": "Stadtwerke Musterstadt",
-            "country": "DE",
-            "region": "Niedersachsen",
-            "street_address": "Energiestrasse 33"
+                "name": "Stadtwerke Musterstadt",
+                "country": "DE",
+                "region": "Niedersachsen",
+                "street_address": "Energiestrasse 33"
+            }
           },
-          "date": "2013-01-31"
+          "attachments": [
+            {
+              "desc": "scan of bill",
+              "content_type": "application/pdf",
+              "content": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAADSFsjdkhjwhAABJRU5ErkJggg=="
+            }
+          ]
         }
       ]
     },

@@ -8,7 +8,8 @@
       "evidence": [
         {
           "type": "document",
-          "method": "uripp",
+          "validation_method": "vri",
+          "verification_method": "pvr",
           "time": "2021-04-09T14:12Z",
           "document_details": {
             "type": "driving_permit",

@@ -9,7 +9,7 @@
           "evidence": [
             {
               "type": {
-                "value": "id_document"
+                "value": "document"
               }
             }
           ]
@@ -30,7 +30,7 @@
           "evidence": [
             {
               "type": {
-                "value": "utility_bill"
+                "value": "vouch"
               }
             }
           ]

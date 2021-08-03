@@ -8,12 +8,12 @@
         "evidence": [
           {
             "type": {
-              "value": "id_document"
+              "value": "document"
             },
             "method": {
               "value": "pipp"
             },
-            "document": {
+            "document_details": {
               "type": {
                 "values": [
                   "idcard",

@@ -399,12 +399,12 @@ This is an example openid-configuration snippet:
       "appointed",
       "self-asserted"
    ],
-   "id_documents_supported":[
+   "documents_supported":[
        "idcard",
        "passport",
        "driving_permit"
    ],
-   "id_documents_verification_methods_supported":[
+   "documents_verification_methods_supported":[
        "pipp",
        "sripp",
        "eid"

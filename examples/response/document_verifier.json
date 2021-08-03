@@ -6,20 +6,20 @@
       "verification_process": "f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
       "evidence": [
         {
-          "type": "id_document",
+          "type": "document",
           "method": "pipp",
           "verifier": {
             "organization": "Deutsche Post",
             "txn": "1aa05779-0775-470f-a5c4-9f1f5e56cf06"
           },
           "time": "2012-04-22T11:30Z",
-          "document": {
+          "document_details": {
             "type": "idcard",
             "issuer": {
               "name": "Stadt Augsburg",
               "country": "DE"
             },
-            "number": "53554554",
+            "document_number": "53554554",
             "date_of_issuance": "2010-03-23",
             "date_of_expiry": "2020-03-22"
           }

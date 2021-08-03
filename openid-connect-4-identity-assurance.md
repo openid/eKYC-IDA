@@ -254,12 +254,11 @@ The following elements are contained in an `document` evidence sub-element.
 
 `type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
 
+`validation_method`: OPTIONAL. The method used to check the authenticity of the document. For information on predefined validation_method values see [@!predefined_values].
 
-`validation_method`: OPTIONAL. The method used to check the authenticity of the evidence. For information on predefined validation_method values see [@!predefined_values].
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the document relates too. For information on predefined verification_method values see [@!predefined_values].
 
-`verification_method`: OPTIONAL. The method used to verify that the user is the person that the evidence relates too. For information on predefined verification_method values see [@!predefined_values].
-
-`method`: OPTIONAL. The method used to validate the evidence and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -288,7 +287,7 @@ The following elements are contained in an `electronic_record` sub-element.
 
 `type`: REQUIRED. Value MUST be set to "electronic_record".
 
-`method`: OPTIONAL. The method used to verify the electronic record. For information on predefined verification method values see [@!predefined_values]. 
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the electronic record relates too. For information on predefined verification_method values see [@!predefined_values].
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -315,7 +314,9 @@ The following elements are contained in an `vouch` sub-element.
 
 `type`: REQUIRED. Value MUST be set to "vouch".
 
-`method`: OPTIONAL. The method used to verify the vouch. For information on predefined verification method values see [@!predefined_values]. 
+`validation_method`: OPTIONAL. The method used to check the authenticity of the vouch. For information on predefined validation_method values see [@!predefined_values].
+
+`verification_method`: OPTIONAL. The method used to verify that the user is the person that the evidence relates too. For information on predefined verification_method values see [@!predefined_values].
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -340,7 +341,7 @@ The following elements are contained in an `vouch` sub-element.
 
 #### utility_bill
 
-The following elements are contained in a `utility_bill` evidence sub-element.
+The following elements are contained in a `utility_bill` evidence sub-element. NOTE: This type is to be deprecated in future releases. Implementers are recommended to use 'document' instead.
 
 `type`: REQUIRED. Value MUST be set to "utility_bill".
 
@@ -351,7 +352,7 @@ The following elements are contained in a `utility_bill` evidence sub-element.
 
 `date`: OPTIONAL. String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
 
-`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined verification method values see [@!predefined_values]. 
+`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values]. 
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
 
@@ -555,6 +556,30 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
+# Examples
+The following section show examples of requests for `verified_claims`.
+
+# Verification of claims by a document
+
+<{{examples/response/verification_deeper.json}}
+
+## Verification of claims by trust framework and evidence types
+
+<{{examples/response/verification_claims_trust_frameworks_evidence.json}}
+
+## Verification of claims by trust framework and verification method
+
+<{{examples/response/verification_spid_document_biometric.json}}
+
+## Verification of claims by trust framework with a document and include attachments
+
+<{{examples/response/verification_aml_with_attachments.json}}
+
+## Verification of claims by electronic signature
+
+<{{examples/response/verification_electronic_signature.json}}
+
+
 ### Attachments
 
 RPs can explicitly request to receive attachments along with the verified claims:
@@ -662,29 +687,53 @@ The third section illustrates how the contents of this object could look like in
 
 Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
-## id_document [deprecated format]
+## ID document [deprecated format]
 
 <{{examples/response/id_document.json}}
 
-## document 
+## Document 
 
 <{{examples/response/document.json}}
 
-## document + utility bill
+## Document and verifier details
 
-<{{examples/response/document_and_utility_bill.json}}
+<{{examples/response/document_verifier.json}}
+
+## Document with external attachments
+
+<{{examples/response/document_with_attachments.json}}
+
+## Utility statement with attachments
+
+<{{examples/response/utility_statement_with_attachments.json}}
+
+## Document + utility statement
+
+<{{examples/response/document_and_utility_statement.json}}
+
+## ID document + utility bill [deprecated format]
+
+<{{examples/response/id_document_and_utility_bill.json}}
 
 ## Notified eID system (eIDAS)
 
 <{{examples/response/eidas.json}}
 
-## electronic_record
+## Electronic_record
 
 <{{examples/response/electronic_record.json}}
 
-## vouch
+## Vouch
 
 <{{examples/response/vouch.json}}
+
+## Vouch with embedded attachments
+
+<{{examples/response/vouch_with_attachments.json}}
+
+## Document with validation and verification details
+
+<{{examples/response/document_validation_verification_methods.json}}
 
 ## Multiple Verified Claims
 
@@ -751,7 +800,7 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the ID document validation & verification methods the OP supports (see @!predefined_values).
+`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see @!predefined_values).
 
 `documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see @!predefined_values).
 
@@ -785,7 +834,7 @@ This is an example openid-configuration snippet:
        "passport",
        "driving_permit"
    ],
-   "documents_verification_methods_supported": [
+   "documents_methods_supported": [
        "pipp",
        "sripp",
        "eid"
@@ -873,7 +922,7 @@ methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
-This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, id documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
+This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
 Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
 
@@ -1103,7 +1152,7 @@ Ministry of Land, Infrastructure and Transport</organization>
     <author>
       <organization>OpenID Foundation</organization>
     </author>
-    <date year="2020"/>
+    <date year="2021"/>
   </front>
 </reference>
 

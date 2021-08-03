@@ -172,7 +172,7 @@
           },
           "then": {
             "properties": {
-              "method": {
+              "verification_method": {
                 "type": "string"
               },
               "verifier": {
@@ -249,7 +249,10 @@
           },
           "then": {
             "properties": {
-              "method": {
+              "validation_method": {
+                "type": "string"
+              },
+              "verification_method": {
                 "type": "string"
               },
               "verifier": {
