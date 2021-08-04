@@ -199,17 +199,29 @@
               "validation_method": {
                  "type": "object",
                  "properties": {
-                   "type": "#/definitions/constrainable_element",
-                   "policy": "#/definitions/constrainable_element",
-                   "procedure": "#/definitions/constrainable_element"
+                   "type": {
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "policy":{
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "procedure": {
+                     "$ref": "#/definitions/constrainable_element"
+                   }
                  }
               },
               "verification_method": {
                  "type": "object",
                  "properties": {
-                   "type": "#/definitions/constrainable_element",
-                   "policy": "#/definitions/constrainable_element",
-                   "procedure": "#/definitions/constrainable_element"
+                   "type": {
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "policy":{
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "procedure": {
+                     "$ref": "#/definitions/constrainable_element"
+                   }
                  }
               },
               "method": {
@@ -252,17 +264,29 @@
               "validation_method": {
                  "type": "object",
                  "properties": {
-                   "type": "#/definitions/constrainable_element",
-                   "policy": "#/definitions/simple_element",
-                   "procedure": "#/definitions/simple_element",
+                   "type": {
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "policy":{
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "procedure": {
+                     "$ref": "#/definitions/constrainable_element"
+                   }
                  }
               },
               "verification_method": {
                  "type": "object",
                  "properties": {
-                   "type": "#/definitions/constrainable_element",
-                   "policy": "#/definitions/simple_element",
-                   "procedure": "#/definitions/simple_element",
+                   "type": {
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "policy":{
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "procedure": {
+                     "$ref": "#/definitions/constrainable_element"
+                   }
                  }
               },
               "verifier": {
@@ -342,19 +366,29 @@
               "validation_method": {
                  "type": "object",
                  "properties": {
-                   "type": "#/definitions/constrainable_element",
-                   "policy": "#/definitions/simple_element",
-                   "procedure": "#/definitions/simple_element",
-                   "status": "#/definitions/simple_element"
+                   "type": {
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "policy":{
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "procedure": {
+                     "$ref": "#/definitions/constrainable_element"
+                   }
                  }
               },
               "verification_method": {
                  "type": "object",
                  "properties": {
-                   "type": "#/definitions/constrainable_element",
-                   "policy": "#/definitions/simple_element",
-                   "procedure": "#/definitions/simple_element",
-                   "status": "#/definitions/simple_element"
+                   "type": {
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "policy":{
+                     "$ref": "#/definitions/constrainable_element"
+                   },
+                   "procedure": {
+                     "$ref": "#/definitions/constrainable_element"
+                   }
                  }
               },
               "verifier": {
@@ -507,8 +541,12 @@
             "id_verification_process": {
               "type": "object",
               "properties": {
-                "policy": "#/definitions/simple_element",
-                "procedure": "#/definitions/simple_element"
+                "policy":{
+                  "$ref": "#/definitions/constrainable_element"
+                },
+                "procedure": {
+                  "$ref": "#/definitions/constrainable_element"
+                }
               }
             },
             "time": {

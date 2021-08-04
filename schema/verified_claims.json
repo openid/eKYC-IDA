@@ -132,19 +132,35 @@
               "validation_method": {
                  "type": "object",
                  "properties": {
-                   "type": "string",
-                   "policy": "string",
-                   "procedure": "string",
-                   "status": "string"
+                   "type": {
+                     "type": "string"
+                   },
+                   "policy":{
+                     "type": "string"
+                   },
+                   "procedure": {
+                     "type": "string"
+                   },
+                   "status": {
+                     "type": "string"
+                   }
                  }
               },
               "verification_method": {
                  "type": "object",
                  "properties": {
-                   "type": "string",
-                   "policy": "string",
-                   "procedure": "string",
-                   "status": "string"
+                   "type": {
+                     "type": "string"
+                   },
+                   "policy":{
+                     "type": "string"
+                   },
+                   "procedure": {
+                     "type": "string"
+                   },
+                   "status": {
+                     "type": "string"
+                   }
                  }
               },
               "method": {
@@ -187,19 +203,35 @@
               "validation_method": {
                  "type": "object",
                  "properties": {
-                   "type": "string",
-                   "policy": "string",
-                   "procedure": "string",
-                   "status": "string"
+                   "type": {
+                     "type": "string"
+                   },
+                   "policy":{
+                     "type": "string"
+                   },
+                   "procedure": {
+                     "type": "string"
+                   },
+                   "status": {
+                     "type": "string"
+                   }
                  }
               },
               "verification_method": {
                  "type": "object",
                  "properties": {
-                   "type": "string",
-                   "policy": "string",
-                   "procedure": "string",
-                   "status": "string"
+                   "type": {
+                     "type": "string"
+                   },
+                   "policy":{
+                     "type": "string"
+                   },
+                   "procedure": {
+                     "type": "string"
+                   },
+                   "status": {
+                     "type": "string"
+                   }
                  }
               },
               "verifier": {
@@ -282,19 +314,35 @@
               "validation_method": {
                  "type": "object",
                  "properties": {
-                   "type": "string",
-                   "policy": "string",
-                   "procedure": "string",
-                   "status": "string"
+                   "type": {
+                     "type": "string"
+                   },
+                   "policy":{
+                     "type": "string"
+                   },
+                   "procedure": {
+                     "type": "string"
+                   },
+                   "status": {
+                     "type": "string"
+                   }
                  }
               },
               "verification_method": {
                  "type": "object",
                  "properties": {
-                   "type": "string",
-                   "policy": "string",
-                   "procedure": "string",
-                   "status": "string"
+                   "type": {
+                     "type": "string"
+                   },
+                   "policy":{
+                     "type": "string"
+                   },
+                   "procedure": {
+                     "type": "string"
+                   },
+                   "status": {
+                     "type": "string"
+                   }
                  }
               },
               "verifier": {
@@ -505,8 +553,12 @@
             "id_verification_process": {
               "type": "object",
               "properties": {
-                "policy": "string",
-                "procedure": "string"
+                "policy":{
+                  "type": "string"
+                },
+                "procedure": {
+                  "type": "string"
+                }
               }
             },
             "time": {
