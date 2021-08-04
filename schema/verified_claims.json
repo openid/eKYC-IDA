@@ -130,10 +130,22 @@
           "then": {
             "properties": {
               "validation_method": {
-                "type": "string"
+                 "type": "object",
+                 "properties": {
+                   "type": "string",
+                   "policy": "string",
+                   "procedure": "string",
+                   "status": "string"
+                 }
               },
               "verification_method": {
-                "type": "string"
+                 "type": "object",
+                 "properties": {
+                   "type": "string",
+                   "policy": "string",
+                   "procedure": "string",
+                   "status": "string"
+                 }
               },
               "method": {
                 "type": "string"
@@ -172,8 +184,23 @@
           },
           "then": {
             "properties": {
+              "validation_method": {
+                 "type": "object",
+                 "properties": {
+                   "type": "string",
+                   "policy": "string",
+                   "procedure": "string",
+                   "status": "string"
+                 }
+              },
               "verification_method": {
-                "type": "string"
+                 "type": "object",
+                 "properties": {
+                   "type": "string",
+                   "policy": "string",
+                   "procedure": "string",
+                   "status": "string"
+                 }
               },
               "verifier": {
                 "type": "object",
@@ -230,6 +257,9 @@
                       },
                       "country_code": {
                         "type": "string"
+                      },
+                      "jurisdiction": {
+                         "type": "string"
                       }
                     }
                   }
@@ -250,10 +280,22 @@
           "then": {
             "properties": {
               "validation_method": {
-                "type": "string"
+                 "type": "object",
+                 "properties": {
+                   "type": "string",
+                   "policy": "string",
+                   "procedure": "string",
+                   "status": "string"
+                 }
               },
               "verification_method": {
-                "type": "string"
+                 "type": "object",
+                 "properties": {
+                   "type": "string",
+                   "policy": "string",
+                   "procedure": "string",
+                   "status": "string"
+                 }
               },
               "verifier": {
                 "type": "object",
@@ -459,6 +501,13 @@
             },
             "identity_assurance_level": {
               "type": "string"
+            },
+            "id_verification_process": {
+              "type": "object",
+              "properties": {
+                "policy": "string",
+                "procedure": "string"
+              }
             },
             "time": {
               "$ref": "#/definitions/time_type"

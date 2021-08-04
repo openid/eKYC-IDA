@@ -8,7 +8,12 @@
       "evidence": [
         {
           "type": "electronic_record",
-          "verification_method": "token",
+          "validation_method": {
+            "type": "data"
+          },
+          "verification_method": {
+            "type": "token"
+          },
           "time": "2021-02-15T16:51Z",
           "record": {
             "type": "population_register",

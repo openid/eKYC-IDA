@@ -3,13 +3,25 @@
     "verification": {
       "trust_framework": "uk_tfida",
       "identity_assurance_level": "high",
+      "id_verification_process": {
+          "policy": "gpg45",
+          "procedure": "h1b"
+      },
       "time": "2020-09-23T14:12Z",
       "verification_process": "99476DA2-ACDC-5N13-10WC-26B415B52",
       "evidence": [
         {
           "type": "vouch",
-          "validation_method": "vpip",
-          "verification_method": "pvp",
+          "validation_method": {
+            "type": "vpip",
+            "policy": "gpg45",
+            "procedure": "score_3"
+          },
+          "verification_method": {
+            "type": "pvr"
+            "policy": "gpg45",
+            "procedure": "score_3"
+          },
           "time": "2020-02-23T07:52Z",
           "attestation": {
             "type": "written_attestation",

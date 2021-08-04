@@ -18,7 +18,7 @@
             "procedure": "score_3"
           },
           "verification_method": {
-            "type": "pvp"
+            "type": "pvr"
             "policy": "gpg45",
             "procedure": "score_3" 
           },
@@ -35,6 +35,28 @@
                 "country": "UK",
                 "country_code": "GBR",
                 "jurisdiction": "GB-GBN"
+            }
+          }
+        },
+        {
+          "type": "electronic_record",
+          "validation_method": {
+            "type": "data",
+            "policy": "gpg45",
+            "procedure": "score_2",
+            "status": "false_positive"
+          },
+          "time": "2021-04-09T14:12Z",
+          "record": {
+            "type": "death_register",
+            "source": {
+                "name": "General Register Office",
+                "street_address": "PO BOX 2",
+                "locality": "Southport",
+                "postal_code": "PR8 2JD",
+                "country": "UK",
+                "country_code": "GBR",
+                "jurisdiction": "GB-EAW"
             }
           }
         }

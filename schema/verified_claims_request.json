@@ -126,6 +126,9 @@
             },
             "country_code": {
               "$ref": "#/definitions/simple_element"
+            },
+            "jurisdiction": {
+              "$ref": "#/definitions/simple_element"
             }
           }
         }
@@ -194,10 +197,20 @@
           "then": {
             "properties": {
               "validation_method": {
-                "$ref": "#/definitions/constrainable_element"
+                 "type": "object",
+                 "properties": {
+                   "type": "#/definitions/constrainable_element",
+                   "policy": "#/definitions/constrainable_element",
+                   "procedure": "#/definitions/constrainable_element"
+                 }
               },
               "verification_method": {
-                "$ref": "#/definitions/constrainable_element"
+                 "type": "object",
+                 "properties": {
+                   "type": "#/definitions/constrainable_element",
+                   "policy": "#/definitions/constrainable_element",
+                   "procedure": "#/definitions/constrainable_element"
+                 }
               },
               "method": {
                 "$ref": "#/definitions/constrainable_element"
@@ -236,8 +249,21 @@
           },
           "then": {
             "properties": {
+              "validation_method": {
+                 "type": "object",
+                 "properties": {
+                   "type": "#/definitions/constrainable_element",
+                   "policy": "#/definitions/simple_element",
+                   "procedure": "#/definitions/simple_element",
+                 }
+              },
               "verification_method": {
-                "$ref": "#/definitions/constrainable_element"
+                 "type": "object",
+                 "properties": {
+                   "type": "#/definitions/constrainable_element",
+                   "policy": "#/definitions/simple_element",
+                   "procedure": "#/definitions/simple_element",
+                 }
               },
               "verifier": {
                 "type": "object",
@@ -314,10 +340,22 @@
           "then": {
             "properties": {
               "validation_method": {
-                "$ref": "#/definitions/constrainable_element"
+                 "type": "object",
+                 "properties": {
+                   "type": "#/definitions/constrainable_element",
+                   "policy": "#/definitions/simple_element",
+                   "procedure": "#/definitions/simple_element",
+                   "status": "#/definitions/simple_element"
+                 }
               },
               "verification_method": {
-                "$ref": "#/definitions/constrainable_element"
+                 "type": "object",
+                 "properties": {
+                   "type": "#/definitions/constrainable_element",
+                   "policy": "#/definitions/simple_element",
+                   "procedure": "#/definitions/simple_element",
+                   "status": "#/definitions/simple_element"
+                 }
               },
               "verifier": {
                 "type": "object",
@@ -465,6 +503,13 @@
             },
             "identity_assurance_level": {
               "$ref": "#/definitions/constrainable_element"
+            },
+            "id_verification_process": {
+              "type": "object",
+              "properties": {
+                "policy": "#/definitions/simple_element",
+                "procedure": "#/definitions/simple_element"
+              }
             },
             "time": {
               "$ref": "#/definitions/datetime_element"
