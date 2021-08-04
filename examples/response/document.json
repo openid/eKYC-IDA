@@ -18,7 +18,7 @@
             "procedure": "score_3"
           },
           "verification_method": {
-            "type": "pvp"
+            "type": "pvp",
             "policy": "gpg45",
             "procedure": "score_3" 
           },
