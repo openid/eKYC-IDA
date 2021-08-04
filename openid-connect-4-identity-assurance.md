@@ -300,6 +300,12 @@ The following elements are contained in an `electronic_record` sub-element.
 
 `type`: REQUIRED. Value MUST be set to "electronic_record".
 
+`validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
+    * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined validation_method values see [@!predefined_values].
+    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+    * `status`: OPTIONAL. String representing the current status of the method.
+    
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
     * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic_record relates too. For information on predefined verification_method values see [@!predefined_values].
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
@@ -727,6 +733,10 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 ## Document with external attachments
 
 <{{examples/response/document_with_attachments.json}}
+
+## Document with other checks 
+
+<{{examples/response/document_with_checks.json}}
 
 ## Utility statement with attachments
 
