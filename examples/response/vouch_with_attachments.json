@@ -18,7 +18,7 @@
             "procedure": "score_3"
           },
           "verification_method": {
-            "type": "pvr"
+            "type": "pvr",
             "policy": "gpg45",
             "procedure": "score_3"
           },
