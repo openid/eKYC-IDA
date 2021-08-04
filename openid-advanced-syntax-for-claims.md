@@ -326,6 +326,26 @@ is ignored unless `Input` and `Compare` are both of type `datetime`.
 
 Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
 
+### Hashing
+Function signature: `hash(string Input, string HashAlgorithm) → string`
+
+Returns the hash of the UTF-8 representation of the input string, encoded as a
+lowercase hex string. `HashAlgorithm` refers to the hash algorithm to be used,
+with valid values being `sha-256` and `sha-512`.
+
+Example: `hash('Jörg', 'sha-256')` produces the string
+`8e63741c42f7c08025339f1a380d98030a698aa04f1fa3c595dcb581632af452`.
+
+This function can be used together with the `eq` operator or a restriction
+expressed using `value` or `values` to have the OP match a string against a
+value without revealing the clear-text value to the OP. 
+
+It is important to note that the privacy advantage is generally limited,
+especially when the input strings can be enumerated easily, as is common for
+names, numbers and date/datetime values. A malicious OP could try to calculate
+the hashes of all possible clear-text values and match the hashes against the
+hash provided by the RP in order to reveal the original clear-text value.
+
 ### Array Evaluation
 Function signatures:
  * `any(array of booleans Input) → boolean` 
