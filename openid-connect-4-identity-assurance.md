@@ -219,7 +219,7 @@ For information on predefined trust framework and identity assurance level value
 `id_verification_process`: OPTIONAL. JSON object representing the identity verification process that was followed.
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the method.
+    * `status`: OPTIONAL. String representing the current status of the identity verification process.
 
 RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
 
@@ -260,16 +260,16 @@ The following elements are contained in an `document` evidence sub-element.
 `type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined validation_method values see [@!predefined_values].
+    * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the method.
+    * `status`: OPTIONAL. String representing the current status of the validation.
 
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document relates too. For information on predefined verification_method values see [@!predefined_values].
+    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document relates too. For information on predefined `verification_method` values see [@!predefined_values].
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the method.
+    * `status`: OPTIONAL. String representing the current status of the verification.
 
 `method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
@@ -292,7 +292,7 @@ The following elements are contained in an `document` evidence sub-element.
     * `name`: OPTIONAL. Designation of the issuer of the document.
     * All elements of the OpenID Connect `address` Claim ([@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL. String containing the name of the region / state / province / municipality that issuer has jurisdiction over (if it’s not national).
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
 
 #### electronic_record
 
@@ -300,17 +300,17 @@ The following elements are contained in an `electronic_record` sub-element.
 
 `type`: REQUIRED. Value MUST be set to "electronic_record".
 
-`validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined validation_method values see [@!predefined_values].
+`validation_method`: OPTIONAL. JSON object representing how the authenticity of the record was determined. 
+    * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the method.
+    * `status`: OPTIONAL. String representing the current status of the validation.
     
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic_record relates too. For information on predefined verification_method values see [@!predefined_values].
+    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic_record relates too. For information on predefined `verification_method` values see [@!predefined_values].
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the method.
+    * `status`: OPTIONAL. String representing the current status of the verification.
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
@@ -329,7 +329,7 @@ The following elements are contained in an `electronic_record` sub-element.
     * `name`: OPTIONAL. Designation of the issuer of the document.
     * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL. String containing the name of the region / state / province / municipality that source has jurisdiction over (if it’s not national).
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
 
 #### vouch
 
@@ -338,16 +338,16 @@ The following elements are contained in an `vouch` sub-element.
 `type`: REQUIRED. Value MUST be set to "vouch".
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the vouch was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined validation_method values see [@!predefined_values].
+    * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the method.
+    * `status`: OPTIONAL. String representing the current status of the validation.
 
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch relates too. For information on predefined verification_method values see [@!predefined_values].
+    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch relates too. For information on predefined `verification_method` values see [@!predefined_values].
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the method.
+    * `status`: OPTIONAL. String representing the current status of the verification.
     
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 

@@ -558,6 +558,9 @@
                 },
                 "procedure": {
                   "type": "string"
+                },
+                "status": {
+                  "type": "string"
                 }
               }
             },
