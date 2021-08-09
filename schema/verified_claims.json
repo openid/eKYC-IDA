@@ -547,10 +547,10 @@
             "trust_framework": {
               "type": "string"
             },
-            "identity_assurance_level": {
+            "assurance_level": {
               "type": "string"
             },
-            "id_verification_process": {
+            "assurance_process": {
               "type": "object",
               "properties": {
                 "policy":{

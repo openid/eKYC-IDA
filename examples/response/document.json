@@ -2,8 +2,8 @@
   "verified_claims": {
     "verification": {
       "trust_framework": "uk_tfida",
-      "identity_assurance_level": "medium",
-      "id_verification_process": {
+      "assurance_level": "medium",
+      "assurance_process": {
           "policy": "gpg45",
           "procedure": "m1b"
       },

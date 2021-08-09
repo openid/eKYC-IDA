@@ -210,13 +210,13 @@ The `verification` element consists of the following elements:
 
 An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
 
-`identity_assurance_level`: OPTIONAL. String determining the identity assurance level associated with the End-User claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
+`assurance_level`: OPTIONAL. String determining the  assurance level associated with the End-User claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
 
 For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial`. and `high`
 
 For information on predefined trust framework and identity assurance level values see [@!predefined_values]. 
 
-`id_verification_process`: OPTIONAL. JSON object representing the identity verification process that was followed.
+`assurance_process`: OPTIONAL. JSON object representing the identity verification process that was followed.
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
     * `status`: OPTIONAL. String representing the current status of the identity verification process.
@@ -225,7 +225,7 @@ RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they 
 
 The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `id_document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `id_document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -573,7 +573,7 @@ It requests the trust framework the OP complies with and the date of the verific
 
 The RP MUST explicitly request any data it wants the OP to add to the `verification` element. 
 
-Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `id_document`.
+Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `document`.
 
 <{{examples/request/verification_deeper.json}}
 
@@ -643,7 +643,7 @@ The OP MUST NOT ignore some or all of the query restrictions on possible values 
 
 ### max_age
 
-The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g. `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `id_document` or element `date` of evidence of type `utility_bill`).
+The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g. `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document` or element `date` of evidence of type `utility_statement`).
 
 `max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value.
 
@@ -663,11 +663,11 @@ The following example illustrates this functionality.
  
 When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
 
-The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `identity_assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
+The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
 <{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}} 
 
-In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `id_document` or under trust framework `silver` or `bronze` but with an evidence `utility_bill`.
+In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `document` or under trust framework `silver` or `bronze` but with an evidence `electronic_record`.
 
 ## Handling Unfulfillable Requests and Unavailable Data
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.

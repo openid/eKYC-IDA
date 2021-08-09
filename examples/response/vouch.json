@@ -2,7 +2,7 @@
   "verified_claims": {
     "verification": {
       "trust_framework": "uk_tfida",
-      "identity_assurance_level": "very_high",
+      "assurance_level": "very_high",
       "time": "2020-03-19T13:05Z",
       "verification_process": "76755DA2-81E1-5N14-9543-26B415B77",
       "evidence": [
