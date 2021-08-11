@@ -71,6 +71,40 @@
         }
       }
     },
+    "validation_method": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "policy":{
+          "type": "string"
+        },
+        "procedure": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "verification_method": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "policy":{
+          "type": "string"
+        },
+        "procedure": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
     "evidence": {
       "type": "object",
       "properties": {
@@ -130,38 +164,10 @@
           "then": {
             "properties": {
               "validation_method": {
-                 "type": "object",
-                 "properties": {
-                   "type": {
-                     "type": "string"
-                   },
-                   "policy":{
-                     "type": "string"
-                   },
-                   "procedure": {
-                     "type": "string"
-                   },
-                   "status": {
-                     "type": "string"
-                   }
-                 }
+                "$ref": "#/definitions/validation_method"
               },
               "verification_method": {
-                 "type": "object",
-                 "properties": {
-                   "type": {
-                     "type": "string"
-                   },
-                   "policy":{
-                     "type": "string"
-                   },
-                   "procedure": {
-                     "type": "string"
-                   },
-                   "status": {
-                     "type": "string"
-                   }
-                 }
+                "$ref": "#/definitions/verification_method"
               },
               "method": {
                 "type": "string"
@@ -201,38 +207,10 @@
           "then": {
             "properties": {
               "validation_method": {
-                 "type": "object",
-                 "properties": {
-                   "type": {
-                     "type": "string"
-                   },
-                   "policy":{
-                     "type": "string"
-                   },
-                   "procedure": {
-                     "type": "string"
-                   },
-                   "status": {
-                     "type": "string"
-                   }
-                 }
+                "$ref": "#/definitions/validation_method"
               },
               "verification_method": {
-                 "type": "object",
-                 "properties": {
-                   "type": {
-                     "type": "string"
-                   },
-                   "policy":{
-                     "type": "string"
-                   },
-                   "procedure": {
-                     "type": "string"
-                   },
-                   "status": {
-                     "type": "string"
-                   }
-                 }
+                "$ref": "#/definitions/verification_method"
               },
               "verifier": {
                 "type": "object",
@@ -312,38 +290,10 @@
           "then": {
             "properties": {
               "validation_method": {
-                 "type": "object",
-                 "properties": {
-                   "type": {
-                     "type": "string"
-                   },
-                   "policy":{
-                     "type": "string"
-                   },
-                   "procedure": {
-                     "type": "string"
-                   },
-                   "status": {
-                     "type": "string"
-                   }
-                 }
+                "$ref": "#/definitions/validation_method"
               },
               "verification_method": {
-                 "type": "object",
-                 "properties": {
-                   "type": {
-                     "type": "string"
-                   },
-                   "policy":{
-                     "type": "string"
-                   },
-                   "procedure": {
-                     "type": "string"
-                   },
-                   "status": {
-                     "type": "string"
-                   }
-                 }
+                "$ref": "#/definitions/verification_method"
               },
               "verifier": {
                 "type": "object",
