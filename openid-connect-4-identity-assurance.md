@@ -70,15 +70,15 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statememt about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong identity assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
+This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statememt about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
 
 In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claim about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims.
 
-The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while identity assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
+The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
 For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an End-User, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
 
-Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with identity assurance data and for the OP to represent these verified Claims and accompanying identity assurance data.
+Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with assurance data and for the OP to represent these verified Claims and accompanying assurance data.
 
 Note: this specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity] .
 
@@ -86,7 +86,7 @@ Note: this specifications fulfills the criteria for portability and interoperabi
 
 This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
 
-* Identity Proofing - process in which an End-User provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful identity assurance level.
+* Identity Proofing - process in which an End-User provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level.
 
 * Identity Verification - process conducted by the OP or a claim provider to verify the End-User's identity.
 
@@ -210,13 +210,13 @@ The `verification` element consists of the following elements:
 
 An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
 
-`assurance_level`: OPTIONAL. String determining the  assurance level associated with the End-User claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
+`assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
 
-For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial`. and `high`
+For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`.
 
-For information on predefined trust framework and identity assurance level values see [@!predefined_values]. 
+For information on predefined trust framework and assurance level values see [@!predefined_values]. 
 
-`assurance_process`: OPTIONAL. JSON object representing the identity verification process that was followed.
+`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed.
     * `policy`: OPTIONAL. String representing the standard or policy that was followed.
     * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
     * `status`: OPTIONAL. String representing the current status of the identity verification process.
@@ -655,7 +655,7 @@ The OP SHOULD try to fulfill this requirement. If the verification data of the E
 
 ### Requesting claims sets with different verification requirements
 
-It is also possible to request different trust frameworks, identity assurance levels, and methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
+It is also possible to request different trust frameworks, assurance levels, and methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
 
 The following example illustrates this functionality.
 
