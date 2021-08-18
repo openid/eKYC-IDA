@@ -6,7 +6,7 @@
           "trust_framework": {
             "value": "eidas"
           },
-          "identity_assurance_level": {
+          "assurance_level": {
             "value": "high"
           }
         },
@@ -20,7 +20,7 @@
           "trust_framework": {
             "value": "eidas"
           },
-          "identity_assurance_level":{
+          "assurance_level":{
             "values":[
               "high",
               "substantial"

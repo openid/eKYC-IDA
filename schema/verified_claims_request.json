@@ -126,8 +126,45 @@
             },
             "country_code": {
               "$ref": "#/definitions/simple_element"
+            },
+            "jurisdiction": {
+              "$ref": "#/definitions/simple_element"
             }
           }
+        }
+      }
+    },
+    "validation_method": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "policy":{
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "procedure": {
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "status": {
+          "$ref": "#/definitions/constrainable_element"
+        }
+      }
+    },
+    "verification_method": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "policy":{
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "procedure": {
+          "$ref": "#/definitions/constrainable_element"
+        },
+        "status": {
+          "$ref": "#/definitions/constrainable_element"
         }
       }
     },
@@ -194,10 +231,10 @@
           "then": {
             "properties": {
               "validation_method": {
-                "$ref": "#/definitions/constrainable_element"
+                "$ref": "#/definitions/validation_method"
               },
               "verification_method": {
-                "$ref": "#/definitions/constrainable_element"
+                "$ref": "#/definitions/verification_method"
               },
               "method": {
                 "$ref": "#/definitions/constrainable_element"
@@ -236,8 +273,11 @@
           },
           "then": {
             "properties": {
+              "validation_method": {
+                "$ref": "#/definitions/validation_method"
+              },
               "verification_method": {
-                "$ref": "#/definitions/constrainable_element"
+                "$ref": "#/definitions/verification_method"
               },
               "verifier": {
                 "type": "object",
@@ -314,10 +354,10 @@
           "then": {
             "properties": {
               "validation_method": {
-                "$ref": "#/definitions/constrainable_element"
+                "$ref": "#/definitions/validation_method"
               },
               "verification_method": {
-                "$ref": "#/definitions/constrainable_element"
+                "$ref": "#/definitions/verification_method"
               },
               "verifier": {
                 "type": "object",
@@ -463,8 +503,22 @@
             "trust_framework": {
               "$ref": "#/definitions/constrainable_element"
             },
-            "identity_assurance_level": {
+            "assurance_level": {
               "$ref": "#/definitions/constrainable_element"
+            },
+            "assurance_process": {
+              "type": "object",
+              "properties": {
+                "policy":{
+                  "$ref": "#/definitions/constrainable_element"
+                },
+                "procedure": {
+                  "$ref": "#/definitions/constrainable_element"
+                },
+                "status": {
+                  "$ref": "#/definitions/constrainable_element"
+                }
+              }
             },
             "time": {
               "$ref": "#/definitions/datetime_element"

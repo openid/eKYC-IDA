@@ -71,6 +71,40 @@
         }
       }
     },
+    "validation_method": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "policy":{
+          "type": "string"
+        },
+        "procedure": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "verification_method": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "policy":{
+          "type": "string"
+        },
+        "procedure": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
     "evidence": {
       "type": "object",
       "properties": {
@@ -130,10 +164,10 @@
           "then": {
             "properties": {
               "validation_method": {
-                "type": "string"
+                "$ref": "#/definitions/validation_method"
               },
               "verification_method": {
-                "type": "string"
+                "$ref": "#/definitions/verification_method"
               },
               "method": {
                 "type": "string"
@@ -172,8 +206,11 @@
           },
           "then": {
             "properties": {
+              "validation_method": {
+                "$ref": "#/definitions/validation_method"
+              },
               "verification_method": {
-                "type": "string"
+                "$ref": "#/definitions/verification_method"
               },
               "verifier": {
                 "type": "object",
@@ -230,6 +267,9 @@
                       },
                       "country_code": {
                         "type": "string"
+                      },
+                      "jurisdiction": {
+                         "type": "string"
                       }
                     }
                   }
@@ -250,10 +290,10 @@
           "then": {
             "properties": {
               "validation_method": {
-                "type": "string"
+                "$ref": "#/definitions/validation_method"
               },
               "verification_method": {
-                "type": "string"
+                "$ref": "#/definitions/verification_method"
               },
               "verifier": {
                 "type": "object",
@@ -457,8 +497,22 @@
             "trust_framework": {
               "type": "string"
             },
-            "identity_assurance_level": {
+            "assurance_level": {
               "type": "string"
+            },
+            "assurance_process": {
+              "type": "object",
+              "properties": {
+                "policy":{
+                  "type": "string"
+                },
+                "procedure": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
             },
             "time": {
               "$ref": "#/definitions/time_type"

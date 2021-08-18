@@ -11,9 +11,10 @@
             "type": {
               "value": "document"
             },
-            "validation_method": null,
             "verification_method": {
-              "value": " bvr"
+              "type": {
+                "value": "bvr"
+              }
             },
             "document_details": {
               "type": null,

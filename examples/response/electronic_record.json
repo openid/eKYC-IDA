@@ -2,13 +2,18 @@
   "verified_claims": {
     "verification": {
       "trust_framework": "se_bankid",
-      "identity_assurance_level": "al_2",
+      "assurance_level": "al_2",
       "time": "2021-03-03T09:42Z",
       "verification_process": "4346D80F-57E0-4E26-9543-26B41FC22",
       "evidence": [
         {
           "type": "electronic_record",
-          "verification_method": "token",
+          "validation_method": {
+            "type": "data"
+          },
+          "verification_method": {
+            "type": "token"
+          },
           "time": "2021-02-15T16:51Z",
           "record": {
             "type": "population_register",
