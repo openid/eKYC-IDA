@@ -257,7 +257,7 @@ Depending on the evidence type additional elements are defined.
 
 The following elements are contained in an `document` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
+`type`: REQUIRED. Value MUST be set to "document".
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
     * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
@@ -842,7 +842,7 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array may have zero or more members.
 
-`documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
+`documents_supported`: REQUIRED when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification.
 
 `documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see @!predefined_values).
 
