@@ -1371,6 +1371,8 @@ The technology described in this specification was made available from contribut
 
    * introduced `document` evidence type, which is more universal than `id_document`
    * deprecated `id_document`
+   * introduced `electronic_record` and `vouch` evidence types
+   * introduced `validation_method` & `verification_method` to provide more detail than `method`
    * added lookahead capabilities for disctributed claims 
    * added support to attach document artifacts
    * changed evidence type `qes` to `electronic_signature` 
@@ -1378,11 +1380,11 @@ The technology described in this specification was made available from contribut
    * Added text regarding security profiles
    * Editorial improvements
    * Added further co-authors
-   * Added `identity_assurance_level` field
+   * Added `assurance_level` field
+   * added `assurance_process` type
    * Added text about dependency between identity assurance and authentication assurance
    * Added new field `country_code` to `address` Claim
    * Relaxed requirements for showing purpose
-   * Added `document_identifier` field
 
    -11
   
