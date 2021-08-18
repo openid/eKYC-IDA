@@ -31,16 +31,16 @@
           ]
         },
         "claims": {
-          "legal_name": null,
-          "legal_person_identifier": null,
-          "lei": null,
-          "vat_registration": null,
-          "address": null,
-          "tax_reference": null,
-          "sic": null,
-          "business_role": null,
-          "sub_jurisdiction": null,
-          "trading_status": null
+          "legal_name": "acme ltd",
+          "legal_person_identifier": "1234567890",
+          "lei": "0987654321",
+          "vat_registration": "123454321",
+          "address": "1 the street, Barcelona, Spain",
+          "tax_reference": "09876567890",
+          "sic": "0000",
+          "business_role": "n/a",
+          "sub_jurisdiction": "n/a",
+          "trading_status": "active"
         }
       },
       "src2": {
@@ -81,7 +81,7 @@
   },
   "_claim_sources": {
     "src1": {
-      "JWT": "eyJhbGciOiJIUzI1NiJ9.eyJhdF9yZWdpc3RyYXRpb24iOiJudWxsIiwibGVpIjoibnVsbCIsImFkZHJlc3MiOiJudWxsIiwiYnVzaW5lc3Nfcm9sZSI6Im51bGwiLCJ0YXhfcmVmZXJlbmNlIjoibnVsbCIsImxlZ2FsX25hbWUiOiJudWxsIiwic3ViX2p1cmlzZGljdGlvbiI6Im51bGwiLCJ0cmFkaW5nX3N0YXR1cyI6Im51bGwiLCJzaWMiOiJudWxsIiwibGVnYWxfcGVyc29uX2lkZW50aWZpZXIiOiJudWxsIn0.Qp_BCr3HsAHRjErZ0jPgmGBmqQ6zEqRDQUungyzzG58"
+      "JWT": "eyJhbGciOiJIUzI1NiJ9.eyJhdF9yZWdpc3RyYXRpb24iOiIxMjM0NTQzMjEiLCJsZWkiOiIwOTg3NjU0MzIxIiwiYWRkcmVzcyI6IjEgdGhlIHN0cmVldCwgQmFyY2Vsb25hLCBTcGFpbiIsImJ1c2luZXNzX3JvbGUiOiJuL2EiLCJ0YXhfcmVmZXJlbmNlIjoiMDk4NzY1Njc4OTAiLCJsZWdhbF9uYW1lIjoiYWNtZSBsdGQiLCJzdWJfanVyaXNkaWN0aW9uIjoibi9hIiwidHJhZGluZ19zdGF0dXMiOiJhY3RpdmUiLCJzaWMiOiIwMDAwIiwibGVnYWxfcGVyc29uX2lkZW50aWZpZXIiOiIxMjM0NTY3ODkwIn0.9KMvagQjIlOLVxI9n4S0jIga9cQcWNx106b8kzHhTYU"
     },
     "src2": {
       "endpoint": "https://server.yetanotherop.com/claim_source",
