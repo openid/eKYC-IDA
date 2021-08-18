@@ -13,7 +13,7 @@
           "evidence": [
             {
               "type": {
-                "value": "id_document"
+                "value": "document"
               },
               "registry": {
                 "country": {
@@ -31,16 +31,16 @@
           ]
         },
         "claims": {
-          "legal_name": "acme ltd",
-          "legal_person_identifier": "1234567890",
-          "lei": "0987654321",
-          "vat_registration": "123454321",
-          "address": "1 the street, Barcelona, Spain",
-          "tax_reference": "09876567890",
-          "sic": "0000",
-          "business_role": "n/a",
-          "sub_jurisdiction": "n/a",
-          "trading_status": "active"
+          "legal_name": null,
+          "legal_person_identifier": null,
+          "lei": null,
+          "vat_registration": null,
+          "address": null,
+          "tax_reference": null,
+          "sic": null,
+          "business_role": null,
+          "sub_jurisdiction": null,
+          "trading_status": null
         }
       },
       "src2": {
@@ -51,7 +51,7 @@
           "evidence": [
             {
               "type": {
-                "value": "id_document"
+                "value": "document"
               },
               "registry": {
                 "country": {

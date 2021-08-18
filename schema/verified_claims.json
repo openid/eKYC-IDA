@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://openid.net/schemas/verified_claims-11.json",
+  "$id": "https://openid.net/schemas/verified_claims-12.json",
   "definitions": {
     "date_type": {
       "type": "string",
@@ -552,7 +552,7 @@
       "type": "object",
       "properties": {},
       "additionalProperties": {
-        "$ref": "verified_claims_request-10.json#definitions/verified_claims_def"
+        "$ref": "verified_claims_request-12.json#definitions/verified_claims_def"
       }
     },
     "aggregated_claims": {
