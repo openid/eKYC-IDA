@@ -1369,6 +1369,9 @@ The technology described in this specification was made available from contribut
 
    -12
 
+   * introduced `document` evidence type, which is more universal than `id_document`
+   * deprecated `id_document`
+   * added lookahead capabilities for aggregated claims 
    * added support to attach document artifacts
    * changed evidence type `qes` to `electronic_signature` 
    * Added claim `also_known_as`
