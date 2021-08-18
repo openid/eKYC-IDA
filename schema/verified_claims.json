@@ -494,6 +494,13 @@
       ],
       "additionalProperties": false
     },
+    "distributed_claims_available_def": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": {
+        "$ref": "verified_claims_request-10.json#definitions/verified_claims_def"
+      }
+    },
     "aggregated_claims": {
       "properties": {
         "JWT": {
@@ -556,14 +563,14 @@
               "items": {
                 "type": "string"
               }
+            },
+            {
+              "$ref": "#/definitions/distributed_claims_available_def"
             }
-          ],
-          "type": [
-            "string",
-            "array"
           ]
         }
-      }
+      },
+      "additionalProperties": false
     },
     "_claim_sources": {
       "type": "object",

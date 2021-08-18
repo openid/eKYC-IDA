@@ -461,8 +461,13 @@ In this case, every assertion provided by the external claims source MUST contai
 * a `sub` claim identifying the End-User in the context of the claim source,
 * a `verified_claims` element containing one or more verified_claims objects.
 
-Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
-The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
+The `verified_claims` element in a response MUST have one of the following forms:
+
+* a JSON string referring to a certain claim source (as defined in [@!OpenID])
+* a JSON array of strings referring to the different claim sources
+* a JSON object composed of sub elements formated with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e. the end-user claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
+
+NOTE: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verfied_claims`.
 
 The following are examples of assertions including verified claims as aggregated claims 
 
@@ -472,12 +477,16 @@ and distributed claims.
 
 <{{examples/response/distributed_claims.json}}
 
-An external assertion MAY include (or refer to) multiple `verified_claims` provided by different external claims sources. To support
-this use case, this specification extends the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) to also allow references to multiple claims sources as string array.  
-
 The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
 
 <{{examples/response/multiple_external_claims_sources.json}}
+
+The next example shows an ID token containing `verified_claims` from two different external claims sources along with additional data about the content of the verified claims (look ahead).
+
+<{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
+
+Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
+The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
 
 The OP MAY combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
