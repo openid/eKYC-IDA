@@ -177,6 +177,7 @@
             "value": {
               "enum": [
                 "electronic_signature",
+                "id_document",
                 "document",
                 "electronic_record",
                 "vouch",
