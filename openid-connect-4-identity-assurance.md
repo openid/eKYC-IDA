@@ -599,25 +599,25 @@ The RP MAY also request certain data within the `document` element to be present
 # Examples
 The following section show examples of requests for `verified_claims`.
 
-# Verification of claims by a document
+## Verification of claims by a document
 
-<{{examples/response/verification_deeper.json}}
+<{{examples/request/verification_deeper.json}}
 
 ## Verification of claims by trust framework and evidence types
 
-<{{examples/response/verification_claims_trust_frameworks_evidence.json}}
+<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
 
 ## Verification of claims by trust framework and verification method
 
-<{{examples/response/verification_spid_document_biometric.json}}
+<{{examples/request/verification_spid_document_biometric.json}}
 
 ## Verification of claims by trust framework with a document and include attachments
 
-<{{examples/response/verification_aml_with_attachments.json}}
+<{{examples/request/verification_aml_with_attachments.json}}
 
 ## Verification of claims by electronic signature
 
-<{{examples/response/verification_electronic_signature.json}}
+<{{examples/request/verification_electronic_signature.json}}
 
 
 ### Attachments
