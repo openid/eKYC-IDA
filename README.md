@@ -37,6 +37,10 @@ docker build -t openid.net/tests-oidc4ida tests
 
 ```docker run -v `pwd`:/data openid.net/tests-oidc4ida```
 
+### Build the HTML ###
+
+docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
+
 ### Contribution guidelines ###
 
 * There are two ways to contribute, creating issues and pull requests

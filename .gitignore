@@ -2,3 +2,4 @@
 *.xml
 *.txt
 oidf.code-workspace
+tests/

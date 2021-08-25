@@ -6,7 +6,7 @@
       "verification_process": "513645-e44b-4951-942c-7091cf7d891d",
       "evidence": [
         {
-          "type": "id_document",
+          "type": "document",
           "method": "pipp",
           "time": "2012-04-22T11:30Z",
           "document": {
