@@ -70,7 +70,7 @@ This specification defines an extension of OpenID Connect for providing Relying 
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statememt about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
+This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statement about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
 
 In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claim about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims.
 
@@ -257,7 +257,7 @@ Depending on the evidence type additional elements are defined.
 
 The following elements are contained in an `document` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
+`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use "document".
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
     * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
@@ -283,9 +283,9 @@ The following elements are contained in an `document` evidence sub-element.
 `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g. a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
+* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g. a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
-* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalisation information (this usually only applies to physical artefacts and is present before personalisation.
+* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalisation information (this usually only applies to physical artifacts and is present before personalisation.
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 * `issuer`: OPTIONAL. JSON object containing information about the issuer of this document. This object consists of the following properties:
@@ -365,7 +365,7 @@ The following elements are contained in an `vouch` sub-element.
 * `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 * `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
     * `name`: OPTIONAL. String containing the name of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
-    * `birthdate`: OPTIONAL. String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
+    * `birthdate`: OPTIONAL. String containing the birth date of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
     * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
@@ -403,14 +403,14 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 
 ### Attachments {#attachments}
 
-During the identity verification process, specific document artefacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artefacts can later be reviewed during audits or quality control for example. Those artefacts include, but are not limited to:
+During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artifacts can later be reviewed during audits or quality control for example. Those artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself
 * scans or photocopies of the documents used to verify the identity of End-Users
 * video recordings of the verification process
 * certificates of electronic signatures
 
-When requested by the RP, those artefacts can be attached to the verified claims response allowing the RP to store those artefacts along with the verified claim information.
+When requested by the RP, those artifacts can be attached to the verified claims response allowing the RP to store those artifacts along with the verified claim information.
 
 An attachment is represented by a JSON object. This specification allows two types of representations:
 
@@ -496,9 +496,9 @@ The `verified_claims` element in a response MUST have one of the following forms
 
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
-* a JSON object composed of sub elements formated with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e. the end-user claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
+* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e. the end-user claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
 
-NOTE: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verfied_claims`.
+NOTE: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
 
 The following are examples of assertions including verified claims as aggregated claims 
 
@@ -681,7 +681,7 @@ In the above example, the RP asks for family and given name either under trust f
 ## Handling Unfulfillable Requests and Unavailable Data
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
-Extensions of this specificiation MAY define additional rules or override these rules, for example
+Extensions of this specification MAY define additional rules or override these rules, for example
 
 * to allow or disallow the use of Claims depending on scheme-specific checks,
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
@@ -952,7 +952,7 @@ Secure identification of End-Users not only depends on the identity verification
 ## Security Profile
 
 This specification does not define or require a particular security profile since there are several security 
-profiles and new security profiles under developmewnt.  Implementers shall be given flexibility to select the security profile that best suits 
+profiles and new security profiles under development.  Implementers shall be given flexibility to select the security profile that best suits 
 their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL]. 
 
 Implementers are recommended to select a security profile that has a certification program 
