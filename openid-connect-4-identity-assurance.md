@@ -116,7 +116,7 @@ The basic idea of this specification is that the OP provides all identity data a
 
 From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with Verified Claims.
+The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses to provide resource servers with Verified Claims.
 
 This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation, and verification processes.
 
@@ -177,18 +177,16 @@ This specification extends the `address` Claim as defined in [@!OpenID] by anoth
 
 # verified_claims Element {#verified_claims}
 
-This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way,RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
+This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
 
-The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `ial_example_gold`:
+The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
 <{{examples/response/verified_claims_simple.json}}
 
 
 The normative definition is given in the following.
 
-`verified_claims`: A single `verified_claims` object or an array of multiple such objects.
-
-A `verified_claims` object consists of the following sub-elements:
+`verified_claims`: A single object or an array of objects, each object comprising the following sub-elements:
 
 * `verification`: REQUIRED. Object that contains data about the verification process.
 * `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.
@@ -225,7 +223,7 @@ For information on predefined trust framework and assurance level values see [@!
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the identity verification process.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
@@ -235,13 +233,13 @@ Note: While `verification_process` refers to the identity verification process a
 
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
-### Evidence
+### evidence Element
 
-The evidence is generally structured with the following elements:
-
-`type`: REQUIRED. The value defines the type of the evidence.
+The `evidence` element is structured with the following elements:
 
 `attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
+
+`type`: REQUIRED. The value defines the type of the evidence.
 
 The following types of evidence are defined:
 
@@ -251,34 +249,37 @@ The following types of evidence are defined:
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
 
-Depending on the evidence type additional elements are defined.
+Depending on the evidence type additional elements are defined, as described in the following.
 
-#### document
+#### Evidence Type document
 
-The following elements are contained in an `document` evidence sub-element.
+The following elements are contained in an evidence sub-element where type is `document`.
 
-`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use "document".
+`type`: REQUIRED. Value MUST be set to `document`. Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`.
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the validation.
+
+  * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the validation.
 
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document relates too. For information on predefined `verification_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the verification.
 
-`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
+  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the verification.
+
+`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a `validation_method` and `verification_method`, implementers are recommended to use the `validation_method`
+and `verification_method` types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
-* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
 
 `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
 
@@ -286,112 +287,120 @@ The following elements are contained in an `document` evidence sub-element.
 * `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalisation information (this usually only applies to physical artefacts and is present before personalisation.
-* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
 * `issuer`: OPTIONAL. JSON object containing information about the issuer of this document. This object consists of the following properties:
     * `name`: OPTIONAL. Designation of the issuer of the document.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID])
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
 
-#### electronic_record
+#### Evidence Type electronic_record
 
-The following elements are contained in an `electronic_record` sub-element.
+The following elements are contained in an evidence sub-element where type is `electronic_record`.
 
-`type`: REQUIRED. Value MUST be set to "electronic_record".
+`type`: REQUIRED. Value MUST be set to `electronic_record`.
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the record was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the validation.
+
+  * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the validation.
     
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic_record relates too. For information on predefined `verification_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the verification.
+
+  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic record refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the verification.
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
 
 `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
-* `created_at`: OPTIONAL. The time the record was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
-* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `created_at`: OPTIONAL. The time the record was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
 * `source`: OPTIONAL. JSON object containing information about the source of this record. This object consists of the following properties:
     * `name`: OPTIONAL. Designation of the issuer of the document.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
 
-#### vouch
+#### Evidence Type vouch
 
-The following elements are contained in an `vouch` sub-element.
 
-`type`: REQUIRED. Value MUST be set to "vouch".
+Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead.
+The following elements are contained in an evidence sub-element where type is `vouch`.
+
+`type`: REQUIRED. Value MUST be set to `vouch`.
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the vouch was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the validation.
 
-`verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch relates too. For information on predefined `verification_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the verification.
+  * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the validation.
+
+`verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the Claims.
+
+  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the verification.
     
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
 
 `attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
-* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
 * `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
     * `name`: OPTIONAL. String containing the name of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
     * `birthdate`: OPTIONAL. String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
 
-#### utility_bill
+#### Evidence Type utility_bill
 
-The following elements are contained in a `utility_bill` evidence sub-element. NOTE: This type is to be deprecated in future releases. Implementers are recommended to use 'document' instead.
+Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead.
+
+The following elements are contained in an evidence sub-element where type is  `utility_bill`. 
 
 `type`: REQUIRED. Value MUST be set to "utility_bill".
 
 `provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
 
 * `name`: REQUIRED. String designating the provider.
-* All elements of the OpenID Connect `address` Claim ([@!OpenID])
+* All elements of the OpenID Connect `address` Claim (see [@!OpenID])
 
-`date`: OPTIONAL. String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
+`date`: OPTIONAL. String in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format containing the date when this bill was issued.
 
 `method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values]. 
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
 
-#### electronic_signature
+#### Evidence Type electronic_signature
 
 The following elements are contained in a `electronic_signature` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to "electronic_signature".
+`type`: REQUIRED. Value MUST be set to `electronic_signature`.
 
 `signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework. 
 
@@ -399,22 +408,22 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 
 `serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
 
-`created_at`: OPTIONAL. The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
+`created_at`: OPTIONAL. The time the signature was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 
 ### Attachments {#attachments}
 
 During the identity verification process, specific document artefacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artefacts can later be reviewed during audits or quality control for example. These artefacts include, but are not limited to:
 
-* scans of filled and signed forms documenting/certifying the verification process itself
-* scans or photocopies of the documents used to verify the identity of End-Users
-* video recordings of the verification process
-* certificates of electronic signatures
+* scans of filled and signed forms documenting/certifying the verification process itself,
+* scans or photocopies of the documents used to verify the identity of End-Users,
+* video recordings of the verification process,
+* certificates of electronic signatures.
 
 When requested by the RP, these artefacts can be attached to the Verified Claims response allowing the RP to store these artefacts along with the Verified Claim information.
 
 An attachment is represented by a JSON object. This specification allows two types of representations:
 
-#### Embedded
+#### Embedded Attachments
 
 All the information of the document (including the content itself) is provided within a JSON object having the following elements:
 
@@ -430,7 +439,7 @@ The following example shows embedded attachments. The actual contents of the doc
 
 Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in access tokens or ID tokens.
 
-#### External
+#### External Attachments
 
 External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements:
 
@@ -490,15 +499,15 @@ In this case, every assertion provided by the external Claims source MUST contai
 
 * an `iss` Claim identifying the claims source,
 * a `sub` Claim identifying the End-User in the context of the claim source,
-* a `verified_claims` element containing one or more verified_claims objects.
+* a `verified_claims` element containing one or more `verified_claims` objects.
 
 The `verified_claims` element in a response MUST have one of the following forms:
 
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
-* a JSON object composed of sub elements formated with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the end-user Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
+* a JSON object composed of sub elements formated with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the End-User Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
 
-NOTE: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verfied_claims`.
+Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verfied_claims`.
 
 The following are examples of assertions including Verified Claims as aggregated Claims 
 
@@ -523,7 +532,7 @@ The OP MAY combine aggregated and distributed Claims with `verified_claims` prov
 
 If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
-Note: any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances. 
+Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances. 
 
 # Requesting Verified Claims
 
@@ -596,7 +605,7 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
-# Examples
+# Example Requests
 The following section show examples of requests for `verified_claims`.
 
 ## Verification of Claims by a document
@@ -717,7 +726,7 @@ Verified Claims about the End-User can be requested as part of a pre-defined set
 
 When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
-# Examples
+# Example Responses
 
 The following sections show examples of responses containing `verified_claims`.
 
