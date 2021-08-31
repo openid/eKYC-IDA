@@ -227,7 +227,7 @@ The `trust_framework` value determines what further data is provided to the RP i
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
 
-`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for backtracing in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
+`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
 Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
 
@@ -246,8 +246,8 @@ The evidence is generally structured with the following elements:
 The following types of evidence are defined:
 
 * `document`: Verification based on any kind of physical or electronic document provided by the End-User.
-* `electronic_record`: Verification based on data or information obtained electronically from an approved or recognised source.
-* `vouch`: Verification based on an attestation or reference given by an approved or recognised person declaring they believe to the best of their knowledge that the claim(s) are genuine and true.
+* `electronic_record`: Verification based on data or information obtained electronically from an approved or recognized source.
+* `vouch`: Verification based on an attestation or reference given by an approved or recognized person declaring they believe to the best of their knowledge that the claim(s) are genuine and true.
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
 
@@ -280,12 +280,12 @@ The following elements are contained in an `document` evidence sub-element.
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
 
-`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
+`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g. a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
-* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalisation information (this usually only applies to physical artifacts and is present before personalisation.
+* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization.
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
 * `issuer`: OPTIONAL. JSON object containing information about the issuer of this document. This object consists of the following properties:
@@ -484,7 +484,7 @@ A `verified_claims` element can be added to an OpenID Connect UserInfo response 
 
 OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
 
-An OP or AS MAY also include `verified_claims` in the beforementioned assertions as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
+An OP or AS MAY also include `verified_claims` in the above assertions, whether they are access tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
 
 In this case, every assertion provided by the external claims source MUST contain 
 
@@ -934,7 +934,7 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
 
-The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request End-User claims and metadata it requires.
+The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP SHOULD only request End-User claims and metadata it requires.
 
 # Security Considerations {#Security}
 
@@ -1329,7 +1329,7 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: End-User’s mobile phone numer formated according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
+: End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
