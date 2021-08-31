@@ -217,7 +217,7 @@ For example, the trust framework `eidas` can have the identity assurance levels 
 
 For information on predefined trust framework and assurance level values see [@!predefined_values]. 
 
-`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed, with one or more of the following subelements:
+`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed, with one or more of the following sub-elements:
 
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
