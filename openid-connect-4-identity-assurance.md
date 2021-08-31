@@ -337,7 +337,6 @@ The following elements are contained in an evidence sub-element where type is `e
 #### Evidence Type vouch
 
 
-Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead.
 The following elements are contained in an evidence sub-element where type is `vouch`.
 
 `type`: REQUIRED. Value MUST be set to `vouch`.
