@@ -226,8 +226,8 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 | Claim | Type | Description |
 |:------|:-----|:------------|
 |`organization_name`|String|legal entity name|
-|`registration_number`|Array|One or more JSON objects containing a legal entity registration number (`number`) and issuing body (`issuer`)|
-|`lei`|String|Legal Entity Identifier|
+|`registration_number`|Array|One or more JSON objects containing a legal entity registration identifier (`number`) and issuing body (`issuer`) both of which are of type String|
+|`lei`|String|Legal Entity Identifier as defined in [@!ISO17442-2-2020]|
 |`organization_type`|String|Legal entity type (limited, charity, not-for-profit)|
 |`registered_address`| JSON object | Registered address. The value of this member is a JSON structure containing Claims as defined in Section 5.1.1 of the OpenID Connect specification [@!OpenID]|
 |`registered_jurisdiction`|String|String representing the Jurisdiction that the legal entity is registered in|
