@@ -226,15 +226,15 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 | Claim | Type | Description |
 |:------|:-----|:------------|
 |`organization_name`|String|legal entity name|
-|`registration_number`|String|Registration number|
-|`lei`|String|Legal Entity Identifier|
+|`registration_number`|Array|One or more JSON objects containing a legal entity registration identifier (`number`) and issuing body (`issuer`) both of which are of type String|
+|`lei`|String|Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
 |`organization_type`|String|Legal entity type (limited, charity, not-for-profit)|
 |`registered_address`| JSON object | Registered address. The value of this member is a JSON structure containing Claims as defined in Section 5.1.1 of the OpenID Connect specification [@!OpenID]|
 |`registered_jurisdiction`|String|String representing the Jurisdiction that the legal entity is registered in|
 |`organization_status`|String|status (active, dormant, closed)|
 |`incorporation_date`|String| A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of incorporation of the legal entity|
 |`last_accounts_date`|String|A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of the most recent accounts by the legal entity|
-|`trading_as`|array|Trading name(s)|
+|`trading_as`|Array|Trading name(s)|
 
 ## authority Element {#authority}
 
@@ -295,16 +295,18 @@ The `permission` sub-element consists of an array of objects that contain the fo
 * `role`: REQUIRED. Object that reflects the role held by the End-User in relation to the target entity
 * `validity`: OPTIONAL. Object that contains an array that MUST have either a `start` or `end` and can optionally have both.  Both the `start` and `end` objects are a reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent and are used to define the date limits of the authority being conveyed.
 * `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements. This object is intended to describe the maximum extent of the End-User's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
-* `audience`: Limitation of the scope of entity or entities that the End-User may communicate with when acting on behalf of the entity defined in the `applies_to` element
-* `function`: Limitation of the scope of action that the End-User may take by functional domain
+* `audience`: OPTIONAL. Limitation of the scope of entity or entities that the End-User may communicate with when acting on behalf of the entity defined in the `applies_to` element
+* `function`: OPTIONAL. Limitation of the scope of action that the End-User may take by functional domain.
+* `may_delegate`: OPTIONAL. A boolean value that indicates whether the authority or components of the authority may be delegated by the subject to other entities or not.
+
 
 ## `granted_by` element
 
 The `granted_by` sub-element is intended to convey the manner in which the permission came to be associated with the End-User. 
 The `granted_by` sub-element MAY contain the claims described below and MAY contain further objects that describe any additional data about how the authority was vested in the End-User:
 
-* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation tere SHOULD be a defined set of valid values, these values MAY include:
->  * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff
+* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation there SHOULD be a defined set of valid values, these values MAY include:
+> * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff
 > * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the End-User.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person.
 > * "self asserted": Where the End-User themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
 * `granting_body`: OPTIONAL.  The `granting_body` claim is used to identify the body that vested the authority in the End-User.  e.g. The High Court of London or another member of staff at the End-User's employer that already has the authority and has the authority to delegate that authority.
@@ -628,6 +630,17 @@ Ministry of Land, Infrastructure and Transport</organization>
 	    Standardization</organization>
 	  </author>
 	  <date year="2013" />
+	</front>
+</reference>
+
+<reference anchor="ISO17442-1-2020" target="https://www.iso.org/standard/78829.html">
+	<front>
+	  <title>ISO 17442-1:2020. Financial services — Legal entity identifier (LEI) — Part 1: Assignment</title>
+	  <author surname="International Organization for Standardization">
+	    <organization abbrev="ISO">International Organization for
+	    Standardization</organization>
+	  </author>
+	  <date year="2020" />
 	</front>
 </reference>
 
