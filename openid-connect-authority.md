@@ -227,7 +227,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |:------|:-----|:------------|
 |`organization_name`|String|legal entity name|
 |`registration_number`|Array|One or more JSON objects containing a legal entity registration identifier (`number`) and issuing body (`issuer`) both of which are of type String|
-|`lei`|String|Legal Entity Identifier as defined in [@!ISO17442-2-2020]|
+|`lei`|String|Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
 |`organization_type`|String|Legal entity type (limited, charity, not-for-profit)|
 |`registered_address`| JSON object | Registered address. The value of this member is a JSON structure containing Claims as defined in Section 5.1.1 of the OpenID Connect specification [@!OpenID]|
 |`registered_jurisdiction`|String|String representing the Jurisdiction that the legal entity is registered in|
@@ -630,6 +630,17 @@ Ministry of Land, Infrastructure and Transport</organization>
 	    Standardization</organization>
 	  </author>
 	  <date year="2013" />
+	</front>
+</reference>
+
+<reference anchor="ISO17442-1-2020" target="https://www.iso.org/standard/78829.html">
+	<front>
+	  <title>ISO 17442-1:2020. Financial services — Legal entity identifier (LEI) — Part 1: Assignment</title>
+	  <author surname="International Organization for Standardization">
+	    <organization abbrev="ISO">International Organization for
+	    Standardization</organization>
+	  </author>
+	  <date year="2020" />
 	</front>
 </reference>
 
