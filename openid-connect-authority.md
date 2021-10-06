@@ -305,8 +305,8 @@ The `permission` sub-element consists of an array of objects that contain the fo
 The `granted_by` sub-element is intended to convey the manner in which the permission came to be associated with the End-User. 
 The `granted_by` sub-element MAY contain the claims described below and MAY contain further objects that describe any additional data about how the authority was vested in the End-User:
 
-* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation tere SHOULD be a defined set of valid values, these values MAY include:
->  * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff
+* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation there SHOULD be a defined set of valid values, these values MAY include:
+> * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff
 > * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the End-User.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person.
 > * "self asserted": Where the End-User themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
 * `granting_body`: OPTIONAL.  The `granting_body` claim is used to identify the body that vested the authority in the End-User.  e.g. The High Court of London or another member of staff at the End-User's employer that already has the authority and has the authority to delegate that authority.
