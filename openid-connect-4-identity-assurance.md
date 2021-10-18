@@ -436,7 +436,7 @@ The following example shows embedded attachments. The actual contents of the doc
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in access tokens or ID tokens.
+Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
 
 #### External Attachments
 
@@ -490,9 +490,9 @@ OPs can deliver `verified_claims` in various ways.
 
 A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
 
-OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
+OAuth Authorization Servers can add `verified_claims` to Access Tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are access tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
+An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
 
 In this case, every assertion provided by the external Claims source MUST contain 
 
@@ -516,11 +516,11 @@ and distributed Claims.
 
 <{{examples/response/distributed_claims.json}}
 
-The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims. 
+The following example shows an ID Token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims.
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The next example shows an ID token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
+The next example shows an ID Token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
@@ -529,7 +529,7 @@ The way an RP determines the key material used for validation of the signed asse
 
 The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
-If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
 Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances. 
 
@@ -828,7 +828,7 @@ The respective ID Token could be
 ## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
 This example shows how an OP can mix own Claims and Claims provided by  
-external sources in a single ID token. 
+external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
 
