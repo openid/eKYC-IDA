@@ -492,6 +492,27 @@ A `verified_claims` element can be added to an OpenID Connect UserInfo response 
 
 OAuth Authorization Servers can add `verified_claims` to Access Tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
 
+Here is an example of the payload of an Access Token in JWT format including Verified Claims:
+
+```json
+{
+  "iss": "https://server.example.com",
+  "sub": "248289761",
+  "aud": "https://rs.example.com/",
+  "exp": 1544645174,
+  "client_id": "s6BhdRkqt3_",
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "example"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Mustermann"
+    }
+  }
+}
+```
+
 An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
 
 In this case, every assertion provided by the external Claims source MUST contain 
