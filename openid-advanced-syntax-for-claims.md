@@ -139,17 +139,6 @@ OPs MUST also consider whether the (un)availability of data (`if_unavailable`) c
 
 To the same end, and to avoid relying parties not paying for data, OPs SHOULD additionally consider rate-limiting requests and monitoring requests for anomalies (frequent dynamic changes in request structure, frequent aborts).
 
-## Selective Abort/Omit Metadata
-
-An OP supporting SAO shall publish the key `selective_abort_omit_supported` in its OP Metadata as follows:
-
-
-```json
-...
-  "selective_abort_omit_supported": true,
-...
-```
-
 ## Compatibility Considerations
 
 An OP not supporting SAO will ignore the additional keys as defined in Section 5.5.1 of [@!OpenID]. The RP may therefore receive data from such an OP when aborting the transaction was requested instead. RPs can avoid this by checking for SAO support at the OP before sending the request.
@@ -159,7 +148,7 @@ An OP not supporting SAO will ignore the additional keys as defined in Section 5
 
 Using Transformed Claims (TC), a claim value can be transformed using a limited set of functions before any further evaluation on the claim value is performed and before the claim value is returned to the RP.
 
-Each Transformed Claim is based off exactly one Claim provided by the OP. For example, the Claim `birthdate` can be used to derive a Transformed Claim for age verification (End-User is above a certain age) by applying a suitable chain of functions.
+Each Transformed Claim is based off exactly one Claim provided by the OP. For example, the Claim `birthdate` can be used to derive a Transformed Claim for age verification (End-User is above a certain age) by applying a suitable chain of functions.  The number of functions in the chain MAY be limited by use of the OPTIONAL OP Metadata element `transformed_claims_maxdepth`.
 
 Each function takes one input value (the original Claim's value or the output of the previous function) and produces one output value. Besides the input value, functions can only have static function arguments, typically zero or one.
 
@@ -390,7 +379,7 @@ All Transformation Functions shall follow the following conventions:
  * Transformation Functions shall be safe to execute for the OP for all combinations of inputs and arguments, as the requests generally come from an untrusted source. This includes security against Denial-of-Service attacks.
 
 
-## OP Metadata and Predefined Transformed Claims (PTC)
+## Predefined Transformed Claims (PTC)
 
 An OP supporting Transformed Claims shall publish the key `transformed_claims_functions_supported` containing an array of supported functions (only the function names) in its OP Metadata.
 
@@ -476,6 +465,18 @@ Example:
   },
 ...
 ```
+
+## OP Metadata
+
+The OP advertises its capabilities with respect to Advanced Syntax for Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
+
+`selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit" 
+
+`transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Predefined Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
+
+`transformed_claims_predefined`: OPTIONAL. JSON object containing the definition all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim.
+
+`transformed_claims_maxdepth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim.
 
 ## UX and Privacy Considerations
 
