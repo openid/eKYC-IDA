@@ -134,6 +134,17 @@
         }
       }
     },
+    "verifier": {
+      "type": "object",
+      "properties": {
+        "organization": {
+          "$ref": "#/definitions/simple_element"
+        },
+        "txn": {
+          "$ref": "#/definitions/simple_element"
+        }
+      }
+    },
     "validation_method": {
       "type": "object",
       "properties": {
@@ -148,6 +159,9 @@
         },
         "status": {
           "$ref": "#/definitions/constrainable_element"
+        },
+        "verifier": {
+            "$ref": "#/definitions/verifier"
         }
       }
     },
@@ -165,6 +179,9 @@
         },
         "status": {
           "$ref": "#/definitions/constrainable_element"
+        },
+        "verifier": {
+          "$ref": "#/definitions/verifier"
         }
       }
     },
@@ -240,15 +257,7 @@
                 "$ref": "#/definitions/constrainable_element"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "txn": {
-                    "$ref": "#/definitions/simple_element"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
@@ -280,15 +289,7 @@
                 "$ref": "#/definitions/verification_method"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "txn": {
-                    "$ref": "#/definitions/simple_element"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
@@ -360,15 +361,7 @@
                 "$ref": "#/definitions/verification_method"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "txn": {
-                    "$ref": "#/definitions/simple_element"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"

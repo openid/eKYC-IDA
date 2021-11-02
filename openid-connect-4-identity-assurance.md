@@ -263,6 +263,9 @@ The following elements are contained in an evidence sub-element where type is `d
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the validation.
+  * 'verifier':OPTIONAL. JSON object denoting the legal entity that performed the evidence validation. This object SHOULD be included if the OP did not perform the validation itself. This object consists of the following properties:
+     * `organization`: REQUIRED. String denoting the organization which performed the validation on behalf of the OP.
+     * `txn`: OPTIONAL. Identifier referring to the evidence validation transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
 
@@ -270,11 +273,14 @@ The following elements are contained in an evidence sub-element where type is `d
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the verification.
+  * 'verifier':OPTIONAL. JSON object denoting the legal entity that performed the verification. This object SHOULD be included if the OP did not perform the verification itself. This object consists of the following properties:
+     * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+     * `txn`: OPTIONAL. Identifier referring to the verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
 `method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a `validation_method` and `verification_method`, implementers are recommended to use the `validation_method`
 and `verification_method` types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -307,15 +313,21 @@ The following elements are contained in an evidence sub-element where type is `e
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the validation.
-    
+  * 'verifier':OPTIONAL. JSON object denoting the legal entity that performed the evidence validation. This object SHOULD be included if the OP did not perform the validation itself. This object consists of the following properties:
+     * `organization`: REQUIRED. String denoting the organization which performed the validation on behalf of the OP.
+     * `txn`: OPTIONAL. Identifier referring to the evidence validation transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
 
   * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic record refers to. For information on predefined `verification_method` values see [@!predefined_values].
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the verification.
+  * 'verifier':OPTIONAL. JSON object denoting the legal entity that performed the verification. This object SHOULD be included if the OP did not perform the verification itself. This object consists of the following properties:
+     * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+     * `txn`: OPTIONAL. Identifier referring to the verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD  be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
@@ -347,6 +359,9 @@ The following elements are contained in an evidence sub-element where type is `v
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the validation.
+  * 'verifier':OPTIONAL. JSON object denoting the legal entity that performed the evidence validation. This object SHOULD be included if the OP did not perform the validation itself. This object consists of the following properties:
+     * `organization`: REQUIRED. String denoting the organization which performed the validation on behalf of the OP.
+     * `txn`: OPTIONAL. Identifier referring to the evidence validation transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the Claims.
 
@@ -354,8 +369,11 @@ The following elements are contained in an evidence sub-element where type is `v
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `status`: OPTIONAL. String representing the current status of the verification.
-    
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
+  * 'verifier':OPTIONAL. JSON object denoting the legal entity that performed the verification. This object SHOULD be included if the OP did not perform the verification itself. This object consists of the following properties:
+     * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+     * `txn`: OPTIONAL. Identifier referring to the verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD  be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.

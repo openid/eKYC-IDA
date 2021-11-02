@@ -71,6 +71,17 @@
         }
       }
     },
+    "verifier": {
+      "type": "object",
+      "properties": {
+        "organization": {
+          "type": "string"
+        },
+        "txn": {
+          "type": "string"
+        }
+      }
+    },
     "validation_method": {
       "type": "object",
       "properties": {
@@ -85,6 +96,9 @@
         },
         "status": {
           "type": "string"
+        },
+        "verifier": {
+          "$ref": "#/definitions/verifier"
         }
       }
     },
@@ -102,6 +116,9 @@
         },
         "status": {
           "type": "string"
+        },
+        "verifier": {
+          "$ref": "#/definitions/verifier"
         }
       }
     },
@@ -173,15 +190,7 @@
                 "type": "string"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "type": "string"
-                  },
-                  "txn": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
@@ -213,15 +222,7 @@
                 "$ref": "#/definitions/verification_method"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "type": "string"
-                  },
-                  "txn": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
@@ -296,15 +297,7 @@
                 "$ref": "#/definitions/verification_method"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "type": "string"
-                  },
-                  "txn": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
