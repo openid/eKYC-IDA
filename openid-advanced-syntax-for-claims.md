@@ -29,11 +29,17 @@ This specification defines an extension of OpenID Connect to enable new features
 {mainmatter}
 
 # Introduction {#Introduction}
+
 - resolves ambiguity, e.g., applying value/values to compound claims.
+
 ## Terminology
+
 TBD
+
 # Scope
+
 TBD
+
 # Selective Abort/Omit
 
 Using Selective Abort/Omit (SAO), an RP can define the expected behavior of an OP when certain data is not available, when a user does not consent to the release of the data, or when restrictions defined on claims using `value`, `values`, or `max_age` cannot be fulfilled. 
@@ -64,7 +70,7 @@ For each of these two keys, one of the following expected "actions" can be defin
    action is set. This can be used by the RP to define a set of claims that is
    only useful when delivered in full.
 
- * `omit_verified_claims`: (Only applicable when used with [@ekyc].) Omit this
+ * `omit_verified_claims`: (Only applicable when used with [@!IDA].) Omit this
    particular claim and the whole `verified_claims` section. Only valid within
    the `verified_claims` section.
 
@@ -84,7 +90,7 @@ Omitting Claims can be recursive: If a Claim is omitted through `omit` or `omit_
 
 The following table shows the default actions when case keys are omitted:
 
-|                  | default | within `verified_claims/verification` of [@ekyc] |
+|                  | default | within `verified_claims/verification` of [@!IDA] |
 | ---------------- | ------- | ------------------------------------------------ |
 | `if_unavailable` | `omit`  | `omit`                                           |
 | `if_different`   | `omit`  | `omit_verified_claims`                           |
@@ -233,9 +239,9 @@ Example:
 
 ```
 
-In some circumstances, the same Claim name can appear in different locations within the `claims` parameter with different meanings. For example, in [@ekyc], `birthdate` can also be used within `verified_claims/claims`. Therefore, the reference to the base Claim shall be evaluated relative to the location where the Transformed Claim is used. 
+In some circumstances, the same Claim name can appear in different locations within the `claims` parameter with different meanings. For example, in [@!IDA], `birthdate` can also be used within `verified_claims/claims`. Therefore, the reference to the base Claim shall be evaluated relative to the location where the Transformed Claim is used.
 
-Example: In [@ekyc], the same `above_18` Claim defined above can be evaluated based on the 'Verified Claim' `birthdate` when used like this:
+Example: In [@!IDA], the same `above_18` Claim defined above can be evaluated based on the 'Verified Claim' `birthdate` when used like this:
 
 ```json
 {
@@ -275,7 +281,8 @@ Any option available for normal Claims can also be used with Transformed Claims.
 There is no requirement to use all defined Transformed Claims within a request.
 
 ## Data Types 
-Claims defined in [@!OpenID] and [@ekyc] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
+
+Claims defined in [@!OpenID] and [@!IDA] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
 
 Todo: Define input formats for date and datetime.
 
@@ -301,6 +308,7 @@ Note: If the year of the `Input` date is `0000`, the resulting Claim shall be un
 Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
 
 ### Equality
+
 Function signatures:
  * `eq(string Input, string Compare) → boolean`
  * `eq(number Input, number Compare) → boolean`
@@ -308,7 +316,9 @@ Function signatures:
  * `eq(date|datetime Input, date|datetime Compare) → boolean`
 
 Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. For comparisons between `date` and `datetime` values, the time of day is ignored unless `Input` and `Compare` are both of type `datetime`.
+
 ### Number/Date/Datetime Comparison
+
 Function signatures:
 
  * `gt(number Input, number Compare): → boolean` 
@@ -327,6 +337,7 @@ is ignored unless `Input` and `Compare` are both of type `datetime`.
 Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
 
 ### Hashing
+
 Function signature: `hash(string Input, string HashAlgorithm) → string`
 
 Returns the hash of the UTF-8 representation of the input string, encoded as a
@@ -347,12 +358,14 @@ the hashes of all possible clear-text values and match the hashes against the
 hash provided by the RP in order to reveal the original clear-text value.
 
 ### Array Evaluation
+
 Function signatures:
  * `any(array of booleans Input) → boolean` 
  * `all(array of booleans Input) → boolean` 
  * `none(array of booleans Input) → boolean`
 
 Return `true` if and only if any, all, or none of the boolean values in the `Input` array are `true`. Return `false` otherwise.
+
 ### JSON Object Access
 
 Function signature: `get(JSON object Input, string Key) → *`
@@ -512,12 +525,14 @@ The following example shows two custom Transformed Claims being defined and used
 # Privacy Consideration {#Privacy}
 
 TBD
+
 # Security Considerations {#Security}
+
 TBD
 
 {backmatter}
 
-<reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
@@ -538,6 +553,31 @@ TBD
    <date day="8" month="Nov" year="2014"/>
   </front>
 </reference>
+
+<reference anchor="IDA" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
+  <front>
+    <title>OpenID Connect for Identity Assurance 1.0</title>
+    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
+      <organization>yes.com</organization>
+    </author>
+    <author initials="D." surname="Fett" fullname="Daniel Fett">
+      <organization>yes.com</organization>
+    </author>
+    <author initials="M." surname="Haine" fullname="Mark Haine">
+      <organization>Considrd.Consulting Ltd</organization>
+    </author>
+    <author initials="A." surname="Pulido" fullname="Alberto Pulido">
+      <organization>Santander</organization>
+    </author>
+    <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
+      <organization>1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</organization>
+    </author>
+    <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
+      <organization>KDDI Corporation</organization>
+    </author>
+  </front>
+</reference>
+
 # IANA Considerations
 
 TBD
@@ -545,6 +585,7 @@ TBD
 # Acknowledgements {#Acknowledgements}
 
 TBD
+
 # Notices
 
 Copyright (c) 2020 The OpenID Foundation.
