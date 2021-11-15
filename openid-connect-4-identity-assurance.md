@@ -64,43 +64,43 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect for providing Relying Parties with verified Claims about End-Users. This extension is intended to be used to verify the identity of a natural person.
+This specification defines an extension of OpenID Connect for providing Relying Parties with Verified Claims about End-Users. This extension facilitates the verification of the identity of a natural person.
 
 {mainmatter}
 
 # Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e. verified Claims, along with an explicit statement about the verification status of those Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with potential regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
+This specification defines an extension to OpenID Connect [@!OpenID] for providing Relying Parties with identity information, i.e., Verified Claims, along with an explicit statement about the verification status of these Claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as Anti-Money Laundering laws or access to health data, risk mitigation, or fraud prevention.
 
-In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claim about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims.
+In such use cases, the Relying Party (RP) needs to understand the trustworthiness or assurance level of the Claims about the End-User that the OpenID Connect Provider (OP) is willing to communicate, along with process-related information and evidence used to verify the End-User Claims.
 
-The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. But identity assurance requires a different representation for the following reason: authentication is an aspect of an OpenID Connect transaction while assurance is a property of a certain Claim or a group of Claims and several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
+The `acr` Claim, as defined in Section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation: While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain Claim or a group of Claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
 For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an End-User, in contrast, might have been verified in accordance with the respective Anti Money Laundering Law by showing an ID Card to a trained employee of the OP operator.
 
-Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an End-User along with assurance data and for the OP to represent these verified Claims and accompanying assurance data.
+Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective Claims about the End-User. This specification defines a suitable representation and mechanisms the RP will utilize to request Verified Claims about an End-User along with assurance data and for the OP to represent these Verified Claims and accompanying assurance data.
 
-Note: this specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity] .
+Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity].
 
 ## Terminology
 
 This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
 
-* Identity Proofing - process in which an End-User provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level.
+* Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level.
 
-* Identity Verification - process conducted by the OP or a claim provider to verify the End-User's identity.
+* Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity.
 
-* Identity Assurance - process in which the OP or a claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
 
 * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process.
 
 # Scope
 
-This specification defines the technical mechanisms to allow Relying Parties to request verified Claims and to enable OpenID Providers to provide Relying Parties with verified Claims ("the tools").
+This specification defines the technical mechanisms to allow Relying Parties to request Verified Claims and to enable OpenID Providers to provide Relying Parties with Verified Claims ("the tools").
 
 Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
 
-Note: although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
+Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
 
 # Requirements
 
@@ -114,19 +114,19 @@ Every other OP not operating under such well-defined conditions may be required 
 
 The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
-From a technical perspective, this means this specification allows the OP to provide verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
+From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses (see [@?RFC7662] and [@?I-D.ietf-oauth-jwt-introspection-response]) to provide resource servers with verified Claims.
+The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses to provide resource servers with Verified Claims.
 
-This extension is intended to be truly international and support identity assurance across different jurisdictions and across jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation and verification processes.
+This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation, and verification processes.
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
-For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of an End-User without a verification status. Those Claims can be used in the same OpenID Connect assertion beside verified Claims represented according to this extension.
+For example, OpenID Connect [@!OpenID] defines Claims for representing family name and given name of an End-User without a verification status. These Claims can be used in the same OpenID Connect assertion beside Verified Claims represented according to this extension.
 
 In the same way, existing Claims to inform the RP of the verification status of the `phone_number` and `email` Claims can be used together with this extension.
 
-Even for representing verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as verified Claims.
+Even for representing Verified Claims, this extension utilizes existing OpenID Connect Claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified Claims as Verified Claims.
 
 # Claims {#claims}
 
@@ -140,13 +140,13 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |||`country`: String representing country in [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3] syntax.|
 |||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 |||`locality`: String representing city or locality component.|
-|`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
+|`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
 |`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
 |`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
 |`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
-|`salutation`| string | End-User’s salutation, e.g. “Mr.”|
-|`title`| string | End-User’s title, e.g. “Dr.”|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”|
+|`salutation`| string | End-User’s salutation, e.g., “Mr.”|
+|`title`| string | End-User’s title, e.g., “Dr.”|
+|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”|
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
 
 ## txn Claim
@@ -159,7 +159,7 @@ If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at
 
 * the transaction ID,
 * the authentication method employed, and
-* the transaction type (e.g. the set of claims returned).
+* the transaction type (e.g., the set of Claims returned).
 
 This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
 
@@ -173,26 +173,23 @@ Note: The mechanism to obtain the transaction details from the OP and their form
 
 This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
 
-`country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g. "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used in some circumstances for compatibility reasons. `country_code` may be used as alternative to the existing `country` field. 
+`country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field. 
 
 # verified_claims Element {#verified_claims}
 
-This specification defines a generic mechanism to add verified claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims` to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these claims. This way RPs cannot mix up verified and unverified Claims and accidentally process unverified Claims as verified Claims.
+This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
 
-The following example
+The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
 <{{examples/response/verified_claims_simple.json}}
 
-would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `ial_example_gold`.
 
 The normative definition is given in the following.
 
-`verified_claims`: Object or array containing one or more verified claims objects.
-
-A single `verified_claims` object consists of the following sub-elements:
+`verified_claims`: A single object or an array of objects, each object comprising the following sub-elements:
 
 * `verification`: REQUIRED. Object that contains data about the verification process.
-* `claims`: REQUIRED. Object that is the container for the verified Claims about the End-User.
+* `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
@@ -210,188 +207,199 @@ The `verification` element consists of the following elements:
 
 An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
 
-`assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
+RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand.
+
+The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
+
+`assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. 
 
 For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`.
 
 For information on predefined trust framework and assurance level values see [@!predefined_values]. 
 
-`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed.
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the identity verification process.
+`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed, with one or more of the following sub-elements:
 
-RPs SHOULD ignore `verified_claims` claims containing a trust framework ID they don't understand.
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the identity verification process.
 
-The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
-
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
 
 `verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
-Note: While `verification_process` refers to the identity verification process at the OP, the `txn` claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
+Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
 
 `evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
-### Evidence
+### evidence Element
 
-The evidence is generally structured with the following elements:
-
-`type`: REQUIRED. The value defines the type of the evidence.
+The `evidence` element is structured with the following elements:
 
 `attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
+
+`type`: REQUIRED. The value defines the type of the evidence.
 
 The following types of evidence are defined:
 
 * `document`: Verification based on any kind of physical or electronic document provided by the End-User.
 * `electronic_record`: Verification based on data or information obtained electronically from an approved or recognized source.
-* `vouch`: Verification based on an attestation or reference given by an approved or recognized person declaring they believe to the best of their knowledge that the claim(s) are genuine and true.
+* `vouch`: Verification based on an attestation or reference given by an approved or recognized person declaring they believe to the best of their knowledge that the Claim(s) are genuine and true.
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
 
-Depending on the evidence type additional elements are defined.
+Depending on the evidence type additional elements are defined, as described in the following.
 
-#### document
+#### Evidence Type document
 
-The following elements are contained in an `document` evidence sub-element.
+The following elements are contained in an evidence sub-element where type is `document`.
 
-`type`: REQUIRED. Value MUST be set to "document". Note: "id_document" is an alias for "document" for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use "document".
+`type`: REQUIRED. Value MUST be set to `document`. Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`.
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the validation.
+
+  * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the validation.
 
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document relates too. For information on predefined `verification_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the verification.
 
-`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a validation_method and verification_method, implementers are recommended to use the validation_method and verification_method types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
+  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the verification.
+
+`method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a `validation_method` and `verification_method`, implementers are recommended to use the `validation_method`
+and `verification_method` types and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values]. 
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
-* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
 
 `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g. a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
+* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
-* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization.
-* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artefacts and is present before personalization).
+* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
 * `issuer`: OPTIONAL. JSON object containing information about the issuer of this document. This object consists of the following properties:
     * `name`: OPTIONAL. Designation of the issuer of the document.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID])
-    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
 
-#### electronic_record
+#### Evidence Type electronic_record
 
-The following elements are contained in an `electronic_record` sub-element.
+The following elements are contained in an evidence sub-element where type is `electronic_record`.
 
-`type`: REQUIRED. Value MUST be set to "electronic_record".
+`type`: REQUIRED. Value MUST be set to `electronic_record`.
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the record was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the validation.
+
+  * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the validation.
     
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic_record relates too. For information on predefined `verification_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the verification.
+
+  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic record refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the verification.
 
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
 
 `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
-* `created_at`: OPTIONAL. The time the record was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
-* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `created_at`: OPTIONAL. The time the record was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
 * `source`: OPTIONAL. JSON object containing information about the source of this record. This object consists of the following properties:
     * `name`: OPTIONAL. Designation of the issuer of the document.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
-    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g. "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that issuer has jurisdiction over (if it’s not common knowledge or derivable from the address).
 
-#### vouch
+#### Evidence Type vouch
 
-The following elements are contained in an `vouch` sub-element.
 
-`type`: REQUIRED. Value MUST be set to "vouch".
+The following elements are contained in an evidence sub-element where type is `vouch`.
+
+`type`: REQUIRED. Value MUST be set to `vouch`.
 
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the vouch was determined. 
-    * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the validation.
 
-`verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
-    * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch relates too. For information on predefined `verification_method` values see [@!predefined_values].
-    * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-    * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-    * `status`: OPTIONAL. String representing the current status of the verification.
+  * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the validation.
+
+`verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the Claims.
+
+  * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch refers to. For information on predefined `verification_method` values see [@!predefined_values].
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `status`: OPTIONAL. String representing the current status of the verification.
     
 `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification on behalf of the OP. This object SHOULD only be included if the OP did not perform the identity verification itself. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. This transaction identifier can be resolved into transaction details during an audit.
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
 
 `attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
-* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 `YYYY-MM-DD` format.
-* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 `YYYY-MM-DD` format.
+* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format.
 * `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
     * `name`: OPTIONAL. String containing the name of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
-    * `birthdate`: OPTIONAL. String containing the birth date of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
-    * All elements of the OpenID Connect `address` Claim ([@!OpenID]): OPTIONAL.
+    * `birthdate`: OPTIONAL. String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 of the OpenID Connect specification for End-User Claims.
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
 
-#### utility_bill
+#### Evidence Type utility_bill
 
-The following elements are contained in a `utility_bill` evidence sub-element. NOTE: This type is to be deprecated in future releases. Implementers are recommended to use 'document' instead.
+Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead.
+
+The following elements are contained in an evidence sub-element where type is  `utility_bill`. 
 
 `type`: REQUIRED. Value MUST be set to "utility_bill".
 
 `provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
 
 * `name`: REQUIRED. String designating the provider.
-* All elements of the OpenID Connect `address` Claim ([@!OpenID])
+* All elements of the OpenID Connect `address` Claim (see [@!OpenID])
 
-`date`: OPTIONAL. String in ISO 8601:2004 `YYYY-MM-DD` format containing the date when this bill was issued.
+`date`: OPTIONAL. String in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DD` format containing the date when this bill was issued.
 
 `method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values]. 
 
-`time`: OPTIONAL. Time stamp in ISO 8601:2004 [ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
+`time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
 
-#### electronic_signature
+#### Evidence Type electronic_signature
 
 The following elements are contained in a `electronic_signature` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to "electronic_signature".
+`type`: REQUIRED. Value MUST be set to `electronic_signature`.
 
 `signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework. 
 
@@ -399,22 +407,22 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 
 `serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
 
-`created_at`: OPTIONAL. The time the signature was created as ISO 8601:2004 `YYYY-MM-DDThh:mm[:ss]TZD` format.
+`created_at`: OPTIONAL. The time the signature was created as ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 
 ### Attachments {#attachments}
 
-During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. Those artifacts can later be reviewed during audits or quality control for example. Those artifacts include, but are not limited to:
+During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
 
-* scans of filled and signed forms documenting/certifying the verification process itself
-* scans or photocopies of the documents used to verify the identity of End-Users
-* video recordings of the verification process
-* certificates of electronic signatures
+* scans of filled and signed forms documenting/certifying the verification process itself,
+* scans or photocopies of the documents used to verify the identity of End-Users,
+* video recordings of the verification process,
+* certificates of electronic signatures.
 
-When requested by the RP, those artifacts can be attached to the verified claims response allowing the RP to store those artifacts along with the verified claim information.
+When requested by the RP, these artifacts can be attached to the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information.
 
 An attachment is represented by a JSON object. This specification allows two types of representations:
 
-#### Embedded
+#### Embedded Attachments
 
 All the information of the document (including the content itself) is provided within a JSON object having the following elements:
 
@@ -428,11 +436,11 @@ The following example shows embedded attachments. The actual contents of the doc
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments are not appropriate when embedding verified claims in access tokens or ID tokens.
+Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
 
-#### External
+#### External Attachments
 
-External attachments are similar to distributed claims. The reference to the external document is provided in a JSON object with the following elements:
+External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements:
 
 `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
@@ -447,7 +455,7 @@ External attachments are similar to distributed claims. The reference to the ext
 * `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
 * `value`: REQUIRED. Base64 encoded representation of the cryptographic hash.
 
-External attachments are suitable when embedding verified claims in Tokens. However, the verified claims element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
+External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
 The following example shows external attachments:
 
@@ -455,11 +463,11 @@ The following example shows external attachments:
 
 #### Privacy Considerations
 
-As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of those attachments before giving consent to the transaction.
+As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
 
 ## claims Element {#claimselement}
 
-The `claims` element contains the claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
+The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
 
 The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
 
@@ -470,9 +478,9 @@ The `claims` element MAY contain one or more of the following Claims as defined 
 * `birthdate`
 * `address`
 
-and the claims defined in (#userclaims).
+and the Claims defined in (#userclaims).
 
-The `claims` element MAY also contain other claims provided the value of the respective claim was verified in the verification process represented by the sibling `verification` element.
+The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element.
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
 
@@ -482,56 +490,77 @@ OPs can deliver `verified_claims` in various ways.
 
 A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
 
-OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
+OAuth Authorization Servers can add `verified_claims` to Access Tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are access tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
+Here is an example of the payload of an Access Token in JWT format including Verified Claims:
 
-In this case, every assertion provided by the external claims source MUST contain 
+```json
+{
+  "iss": "https://server.example.com",
+  "sub": "248289761",
+  "aud": "https://rs.example.com/",
+  "exp": 1544645174,
+  "client_id": "s6BhdRkqt3_",
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "example"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Mustermann"
+    }
+  }
+}
+```
 
-* an `iss` claim identifying the claims source,
-* a `sub` claim identifying the End-User in the context of the claim source,
-* a `verified_claims` element containing one or more verified_claims objects.
+An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
+
+In this case, every assertion provided by the external Claims source MUST contain 
+
+* an `iss` Claim identifying the claims source,
+* a `sub` Claim identifying the End-User in the context of the claim source,
+* a `verified_claims` element containing one or more `verified_claims` objects.
 
 The `verified_claims` element in a response MUST have one of the following forms:
 
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
-* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e. the end-user claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
+* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the End-User Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests. 
 
-NOTE: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
+Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
 
-The following are examples of assertions including verified claims as aggregated claims 
+The following are examples of assertions including Verified Claims as aggregated Claims 
 
 <{{examples/response/aggregated_claims_simple.json}}
 
-and distributed claims.
+and distributed Claims.
 
 <{{examples/response/distributed_claims.json}}
 
-The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed claims. 
+The following example shows an ID Token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims.
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The next example shows an ID token containing `verified_claims` from two different external claims sources along with additional data about the content of the verified claims (look ahead).
+The next example shows an ID Token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
 Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation. 
-The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` claim of the particular JWT.
+The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
 
-The OP MAY combine aggregated and distributed claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
+The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
-If `verified_claims` elements are contained in multiple places of a response, e.g. in the ID token and an embedded aggregated claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
-Note: any assertion provided by an OP or AS including aggregated or distributed claims MAY contain multiple instances of the same End-User claim. It is up to the RP to decide how to process those different instances. 
+Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances. 
 
 # Requesting Verified Claims
 
-Making a request for verified claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
 
-It is also possible to use the `scope` parameter to request one or more specific pre-defined claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
-Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit claims from the response. 
+Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response. 
 
 ## Requesting End-User Claims {#req_claims}
 
@@ -539,7 +568,7 @@ Verified Claims can be requested on the level of individual Claims about the End
 
 Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@!verified_claims_request.json]. It can be used to automatically validate `claims` request parameters.
 
-To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
+To request Verified Claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
 
 Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys with a `null` value. An example is shown in the following:
 
@@ -547,7 +576,7 @@ Since `verified_claims` contains the effective Claims about the End-User in a ne
 
 Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization.
 
-RPs MAY indicate that a certain Claim is essential to the successful completion of the request for verified claims by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
+RPs MAY indicate that a certain Claim is essential to the successful completion of the request for Verified Claims by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
 
 <{{examples/request/essential.json}}
 
@@ -572,13 +601,13 @@ Example:
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request Claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` are requested by adding the respective element as shown in the following example:
 
 <{{examples/request/verification.json}}
 
-It requests the trust framework the OP complies with and the date of the verification of the End-User claims.
+It requests the trust framework the OP complies with and the date of the verification of the End-User Claims.
 
 The RP MUST explicitly request any data it wants the OP to add to the `verification` element. 
 
@@ -586,7 +615,7 @@ Therefore, the RP MUST set fields one step deeper into the structure if it wants
 
 <{{examples/request/verification_deeper.json}}
 
-The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` claim.
+The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` Claim.
 
 A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field. 
 
@@ -596,37 +625,37 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
-# Examples
+# Example Requests
 The following section show examples of requests for `verified_claims`.
 
-## Verification of claims by a document
+## Verification of Claims by a document
 
 <{{examples/request/verification_deeper.json}}
 
-## Verification of claims by trust framework and evidence types
+## Verification of Claims by trust framework and evidence types
 
 <{{examples/request/verification_claims_trust_frameworks_evidence.json}}
 
-## Verification of claims by trust framework and verification method
+## Verification of Claims by trust framework and verification method
 
 <{{examples/request/verification_spid_document_biometric.json}}
 
-## Verification of claims by trust framework with a document and include attachments
+## Verification of Claims by trust framework with a document and include attachments
 
 <{{examples/request/verification_aml_with_attachments.json}}
 
-## Verification of claims by electronic signature
+## Verification of Claims by electronic signature
 
 <{{examples/request/verification_electronic_signature.json}}
 
 
 ### Attachments
 
-RPs can explicitly request to receive attachments along with the verified claims:
+RPs can explicitly request to receive attachments along with the Verified Claims:
 
 <{{examples/request/verification_with_attachments.json}}
 
-As with other claims, the attachment claim can be marked as essential in the request as well.
+As with other Claims, the attachment Claim can be marked as essential in the request as well.
 
 ### Error Handling
 
@@ -640,7 +669,7 @@ The RP MAY limit the possible values of the elements `trust_framework`, `evidenc
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
-The following example shows how an RP may request claims either complying with trust framework `gold` or `silver`.
+The following example shows how an RP may request Claims either complying with trust framework `gold` or `silver`.
 
 <{{examples/request/verification_claims_different_trust_frameworks.json}} 
 
@@ -652,7 +681,7 @@ The OP MUST NOT ignore some or all of the query restrictions on possible values 
 
 ### max_age
 
-The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g. `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
+The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
 
 `max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value.
 
@@ -660,19 +689,19 @@ The following is an example of a request for Claims where the verification proce
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP MAY attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g. by utilizing an electronic ID card or a video identification approach.
+The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP MAY attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach.
 
-### Requesting claims sets with different verification requirements
+### Requesting Claims sets with different verification requirements
 
-It is also possible to request different trust frameworks, assurance levels, and methods for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
+It is also possible to request different trust frameworks, assurance levels, and methods for different Claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object. 
 
 The following example illustrates this functionality.
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
  
-When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a verified claims elements for each of them.
+When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User Claim(s), the OP delivers the Claim in as many Verified Claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
 
-The RP MAY combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
+The RP MAY combine multiple `verified_claims` Claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
 <{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}} 
 
@@ -709,15 +738,15 @@ If an element is to be omitted according to the rules above, but is required for
 
 If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
 
-Claims unknown to the OP or not available as verified claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
+Claims unknown to the OP or not available as Verified Claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
 
-## Requesting sets of claims by scope {#req_scope}
+## Requesting sets of Claims by scope {#req_scope}
 
 Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
-When using this approach the claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
+When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
-# Examples
+# Example Responses
 
 The following sections show examples of responses containing `verified_claims`.
 
@@ -787,7 +816,7 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 ### Request
 
-In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request verified Claims.
+In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request Verified Claims.
 
 The scope value is: `scope=openid email`
 
@@ -805,7 +834,7 @@ The respective UserInfo response would be
 
 ### Request
 
-In this case, the RP requests verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `authorization_code`).
+In this case, the RP requests Verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `authorization_code`).
 
 The `claims` parameter value is
 
@@ -819,24 +848,24 @@ The respective ID Token could be
 
 ## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
-This example shows how an OP can mix own claims and claims provided by  
-external sources in a single ID token. 
+This example shows how an OP can mix own Claims and Claims provided by  
+external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
 
 ## Self-Issued OpenID Connect Provider and External Claims
 
 This example shows how a Self-Issued OpenID Connect Provider (SIOP) 
-may include verified claims obtained from different external claim
+may include Verified Claims obtained from different external Claim
 sources into a ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
 # OP Metadata {#opmetadata}
 
-The OP advertises its capabilities with respect to verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
+The OP advertises its capabilities with respect to Verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-`verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e. the OpenID Connect for Identity Assurance extension.
+`verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e., the OpenID Connect for Identity Assurance extension.
 
 `trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array must have at least one member.
 
@@ -852,7 +881,7 @@ The OP advertises its capabilities with respect to verified Claims in its openid
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic_record". JSON array containing all electronic record types the OP supports (see @!predefined_values).
 
-`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all claims supported within `verified_claims`.
+`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`.
 
 `attachments_supported`: REQUIRED when OP supports external attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
 
@@ -907,7 +936,7 @@ This is an example openid-configuration snippet:
 
 The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
 
-If the OP supports distributed and/or aggregated claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
+If the OP supports distributed and/or aggregated Claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
 
 # Client Registration and Management
 
@@ -932,13 +961,13 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 # Privacy Consideration {#Privacy}
 
-Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and verified claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related claim in verified data.
+Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and Verified Claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related Claim in verified data.
 
-The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP SHOULD only request End-User claims and metadata it requires.
+The use of scopes is a potential shortcut to request a pre-defined set of Claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP SHOULD only request End-User Claims and metadata it requires.
 
 # Security Considerations {#Security}
 
-This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON 
+This specification focuses on mechanisms to carry End-User Claims and accompanying metadata in JSON objects and JSON 
 web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place 
 in security sensitive use cases, implementers MUST 
 
@@ -947,7 +976,7 @@ in security sensitive use cases, implementers MUST
 
 ## End-User Authentication
 
-Secure identification of End-Users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs SHOULD request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified End-User claims. OpenID Connect supports this by way of the `acr_values` request parameter. 
+Secure identification of End-Users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs SHOULD request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified End-User Claims. OpenID Connect supports this by way of the `acr_values` request parameter. 
 
 ## Security Profile
 
@@ -966,9 +995,9 @@ methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
-This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
+This specification focuses on the technical mechanisms to convey Verified Claims and thus does not define any identifiers for trust frameworks, documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
 
-Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
+Each party defining such identifiers MUST ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_verification_method`.
 
 The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
@@ -1233,7 +1262,7 @@ Claim Name:
 : `verified_claims`
 
 Claim Description:
-: This container claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
+: This container Claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
  
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -1305,7 +1334,7 @@ Claim Name:
 : `salutation`
 
 Claim Description:
-: End-User’s salutation, e.g. “Mr.”
+: End-User’s salutation, e.g., “Mr.”
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -1317,7 +1346,7 @@ Claim Name:
 : `title`
 
 Claim Description:
-: End-User’s title, e.g. “Dr.”
+: End-User’s title, e.g., “Dr.”
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -1329,7 +1358,7 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g. “+1999550123”
+: End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -1373,10 +1402,10 @@ The technology described in this specification was made available from contribut
    * deprecated `id_document`
    * introduced `electronic_record` and `vouch` evidence types
    * introduced `validation_method` & `verification_method` to provide more detail than `method`
-   * added lookahead capabilities for disctributed claims 
+   * added lookahead capabilities for disctributed Claims 
    * added support to attach document artifacts
    * changed evidence type `qes` to `electronic_signature` 
-   * Added claim `also_known_as`
+   * Added Claim `also_known_as`
    * Added text regarding security profiles
    * Editorial improvements
    * Added further co-authors
@@ -1388,8 +1417,8 @@ The technology described in this specification was made available from contribut
 
    -11
   
-   * Added support for requesting different sets of claims with different requirements regarding trust_framework and other verification elements (e.g. evidence)
-   * added `msisdn` claim
+   * Added support for requesting different sets of Claims with different requirements regarding trust_framework and other verification elements (e.g., evidence)
+   * added `msisdn` Claim
    * clarified scope of this specification
 
    -10
@@ -1399,8 +1428,8 @@ The technology described in this specification was made available from contribut
    
    -09
  
-   * `verified_claims` element may contain one or more verified claims objects
-   * an individual assertion may contain `verified_claims` elements in the assertion itself and any aggregated or distributed claims sets it includes or refers to, respectively
+   * `verified_claims` element may contain one or more Verified Claims objects
+   * an individual assertion may contain `verified_claims` elements in the assertion itself and any aggregated or distributed Claims sets it includes or refers to, respectively
    * moved all definitions of pre-defined values for trust frameworks, id documents and verification methods to a wiki page as non-normative overview
    * clarified and simplified request syntax
    * reduced mandatory requirement `verified_claims` to bare minimum
@@ -1419,7 +1448,7 @@ The technology described in this specification was made available from contribut
    -07
    
    * fixed typos
-   * changed `nationality` String claim to `nationalities` String array claim
+   * changed `nationality` String Claim to `nationalities` String array Claim
    * replaced `agent` in id_document verifier element by `txn` element
    * qes method: fixed error in description of `issuer`
    * qes method: changed `issued_at` to `created_at` since this field applies to the signature (that is created and not issued)
@@ -1496,6 +1525,6 @@ The technology described in this specification was made available from contribut
    *  turned the proposal into a WG document
    *  changed name
    *  added terminology section and reworked introduction
-   *  added several examples (ID Token vs UserInfo, unverified & verified claims, aggregated & distributed claims)
+   *  added several examples (ID Token vs UserInfo, unverified & Verified Claims, aggregated & distributed Claims)
    *  incorporated text proposal of Marcos Sanz regarding max_age
    *  added IANA registration for new error code `unable_to_meet_requirement`
