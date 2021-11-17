@@ -474,9 +474,18 @@ The OP advertises its capabilities with respect to Advanced Syntax for Claims in
 
 `transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Predefined Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
 
-`transformed_claims_predefined`: OPTIONAL. JSON object containing the definition all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim.
+`transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim.
 
 `transformed_claims_maxdepth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim.
+
+## Error Conditions
+The following error conditions MUST be checked by an OP, in this order:
+
+ 1. If the definition of a transformed claim provided by an RP uses more than `transformed_claims_maxdepth` function applications, the OP MUST abort the transaction with an `invalid_request` error.
+ 2. If an RP uses, in a definition for a transformed claim, a function not supported by the OP and therefore not listed in `transformed_claims_functions_supported`, or the wrong number of arguments, or a wrong type of argument, the OP MUST ignore the definition of the transformed claim.
+ 3. Each transformed claim is based on a single base claim, as expressed by the `claim` key in the definition of the transformed claim. In case this base claim is not known to the OP, or data is not available for this claim, or similar conditions, the transformed claim MUST be treated the same as the base claim. For example, if the base claim is unknown to the OP, the transformed claim is handled as if it were an unknown claim as well. If an End-User choses not to release the base claim, or the base claim is not released to the RP for some other reason, the transformed claim MUST NOT be released as well.
+
+In general, if an RP references an undefined transformed claim in the `claims` parameter, the claim MUST be treated like a claim unknown to the OP. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
 
 ## UX and Privacy Considerations
 
@@ -497,11 +506,11 @@ OPs can use a number of strategies to ensure that End-User consent is always giv
 
 ## Compatibility Considerations
 
-An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined below, the `if_unknown` case will be triggered.
+An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
 
 ## Examples
 
-The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined below are used as well.
+The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined above are used as well.
 
 
 <{{asc/examples/request/asc_tc_partial_matching.json}}
