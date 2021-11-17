@@ -165,9 +165,9 @@ Each function takes one input value (the original Claim's value or the output of
 
 ## Example: Age Verification
 
-The Claim `birthdate`, a date, can be transformed into an integer using the function `years_ago`. This function outputs the number of years between the current date and the input date, rounded down. The resulting integer can be transformed using the function `gte` with the argument `18`. This function evaluates whether the input value is greater than or equal to the given argument. Its output is either `true` or `false`. The resulting Transformed Claim, representing whether the End-User is above 18 or not, can be aliased, for example `above_18`. This Claim can be used within the OpenID Connect `claims` parameter instead of or together with the original Claim, `birthdate`.
+The Claim `birthdate`, a date, can be transformed into an integer using the function `years_ago`. This function outputs the number of years between the current date and the input date, rounded down. The resulting integer can be transformed using the function `gte` with the argument `18`. This function evaluates whether the input value is greater than or equal to the given argument. Its output is either `true` or `false`. The resulting Transformed Claim, representing whether the End-User is above 18 or not, can be aliased, for example `age_18_or_over`. This Claim can be used within the OpenID Connect `claims` parameter instead of or together with the original Claim, `birthdate`.
 
-If data for the original Claim `birthdate` is unavailable, the new Claim `above_18` shall be treated like an unavailable Claim as well.
+If data for the original Claim `birthdate` is unavailable, the new Claim `age_18_or_over` shall be treated like an unavailable Claim as well.
 
 ## Defining Transformed Claims
 
@@ -183,7 +183,7 @@ For example, the Transformed Claim for age verification from above could be defi
 ```json
 {
   "transformed_claims": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -213,7 +213,7 @@ Example:
 ```json
 {
   "transformed_claims": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -227,7 +227,7 @@ Example:
   "id_token": {
     "given_name": null,
     "family_name": null,
-    ":above_18": null
+    ":age_18_or_over": null
   }
 }
 
@@ -235,7 +235,7 @@ Example:
 
 In some circumstances, the same Claim name can appear in different locations within the `claims` parameter with different meanings. For example, in [@ekyc], `birthdate` can also be used within `verified_claims/claims`. Therefore, the reference to the base Claim shall be evaluated relative to the location where the Transformed Claim is used. 
 
-Example: In [@ekyc], the same `above_18` Claim defined above can be evaluated based on the 'Verified Claim' `birthdate` when used like this:
+Example: In [@ekyc], the same `age_18_or_over` Claim defined above can be evaluated based on the 'Verified Claim' `birthdate` when used like this:
 
 ```json
 {
@@ -245,7 +245,7 @@ Example: In [@ekyc], the same `above_18` Claim defined above can be evaluated ba
       "claims": {
         "given_name": null,
         "family_name": null,
-        ":above_18": null
+        ":age_18_or_over": null
       },
       ...
     }
@@ -264,7 +264,7 @@ Any option available for normal Claims can also be used with Transformed Claims.
   "id_token": {
     "given_name": null,
     "family_name": null,
-    ":above_18": {
+    ":age_18_or_over": {
       "value": true,
       "essential": true
     }
@@ -411,7 +411,7 @@ To predefine a Transformed Claim, the OP publishes the key `transformed_claims_p
 ```json
 ...
   "transformed_claims_predefined": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -421,7 +421,7 @@ To predefine a Transformed Claim, the OP publishes the key `transformed_claims_p
         ]
       ]
     }, 
-    "above_21": {
+    "age_21_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -443,7 +443,7 @@ were defined in `transformed_claims` in the request. However, two colons (`::`) 
   "id_token": {
     "given_name": null,
     "family_name": null,
-    "::above_18": {
+    "::age_18_or_over": {
       "value": true,
       "essential": true
     }
@@ -463,7 +463,7 @@ Example:
   "transformed_claims_functions_supported": ["years_ago", "gte"],
   "transformed_claims_restricted": true,
   "transformed_claims_predefined": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
