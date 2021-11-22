@@ -114,6 +114,12 @@ This example would yield the following results (among other outcomes, always ass
 | verified `nationalities` or verified `place_of_birth` are unavailable | `nationalities`, `place_of_birth`, and `custom_paid_claim` are omitted. |
 
 
+## OP Metadata
+
+The OP advertises its capabilities with respect to Selective Abort/Omit in its openid-configuration (see [@!OpenID-Discovery]) using the following new element:
+
+`selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit" 
+
 ## Error Handling
 
 If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
@@ -481,9 +487,7 @@ Example:
 
 ## OP Metadata
 
-The OP advertises its capabilities with respect to Advanced Syntax for Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
-
-`selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit" 
+The OP advertises its capabilities with respect to Transformed Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
 `transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Predefined Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
 
