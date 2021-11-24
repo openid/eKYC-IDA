@@ -665,7 +665,7 @@ The OP has the discretion to decide whether the requested verification data is t
 
 ### value/values
 
-The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/verification_method', `evidence/validation_method` and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
+The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/verification_method`, `evidence/validation_method` and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
@@ -873,13 +873,13 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see @!predefined_values).
+`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see [@!predefined_values]).
 
-`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see @!predefined_values).
+`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see [@!predefined_values]).
 
-`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see @!predefined_values).
+`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see [@!predefined_values]).
 
-`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic_record". JSON array containing all electronic record types the OP supports (see @!predefined_values).
+`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]).
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`.
 
