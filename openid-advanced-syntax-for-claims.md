@@ -114,6 +114,12 @@ This example would yield the following results (among other outcomes, always ass
 | verified `nationalities` or verified `place_of_birth` are unavailable | `nationalities`, `place_of_birth`, and `custom_paid_claim` are omitted. |
 
 
+## OP Metadata
+
+The OP advertises its capabilities with respect to Selective Abort/Omit in its openid-configuration (see [@!OpenID-Discovery]) using the following new element:
+
+`selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit" 
+
 ## Error Handling
 
 If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
@@ -145,17 +151,6 @@ OPs MUST also consider whether the (un)availability of data (`if_unavailable`) c
 
 To the same end, and to avoid relying parties not paying for data, OPs SHOULD additionally consider rate-limiting requests and monitoring requests for anomalies (frequent dynamic changes in request structure, frequent aborts).
 
-## Selective Abort/Omit Metadata
-
-An OP supporting SAO shall publish the key `selective_abort_omit_supported` in its OP Metadata as follows:
-
-
-```json
-...
-  "selective_abort_omit_supported": true,
-...
-```
-
 ## Compatibility Considerations
 
 An OP not supporting SAO will ignore the additional keys as defined in Section 5.5.1 of [@!OpenID]. The RP may therefore receive data from such an OP when aborting the transaction was requested instead. RPs can avoid this by checking for SAO support at the OP before sending the request.
@@ -165,7 +160,7 @@ An OP not supporting SAO will ignore the additional keys as defined in Section 5
 
 Using Transformed Claims (TC), a claim value can be transformed using a limited set of functions before any further evaluation on the claim value is performed and before the claim value is returned to the RP.
 
-Each Transformed Claim is based off exactly one Claim provided by the OP. For example, the Claim `birthdate` can be used to derive a Transformed Claim for age verification (End-User is above a certain age) by applying a suitable chain of functions.
+Each Transformed Claim is based off exactly one Claim provided by the OP. For example, the Claim `birthdate` can be used to derive a Transformed Claim for age verification (End-User is above a certain age) by applying a suitable chain of functions.  The number of functions in the chain MAY be limited by use of the OPTIONAL OP Metadata element `transformed_claims_max_depth`.
 
 Each function takes one input value (the original Claim's value or the output of the previous function) and produces one output value. Besides the input value, functions can only have static function arguments, typically zero or one.
 
@@ -403,7 +398,7 @@ All Transformation Functions shall follow the following conventions:
  * Transformation Functions shall be safe to execute for the OP for all combinations of inputs and arguments, as the requests generally come from an untrusted source. This includes security against Denial-of-Service attacks.
 
 
-## OP Metadata and Predefined Transformed Claims (PTC)
+## Predefined Transformed Claims (PTC)
 
 An OP supporting Transformed Claims shall publish the key `transformed_claims_functions_supported` containing an array of supported functions (only the function names) in its OP Metadata.
 
@@ -490,6 +485,25 @@ Example:
 ...
 ```
 
+## OP Metadata
+
+The OP advertises its capabilities with respect to Transformed Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
+
+`transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Predefined Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
+
+`transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim.
+
+`transformed_claims_max_depth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim.
+
+## Error Conditions
+The following error conditions MUST be checked by an OP, in this order:
+
+ 1. If the definition of a transformed claim provided by an RP uses more than `transformed_claims_max_depth` function applications, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
+ 2. If an RP uses, in a definition for a transformed claim, a function not supported by the OP and therefore not listed in `transformed_claims_functions_supported`, or the wrong number of arguments, or a wrong type of argument, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
+ 3. Each transformed claim is based on a single base claim, as expressed by the `claim` key in the definition of the transformed claim. In case this base claim is not known to the OP, or data is not available for this claim, or similar conditions, the transformed claim MUST be treated the same as the base claim. For example, if the base claim is unknown to the OP, the transformed claim is handled as if it were an unknown claim as well. If an End-User choses not to release the base claim, or the base claim is not released to the RP for some other reason, the transformed claim MUST NOT be released as well.
+
+In general, if an RP references an undefined transformed claim in the `claims` parameter, the claim MUST be treated like a claim unknown to the OP. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
+
 ## UX and Privacy Considerations
 
 The consent of the End-User is typically required before data can be released by the OP to the RP. An OP cannot be expected to automatically parse and understand all potential combinations of transformation functions and their arguments in order to create a detailed consent prompt for the End-User.
@@ -509,11 +523,11 @@ OPs can use a number of strategies to ensure that End-User consent is always giv
 
 ## Compatibility Considerations
 
-An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined below, the `if_unknown` case will be triggered.
+An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
 
 ## Examples
 
-The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined below are used as well.
+The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined above are used as well.
 
 
 <{{asc/examples/request/asc_tc_partial_matching.json}}
