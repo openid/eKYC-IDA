@@ -22,7 +22,7 @@
             {
               "desc": "Front of id document",
               "digest": {
-                "alg": "SHA-256",
+                "alg": "sha-256",
                 "value": "nVW19w6EVNWNQ8fmRCxrxqw4xLUs+T8eI0tpjZo820Bc"
               },
               "url": "https://example.com/attachments/pGL9yz4hZQ",
@@ -32,7 +32,7 @@
             {
               "desc": "Back of id document",
               "digest": {
-                "alg": "SHA-256",
+                "alg": "sha-256",
                 "value": "2QcDeLJ/qeXJn4nP+v3nijMgxOBCT9WJaV0LjRS4aT8"
               },
               "url": "https://example.com/attachments/4Ag8IpOf95"
@@ -40,7 +40,7 @@
             {
               "desc": "Signed document",
               "digest": {
-                "alg": "SHA-256",
+                "alg": "sha-256",
                 "value": "i3O7U79LiyKmmesIgULKT2Q8LAxNO0CpwJVcbepaYf8"
               },
               "url": "https://example.com/attachments/4Ag8IpOf95",
