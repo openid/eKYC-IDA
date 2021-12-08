@@ -146,7 +146,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
 |`salutation`| string | End-User’s salutation, e.g., “Mr.”|
 |`title`| string | End-User’s title, e.g., “Dr.”|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”|
+|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
 
 ## txn Claim
@@ -1358,7 +1358,7 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”
+: End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
