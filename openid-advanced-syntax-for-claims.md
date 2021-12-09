@@ -124,12 +124,9 @@ The OP advertises its capabilities with respect to Selective Abort/Omit in its o
 
 If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
 
+## Privacy Considerations
 
-## Privacy {#privacy_if_no}
-
-
-In the interest of data minimization, RPs SHOULD use the mechanisms shown above to limit cases in which incomplete data sets are provided by the OP that are not useful to the RP.
-
+Using Selective Abort/Omit can in general lead to more privacy preserving systems, as an RP can instruct an OP to not send incomplete datasets that are not useful to the RP.
 
 An RP might be able to derive information from a response even if the response is an error response or claims are omitted. For example, the following request can be used to derive whether or not the user is named `Max`:
 
@@ -145,7 +142,7 @@ An RP might be able to derive information from a response even if the response i
 
 When the request is aborted, the user is not called Max. In a naive implementation, the abort of the request might happen before the user has consented to the release of the data. In this case, using a series of carefully crafted requests, an RP might be able to derive substantial information about a user even if the user's name is never transferred from the OP to the RP directly. A malicious RP can use this to derive user information without the user's consent or without paying for the data.
 
-To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `if_not_match` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
+To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `if_different` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
 
 OPs MUST also consider whether the (un)availability of data (`if_unavailable`) can leak data in a similar way in the respective application and, if so, apply the same restrictions. 
 
@@ -459,17 +456,16 @@ were defined in `transformed_claims` in the request. However, two colons (`::`) 
 }
 ```
 
-An OP may further set the key `transformed_claims_restricted` to `true` to
+An OP may further set the key `transformed_claims_max_count` to `0` to
 denote that only PTCs can be used and custom Transformed Claims are not
-supported. In this case, the OP shall ignore all contents of
-`transformed_claims` in the `claims` request object.
+supported.
 
 Example:
 
 ```json
 ...
   "transformed_claims_functions_supported": ["years_ago", "gte"],
-  "transformed_claims_restricted": true,
+  "transformed_claims_max_count": 0,
   "transformed_claims_predefined": {
     "age_18_or_over": {
       "claim": "birthdate",
@@ -495,10 +491,12 @@ The OP advertises its capabilities with respect to Transformed Claims in its ope
 
 `transformed_claims_max_depth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim.
 
+`transformed_claims_max_count`: OPTIONAL. Integer value indicating the maximum number of transformed claims an RP can define, excluding any Predefined Transformed Claims. If this is set to `0`, the RP may only use Predefined Transformed Claims. 
+
 ## Error Conditions
 The following error conditions MUST be checked by an OP, in this order:
 
- 1. If the definition of a transformed claim provided by an RP uses more than `transformed_claims_max_depth` function applications, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
+ 1. If the definition of a transformed claim provided by an RP uses more than `transformed_claims_max_depth` function applications or the number of custom transformed claims exceeds `transformed_claims_max_count`, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
  2. If an RP uses, in a definition for a transformed claim, a function not supported by the OP and therefore not listed in `transformed_claims_functions_supported`, or the wrong number of arguments, or a wrong type of argument, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
  3. Each transformed claim is based on a single base claim, as expressed by the `claim` key in the definition of the transformed claim. In case this base claim is not known to the OP, or data is not available for this claim, or similar conditions, the transformed claim MUST be treated the same as the base claim. For example, if the base claim is unknown to the OP, the transformed claim is handled as if it were an unknown claim as well. If an End-User choses not to release the base claim, or the base claim is not released to the RP for some other reason, the transformed claim MUST NOT be released as well.
 
@@ -532,17 +530,57 @@ The following example shows two custom Transformed Claims being defined and used
 
 <{{asc/examples/request/asc_tc_partial_matching.json}}
 
-# Data Availability Feedback
-
-
-
-# Privacy Consideration {#Privacy}
-
-TBD
 
 # Security Considerations {#Security}
 
-TBD
+
+## Integrity Protection of the Authentication Request
+For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or an attacker could create situations where the RP receives misleading data or has to pay for data not requested. 
+
+For example, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
+```
+    "age_18_or_over": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          18
+        ]
+      ]
+    }
+```
+to
+```
+    "age_18_or_over": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          12
+        ]
+      ]
+    }
+```
+and pass the age verification check. When using Selective Abort/Omit, a user could create situations where a flow continues instead of being aborted due to a mismatch in the End-User's data.
+
+Therefore, the following rules apply:
+ * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected.
+ * Authentication requests using Transformed Claims MUST only be accpepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection.
+
+Integrity protection of authentication requests can be achieved in particular by 
+ * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
+ * using JWT-Secured Authorization Requests [@RFC9101] to sign the authentication request parameters.
+
+## Safe Execution of Transformation Functions
+OPs MUST ensure that all possible combinations of transformation functions and their respective arguments can be executed securely and without undesired side effects. In particular, for any function supported by the OP, the OP MUST ensure that time and memory limits apply to avoid Denial-of-Service Attacks. For many functions, for example, comparison functions, this is usually inherent to the function itself. For other functions, execution time and complexity limits SHOULD be considered. For example, when applying regular expressions, Regular Expression DoS attacks (ReDoS) are a concern. 
+
+OPs therefore MAY limit the range of valid input arguments and valid combinations of functions to ensure a secure operation.
+
+OPs SHOULD consider setting `transformed_claims_max_depth` and `transformed_claims_max_count` to reasonable values to avoid Denial-of-Service attacks.
+
+
 
 {backmatter}
 
