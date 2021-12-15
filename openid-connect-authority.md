@@ -267,6 +267,15 @@ A machine-readable syntax definition of `authority` is given as a JSON schema in
 
 The `applies_to` sub-element is intended to convey claims that allow unique identification of the entity that the authority applies to.  The applies to sub-element may contain a number of different claims and those will depend on the particular use case and will, in particular, depend on whether the `applies_to` sub-element is identifying a legal entity or a natural person.
 
+In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
+
+* `name`
+* `given_name`
+* `middle_name`
+* `family_name`
+* `birthdate`
+* `address`
+  
 In the case that the authority applies to a Legal entity the `applies_to` element MAY contain one or more of the following Claims (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims:
 
 * `organization_name`
@@ -276,15 +285,9 @@ In the case that the authority applies to a Legal entity the `applies_to` elemen
 * `registered_address`
 * `registered_jurisdiction`
 * `date_of_incorporation`
+* `beneficial_owners`
 
-In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
-
-* `name`
-* `given_name`
-* `middle_name`
-* `family_name`
-* `birthdate`
-* `address`
+When used he `beneficial_owners` claim will be of the form of an array containing one or more records that describe a natural person who ultimately has control over that legal entity as described in the FATF Guidance [@!FATF-BO-Guidance].  The content of the `beneficial_owners' records SHOULD be of the form described in this section when describing a natural person.
 
 ## `permission` element
 
@@ -706,7 +709,15 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-
+<reference anchor="FATF-BO-Guidance" target="https://www.fatf-gafi.org/media/fatf/documents/reports/Guidance-transparency-beneficial-ownership.pdf">
+  <front>
+    <title>Guidance on Transparency and Beneficial Ownership</title>
+    <author initials="" surname="FATF">
+      <organization>Financial Action Task Force (FATF)</organization>
+    </author>
+   <date month="October" year="2014"/>
+  </front>
+</reference>
 
 # IANA Considerations
 
