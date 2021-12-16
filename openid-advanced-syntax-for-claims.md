@@ -539,7 +539,7 @@ For a secure operation of the mechanisms defined in this specification, it is im
 
 Moreover, some features in this specification are particularly suited for use cases of OpenID Connect where the RP pays for data received. In such use cases, integrity protection of the `claims` parameter can be advised to avoid having the RP pay for data not requested. 
 
-For example, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
+As an example for a malicious modification, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
 ```
     "age_18_or_over": {
       "claim": "birthdate",
@@ -569,7 +569,7 @@ and pass the age verification check. When using Selective Abort/Omit, a user cou
 
 Therefore, the following rules apply:
  * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected.
- * Authentication requests using Transformed Claims MUST only be accpepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection. Since Predefined Transformed Claims are defined by the OP, integrity protection is not required for their use.
+ * Authentication requests using Transformed Claims MUST only be accepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection. Since Predefined Transformed Claims are defined by the OP, integrity protection is not required for their use.
 
 Integrity protection of authentication requests can be achieved in particular by 
  * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
