@@ -568,12 +568,14 @@ to
 and pass the age verification check. When using Selective Abort/Omit, a user could create situations where a flow continues instead of being aborted due to a mismatch in the End-User's data.
 
 Therefore, the following rules apply:
- * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected.
- * Authentication requests using Transformed Claims MUST only be accepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection. Since Predefined Transformed Claims are defined by the OP, integrity protection is not required for their use.
+ * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected and authenticated.
+ * Authentication requests using Transformed Claims MUST only be accepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection and authentication. Since Predefined Transformed Claims are defined by the OP, integrity protection and authentication is not required for their use.
 
-Integrity protection of authentication requests can be achieved in particular by 
+Integrity protection and authentication of authentication requests can be achieved in particular by 
  * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
  * using JWT-Secured Authorization Requests [@RFC9101] to sign the authentication request parameters.
+
+Using a suitable security profile for OpenID Connect that includes authentication and integrity protection for the authentication request is RECOMMENDED, as this helps to ensure that the protection cannot be circumvented.
 
 ## Safe Execution of Transformation Functions
 OPs MUST ensure that all possible combinations of transformation functions and their respective arguments can be executed securely and without undesired side effects. In particular, for any function supported by the OP, the OP MUST ensure that time and memory limits apply to avoid Denial-of-Service Attacks. For many functions, for example, comparison functions, this is usually inherent to the function itself. For other functions, execution time and complexity limits SHOULD be considered. For example, when applying regular expressions, Regular Expression DoS attacks (ReDoS) are a concern. 
