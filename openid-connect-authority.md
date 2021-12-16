@@ -502,11 +502,11 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="J." surname="Bradley" fullname="John Bradley">
       <organization>Ping Identity</organization>
     </author>
-    <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros">
-      <organization>Google</organization>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
-      <organization> Illumila </organization>
+      <organization>Illumila</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>

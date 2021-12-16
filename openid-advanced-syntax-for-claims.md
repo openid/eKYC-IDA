@@ -610,6 +610,25 @@ OPs SHOULD consider setting `transformed_claims_max_depth` and `transformed_clai
   </front>
 </reference>
 
+<reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
+  <front>
+    <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
+    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
+      <organization>NRI</organization>
+    </author>
+    <author initials="J." surname="Bradley" fullname="John Bradley">
+      <organization>Ping Identity</organization>
+    </author>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
+    </author>
+    <author initials="E." surname="Jay" fullname="Edmund Jay">
+      <organization>Illumila</organization>
+    </author>
+   <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
 <reference anchor="IDA" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance 1.0</title>
