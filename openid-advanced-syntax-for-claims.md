@@ -487,11 +487,11 @@ The OP advertises its capabilities with respect to Transformed Claims in its ope
 
 `transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Predefined Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
 
-`transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim.
+`transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim. If this metadata value is omitted, the OP does not support Predefined Transformed Claims.
 
-`transformed_claims_max_depth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim.
+`transformed_claims_max_depth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim. If this metadata value is omitted, the OP MUST support chains of functions of any length.
 
-`transformed_claims_max_count`: OPTIONAL. Integer value indicating the maximum number of transformed claims an RP can define, excluding any Predefined Transformed Claims. If this is set to `0`, the RP may only use Predefined Transformed Claims. 
+`transformed_claims_max_count`: OPTIONAL. Integer value indicating the maximum number of transformed claims an RP can define, excluding any Predefined Transformed Claims. If this is set to `0`, the RP may only use Predefined Transformed Claims.  If this metadata value is omitted, the OP MUST support any number of transformed claims.
 
 ## Error Conditions
 The following error conditions MUST be checked by an OP, in this order:
@@ -535,7 +535,7 @@ The following example shows two custom Transformed Claims being defined and used
 
 
 ## Integrity Protection of the Authentication Request
-For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or an attacker could create situations where the RP receives misleading data or has to pay for data not requested. 
+For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or attacker could create situations where the RP receives misleading data or has to pay for data not requested. 
 
 For example, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
 ```
@@ -567,7 +567,7 @@ and pass the age verification check. When using Selective Abort/Omit, a user cou
 
 Therefore, the following rules apply:
  * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected.
- * Authentication requests using Transformed Claims MUST only be accpepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection.
+ * Authentication requests using Transformed Claims MUST only be accpepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection. Since Predefined Transformed Claims are defined by the OP, integrity protection is not required for their use.
 
 Integrity protection of authentication requests can be achieved in particular by 
  * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
