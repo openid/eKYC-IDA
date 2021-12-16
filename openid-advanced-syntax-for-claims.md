@@ -485,7 +485,7 @@ Example:
 
 The OP advertises its capabilities with respect to Transformed Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-`transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Predefined Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
+`transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
 
 `transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim. If this metadata value is omitted, the OP does not support Predefined Transformed Claims.
 
@@ -535,7 +535,9 @@ The following example shows two custom Transformed Claims being defined and used
 
 
 ## Integrity Protection of the Authentication Request
-For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or attacker could create situations where the RP receives misleading data or has to pay for data not requested. 
+For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or attacker could create situations where the RP receives misleading data. 
+
+Moreover, some features in this specification are particularly suited for use cases of OpenID Connect where the RP pays for data received. In such use cases, integrity protection of the `claims` parameter can be advised to avoid having the RP pay for data not requested. 
 
 For example, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
 ```
