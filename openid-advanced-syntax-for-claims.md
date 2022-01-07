@@ -79,7 +79,7 @@ For each of these two keys, one of the following expected "actions" can be defin
    `access_denied` to the RP. The `error_description` SHOULD indicate which rule
    led to the abort of the transaction if and only if the action is
    `if_unavailable` or the user has consented to the release of the data (see
-   (#privacy_if_no) below).
+   (#privacy) below).
 
 If both conditions apply (e.g., the user did not consent to the release of data
 and this data does not fulfill a `value` restriction), the case `if_unavailable`
@@ -109,8 +109,8 @@ This example would yield the following results (among other outcomes, always ass
 | `email` not available                                        | `email` is omitted.                                            |
 | `email` is not `test@example.com`                            | Transaction is aborted.                                                 |
 | `trust_framework` is not `de_aml` or is unavailable                   | Transaction is aborted.                                                 |
-| `verification_process` is unavailable                                 | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |
-| verified `address` is unavailable                                     | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |
+| `verification_process` is unavailable                                 | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
+| verified `address` is unavailable                                     | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
 | verified `nationalities` or verified `place_of_birth` are unavailable | `nationalities`, `place_of_birth`, and `custom_paid_claim` are omitted. |
 
 
@@ -124,9 +124,9 @@ The OP advertises its capabilities with respect to Selective Abort/Omit in its o
 
 If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
 
-## Privacy Considerations
+## Privacy Considerations {#privacy}
 
-Using Selective Abort/Omit can in general lead to more privacy preserving systems, as an RP can instruct an OP to not send incomplete datasets that are not useful to the RP.
+Using Selective Abort/Omit can in general lead to more privacy preserving systems, as an RP can instruct an OP not to send incomplete datasets that are not useful to the RP.
 
 An RP might be able to derive information from a response even if the response is an error response or claims are omitted. For example, the following request can be used to derive whether or not the user is named `Max`:
 
@@ -291,7 +291,7 @@ This specification defines the following functions:
 
 ### Counting Years
 
-Function signature: `years_ago(date|datetime Input, optional date ReferenceDate) → number`
+Function signature: `years_ago(date|datetime Input, optional date ReferenceDate) -> number`
 
 If only an input date or datetime is provided, returns the number of years elapsed since the given `Input` day, rounded down. With a `ReferenceDate`, returns the number of years elapsed between the `Input` date and the `ReferenceDate`. 
 
@@ -302,10 +302,11 @@ Note: When applied to an array of valid input values, returns an array with the 
 ### Equality
 
 Function signatures:
- * `eq(string Input, string Compare) → boolean`
- * `eq(number Input, number Compare) → boolean`
- * `eq(boolean Input, boolean Compare) → boolean`
- * `eq(date|datetime Input, date|datetime Compare) → boolean`
+
+ * `eq(string Input, string Compare) -> boolean`
+ * `eq(number Input, number Compare) -> boolean`
+ * `eq(boolean Input, boolean Compare) -> boolean`
+ * `eq(date|datetime Input, date|datetime Compare) -> boolean`
 
 Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. For comparisons between `date` and `datetime` values, the time of day is ignored unless `Input` and `Compare` are both of type `datetime`.
 
@@ -313,14 +314,14 @@ Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. 
 
 Function signatures:
 
- * `gt(number Input, number Compare): → boolean` 
- * `gt(date|datetime Input, date|datetime Compare): → boolean` 
- * `lt(number Input, number Compare): → boolean` 
- * `lt(date|datetime Input, date|datetime Compare): → boolean` 
- * `gte(number Input, number Compare): → boolean`
- * `gte(date|datetime Input, date|datetime Compare): → boolean`
- * `lte(number Input, number Compare): → boolean`
- * `lte(date|datetime Input, date|datetime Compare): → boolean`
+ * `gt(number Input, number Compare): -> boolean` 
+ * `gt(date|datetime Input, date|datetime Compare): -> boolean` 
+ * `lt(number Input, number Compare): -> boolean` 
+ * `lt(date|datetime Input, date|datetime Compare): -> boolean` 
+ * `gte(number Input, number Compare): -> boolean`
+ * `gte(date|datetime Input, date|datetime Compare): -> boolean`
+ * `lte(number Input, number Compare): -> boolean`
+ * `lte(date|datetime Input, date|datetime Compare): -> boolean`
 
 Evaluate whether `Input` is greather/less than (or equal to) the given
 `Compare`. For comparisons between `date` and `datetime` values, the time of day
@@ -330,7 +331,7 @@ Note: When applied to an array of valid input values, returns an array with the 
 
 ### Hashing
 
-Function signature: `hash(string Input, string HashAlgorithm) → string`
+Function signature: `hash(string Input, string HashAlgorithm) -> string`
 
 Returns the hash of the UTF-8 representation of the input string, encoded as a
 lowercase hex string. `HashAlgorithm` refers to the hash algorithm to be used,
@@ -352,21 +353,22 @@ hash provided by the RP in order to reveal the original clear-text value.
 ### Array Evaluation
 
 Function signatures:
- * `any(array of booleans Input) → boolean` 
- * `all(array of booleans Input) → boolean` 
- * `none(array of booleans Input) → boolean`
+
+ * `any(array of booleans Input) -> boolean` 
+ * `all(array of booleans Input) -> boolean` 
+ * `none(array of booleans Input) -> boolean`
 
 Return `true` if and only if any, all, or none of the boolean values in the `Input` array are `true`. Return `false` otherwise.
 
 ### JSON Object Access
 
-Function signature: `get(JSON object Input, string Key) → *`
+Function signature: `get(JSON object Input, string Key) -> *`
 
 From the JSON object `Input`, return the member with key `Key`. If the respective key is not available in the JSON object, the resulting Claim shall be unavailable.
 
 ### Matching 
 
-Function signature: `match(string Input, string RegEx) → boolean`
+Function signature: `match(string Input, string RegEx) -> boolean`
 
 Return `true` if and only if the `RegEx` matches the `Input` string. The match
 can be at any location within `Input` unless further constrained by `RegEx`. Return `false` otherwise.
@@ -540,6 +542,7 @@ For a secure operation of the mechanisms defined in this specification, it is im
 Moreover, some features in this specification are particularly suited for use cases of OpenID Connect where the RP pays for data received. In such use cases, integrity protection of the `claims` parameter can be advised to avoid having the RP pay for data not requested. 
 
 As an example for a malicious modification, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
+
 ```
     "age_18_or_over": {
       "claim": "birthdate",
@@ -552,7 +555,9 @@ As an example for a malicious modification, when an RP defines a transformed cla
       ]
     }
 ```
+
 to
+
 ```
     "age_18_or_over": {
       "claim": "birthdate",
@@ -565,13 +570,16 @@ to
       ]
     }
 ```
+
 and pass the age verification check. When using Selective Abort/Omit, a user could create situations where a flow continues instead of being aborted due to a mismatch in the End-User's data.
 
 Therefore, the following rules apply:
+
  * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected and authenticated.
  * Authentication requests using Transformed Claims MUST only be accepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection and authentication. Since Predefined Transformed Claims are defined by the OP, integrity protection and authentication is not required for their use.
 
 Integrity protection and authentication of authentication requests can be achieved in particular by 
+
  * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
  * using JWT-Secured Authorization Requests [@RFC9101] to sign the authentication request parameters.
 
