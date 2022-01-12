@@ -79,7 +79,7 @@ For each of these two keys, one of the following expected "actions" can be defin
    `access_denied` to the RP. The `error_description` SHOULD indicate which rule
    led to the abort of the transaction if and only if the action is
    `if_unavailable` or the user has consented to the release of the data (see
-   (#privacy_if_no) below).
+   (#privacy) below).
 
 If both conditions apply (e.g., the user did not consent to the release of data
 and this data does not fulfill a `value` restriction), the case `if_unavailable`
@@ -109,8 +109,8 @@ This example would yield the following results (among other outcomes, always ass
 | `email` not available                                        | `email` is omitted.                                            |
 | `email` is not `test@example.com`                            | Transaction is aborted.                                                 |
 | `trust_framework` is not `de_aml` or is unavailable                   | Transaction is aborted.                                                 |
-| `verification_process` is unavailable                                 | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |
-| verified `address` is unavailable                                     | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |
+| `verification_process` is unavailable                                 | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
+| verified `address` is unavailable                                     | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
 | verified `nationalities` or verified `place_of_birth` are unavailable | `nationalities`, `place_of_birth`, and `custom_paid_claim` are omitted. |
 
 
@@ -124,12 +124,9 @@ The OP advertises its capabilities with respect to Selective Abort/Omit in its o
 
 If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
 
+## Privacy Considerations {#privacy}
 
-## Privacy {#privacy_if_no}
-
-
-In the interest of data minimization, RPs SHOULD use the mechanisms shown above to limit cases in which incomplete data sets are provided by the OP that are not useful to the RP.
-
+Using Selective Abort/Omit can in general lead to more privacy preserving systems, as an RP can instruct an OP not to send incomplete datasets that are not useful to the RP.
 
 An RP might be able to derive information from a response even if the response is an error response or claims are omitted. For example, the following request can be used to derive whether or not the user is named `Max`:
 
@@ -145,7 +142,7 @@ An RP might be able to derive information from a response even if the response i
 
 When the request is aborted, the user is not called Max. In a naive implementation, the abort of the request might happen before the user has consented to the release of the data. In this case, using a series of carefully crafted requests, an RP might be able to derive substantial information about a user even if the user's name is never transferred from the OP to the RP directly. A malicious RP can use this to derive user information without the user's consent or without paying for the data.
 
-To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `if_not_match` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
+To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `if_different` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
 
 OPs MUST also consider whether the (un)availability of data (`if_unavailable`) can leak data in a similar way in the respective application and, if so, apply the same restrictions. 
 
@@ -294,7 +291,7 @@ This specification defines the following functions:
 
 ### Counting Years
 
-Function signature: `years_ago(date|datetime Input, optional date ReferenceDate) → number`
+Function signature: `years_ago(date|datetime Input, optional date ReferenceDate) -> number`
 
 If only an input date or datetime is provided, returns the number of years elapsed since the given `Input` day, rounded down. With a `ReferenceDate`, returns the number of years elapsed between the `Input` date and the `ReferenceDate`. 
 
@@ -305,10 +302,11 @@ Note: When applied to an array of valid input values, returns an array with the 
 ### Equality
 
 Function signatures:
- * `eq(string Input, string Compare) → boolean`
- * `eq(number Input, number Compare) → boolean`
- * `eq(boolean Input, boolean Compare) → boolean`
- * `eq(date|datetime Input, date|datetime Compare) → boolean`
+
+ * `eq(string Input, string Compare) -> boolean`
+ * `eq(number Input, number Compare) -> boolean`
+ * `eq(boolean Input, boolean Compare) -> boolean`
+ * `eq(date|datetime Input, date|datetime Compare) -> boolean`
 
 Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. For comparisons between `date` and `datetime` values, the time of day is ignored unless `Input` and `Compare` are both of type `datetime`.
 
@@ -316,14 +314,14 @@ Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. 
 
 Function signatures:
 
- * `gt(number Input, number Compare): → boolean` 
- * `gt(date|datetime Input, date|datetime Compare): → boolean` 
- * `lt(number Input, number Compare): → boolean` 
- * `lt(date|datetime Input, date|datetime Compare): → boolean` 
- * `gte(number Input, number Compare): → boolean`
- * `gte(date|datetime Input, date|datetime Compare): → boolean`
- * `lte(number Input, number Compare): → boolean`
- * `lte(date|datetime Input, date|datetime Compare): → boolean`
+ * `gt(number Input, number Compare): -> boolean` 
+ * `gt(date|datetime Input, date|datetime Compare): -> boolean` 
+ * `lt(number Input, number Compare): -> boolean` 
+ * `lt(date|datetime Input, date|datetime Compare): -> boolean` 
+ * `gte(number Input, number Compare): -> boolean`
+ * `gte(date|datetime Input, date|datetime Compare): -> boolean`
+ * `lte(number Input, number Compare): -> boolean`
+ * `lte(date|datetime Input, date|datetime Compare): -> boolean`
 
 Evaluate whether `Input` is greather/less than (or equal to) the given
 `Compare`. For comparisons between `date` and `datetime` values, the time of day
@@ -333,7 +331,7 @@ Note: When applied to an array of valid input values, returns an array with the 
 
 ### Hashing
 
-Function signature: `hash(string Input, string HashAlgorithm) → string`
+Function signature: `hash(string Input, string HashAlgorithm) -> string`
 
 Returns the hash of the UTF-8 representation of the input string, encoded as a
 lowercase hex string. `HashAlgorithm` refers to the hash algorithm to be used,
@@ -355,21 +353,22 @@ hash provided by the RP in order to reveal the original clear-text value.
 ### Array Evaluation
 
 Function signatures:
- * `any(array of booleans Input) → boolean` 
- * `all(array of booleans Input) → boolean` 
- * `none(array of booleans Input) → boolean`
+
+ * `any(array of booleans Input) -> boolean` 
+ * `all(array of booleans Input) -> boolean` 
+ * `none(array of booleans Input) -> boolean`
 
 Return `true` if and only if any, all, or none of the boolean values in the `Input` array are `true`. Return `false` otherwise.
 
 ### JSON Object Access
 
-Function signature: `get(JSON object Input, string Key) → *`
+Function signature: `get(JSON object Input, string Key) -> *`
 
 From the JSON object `Input`, return the member with key `Key`. If the respective key is not available in the JSON object, the resulting Claim shall be unavailable.
 
 ### Matching 
 
-Function signature: `match(string Input, string RegEx) → boolean`
+Function signature: `match(string Input, string RegEx) -> boolean`
 
 Return `true` if and only if the `RegEx` matches the `Input` string. The match
 can be at any location within `Input` unless further constrained by `RegEx`. Return `false` otherwise.
@@ -459,17 +458,16 @@ were defined in `transformed_claims` in the request. However, two colons (`::`) 
 }
 ```
 
-An OP may further set the key `transformed_claims_restricted` to `true` to
+An OP may further set the key `transformed_claims_max_count` to `0` to
 denote that only PTCs can be used and custom Transformed Claims are not
-supported. In this case, the OP shall ignore all contents of
-`transformed_claims` in the `claims` request object.
+supported.
 
 Example:
 
 ```json
 ...
   "transformed_claims_functions_supported": ["years_ago", "gte"],
-  "transformed_claims_restricted": true,
+  "transformed_claims_max_count": 0,
   "transformed_claims_predefined": {
     "age_18_or_over": {
       "claim": "birthdate",
@@ -489,16 +487,18 @@ Example:
 
 The OP advertises its capabilities with respect to Transformed Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-`transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Predefined Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
+`transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
 
-`transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim.
+`transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim. If this metadata value is omitted, the OP does not support Predefined Transformed Claims.
 
-`transformed_claims_max_depth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim.
+`transformed_claims_max_depth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim. If this metadata value is omitted, the OP MUST support chains of functions of any length.
+
+`transformed_claims_max_count`: OPTIONAL. Integer value indicating the maximum number of transformed claims an RP can define, excluding any Predefined Transformed Claims. If this is set to `0`, the RP may only use Predefined Transformed Claims.  If this metadata value is omitted, the OP MUST support any number of transformed claims.
 
 ## Error Conditions
 The following error conditions MUST be checked by an OP, in this order:
 
- 1. If the definition of a transformed claim provided by an RP uses more than `transformed_claims_max_depth` function applications, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
+ 1. If the definition of a transformed claim provided by an RP uses more than `transformed_claims_max_depth` function applications or the number of custom transformed claims exceeds `transformed_claims_max_count`, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
  2. If an RP uses, in a definition for a transformed claim, a function not supported by the OP and therefore not listed in `transformed_claims_functions_supported`, or the wrong number of arguments, or a wrong type of argument, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
  3. Each transformed claim is based on a single base claim, as expressed by the `claim` key in the definition of the transformed claim. In case this base claim is not known to the OP, or data is not available for this claim, or similar conditions, the transformed claim MUST be treated the same as the base claim. For example, if the base claim is unknown to the OP, the transformed claim is handled as if it were an unknown claim as well. If an End-User choses not to release the base claim, or the base claim is not released to the RP for some other reason, the transformed claim MUST NOT be released as well.
 
@@ -532,17 +532,67 @@ The following example shows two custom Transformed Claims being defined and used
 
 <{{asc/examples/request/asc_tc_partial_matching.json}}
 
-# Data Availability Feedback
-
-
-
-# Privacy Consideration {#Privacy}
-
-TBD
 
 # Security Considerations {#Security}
 
-TBD
+
+## Integrity Protection of the Authentication Request
+For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or attacker could create situations where the RP receives misleading data. 
+
+Moreover, some features in this specification are particularly suited for use cases of OpenID Connect where the RP pays for data received. In such use cases, integrity protection of the `claims` parameter can be advised to avoid having the RP pay for data not requested. 
+
+As an example for a malicious modification, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
+
+```
+    "age_18_or_over": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          18
+        ]
+      ]
+    }
+```
+
+to
+
+```
+    "age_18_or_over": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          12
+        ]
+      ]
+    }
+```
+
+and pass the age verification check. When using Selective Abort/Omit, a user could create situations where a flow continues instead of being aborted due to a mismatch in the End-User's data.
+
+Therefore, the following rules apply:
+
+ * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected and authenticated.
+ * Authentication requests using Transformed Claims MUST only be accepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection and authentication. Since Predefined Transformed Claims are defined by the OP, integrity protection and authentication is not required for their use.
+
+Integrity protection and authentication of authentication requests can be achieved in particular by 
+
+ * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
+ * using JWT-Secured Authorization Requests [@RFC9101] to sign the authentication request parameters.
+
+Using a suitable security profile for OpenID Connect that includes authentication and integrity protection for the authentication request is RECOMMENDED, as this helps to ensure that the protection cannot be circumvented.
+
+## Safe Execution of Transformation Functions
+OPs MUST ensure that all possible combinations of transformation functions and their respective arguments can be executed securely and without undesired side effects. In particular, for any function supported by the OP, the OP MUST ensure that time and memory limits apply to avoid Denial-of-Service Attacks. For many functions, for example, comparison functions, this is usually inherent to the function itself. For other functions, execution time and complexity limits SHOULD be considered. For example, when applying regular expressions, Regular Expression DoS attacks (ReDoS) are a concern. 
+
+OPs therefore MAY limit the range of valid input arguments and valid combinations of functions to ensure a secure operation.
+
+OPs SHOULD consider setting `transformed_claims_max_depth` and `transformed_claims_max_count` to reasonable values to avoid Denial-of-Service attacks.
+
+
 
 {backmatter}
 
