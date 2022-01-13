@@ -894,7 +894,7 @@ This is an example openid-configuration snippet:
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
-     "nist_800_63A_3"
+     "nist_800_63A"
    ],
    "evidence_supported": [
       "document",
