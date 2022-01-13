@@ -881,7 +881,7 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. This array MUST have at least one member.
+`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MAY NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
 `attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member.
 
