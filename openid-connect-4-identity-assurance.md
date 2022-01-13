@@ -1358,7 +1358,7 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”
+: End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
