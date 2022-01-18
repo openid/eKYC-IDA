@@ -1,9 +1,9 @@
 %%%
 title = "OpenID Connect Advanced Syntax for Claims (ASC) 1.0"
-abbrev = "openid-connect-4-identity-assurance-1_0"
+abbrev = "openid-connect-ASC-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
-keyword = ["openid", "identity assurance", "ekyc"]
+keyword = ["openid", "identity assurance", "ekyc", "asc", data minimization]
 
 [seriesInfo]
 name = "Internet-Draft"
@@ -24,11 +24,15 @@ organization="yes.com"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect to enable new features for requesting and receiving Claims and meta information about Claims.
+This specification defines an extension of OpenID Connect to enable new features for requesting and receiving Claims and meta-information about Claims.  There are two components that can be implemented independently or together, "Selective Abort and Omit" and "Transformed Claims".  These components enable additional data minimization requirements to be expressed between the Relying Party and the Identity Provider thus helping both parties comply with business requirements, policies and regulatory requirements relating to limiting data being transferred to that which is needed.
 
 {mainmatter}
 
 # Introduction {#Introduction}
+
+When using OpenID Connect there are two existing mechanisms to limit the data returned.  These are through the use of the `scope` parameter (where a pre-defines set of claims may be described) or the `claims_request` parameter where individual claims can be requested explicitly. The OpenID Provider in these case may return some or all of the requested claims dependent on availability, end-user approval or some other policy. 
+
+With OpenID Connect Advanced Syntax for Claims (ASC) two further tools are made available to implementers.  The "Selective Abort and Omit" feature allows the Relying Party to express to the Identity Provider certain conditions when it might like some subset or perhaps all of the requested claims to be not returned. This is provided to allow for cases where when one or more key attributes are unavailable then the rest are insufficient to meet the business requirement and reduced return of data is better than incomplete data. With the "Transformed Claims" feature a general purpose way of taking and existing "base claim" and applying functions to it is provided.  This capability was inspired by the age verification use case where the full `birthdate` is not needed to satisfy the business requirement and would not meet the principle of data minimization. With Transformed Claims it is possible to transform `birthdate` to `age is greater than or equal to x` but also express `postcode contains "EH1"`  or `end-user nationality includes "USA"` meeting the business and policy requirements of Relying Parties much more effectively.
 
 - resolves ambiguity, e.g., applying value/values to compound claims.
 
@@ -38,7 +42,7 @@ TBD
 
 # Scope
 
-TBD
+This specification is based on OpenID Connect Core [@!OpenID] and defines the technical mechanisms to allow Relying Parties present "Selective Abort and Omit" conditions and to request "Transformed Claims".   The specification also allows implementers the choice to implement each feature in isolation or in conjunction dependant on their requirements, provides options for restricted implementations, provides features for communication of these capabilities to Relying Parties and includes examples of how both features may be used.
 
 # Selective Abort/Omit
 
