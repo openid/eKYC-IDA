@@ -3,7 +3,7 @@ title = "OpenID Connect Advanced Syntax for Claims (ASC) 1.0"
 abbrev = "openid-connect-ASC-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
-keyword = ["openid", "identity assurance", "ekyc", "asc", data minimization]
+keyword = ["openid", "identity assurance", "ekyc", "asc", "data minimization"]
 
 [seriesInfo]
 name = "Internet-Draft"
