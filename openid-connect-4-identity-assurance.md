@@ -146,7 +146,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
 |`salutation`| string | End-User’s salutation, e.g., “Mr.”|
 |`title`| string | End-User’s title, e.g., “Dr.”|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”|
+|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
 
 ## txn Claim
@@ -436,7 +436,7 @@ The following example shows embedded attachments. The actual contents of the doc
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in access tokens or ID tokens.
+Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
 
 #### External Attachments
 
@@ -490,9 +490,30 @@ OPs can deliver `verified_claims` in various ways.
 
 A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
 
-OAuth Authorization Servers can add `verified_claims` to access tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
+OAuth Authorization Servers can add `verified_claims` to Access Tokens in JWT format or Token Introspection responses, either in plain JSON or JWT-protected format.
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are access tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]). 
+Here is an example of the payload of an Access Token in JWT format including Verified Claims:
+
+```json
+{
+  "iss": "https://server.example.com",
+  "sub": "248289761",
+  "aud": "https://rs.example.com/",
+  "exp": 1544645174,
+  "client_id": "s6BhdRkqt3_",
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "example"
+    },
+    "claims": {
+      "given_name": "Max",
+      "family_name": "Mustermann"
+    }
+  }
+}
+```
+
+An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
 
 In this case, every assertion provided by the external Claims source MUST contain 
 
@@ -516,11 +537,11 @@ and distributed Claims.
 
 <{{examples/response/distributed_claims.json}}
 
-The following example shows an ID token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims. 
+The following example shows an ID Token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims.
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The next example shows an ID token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
+The next example shows an ID Token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
@@ -529,7 +550,7 @@ The way an RP determines the key material used for validation of the signed asse
 
 The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
-If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
 Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances. 
 
@@ -644,7 +665,7 @@ The OP has the discretion to decide whether the requested verification data is t
 
 ### value/values
 
-The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/verification_method', `evidence/validation_method` and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field. 
+The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/verification_method`, `evidence/validation_method` and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section. 
 
@@ -828,7 +849,7 @@ The respective ID Token could be
 ## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
 This example shows how an OP can mix own Claims and Claims provided by  
-external sources in a single ID token. 
+external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
 
@@ -852,13 +873,13 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see @!predefined_values).
+`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see [@!predefined_values]).
 
-`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see @!predefined_values).
+`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see [@!predefined_values]).
 
-`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see @!predefined_values).
+`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see [@!predefined_values]).
 
-`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic_record". JSON array containing all electronic record types the OP supports (see @!predefined_values).
+`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]).
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`.
 
@@ -1013,11 +1034,11 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="J." surname="Bradley" fullname="John Bradley">
       <organization>Ping Identity</organization>
     </author>
-    <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros">
-      <organization>Google</organization>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
-      <organization> Illumila </organization>
+      <organization>Illumila</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>
@@ -1337,7 +1358,7 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”
+: End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net

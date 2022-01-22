@@ -29,11 +29,17 @@ This specification defines an extension of OpenID Connect to enable new features
 {mainmatter}
 
 # Introduction {#Introduction}
+
 - resolves ambiguity, e.g., applying value/values to compound claims.
+
 ## Terminology
+
 TBD
+
 # Scope
+
 TBD
+
 # Selective Abort/Omit
 
 Using Selective Abort/Omit (SAO), an RP can define the expected behavior of an OP when certain data is not available, when a user does not consent to the release of the data, or when restrictions defined on claims using `value`, `values`, or `max_age` cannot be fulfilled. 
@@ -64,7 +70,7 @@ For each of these two keys, one of the following expected "actions" can be defin
    action is set. This can be used by the RP to define a set of claims that is
    only useful when delivered in full.
 
- * `omit_verified_claims`: (Only applicable when used with [@ekyc].) Omit this
+ * `omit_verified_claims`: (Only applicable when used with [@!IDA].) Omit this
    particular claim and the whole `verified_claims` section. Only valid within
    the `verified_claims` section.
 
@@ -73,7 +79,7 @@ For each of these two keys, one of the following expected "actions" can be defin
    `access_denied` to the RP. The `error_description` SHOULD indicate which rule
    led to the abort of the transaction if and only if the action is
    `if_unavailable` or the user has consented to the release of the data (see
-   (#privacy_if_no) below).
+   (#privacy) below).
 
 If both conditions apply (e.g., the user did not consent to the release of data
 and this data does not fulfill a `value` restriction), the case `if_unavailable`
@@ -84,7 +90,7 @@ Omitting Claims can be recursive: If a Claim is omitted through `omit` or `omit_
 
 The following table shows the default actions when case keys are omitted:
 
-|                  | default | within `verified_claims/verification` of [@ekyc] |
+|                  | default | within `verified_claims/verification` of [@!IDA] |
 | ---------------- | ------- | ------------------------------------------------ |
 | `if_unavailable` | `omit`  | `omit`                                           |
 | `if_different`   | `omit`  | `omit_verified_claims`                           |
@@ -103,21 +109,24 @@ This example would yield the following results (among other outcomes, always ass
 | `email` not available                                        | `email` is omitted.                                            |
 | `email` is not `test@example.com`                            | Transaction is aborted.                                                 |
 | `trust_framework` is not `de_aml` or is unavailable                   | Transaction is aborted.                                                 |
-| `verification_process` is unavailable                                 | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |
-| verified `address` is unavailable                                     | `verified_claims` is omitted → `custom_paid_claim` is omitted as well   |
+| `verification_process` is unavailable                                 | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
+| verified `address` is unavailable                                     | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
 | verified `nationalities` or verified `place_of_birth` are unavailable | `nationalities`, `place_of_birth`, and `custom_paid_claim` are omitted. |
 
+
+## OP Metadata
+
+The OP advertises its capabilities with respect to Selective Abort/Omit in its openid-configuration (see [@!OpenID-Discovery]) using the following new element:
+
+`selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit" 
 
 ## Error Handling
 
 If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
 
+## Privacy Considerations {#privacy}
 
-## Privacy {#privacy_if_no}
-
-
-In the interest of data minimization, RPs SHOULD use the mechanisms shown above to limit cases in which incomplete data sets are provided by the OP that are not useful to the RP.
-
+Using Selective Abort/Omit can in general lead to more privacy preserving systems, as an RP can instruct an OP not to send incomplete datasets that are not useful to the RP.
 
 An RP might be able to derive information from a response even if the response is an error response or claims are omitted. For example, the following request can be used to derive whether or not the user is named `Max`:
 
@@ -133,22 +142,11 @@ An RP might be able to derive information from a response even if the response i
 
 When the request is aborted, the user is not called Max. In a naive implementation, the abort of the request might happen before the user has consented to the release of the data. In this case, using a series of carefully crafted requests, an RP might be able to derive substantial information about a user even if the user's name is never transferred from the OP to the RP directly. A malicious RP can use this to derive user information without the user's consent or without paying for the data.
 
-To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `if_not_match` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
+To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `if_different` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
 
 OPs MUST also consider whether the (un)availability of data (`if_unavailable`) can leak data in a similar way in the respective application and, if so, apply the same restrictions. 
 
 To the same end, and to avoid relying parties not paying for data, OPs SHOULD additionally consider rate-limiting requests and monitoring requests for anomalies (frequent dynamic changes in request structure, frequent aborts).
-
-## Selective Abort/Omit Metadata
-
-An OP supporting SAO shall publish the key `selective_abort_omit_supported` in its OP Metadata as follows:
-
-
-```json
-...
-  "selective_abort_omit_supported": true,
-...
-```
 
 ## Compatibility Considerations
 
@@ -159,15 +157,15 @@ An OP not supporting SAO will ignore the additional keys as defined in Section 5
 
 Using Transformed Claims (TC), a claim value can be transformed using a limited set of functions before any further evaluation on the claim value is performed and before the claim value is returned to the RP.
 
-Each Transformed Claim is based off exactly one Claim provided by the OP. For example, the Claim `birthdate` can be used to derive a Transformed Claim for age verification (End-User is above a certain age) by applying a suitable chain of functions.
+Each Transformed Claim is based off exactly one Claim provided by the OP. For example, the Claim `birthdate` can be used to derive a Transformed Claim for age verification (End-User is above a certain age) by applying a suitable chain of functions.  The number of functions in the chain MAY be limited by use of the OPTIONAL OP Metadata element `transformed_claims_max_depth`.
 
 Each function takes one input value (the original Claim's value or the output of the previous function) and produces one output value. Besides the input value, functions can only have static function arguments, typically zero or one.
 
 ## Example: Age Verification
 
-The Claim `birthdate`, a date, can be transformed into an integer using the function `years_ago`. This function outputs the number of years between the current date and the input date, rounded down. The resulting integer can be transformed using the function `gte` with the argument `18`. This function evaluates whether the input value is greater than or equal to the given argument. Its output is either `true` or `false`. The resulting Transformed Claim, representing whether the End-User is above 18 or not, can be aliased, for example `above_18`. This Claim can be used within the OpenID Connect `claims` parameter instead of or together with the original Claim, `birthdate`.
+The Claim `birthdate`, a date, can be transformed into an integer using the function `years_ago`. This function outputs the number of years between the current date and the input date, rounded down. The resulting integer can be transformed using the function `gte` with the argument `18`. This function evaluates whether the input value is greater than or equal to the given argument. Its output is either `true` or `false`. The resulting Transformed Claim, representing whether the End-User is above 18 or not, can be aliased, for example `age_18_or_over`. This Claim can be used within the OpenID Connect `claims` parameter instead of or together with the original Claim, `birthdate`.
 
-If data for the original Claim `birthdate` is unavailable, the new Claim `above_18` shall be treated like an unavailable Claim as well.
+If data for the original Claim `birthdate` is unavailable, the new Claim `age_18_or_over` shall be treated like an unavailable Claim as well.
 
 ## Defining Transformed Claims
 
@@ -183,7 +181,7 @@ For example, the Transformed Claim for age verification from above could be defi
 ```json
 {
   "transformed_claims": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -213,7 +211,7 @@ Example:
 ```json
 {
   "transformed_claims": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -227,15 +225,15 @@ Example:
   "id_token": {
     "given_name": null,
     "family_name": null,
-    ":above_18": null
+    ":age_18_or_over": null
   }
 }
 
 ```
 
-In some circumstances, the same Claim name can appear in different locations within the `claims` parameter with different meanings. For example, in [@ekyc], `birthdate` can also be used within `verified_claims/claims`. Therefore, the reference to the base Claim shall be evaluated relative to the location where the Transformed Claim is used. 
+In some circumstances, the same Claim name can appear in different locations within the `claims` parameter with different meanings. For example, in [@!IDA], `birthdate` can also be used within `verified_claims/claims`. Therefore, the reference to the base Claim shall be evaluated relative to the location where the Transformed Claim is used.
 
-Example: In [@ekyc], the same `above_18` Claim defined above can be evaluated based on the 'Verified Claim' `birthdate` when used like this:
+Example: In [@!IDA], the same `age_18_or_over` Claim defined above can be evaluated based on the 'Verified Claim' `birthdate` when used like this:
 
 ```json
 {
@@ -245,7 +243,7 @@ Example: In [@ekyc], the same `above_18` Claim defined above can be evaluated ba
       "claims": {
         "given_name": null,
         "family_name": null,
-        ":above_18": null
+        ":age_18_or_over": null
       },
       ...
     }
@@ -264,7 +262,7 @@ Any option available for normal Claims can also be used with Transformed Claims.
   "id_token": {
     "given_name": null,
     "family_name": null,
-    ":above_18": {
+    ":age_18_or_over": {
       "value": true,
       "essential": true
     }
@@ -275,7 +273,8 @@ Any option available for normal Claims can also be used with Transformed Claims.
 There is no requirement to use all defined Transformed Claims within a request.
 
 ## Data Types 
-Claims defined in [@!OpenID] and [@ekyc] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
+
+Claims defined in [@!OpenID] and [@!IDA] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
 
 Todo: Define input formats for date and datetime.
 
@@ -292,7 +291,7 @@ This specification defines the following functions:
 
 ### Counting Years
 
-Function signature: `years_ago(date|datetime Input, optional date ReferenceDate) → number`
+Function signature: `years_ago(date|datetime Input, optional date ReferenceDate) -> number`
 
 If only an input date or datetime is provided, returns the number of years elapsed since the given `Input` day, rounded down. With a `ReferenceDate`, returns the number of years elapsed between the `Input` date and the `ReferenceDate`. 
 
@@ -301,24 +300,28 @@ Note: If the year of the `Input` date is `0000`, the resulting Claim shall be un
 Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
 
 ### Equality
+
 Function signatures:
- * `eq(string Input, string Compare) → boolean`
- * `eq(number Input, number Compare) → boolean`
- * `eq(boolean Input, boolean Compare) → boolean`
- * `eq(date|datetime Input, date|datetime Compare) → boolean`
+
+ * `eq(string Input, string Compare) -> boolean`
+ * `eq(number Input, number Compare) -> boolean`
+ * `eq(boolean Input, boolean Compare) -> boolean`
+ * `eq(date|datetime Input, date|datetime Compare) -> boolean`
 
 Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. For comparisons between `date` and `datetime` values, the time of day is ignored unless `Input` and `Compare` are both of type `datetime`.
+
 ### Number/Date/Datetime Comparison
+
 Function signatures:
 
- * `gt(number Input, number Compare): → boolean` 
- * `gt(date|datetime Input, date|datetime Compare): → boolean` 
- * `lt(number Input, number Compare): → boolean` 
- * `lt(date|datetime Input, date|datetime Compare): → boolean` 
- * `gte(number Input, number Compare): → boolean`
- * `gte(date|datetime Input, date|datetime Compare): → boolean`
- * `lte(number Input, number Compare): → boolean`
- * `lte(date|datetime Input, date|datetime Compare): → boolean`
+ * `gt(number Input, number Compare): -> boolean` 
+ * `gt(date|datetime Input, date|datetime Compare): -> boolean` 
+ * `lt(number Input, number Compare): -> boolean` 
+ * `lt(date|datetime Input, date|datetime Compare): -> boolean` 
+ * `gte(number Input, number Compare): -> boolean`
+ * `gte(date|datetime Input, date|datetime Compare): -> boolean`
+ * `lte(number Input, number Compare): -> boolean`
+ * `lte(date|datetime Input, date|datetime Compare): -> boolean`
 
 Evaluate whether `Input` is greather/less than (or equal to) the given
 `Compare`. For comparisons between `date` and `datetime` values, the time of day
@@ -327,7 +330,8 @@ is ignored unless `Input` and `Compare` are both of type `datetime`.
 Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
 
 ### Hashing
-Function signature: `hash(string Input, string HashAlgorithm) → string`
+
+Function signature: `hash(string Input, string HashAlgorithm) -> string`
 
 Returns the hash of the UTF-8 representation of the input string, encoded as a
 lowercase hex string. `HashAlgorithm` refers to the hash algorithm to be used,
@@ -347,21 +351,24 @@ the hashes of all possible clear-text values and match the hashes against the
 hash provided by the RP in order to reveal the original clear-text value.
 
 ### Array Evaluation
+
 Function signatures:
- * `any(array of booleans Input) → boolean` 
- * `all(array of booleans Input) → boolean` 
- * `none(array of booleans Input) → boolean`
+
+ * `any(array of booleans Input) -> boolean` 
+ * `all(array of booleans Input) -> boolean` 
+ * `none(array of booleans Input) -> boolean`
 
 Return `true` if and only if any, all, or none of the boolean values in the `Input` array are `true`. Return `false` otherwise.
+
 ### JSON Object Access
 
-Function signature: `get(JSON object Input, string Key) → *`
+Function signature: `get(JSON object Input, string Key) -> *`
 
 From the JSON object `Input`, return the member with key `Key`. If the respective key is not available in the JSON object, the resulting Claim shall be unavailable.
 
 ### Matching 
 
-Function signature: `match(string Input, string RegEx) → boolean`
+Function signature: `match(string Input, string RegEx) -> boolean`
 
 Return `true` if and only if the `RegEx` matches the `Input` string. The match
 can be at any location within `Input` unless further constrained by `RegEx`. Return `false` otherwise.
@@ -390,7 +397,7 @@ All Transformation Functions shall follow the following conventions:
  * Transformation Functions shall be safe to execute for the OP for all combinations of inputs and arguments, as the requests generally come from an untrusted source. This includes security against Denial-of-Service attacks.
 
 
-## OP Metadata and Predefined Transformed Claims (PTC)
+## Predefined Transformed Claims (PTC)
 
 An OP supporting Transformed Claims shall publish the key `transformed_claims_functions_supported` containing an array of supported functions (only the function names) in its OP Metadata.
 
@@ -411,7 +418,7 @@ To predefine a Transformed Claim, the OP publishes the key `transformed_claims_p
 ```json
 ...
   "transformed_claims_predefined": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -421,7 +428,7 @@ To predefine a Transformed Claim, the OP publishes the key `transformed_claims_p
         ]
       ]
     }, 
-    "above_21": {
+    "age_21_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -443,7 +450,7 @@ were defined in `transformed_claims` in the request. However, two colons (`::`) 
   "id_token": {
     "given_name": null,
     "family_name": null,
-    "::above_18": {
+    "::age_18_or_over": {
       "value": true,
       "essential": true
     }
@@ -451,19 +458,18 @@ were defined in `transformed_claims` in the request. However, two colons (`::`) 
 }
 ```
 
-An OP may further set the key `transformed_claims_restricted` to `true` to
+An OP may further set the key `transformed_claims_max_count` to `0` to
 denote that only PTCs can be used and custom Transformed Claims are not
-supported. In this case, the OP shall ignore all contents of
-`transformed_claims` in the `claims` request object.
+supported.
 
 Example:
 
 ```json
 ...
   "transformed_claims_functions_supported": ["years_ago", "gte"],
-  "transformed_claims_restricted": true,
+  "transformed_claims_max_count": 0,
   "transformed_claims_predefined": {
-    "above_18": {
+    "age_18_or_over": {
       "claim": "birthdate",
       "fn": [
         "years_ago",
@@ -476,6 +482,27 @@ Example:
   },
 ...
 ```
+
+## OP Metadata
+
+The OP advertises its capabilities with respect to Transformed Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
+
+`transformed_claims_functions_supported`: OPTIONAL. JSON array indicating support for Transformed Claims, and containing an array of the supported function names. When present this array must have at least one member.
+
+`transformed_claims_predefined`: OPTIONAL. JSON object containing the definitions of all supported Predefined Transformed Claims following the same syntax as `transformed_claims` in the `claims` object. When present this object must contain at least one definition of a Predefined Transformed Claim. If this metadata value is omitted, the OP does not support Predefined Transformed Claims.
+
+`transformed_claims_max_depth`: OPTIONAL. Integer value indicating the maximum number of functions in a chain of functions used to define a transformed claim. If this metadata value is omitted, the OP MUST support chains of functions of any length.
+
+`transformed_claims_max_count`: OPTIONAL. Integer value indicating the maximum number of transformed claims an RP can define, excluding any Predefined Transformed Claims. If this is set to `0`, the RP may only use Predefined Transformed Claims.  If this metadata value is omitted, the OP MUST support any number of transformed claims.
+
+## Error Conditions
+The following error conditions MUST be checked by an OP, in this order:
+
+ 1. If the definition of a transformed claim provided by an RP uses more than `transformed_claims_max_depth` function applications or the number of custom transformed claims exceeds `transformed_claims_max_count`, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
+ 2. If an RP uses, in a definition for a transformed claim, a function not supported by the OP and therefore not listed in `transformed_claims_functions_supported`, or the wrong number of arguments, or a wrong type of argument, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
+ 3. Each transformed claim is based on a single base claim, as expressed by the `claim` key in the definition of the transformed claim. In case this base claim is not known to the OP, or data is not available for this claim, or similar conditions, the transformed claim MUST be treated the same as the base claim. For example, if the base claim is unknown to the OP, the transformed claim is handled as if it were an unknown claim as well. If an End-User choses not to release the base claim, or the base claim is not released to the RP for some other reason, the transformed claim MUST NOT be released as well.
+
+In general, if an RP references an undefined transformed claim in the `claims` parameter, the claim MUST be treated like a claim unknown to the OP. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
 
 ## UX and Privacy Considerations
 
@@ -496,28 +523,80 @@ OPs can use a number of strategies to ensure that End-User consent is always giv
 
 ## Compatibility Considerations
 
-An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined below, the `if_unknown` case will be triggered.
+An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
 
 ## Examples
 
-The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined below are used as well.
+The following example shows two custom Transformed Claims being defined and used. Note: Features from Selective Abort/Omit defined above are used as well.
 
 
 <{{asc/examples/request/asc_tc_partial_matching.json}}
 
-# Data Availability Feedback
 
-
-
-# Privacy Consideration {#Privacy}
-
-TBD
 # Security Considerations {#Security}
-TBD
+
+
+## Integrity Protection of the Authentication Request
+For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or attacker could create situations where the RP receives misleading data. 
+
+Moreover, some features in this specification are particularly suited for use cases of OpenID Connect where the RP pays for data received. In such use cases, integrity protection of the `claims` parameter can be advised to avoid having the RP pay for data not requested. 
+
+As an example for a malicious modification, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
+
+```
+    "age_18_or_over": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          18
+        ]
+      ]
+    }
+```
+
+to
+
+```
+    "age_18_or_over": {
+      "claim": "birthdate",
+      "fn": [
+        "years_ago",
+        [
+          "gte",
+          12
+        ]
+      ]
+    }
+```
+
+and pass the age verification check. When using Selective Abort/Omit, a user could create situations where a flow continues instead of being aborted due to a mismatch in the End-User's data.
+
+Therefore, the following rules apply:
+
+ * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected and authenticated.
+ * Authentication requests using Transformed Claims MUST only be accepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection and authentication. Since Predefined Transformed Claims are defined by the OP, integrity protection and authentication is not required for their use.
+
+Integrity protection and authentication of authentication requests can be achieved in particular by 
+
+ * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
+ * using JWT-Secured Authorization Requests [@RFC9101] to sign the authentication request parameters.
+
+Using a suitable security profile for OpenID Connect that includes authentication and integrity protection for the authentication request is RECOMMENDED, as this helps to ensure that the protection cannot be circumvented.
+
+## Safe Execution of Transformation Functions
+OPs MUST ensure that all possible combinations of transformation functions and their respective arguments can be executed securely and without undesired side effects. In particular, for any function supported by the OP, the OP MUST ensure that time and memory limits apply to avoid Denial-of-Service Attacks. For many functions, for example, comparison functions, this is usually inherent to the function itself. For other functions, execution time and complexity limits SHOULD be considered. For example, when applying regular expressions, Regular Expression DoS attacks (ReDoS) are a concern. 
+
+OPs therefore MAY limit the range of valid input arguments and valid combinations of functions to ensure a secure operation.
+
+OPs SHOULD consider setting `transformed_claims_max_depth` and `transformed_claims_max_count` to reasonable values to avoid Denial-of-Service attacks.
+
+
 
 {backmatter}
 
-<reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
@@ -538,6 +617,50 @@ TBD
    <date day="8" month="Nov" year="2014"/>
   </front>
 </reference>
+
+<reference anchor="OpenID-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
+  <front>
+    <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title>
+    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
+      <organization>NRI</organization>
+    </author>
+    <author initials="J." surname="Bradley" fullname="John Bradley">
+      <organization>Ping Identity</organization>
+    </author>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
+    </author>
+    <author initials="E." surname="Jay" fullname="Edmund Jay">
+      <organization>Illumila</organization>
+    </author>
+   <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="IDA" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
+  <front>
+    <title>OpenID Connect for Identity Assurance 1.0</title>
+    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
+      <organization>yes.com</organization>
+    </author>
+    <author initials="D." surname="Fett" fullname="Daniel Fett">
+      <organization>yes.com</organization>
+    </author>
+    <author initials="M." surname="Haine" fullname="Mark Haine">
+      <organization>Considrd.Consulting Ltd</organization>
+    </author>
+    <author initials="A." surname="Pulido" fullname="Alberto Pulido">
+      <organization>Santander</organization>
+    </author>
+    <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
+      <organization>1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</organization>
+    </author>
+    <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
+      <organization>KDDI Corporation</organization>
+    </author>
+  </front>
+</reference>
+
 # IANA Considerations
 
 TBD
@@ -545,6 +668,7 @@ TBD
 # Acknowledgements {#Acknowledgements}
 
 TBD
+
 # Notices
 
 Copyright (c) 2020 The OpenID Foundation.

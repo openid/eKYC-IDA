@@ -23,7 +23,7 @@
             {
               "desc": "Front of id document",
               "digest" : {
-                "alg": "SHA-256",
+                "alg": "sha-256",
                 "value": "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
               },
               "url": "https://example.com/attachments/pGL9yz4hZQ"
@@ -31,7 +31,7 @@
             {
               "desc": "Back of id document",
               "digest" : {
-                "alg": "SHA-256",
+                "alg": "sha-256",
                 "value": "/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM="
               },
               "url": "https://example.com/attachments/4Ag8IpOf95"
