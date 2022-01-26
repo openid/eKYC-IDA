@@ -88,15 +88,6 @@
         "type": {
           "type": "string"
         },
-        "policy":{
-          "type": "string"
-        },
-        "procedure": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
         "verifier": {
           "$ref": "#/definitions/verifier"
         }
@@ -108,17 +99,33 @@
         "type": {
           "type": "string"
         },
-        "policy":{
-          "type": "string"
-        },
-        "procedure": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
         "verifier": {
           "$ref": "#/definitions/verifier"
+        }
+      }
+    },
+    "assurance_details": {
+      "type": "object",
+      "properties": {
+        "assurance_type": {
+          "type": "string"
+        },
+        "evidence_classification": {
+          "type": "string"
+        },
+        "assurance_classification": {
+          "type": "string"
+        },
+        "evidence_ref": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "txn": "string"
+              }
+            ]
+          }
+
         }
       }
     },
@@ -502,8 +509,27 @@
                 "procedure": {
                   "type": "string"
                 },
-                "status": {
-                  "type": "string"
+                "assurance_details": {
+                  "type": "array",
+                  "items" : [
+                    {
+                      "assurance_type": {
+                        "type": "string"
+                      },
+                      "assurance_classification": {
+                        "type": "string"
+                      },
+                      "evidence_ref": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "txn": "string",
+                            "evidence_classification": "string"
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             },

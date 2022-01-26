@@ -13,14 +13,10 @@
         {
           "type": "vouch",
           "validation_method": {
-            "type": "vpip",
-            "policy": "gpg45",
-            "procedure": "score_3"
+            "type": "vpip"
           },
           "verification_method": {
-            "type": "pvr",
-            "policy": "gpg45",
-            "procedure": "score_3"
+            "type": "pvr"
           },
           "time": "2020-02-23T07:52Z",
           "attestation": {

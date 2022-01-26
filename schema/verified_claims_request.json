@@ -508,8 +508,24 @@
                 "procedure": {
                   "$ref": "#/definitions/constrainable_element"
                 },
-                "status": {
-                  "$ref": "#/definitions/constrainable_element"
+                "assurance_details": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "oneOf": [
+                      {
+                        "assurance_type":{
+                          "$ref": "#/definitions/constrainable_element"
+                        },
+                        "assurance_classification": {
+                          "$ref": "#/definitions/constrainable_element"
+                        },
+                        "evidence_ref": {
+                          "$ref": "#/definitions/constrainable_element"
+                        }
+                      }
+                    ]
+                  }
                 }
               }
             },

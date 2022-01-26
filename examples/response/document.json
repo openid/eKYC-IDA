@@ -1,57 +1,77 @@
 {
   "verified_claims": {
     "verification": {
-      "trust_framework": "uk_tfida",
-      "assurance_level": "medium",
+      "trust_framework": "nist_800_63A",
+      "assurance_level": "ial2",
       "assurance_process": {
-          "policy": "gpg45",
-          "procedure": "m1b"
+        "assurance_details": [
+          {
+            "assurance_type": "evidence_validation",
+            "assurance_classification": "strong",
+            "evidence_ref": [
+              {
+                "txn": "DL1-93h506th2f45hf"
+              }
+            ]
+          },
+          {
+            "assurance_type": "verification",
+            "assurance_classification": "strong",
+            "evidence_ref": [
+              {
+                "txn": "v-93jfk284ugjfj2093"
+              }
+            ]
+          }
+        ]
       },
-      "time": "2021-05-11T14:29Z",
+      "time": "2021-06-06T05:32Z",
       "verification_process": "7675D80F-57E0-AB14-9543-26B41FC22",
       "evidence": [
         {
           "type": "document",
           "validation_method": {
-            "type": "vpiruv",
-            "policy": "gpg45",
-            "procedure": "score_3"
+            "type": "vpip",
+            "verifier":{
+              "organization": "doc_checker",
+              "txn": "DL1-93h506th2f45hf"
+            }
           },
           "verification_method": {
             "type": "pvp",
-            "policy": "gpg45",
-            "procedure": "score_3" 
+            "verifier":{
+              "organization": "face_checker",
+              "txn": "v-93jfk284ugjfj2093"
+            }
           },
-          "time": "2021-04-09T14:12Z",
+          "time": "2021-06-06T05:33Z",
           "document_details": {
             "type": "driving_permit",
-            "personal_number": "MORGA753116SM9IJ",
-            "document_number": "MORGA753116SM9IJ35",
-            "serial_number": "ZG21000001",
-            "date_of_issuance": "2021-01-01",
-            "date_of_expiry": "2030-12-31",
+            "document_number": "I1234568",
+            "date_of_issuance": "2019-09-05",
+            "date_of_expiry": "2024-08-01",
             "issuer": {
-                "name": "DVLA",
-                "country": "UK",
-                "country_code": "GBR",
-                "jurisdiction": "GB-GBN"
+                "name": "CA DMV",
+                "country": "US",
+                "country_code": "USA",
+                "jurisdiction": "CA"
             }
           }
         }
       ]
     },
     "claims": {
-      "given_name": "Sarah",
-      "family_name": "Meredyth",
-      "birthdate": "1976-03-11",
+      "given_name": "Inga",
+      "family_name": "Silverstone",
+      "birthdate": "1991-11-06",
       "place_of_birth": {
-        "country": "UK"
+        "country": "USA"
       },
       "address": {
-        "locality": "Edinburgh",
-        "postal_code": "EH1 9GP",
-        "country": "UK",
-        "street_address": "122 Burns Crescent"
+        "locality": "Shoshone",
+        "postal_code": "CA 92384",
+        "country": "USA",
+        "street_address": "114 Old State Hwy 127"
       }
     }
   }

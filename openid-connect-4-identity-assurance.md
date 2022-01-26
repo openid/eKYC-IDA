@@ -217,11 +217,16 @@ For example, the trust framework `eidas` can have the identity assurance levels 
 
 For information on predefined trust framework and assurance level values see [@!predefined_values]. 
 
-`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed, with one or more of the following sub-elements:
+`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the  `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
 
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the identity verification process.
+  * `assurance_details`: OPTIONAL. JSON array denoting the details about how the evidence complies with the `policy`. It has the following sub-elements:
+     * `assurance_type`: OPTIONAL. String denoting which part of the `assurance_process` the evidence fulfils.
+    * `assurance_classification`: OPTIONAL. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
+    * `evidence_ref`: OPTIONAL. JSON array of the evidence being referred to. It has the following sub-elements:
+      * `txn`: REQUIRED. Identifier referring to the `verifier` `txn` in the `evidence`. The OP MUST ensure that this is present in the `evidence` when this element is used.
+      * `evidence_classification`: OPTIONAL. String indicating any meta data about the `evidence` that is required by the `assurnace_process` in order to demonstrate compliance with the `trust_framework`.
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
 
@@ -260,9 +265,6 @@ The following elements are contained in an evidence sub-element where type is `d
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the document was determined. 
 
   * `type`: REQUIRED. String representing the method used to check the authenticity of the document. For information on predefined `validation_method` values see [@!predefined_values].
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the validation.
   * `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the evidence validation. This object SHOULD be included if the OP did not perform the validation itself. This object consists of the following properties:
      * `organization`: REQUIRED. String denoting the organization which performed the validation on behalf of the OP.
      * `txn`: OPTIONAL. Identifier referring to the evidence validation transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -270,9 +272,6 @@ The following elements are contained in an evidence sub-element where type is `d
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
 
   * `type`: REQUIRED. String representing the method used to verify that the user is the person that the document refers to. For information on predefined `verification_method` values see [@!predefined_values].
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the verification.
   * `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the verification. This object SHOULD be included if the OP did not perform the verification itself. This object consists of the following properties:
      * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
      * `txn`: OPTIONAL. Identifier referring to the verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -310,9 +309,6 @@ The following elements are contained in an evidence sub-element where type is `e
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the record was determined. 
 
   * `type`: REQUIRED. String representing the method used to check the authenticity of the record. For information on predefined `validation_method` values see [@!predefined_values].
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the validation.
   * `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the evidence validation. This object SHOULD be included if the OP did not perform the validation itself. This object consists of the following properties:
      * `organization`: REQUIRED. String denoting the organization which performed the validation on behalf of the OP.
      * `txn`: OPTIONAL. Identifier referring to the evidence validation transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -320,9 +316,6 @@ The following elements are contained in an evidence sub-element where type is `e
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the `claims`.
 
   * `type`: REQUIRED. String representing the method used to verify that the user is the person that the electronic record refers to. For information on predefined `verification_method` values see [@!predefined_values].
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the verification.
   * `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the verification. This object SHOULD be included if the OP did not perform the verification itself. This object consists of the following properties:
      * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
      * `txn`: OPTIONAL. Identifier referring to the verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -356,9 +349,6 @@ The following elements are contained in an evidence sub-element where type is `v
 `validation_method`: OPTIONAL. JSON object representing how the authenticity of the vouch was determined. 
 
   * `type`: REQUIRED. String representing the method used to check the authenticity of the vouch. For information on predefined `validation_method` values see [@!predefined_values].
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the validation.
   * `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the evidence validation. This object SHOULD be included if the OP did not perform the validation itself. This object consists of the following properties:
      * `organization`: REQUIRED. String denoting the organization which performed the validation on behalf of the OP.
      * `txn`: OPTIONAL. Identifier referring to the evidence validation transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -366,9 +356,6 @@ The following elements are contained in an evidence sub-element where type is `v
 `verification_method`: OPTIONAL. JSON object representing how the user was proven to be the owner of the Claims.
 
   * `type`: REQUIRED. String representing the method used to verify that the user is the person that the vouch refers to. For information on predefined `verification_method` values see [@!predefined_values].
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `status`: OPTIONAL. String representing the current status of the verification.
   * `verifier`: OPTIONAL. JSON object denoting the legal entity that performed the verification. This object SHOULD be included if the OP did not perform the verification itself. This object consists of the following properties:
      * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
      * `txn`: OPTIONAL. Identifier referring to the verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -793,6 +780,10 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 ## Document with other checks 
 
 <{{examples/response/document_with_checks.json}}
+
+## Evidence with all assurance details
+
+<{{examples/response/evidence_with_assurance_details.json}}
 
 ## Utility statement with attachments
 
