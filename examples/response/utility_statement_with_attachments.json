@@ -7,9 +7,11 @@
       "evidence": [
         {
           "type": "document",
-          "validation_method": {
-            "type": "vpip"
-          },
+          "check_method": [
+            {
+              "check_type": "vpip"
+            }
+          ],
           "time": "2021-04-09T14:12Z",
           "document_details": {
             "type": "utility_statement",

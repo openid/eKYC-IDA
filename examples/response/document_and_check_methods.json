@@ -7,12 +7,14 @@
       "evidence": [
         {
           "type": "document",
-          "validation_method": {
-            "type": "vcrypt"
-          },
-          "verification_method": {
-              "type": "bvr"
-          },
+          "check_method": [
+            {
+              "check_type": "vcrypt"
+            },
+            {
+              "check_type": "bvr"
+            }
+          ],
           "time": "2019-04-20T20:11Z",
           "document_details": {
             "type": "passport",

@@ -82,52 +82,21 @@
         }
       }
     },
-    "validation_method": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "verifier": {
-          "$ref": "#/definitions/verifier"
-        }
-      }
-    },
-    "verification_method": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "verifier": {
-          "$ref": "#/definitions/verifier"
-        }
-      }
-    },
-    "assurance_details": {
-      "type": "object",
-      "properties": {
-        "assurance_type": {
-          "type": "string"
-        },
-        "evidence_classification": {
-          "type": "string"
-        },
-        "assurance_classification": {
-          "type": "string"
-        },
-        "evidence_ref": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "txn": "string"
-              }
-            ]
+    "check_method": {
+      "type": "array",
+      "items": [
+        {
+          "check_type": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "txn": {
+            "type": "string"
           }
-
         }
-      }
+      ]
     },
     "evidence": {
       "type": "object",
@@ -187,11 +156,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
+              "check_method": {
+                "$ref": "#/definitions/check_method"
               },
               "method": {
                 "type": "string"
@@ -222,14 +188,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "$ref": "#/definitions/verifier"
+              "check_method": {
+                "$ref": "#/definitions/check_method"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
@@ -297,14 +257,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "$ref": "#/definitions/verifier"
+              "check_method": {
+                "$ref": "#/definitions/check_method"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
@@ -511,7 +465,7 @@
                 },
                 "assurance_details": {
                   "type": "array",
-                  "items" : [
+                  "items": [
                     {
                       "assurance_type": {
                         "type": "string"
@@ -523,8 +477,12 @@
                         "type": "array",
                         "items": [
                           {
-                            "txn": "string",
-                            "evidence_classification": "string"
+                            "txn": {
+                              "type": "string"
+                            },
+                            "evidence_classification": {
+                              "type": "string"
+                            }
                           }
                         ]
                       }
@@ -570,8 +528,8 @@
     "distributed_claims_available_def": {
       "type": "object",
       "properties": {},
-      "additionalProperties": {
-        "$ref": "verified_claims_request-12.json#definitions/verified_claims_def"
+      "additionalProperties": { 
+        "$ref": "#/definitions/verified_claims_def"
       }
     },
     "aggregated_claims": {

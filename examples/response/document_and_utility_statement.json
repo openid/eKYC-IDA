@@ -7,12 +7,14 @@
       "evidence": [
         {
           "type": "document",
-          "validation_method": {
-            "type": "vpip"
-          },
-          "verification_method": {
-            "type": "pvp"
-          },
+          "check_method": [
+            {
+              "check_type": "pvp"
+            },
+            {
+              "check_type": "vpip"
+            }
+          ],
           "time": "2012-04-22T11:30Z",
           "document_details": {
             "type": "de_erp_replacement_idcard",

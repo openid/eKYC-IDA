@@ -56,13 +56,13 @@
       "evidence": [
         {
           "type": "document",
-          "validation_method": {
-            "type": "data",
-            "verifier":{
+          "check_method": [
+            {
+              "check_type": "data",
               "organization": "DVLA",
               "txn": "DL1-85762937582385820"
             }
-          },
+          ],
           "time": "2021-04-09T14:12Z",
           "document_details": {
             "type": "driving_permit",
@@ -81,10 +81,13 @@
         },
         {
           "type": "electronic_record",
-          "verification_method": {
-            "type": "kbv",
-            "txn": "kbv1-hf934hn09234ng03jj3"
-          },
+          "check_method": [
+            {
+              "check_type": "kbv",
+              "organization": "TheCreditBureau",
+              "txn": "kbv1-hf934hn09234ng03jj3"
+            }
+          ],
           "time": "2021-04-09T14:12Z",
           "record": {
             "type": "mortgage_account",
@@ -95,24 +98,30 @@
         },
         {
           "type": "electronic_record",
-          "verification_method": {
-            "type": "kbv",
-            "txn": "kbv2-nm0f23u9459fj38u5j6"
-          },
+          "check_method": [
+            {
+              "check_type": "kbv",
+              "organization": "OpenBankingTPP",
+              "txn": "kbv2-nm0f23u9459fj38u5j6"
+            }
+          ],
           "time": "2021-04-09T14:12Z",
           "record": {
             "type": "bank_account",
             "source": {
-              "name": "TheCreditBureau"
+              "name": "TheBank"
             }
           }
         },
         {
           "type": "electronic_record",
-          "verification_method": {
-            "type": "kbv",
-            "txn": "kbv3-jf9028h023hj0f9jh23"
-          },
+          "check_method": [
+            {
+              "check_type": "kbv",
+              "organization": "GSMA",
+              "txn": "kbv3-jf9028h023hj0f9jh23"
+            }
+          ],
           "time": "2021-04-09T15:42Z",
           "record": {
             "type": "mno",
@@ -123,10 +132,13 @@
         },
         {
           "type": "electronic_record",
-          "validation_method": {
-            "type": "data",
-            "txn": "GRO-9824hngvp9278hf5tmp924y5h"
-          },
+          "check_method": [
+            {
+              "check_type": "data",
+              "organization": "GRO",
+              "txn": "GRO-9824hngvp9278hf5tmp924y5h"
+            }
+          ],
           "time": "2021-04-09T16:12Z",
           "record": {
             "type": "death_register",
@@ -143,10 +155,13 @@
         },
         {
           "type": "electronic_record",
-          "validation_method": {
-            "type": "data",
-            "txn": "fi-2nbf02hfn384ufn"
-          },
+          "check_method": [
+            {
+              "check_type": "data",
+              "organization": "NextLex",
+              "txn": "fi-2nbf02hfn384ufn"
+            }
+          ],
           "time": "2021-04-09T16:51Z",
           "record": {
             "type": "fraud_register",

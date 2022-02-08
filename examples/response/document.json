@@ -30,20 +30,18 @@
       "evidence": [
         {
           "type": "document",
-          "validation_method": {
-            "type": "vpip",
-            "verifier":{
+          "check_method": [
+            {
+              "check_type": "vpip",
               "organization": "doc_checker",
               "txn": "DL1-93h506th2f45hf"
-            }
-          },
-          "verification_method": {
-            "type": "pvp",
-            "verifier":{
+            },
+            {
+              "check_type": "pvp",
               "organization": "face_checker",
               "txn": "v-93jfk284ugjfj2093"
             }
-          },
+          ],         
           "time": "2021-06-06T05:33Z",
           "document_details": {
             "type": "driving_permit",
