@@ -266,7 +266,7 @@ The following elements are contained in an evidence sub-element where type is `d
 `check_method`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`.
 
   * `type`: REQUIRED. String representing the check done, this includes processes suchs as checking the authenticity of the document, or verifing the user's biometric against an identity document. For information on predefined `check_method` values see [@!predefined_values].
-  * `organization`: String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
+  * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
 `method`: OPTIONAL. The method used to validate the document and verify the person is the owner of it. In practice this is a combination of a several instances `check_method`, implementers are recommended to use the `check_method` type and deprecate the use of this option unless methods are defined by the trust framework. For information on predefined method values see [@!predefined_values].
@@ -301,7 +301,7 @@ The following elements are contained in an evidence sub-element where type is `e
 `check_method`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`.
 
   * `type`: REQUIRED. String representing the check done. For information on predefined `check_method` values see [@!predefined_values].
-  * `organization`: String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
+  * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
