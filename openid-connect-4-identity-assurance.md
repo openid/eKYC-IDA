@@ -146,7 +146,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
 |`salutation`| string | End-User’s salutation, e.g., “Mr.”|
 |`title`| string | End-User’s title, e.g., “Dr.”|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”|
+|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
 
 ## txn Claim
@@ -837,21 +837,21 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e., the OpenID Connect for Identity Assurance extension.
 
-`trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array must have at least one member.
+`trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array MUST have at least one member.
 
-`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array may have zero or more members.
+`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member.
 
-`documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
+`documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification. This array MUST have at least one member.
 
 `documents_methods_supported`: OPTIONAL. JSON array containing the check_method process the OP supports (see @!predefined_values).
 
 `documents_check_methods_supported`: OPTIONAL. JSON array containing the document check methods the OP supports (see @!predefined_values).
 
-`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic_record". JSON array containing all electronic record types the OP supports (see @!predefined_values).
+`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`.
+`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
-`attachments_supported`: REQUIRED when OP supports external attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
+`attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member.
 
 `digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
 
@@ -862,7 +862,7 @@ This is an example openid-configuration snippet:
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
-     "nist_800_63A_3"
+     "nist_800_63A"
    ],
    "evidence_supported": [
       "document",
@@ -997,11 +997,11 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="J." surname="Bradley" fullname="John Bradley">
       <organization>Ping Identity</organization>
     </author>
-    <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros">
-      <organization>Google</organization>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
-      <organization> Illumila </organization>
+      <organization>Illumila</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>
@@ -1162,7 +1162,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-11.json">
+<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-12.json">
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
     <author>
@@ -1172,7 +1172,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-11.json">
+<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-12.json">
   <front>
     <title>JSON Schema for requesting verified_claims</title>
     <author>
@@ -1321,7 +1321,7 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: End-User’s mobile phone numer formatted according to ITU-T recommendation [@!E.164], e.g., “+1999550123”
+: End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net

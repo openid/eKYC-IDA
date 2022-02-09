@@ -528,7 +528,7 @@
     "distributed_claims_available_def": {
       "type": "object",
       "properties": {},
-      "additionalProperties": { 
+      "additionalProperties": {
         "$ref": "verified_claims_request-12.json#/definitions/verified_claims_def"
       }
     },

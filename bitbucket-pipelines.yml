@@ -16,11 +16,12 @@ pipelines:
         script:
           - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
           - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-authority.md
+          - docker run -v `pwd`:/data danielfett/markdown2rfc openid-advanced-syntax-for-claims.md
           - mv openid-connect-4-identity-assurance-*.html openid-connect-4-identity-assurance.html
           - mv openid-authority-*.html openid-authority.html
+          - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
         artifacts:
-          - openid-connect-4-identity-assurance.html
-          - openid-authority.html
+          - '*.html'
   branches:
     master:
       - step:
@@ -37,20 +38,23 @@ pipelines:
           script:
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-authority.md
+            - docker run -v `pwd`:/data danielfett/markdown2rfc openid-advanced-syntax-for-claims.md
             - mv openid-connect-4-identity-assurance-*.html openid-connect-4-identity-assurance.html
             - mv openid-authority-*.html openid-authority.html
+            - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
           artifacts:
-            - openid-connect-4-identity-assurance.html
-            - openid-authority.html
+            - '*.html'
       - step:
           name: publish
+          clone:
+            enabled: false
           script:
             - git config --global user.email "pipeline@bitbucket.org"
             - git config --global user.name "Bitbucket eKYC Pipeline"
             - git config --global push.default simple
             - git clone git@bitbucket.org:openid/openid.bitbucket.io.git
             - mkdir -p openid.bitbucket.io/ekyc/
-            - cp openid-connect-4-identity-assurance.html openid-authority.html openid.bitbucket.io/ekyc/
+            - cp *.html openid.bitbucket.io/ekyc/
             - cd openid.bitbucket.io/ekyc
             - git add *
             - git commit -m "Update eKYC drafts"

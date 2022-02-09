@@ -11,6 +11,7 @@ The current SNAPSHOT versions is being built automatically from the master branc
 
 * https://openid.bitbucket.io/ekyc/openid-connect-4-identity-assurance.html
 * https://openid.bitbucket.io/ekyc/openid-authority.html
+* https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html
  
 ### How do I get set up? ###
 
@@ -39,7 +40,7 @@ docker build -t openid.net/tests-oidc4ida tests
 
 ### Build the HTML ###
 
-docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
+```docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md```
 
 ### Contribution guidelines ###
 
