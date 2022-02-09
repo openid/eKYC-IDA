@@ -145,45 +145,21 @@
         }
       }
     },
-    "validation_method": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "policy":{
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "procedure": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "status": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "verifier": {
-            "$ref": "#/definitions/verifier"
+    "check_method": {
+      "type": "array",
+      "items": [
+        {
+          "check_type": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "txn": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "verification_method": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "policy":{
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "procedure": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "status": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "verifier": {
-          "$ref": "#/definitions/verifier"
-        }
-      }
+      ]
     },
     "evidence": {
       "type": "object",
@@ -247,11 +223,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
+              "check": {
+                "$ref": "#/definitions/check_method"
               },
               "method": {
                 "$ref": "#/definitions/constrainable_element"
@@ -282,14 +255,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "$ref": "#/definitions/verifier"
+              "check_method": {
+                "$ref": "#/definitions/check_method"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
@@ -354,14 +321,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "$ref": "#/definitions/verifier"
+              "check_method": {
+                "$ref": "#/definitions/check_method"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"

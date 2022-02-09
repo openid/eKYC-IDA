@@ -118,7 +118,7 @@ From a technical perspective, this means this specification allows the OP to pro
 
 The representation defined in this specification can be used to provide RPs with Verified Claims about the End-User via any appropriate channel. In the context of OpenID Connnect, Verified Claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth Access Tokens or Token Introspection responses to provide resource servers with Verified Claims.
 
-This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence, validation, and verification processes.
+This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes.
 
 In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect Claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey Claims about End-Users.
 
@@ -635,7 +635,7 @@ The OP has the discretion to decide whether the requested verification data is t
 
 ### value/values
 
-The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/verification_method', `evidence/validation_method` and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
+The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/check_method', and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section.
 
@@ -778,10 +778,6 @@ Subsequent sections contain examples for using the `verified_claims` Claim on di
 
 <{{examples/response/vouch_with_attachments.json}}
 
-## Document with validation and verification details
-
-<{{examples/response/document_validation_verification_methods.json}}
-
 ## Multiple Verified Claims
 
 <{{examples/response/multiple_verified_claims.json}}
@@ -847,11 +843,9 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see @!predefined_values).
+`documents_methods_supported`: OPTIONAL. JSON array containing the check_method process the OP supports (see @!predefined_values).
 
-`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see @!predefined_values).
-
-`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see @!predefined_values).
+`documents_check_methods_supported`: OPTIONAL. JSON array containing the document check methods the OP supports (see @!predefined_values).
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic_record". JSON array containing all electronic record types the OP supports (see @!predefined_values).
 
