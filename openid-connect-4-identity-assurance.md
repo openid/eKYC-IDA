@@ -261,7 +261,7 @@ Depending on the evidence type additional elements are defined, as described in 
 
 The following elements are contained in an evidence sub-element where type is `document`.
 
-`type`: REQUIRED. Value MUST be set to `document`. Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`.
+`type`: REQUIRED. Value MUST be set to `document`.
 
 `check_method`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`.
 
