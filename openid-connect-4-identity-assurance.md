@@ -216,7 +216,7 @@ For example, the trust framework `eidas` can have the identity assurance levels 
 
 For information on predefined trust framework and assurance level values see [@!predefined_values].
 
-`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the  `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
+`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the  `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
 
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
@@ -326,7 +326,7 @@ The following elements are contained in an evidence sub-element where type is `v
 
 `check_method`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`.
 
-  * `type`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user's as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values].
+  * `type`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
 
