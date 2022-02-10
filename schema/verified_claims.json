@@ -480,8 +480,13 @@
                             "txn": {
                               "type": "string"
                             },
-                            "evidence_classification": {
-                              "type": "string"
+                            "evidence_metadata": {
+                              "type": "object",
+                              "properties": {
+                                "evidence_classification": {
+                                  "type": "string"
+                                }
+                              }
                             }
                           }
                         ]

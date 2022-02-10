@@ -32,7 +32,7 @@
           "type": "document",
           "check_method": [
             {
-              "check_type": "vpip",
+              "check_type": "vpiruv",
               "organization": "doc_checker",
               "txn": "DL1-93h506th2f45hf"
             },
