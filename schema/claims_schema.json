@@ -2,36 +2,6 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json",
   "definitions": {
-    "xconstrainable_element": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string"
-            },
-            "values": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1
-            },
-            "essential": {
-              "type": "boolean"
-            },
-            "purpose": {
-              "type": "string",
-              "minLength": 3,
-              "maxLength": 300
-            }
-          }
-        }
-      ]
-    },
     "ISO_country_code_type": {
       "type": "string",
       "pattern": "^[a-zA-Z]{2}[a-zA-Z]?$"

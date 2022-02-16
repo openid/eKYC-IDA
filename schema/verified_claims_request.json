@@ -80,7 +80,7 @@
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "claims_schema.json#/definitions/xconstrainable_element"
+          "$ref": "#/definitions/constrainable_element"
         },
         "document_number": {
           "$ref": "#/definitions/simple_element"
