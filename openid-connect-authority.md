@@ -287,7 +287,7 @@ In the case that the authority applies to a Legal entity the `applies_to` elemen
 * `date_of_incorporation`
 * `beneficial_owners`
 
-When used he `beneficial_owners` claim will be of the form of an array containing one or more records that describe a natural person who ultimately has control over that legal entity as described in the FATF Guidance [@!FATF-BO-Guidance].  The content of the `beneficial_owners' records SHOULD be of the form described in this section when describing a natural person.
+When used the `beneficial_owners` claim will be of the form of an array containing one or more records that describe a natural person who ultimately has control over that legal entity as described in the FATF Guidance [@!FATF-BO-Guidance].  The content of the `beneficial_owners' records SHOULD be of the form described in this section when describing a natural person.
 
 ## `permission` element
 
