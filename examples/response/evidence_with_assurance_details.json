@@ -68,9 +68,9 @@
       "evidence": [
         {
           "type": "document",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "data",
+              "check_method": "data",
               "organization": "DVLA",
               "txn": "DL1-85762937582385820"
             }
@@ -93,9 +93,9 @@
         },
         {
           "type": "electronic_record",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "kbv",
+              "check_method": "kbv",
               "organization": "TheCreditBureau",
               "txn": "kbv1-hf934hn09234ng03jj3"
             }
@@ -110,9 +110,9 @@
         },
         {
           "type": "electronic_record",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "kbv",
+              "check_method": "kbv",
               "organization": "OpenBankingTPP",
               "txn": "kbv2-nm0f23u9459fj38u5j6"
             }
@@ -127,9 +127,9 @@
         },
         {
           "type": "electronic_record",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "kbv",
+              "check_method": "kbv",
               "organization": "GSMA",
               "txn": "kbv3-jf9028h023hj0f9jh23"
             }
@@ -144,9 +144,9 @@
         },
         {
           "type": "electronic_record",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "data",
+              "check_method": "data",
               "organization": "GRO",
               "txn": "GRO-9824hngvp9278hf5tmp924y5h"
             }
@@ -167,9 +167,9 @@
         },
         {
           "type": "electronic_record",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "data",
+              "check_method": "data",
               "organization": "NextLex",
               "txn": "fi-2nbf02hfn384ufn"
             }

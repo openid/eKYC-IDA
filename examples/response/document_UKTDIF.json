@@ -35,14 +35,14 @@
       "evidence": [
         {
           "type": "document",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "vpiruv",
+              "check_method": "vpiruv",
               "organization": "doc_checker",
               "txn": "DL1-93h506th2f45hf"
             },
             {
-              "check_type": "pvp",
+              "check_method": "pvp",
               "organization": "face_checker",
               "txn": "v-93jfk284ugjfj2093"
             }

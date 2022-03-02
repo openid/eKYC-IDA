@@ -8,12 +8,12 @@
       "evidence": [
         {
           "type": "electronic_record",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "data"
+              "check_method": "data"
             },
             {
-              "check_type": "token"
+              "check_method": "token"
             }
           ],         
           "time": "2021-02-15T16:51Z",

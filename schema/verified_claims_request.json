@@ -145,11 +145,11 @@
         }
       }
     },
-    "check_method": {
+    "check_details": {
       "type": "array",
       "items": [
         {
-          "check_type": {
+          "check_method": {
             "type": "string"
           },
           "organization": {
@@ -224,7 +224,7 @@
           "then": {
             "properties": {
               "check": {
-                "$ref": "#/definitions/check_method"
+                "$ref": "#/definitions/check_details"
               },
               "method": {
                 "$ref": "#/definitions/constrainable_element"
@@ -255,8 +255,8 @@
           },
           "then": {
             "properties": {
-              "check_method": {
-                "$ref": "#/definitions/check_method"
+              "check_details": {
+                "$ref": "#/definitions/check_details"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
@@ -321,8 +321,8 @@
           },
           "then": {
             "properties": {
-              "check_method": {
-                "$ref": "#/definitions/check_method"
+              "check_details": {
+                "$ref": "#/definitions/check_details"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"

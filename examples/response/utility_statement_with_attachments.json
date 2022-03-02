@@ -7,9 +7,9 @@
       "evidence": [
         {
           "type": "document",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "vpip"
+              "check_method": "vpip"
             }
           ],
           "time": "2021-04-09T14:12Z",

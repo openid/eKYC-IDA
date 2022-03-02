@@ -8,12 +8,12 @@
       "evidence": [
         {
           "type": "vouch",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "vcrypt"
+              "check_method": "vcrypt"
             },
             {
-              "check_type": "bvr"
+              "check_method": "bvr"
             }
           ],
           "time": "2020-03-19T12:42Z",

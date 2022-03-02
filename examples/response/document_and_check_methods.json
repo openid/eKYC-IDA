@@ -27,13 +27,13 @@
       "evidence": [
         {
           "type": "document",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "vcrypt",
+              "check_method": "vcrypt",
               "txn": "LD-95912059850982"
             },
             {
-              "check_type": "bvr",
+              "check_method": "bvr",
               "txn": "V-ng034hng2945nqw"
             }
           ],

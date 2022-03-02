@@ -12,12 +12,12 @@
       "evidence": [
         {
           "type": "vouch",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "vpip"
+              "check_method": "vpip"
             },
             {
-              "check_type": "pvr"
+              "check_method": "pvr"
             }
           ],
           "time": "2020-02-23T07:52Z",

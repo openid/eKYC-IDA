@@ -7,12 +7,12 @@
       "evidence": [
         {
           "type": "document",
-          "check_method": [
+          "check_details": [
             {
-              "check_type": "pvp"
+              "check_method": "pvp"
             },
             {
-              "check_type": "vpip"
+              "check_method": "vpip"
             }
           ],
           "time": "2012-04-22T11:30Z",
