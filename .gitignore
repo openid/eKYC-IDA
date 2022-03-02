@@ -3,9 +3,3 @@
 *.txt
 oidf.code-workspace
 tests/
-temp.json
-.idea/ekyc-ida.iml
-.vs/ekyc-ida/project-colors.json
-.vs/ekyc-ida/v17/.suo
-.vs/slnx.sqlite
-.vs/VSWorkspaceState.json
