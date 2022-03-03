@@ -23,7 +23,7 @@
               "desc": "Front of id document",
               "digest": {
                 "alg": "sha-256",
-                "value": "nVW19w6EVNWNQ8fmRCxrxqw4xLUs+T8eI0tpjZo820Bc"
+                "value": "qC1zE5AfxylOFLrCnOIURXJUvnZwSFe5uUj8t6hdQVM="
               },
               "url": "https://example.com/attachments/pGL9yz4hZQ",
               "access_token": "ksj3n283dke",
@@ -33,7 +33,7 @@
               "desc": "Back of id document",
               "digest": {
                 "alg": "sha-256",
-                "value": "2QcDeLJ/qeXJn4nP+v3nijMgxOBCT9WJaV0LjRS4aT8"
+                "value": "2QcDeLJ/qeXJn4nP+v3nijMgxOBCT9WJaV0LjRS4aT8="
               },
               "url": "https://example.com/attachments/4Ag8IpOf95"
             },
@@ -41,7 +41,7 @@
               "desc": "Signed document",
               "digest": {
                 "alg": "sha-256",
-                "value": "i3O7U79LiyKmmesIgULKT2Q8LAxNO0CpwJVcbepaYf8"
+                "value": "i3O7U79LiyKmmesIgULKT2Q8LAxNO0CpwJVcbepaYf8="
               },
               "url": "https://example.com/attachments/4Ag8IpOf95",
               "access_token": null,
