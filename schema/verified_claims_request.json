@@ -134,39 +134,32 @@
         }
       }
     },
-    "validation_method": {
+    "verifier": {
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/constrainable_element"
+        "organization": {
+          "$ref": "#/definitions/simple_element"
         },
-        "policy":{
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "procedure": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "status": {
-          "$ref": "#/definitions/constrainable_element"
+        "txn": {
+          "$ref": "#/definitions/simple_element"
         }
       }
     },
-    "verification_method": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "policy":{
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "procedure": {
-          "$ref": "#/definitions/constrainable_element"
-        },
-        "status": {
-          "$ref": "#/definitions/constrainable_element"
+    "check_details": {
+      "type": "array",
+      "items": [
+        {
+          "check_method": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "txn": {
+            "type": "string"
+          }
         }
-      }
+      ]
     },
     "evidence": {
       "type": "object",
@@ -230,25 +223,14 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
+              "check": {
+                "$ref": "#/definitions/check_details"
               },
               "method": {
                 "$ref": "#/definitions/constrainable_element"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "txn": {
-                    "$ref": "#/definitions/simple_element"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
@@ -273,22 +255,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "txn": {
-                    "$ref": "#/definitions/simple_element"
-                  }
-                }
+              "check_details": {
+                "$ref": "#/definitions/check_details"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
@@ -353,22 +321,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "txn": {
-                    "$ref": "#/definitions/simple_element"
-                  }
-                }
+              "check_details": {
+                "$ref": "#/definitions/check_details"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
@@ -515,8 +469,24 @@
                 "procedure": {
                   "$ref": "#/definitions/constrainable_element"
                 },
-                "status": {
-                  "$ref": "#/definitions/constrainable_element"
+                "assurance_details": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "oneOf": [
+                      {
+                        "assurance_type":{
+                          "$ref": "#/definitions/constrainable_element"
+                        },
+                        "assurance_classification": {
+                          "$ref": "#/definitions/constrainable_element"
+                        },
+                        "evidence_ref": {
+                          "$ref": "#/definitions/constrainable_element"
+                        }
+                      }
+                    ]
+                  }
                 }
               }
             },
