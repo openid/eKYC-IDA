@@ -444,7 +444,7 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
-`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element.
+`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the document must be indicated in a content-type HTTP response header, as per [RFC6838](https://datatracker.ietf.org/doc/html/rfc6838). Multipart or message media types SHALL NOT be used.
 
 `access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the document from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
 
@@ -867,23 +867,23 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e., the OpenID Connect for Identity Assurance extension.
 
-`trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array must have at least one member.
+`trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array MUST have at least one member.
 
-`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array may have zero or more members.
+`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member.
 
-`documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification.
+`documents_supported`: REQUIRED when `evidence_supported` contains "document" or "id_document". JSON array containing all identity document types utilized by the OP for identity verification. This array MUST have at least one member.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification process the OP supports (see [@!predefined_values]).
+`documents_methods_supported`: OPTIONAL. JSON array containing the validation & verification processes the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see [@!predefined_values]).
+`documents_validation_methods_supported`: OPTIONAL. JSON array containing the document validation methods the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see [@!predefined_values]).
+`documents_verification_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]).
+`electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`.
+`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
-`attachments_supported`: REQUIRED when OP supports external attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. If the list is empty, the OP does not support attachments.
+`attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member.
 
 `digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
 
@@ -894,7 +894,7 @@ This is an example openid-configuration snippet:
 ...
    "verified_claims_supported":true,
    "trust_frameworks_supported":[
-     "nist_800_63A_3"
+     "nist_800_63A"
    ],
    "evidence_supported": [
       "document",
@@ -1199,7 +1199,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-11.json">
+<reference anchor="verified_claims.json" target="https://openid.net/schemas/verified_claims-12.json">
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
     <author>
@@ -1209,7 +1209,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-11.json">
+<reference anchor="verified_claims_request.json" target="https://openid.net/schemas/verified_claims_request-12.json">
   <front>
     <title>JSON Schema for requesting verified_claims</title>
     <author>

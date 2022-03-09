@@ -267,6 +267,15 @@ A machine-readable syntax definition of `authority` is given as a JSON schema in
 
 The `applies_to` sub-element is intended to convey claims that allow unique identification of the entity that the authority applies to.  The applies to sub-element may contain a number of different claims and those will depend on the particular use case and will, in particular, depend on whether the `applies_to` sub-element is identifying a legal entity or a natural person.
 
+In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
+
+* `name`
+* `given_name`
+* `middle_name`
+* `family_name`
+* `birthdate`
+* `address`
+  
 In the case that the authority applies to a Legal entity the `applies_to` element MAY contain one or more of the following Claims (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims:
 
 * `organization_name`
@@ -276,15 +285,9 @@ In the case that the authority applies to a Legal entity the `applies_to` elemen
 * `registered_address`
 * `registered_jurisdiction`
 * `date_of_incorporation`
+* `beneficial_owners`
 
-In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
-
-* `name`
-* `given_name`
-* `middle_name`
-* `family_name`
-* `birthdate`
-* `address`
+When used the `beneficial_owners` claim will be of the form of an array containing one or more records that describe a natural person who ultimately has control over that legal entity as described in the FATF Guidance [@!FATF-BO-Guidance].  The content of the `beneficial_owners' records SHOULD be of the form described in this section when describing a natural person.
 
 ## `permission` element
 
@@ -581,20 +584,13 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="JPAML" target=" https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=420M60000f5a001#58">
+<reference anchor="JPAML" target="https://elaws.e-gov.go.jp/document?lawid=419AC0000000022_20211122_503AC0000000046">
   <front>
-    <title>Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds</title>
-    <author>
-      <organization>Cabinet Office,
-Ministry of Internal Affairs and Communications,
-Ministry of Justice,
-Ministry of Finance,
-Ministry of Health, Labor and Welfare,
-Ministry of Agriculture, Forestry and Fisheries,
-Ministry of Economy, Trade and Industry,
-Ministry of Land, Infrastructure and Transport</organization>
+    <title>Act on Prevention of Transfer of Criminal Proceeds</title>
+    <author surname="Japanese Parliament">
+      <organization>Japanese Parliament</organization>
     </author>
-   <date day="8" month="November" year="2019"/>
+   <date day="1" month="October" year="2016"/>
   </front>
 </reference>
 
@@ -706,7 +702,15 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-
+<reference anchor="FATF-BO-Guidance" target="https://www.fatf-gafi.org/media/fatf/documents/reports/Guidance-transparency-beneficial-ownership.pdf">
+  <front>
+    <title>Guidance on Transparency and Beneficial Ownership</title>
+    <author initials="" surname="FATF">
+      <organization>Financial Action Task Force (FATF)</organization>
+    </author>
+   <date month="October" year="2014"/>
+  </front>
+</reference>
 
 # IANA Considerations
 
