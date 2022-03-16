@@ -30,12 +30,6 @@
       "type": "string",
       "pattern": "^[a-zA-Z]{2}[-_][A-Z]{2}[a-zA-Z]?$"
     },
-    "updated_at_type": {
-      "type": "number"
-    },
-    "nationality_type": {
-      "type": "string"
-    },
     "claims_type": {
       "type": "object",
       "minProperties": 1,
