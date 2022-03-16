@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://openid.net/schemas/verified_claims-12.json",
+  "$id": "https://openid.net/schemas/ekyc-ida/12/verified_claims.json",
   "definitions": {
     "date_type": {
       "type": "string",
@@ -150,7 +150,7 @@
           "if": {
             "properties": {
               "type": {
-                "pattern": "^(id_)*document$"
+                "pattern": "^(id_)?document$"
               }
             }
           },
@@ -520,8 +520,7 @@
           "additionalProperties": true
         },
         "claims": {
-          "type": "object",
-          "minProperties": 1
+          "$ref": "claims_schema.json#/definitions/claims_type"
         }
       },
       "required": [
@@ -534,7 +533,7 @@
       "type": "object",
       "properties": {},
       "additionalProperties": {
-        "$ref": "verified_claims_request-12.json#/definitions/verified_claims_def"
+        "$ref": "verified_claims_request.json#/definitions/verified_claims_def"
       }
     },
     "aggregated_claims": {
