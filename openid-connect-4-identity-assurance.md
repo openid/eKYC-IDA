@@ -747,10 +747,6 @@ Same document under a different `trust_framework`
 
 <{{examples/response/document_with_attachments.json}}
 
-## Document with other checks
-
-<{{examples/response/document_with_checks.json}}
-
 ## Evidence with all assurance details
 
 <{{examples/response/evidence_with_assurance_details.json}}
