@@ -12,16 +12,14 @@
       "evidence": [
         {
           "type": "vouch",
-          "validation_method": {
-            "type": "vpip",
-            "policy": "gpg45",
-            "procedure": "score_3"
-          },
-          "verification_method": {
-            "type": "pvr",
-            "policy": "gpg45",
-            "procedure": "score_3"
-          },
+          "check_details": [
+            {
+              "check_method": "vpip"
+            },
+            {
+              "check_method": "pvr"
+            }
+          ],
           "time": "2020-02-23T07:52Z",
           "attestation": {
             "type": "written_attestation",

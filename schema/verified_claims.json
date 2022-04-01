@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://openid.net/schemas/verified_claims-12.json",
+  "$id": "https://openid.net/schemas/ekyc-ida/12/verified_claims.json",
   "definitions": {
     "date_type": {
       "type": "string",
@@ -71,39 +71,32 @@
         }
       }
     },
-    "validation_method": {
+    "verifier": {
       "type": "object",
       "properties": {
-        "type": {
+        "organization": {
           "type": "string"
         },
-        "policy":{
-          "type": "string"
-        },
-        "procedure": {
-          "type": "string"
-        },
-        "status": {
+        "txn": {
           "type": "string"
         }
       }
     },
-    "verification_method": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "policy":{
-          "type": "string"
-        },
-        "procedure": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
+    "check_details": {
+      "type": "array",
+      "items": [
+        {
+          "check_method": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "txn": {
+            "type": "string"
+          }
         }
-      }
+      ]
     },
     "evidence": {
       "type": "object",
@@ -157,31 +150,20 @@
           "if": {
             "properties": {
               "type": {
-                "pattern": "^(id_)*document$"
+                "pattern": "^(id_)?document$"
               }
             }
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
+              "check_details": {
+                "$ref": "#/definitions/check_details"
               },
               "method": {
                 "type": "string"
               },
               "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "type": "string"
-                  },
-                  "txn": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
@@ -206,22 +188,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "type": "string"
-                  },
-                  "txn": {
-                    "type": "string"
-                  }
-                }
+              "check_details": {
+                "$ref": "#/definitions/check_details"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
@@ -289,22 +257,8 @@
           },
           "then": {
             "properties": {
-              "validation_method": {
-                "$ref": "#/definitions/validation_method"
-              },
-              "verification_method": {
-                "$ref": "#/definitions/verification_method"
-              },
-              "verifier": {
-                "type": "object",
-                "properties": {
-                  "organization": {
-                    "type": "string"
-                  },
-                  "txn": {
-                    "type": "string"
-                  }
-                }
+              "check_details": {
+                "$ref": "#/definitions/check_details"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
@@ -509,8 +463,36 @@
                 "procedure": {
                   "type": "string"
                 },
-                "status": {
-                  "type": "string"
+                "assurance_details": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "assurance_type": {
+                        "type": "string"
+                      },
+                      "assurance_classification": {
+                        "type": "string"
+                      },
+                      "evidence_ref": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "txn": {
+                              "type": "string"
+                            },
+                            "evidence_metadata": {
+                              "type": "object",
+                              "properties": {
+                                "evidence_classification": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -538,8 +520,7 @@
           "additionalProperties": true
         },
         "claims": {
-          "type": "object",
-          "minProperties": 1
+          "$ref": "claims_schema.json#/definitions/claims_type"
         }
       },
       "required": [
@@ -552,7 +533,7 @@
       "type": "object",
       "properties": {},
       "additionalProperties": {
-        "$ref": "verified_claims_request-12.json#/definitions/verified_claims_def"
+        "$ref": "verified_claims_request.json#/definitions/verified_claims_def"
       }
     },
     "aggregated_claims": {
