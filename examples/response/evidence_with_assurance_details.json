@@ -72,6 +72,7 @@
             {
               "check_method": "data",
               "organization": "DVLA",
+              "time": "2021-04-09T14:15Z",
               "txn": "DL1-85762937582385820"
             }
           ],
@@ -89,7 +90,15 @@
               "country_code": "GBR",
               "jurisdiction": "GB-GBN"
             }
-          }
+          },
+          "attachments": [
+            {
+              "desc": "scan of driving_permit",
+              "content_type": "image/jpeg",
+              "txn": "DL1-85762937582385820",
+              "content": "d16d2552e35582810e5a40e523716504525b6016ae96844ddc533163059b3067=="
+            }
+          ]
         },
         {
           "type": "electronic_record",

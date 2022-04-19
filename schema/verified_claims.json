@@ -94,6 +94,9 @@
           },
           "txn": {
             "type": "string"
+          },
+          "time": {
+            "$ref": "#/definitions/time_type"
           }
         }
       ]
@@ -421,6 +424,9 @@
         "content": {
           "type": "string",
           "contentEncoding": "base64"
+        },
+        "txn": {
+          "type": "string"
         }
       },
       "required": [
