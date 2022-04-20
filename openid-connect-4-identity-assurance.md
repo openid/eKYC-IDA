@@ -408,7 +408,7 @@ All the information of the document (including the content itself) is provided w
 
 `content`: REQUIRED. Base64 encoded representation of the document content.
 
-`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` includes a `txn`.
+`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
 The following example shows embedded attachments. The actual contents of the documents are truncated:
 
