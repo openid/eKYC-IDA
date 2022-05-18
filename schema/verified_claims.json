@@ -395,6 +395,9 @@
         "digest": {
           "$ref": "#/definitions/digest"
         },
+        "txn": {
+          "type": "string"
+        },
         "url": {
           "type": "string",
           "format": "uri"

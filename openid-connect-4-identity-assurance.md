@@ -433,6 +433,8 @@ External attachments are similar to distributed Claims. The reference to the ext
 * `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
 * `value`: REQUIRED. Base64 encoded representation of the cryptographic hash.
 
+`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
+
 External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
 The following example shows external attachments:
@@ -598,6 +600,10 @@ The example also requests the OP to add the respective `method` and the `documen
 A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field.
 
 If multiple entries are present in `evidence`, these filters are linked by a logical OR.
+
+`check_details` is an array of the processes that have been applied to the `evidence`. An RP MAY filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
+
+`assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP SHOULD only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP MUST return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they MUST use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
 
 The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
@@ -1375,6 +1381,7 @@ The technology described in this specification was made available from contribut
    * introduced `check_details` & `assurance_details` to provide more detail than `method`
    * added lookahead capabilities for distributed Claims
    * added support to attach document artifacts
+   * added txn for attachments
    * changed evidence type `qes` to `electronic_signature`
    * added Claim `also_known_as`
    * added text regarding security profiles
