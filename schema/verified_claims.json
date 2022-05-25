@@ -94,6 +94,9 @@
           },
           "txn": {
             "type": "string"
+          },
+          "time": {
+            "$ref": "#/definitions/time_type"
           }
         }
       ]
@@ -392,6 +395,9 @@
         "digest": {
           "$ref": "#/definitions/digest"
         },
+        "txn": {
+          "type": "string"
+        },
         "url": {
           "type": "string",
           "format": "uri"
@@ -421,6 +427,9 @@
         "content": {
           "type": "string",
           "contentEncoding": "base64"
+        },
+        "txn": {
+          "type": "string"
         }
       },
       "required": [
