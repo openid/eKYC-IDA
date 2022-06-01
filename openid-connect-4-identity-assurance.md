@@ -609,42 +609,6 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
-# Example Requests
-The following section show examples of requests for `verified_claims`.
-
-## Verification of Claims by a document
-
-<{{examples/request/verification_deeper.json}}
-
-## Verification of Claims by trust framework and evidence types
-
-<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
-
-## Verification of Claims by trust framework and verification method
-
-<{{examples/request/verification_spid_document_biometric.json}}
-
-## Verification of Claims by trust framework with a document and include attachments
-
-<{{examples/request/verification_aml_with_attachments.json}}
-
-## Verification of Claims by electronic signature
-
-<{{examples/request/verification_electronic_signature.json}}
-
-
-### Attachments
-
-RPs can explicitly request to receive attachments along with the Verified Claims:
-
-<{{examples/request/verification_with_attachments.json}}
-
-As with other Claims, the attachment Claim can be marked as essential in the request as well.
-
-### Error Handling
-
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
-
 ## Defining further constraints on Verification Data {#constraintedclaims}
 
 ### value/values
@@ -675,7 +639,7 @@ The following is an example of a request for Claims where the verification proce
 
 The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP MAY attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach.
 
-### Requesting Claims sets with different verification requirements
+## Requesting Claims sets with different verification requirements
 
 It is also possible to request different trust frameworks, assurance levels, and methods for different Claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object.
 
@@ -729,6 +693,44 @@ Claims unknown to the OP or not available as Verified Claims MUST be ignored and
 Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
 When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
+
+
+# Example Requests
+The following section show examples of requests for `verified_claims`.
+
+## Verification of Claims by a document
+
+<{{examples/request/verification_deeper.json}}
+
+## Verification of Claims by trust framework and evidence types
+
+<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
+
+## Verification of Claims by trust framework and verification method
+
+<{{examples/request/verification_spid_document_biometric.json}}
+
+## Verification of Claims by trust framework with a document and include attachments
+
+<{{examples/request/verification_aml_with_attachments.json}}
+
+## Verification of Claims by electronic signature
+
+<{{examples/request/verification_electronic_signature.json}}
+
+
+### Attachments
+
+RPs can explicitly request to receive attachments along with the Verified Claims:
+
+<{{examples/request/verification_with_attachments.json}}
+
+As with other Claims, the attachment Claim can be marked as essential in the request as well.
+
+### Error Handling
+
+The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
+
 
 # Example Responses
 
