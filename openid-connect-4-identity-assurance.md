@@ -437,6 +437,8 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
+It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@!RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
+
 The following example shows external attachments:
 
 <{{examples/response/external_attachments.json}}
