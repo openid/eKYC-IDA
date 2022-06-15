@@ -437,6 +437,8 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
+It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@!RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
+
 The following example shows external attachments:
 
 <{{examples/response/external_attachments.json}}
@@ -550,7 +552,7 @@ Note: A machine-readable definition of the syntax to be used to request `verifie
 
 To request Verified Claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
 
-Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys with a `null` value. An example is shown in the following:
+Since `verified_claims` contains the effective Claims about the End-User in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired Claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. An example is shown in the following:
 
 <{{examples/request/claims.json}}
 
@@ -613,7 +615,7 @@ The RP MAY also request certain data within the `document` element to be present
 
 ### value/values
 
-The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/check_details', and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
+The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/check_details`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section.
 
