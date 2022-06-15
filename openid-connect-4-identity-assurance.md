@@ -696,7 +696,7 @@ When using this approach the Claims associated with a `scope` are administrative
 
 
 # Example Requests
-The following section show examples of requests for `verified_claims`.
+This section shows examples of requests for `verified_claims`.
 
 ## Verification of Claims by a document
 
@@ -710,7 +710,7 @@ The following section show examples of requests for `verified_claims`.
 
 <{{examples/request/verification_spid_document_biometric.json}}
 
-## Verification of Claims by trust framework with a document and include attachments
+## Verification of Claims by trust framework with a document and attachments
 
 <{{examples/request/verification_aml_with_attachments.json}}
 
@@ -734,13 +734,13 @@ The OP has the discretion to decide whether the requested verification data is t
 
 # Example Responses
 
-The following sections show examples of responses containing `verified_claims`.
+This section shows examples of responses containing `verified_claims`.
 
-The first and second sections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
+The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
 
-The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
+The third subsection illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
 
-Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
+Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
 ## ID document [deprecated format]
 
