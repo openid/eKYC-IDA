@@ -192,9 +192,9 @@ The normative definition is given in the following.
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
-Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
-
 A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@!verified_claims.json]. It can be used to automatically validate JSON documents containing a `verified_claims` element.
+
+Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
 
 ## verification Element {#verification}
 
