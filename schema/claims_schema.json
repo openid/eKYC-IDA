@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json",
+  "$id": "https://openid.net/schemas/verified_claims-12.json",
   "definitions": {
     "ISO_country_code_type": {
       "type": "string",
