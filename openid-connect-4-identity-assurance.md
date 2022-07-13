@@ -519,11 +519,11 @@ and distributed Claims.
 
 <{{examples/response/distributed_claims.json}}
 
-The following example shows an ID Token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims.
+The following example shows an ID Token containing `verified_claims` from two different external claim sources, one as aggregated and the other as distributed Claims.
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The next example shows an ID Token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
+The next example shows an ID Token containing `verified_claims` from two different external claim sources along with additional data about the content of the Verified Claims (look ahead).
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
