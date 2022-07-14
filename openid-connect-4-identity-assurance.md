@@ -192,9 +192,9 @@ The normative definition is given in the following.
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
-Note: If not stated otherwise, every sub-element in `verified_claims` is defined as optional. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
-
 A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@!verified_claims.json]. It can be used to automatically validate JSON documents containing a `verified_claims` element.
+
+Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
 
 ## verification Element {#verification}
 
@@ -497,17 +497,17 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 
 An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
 
-In this case, every assertion provided by the external Claims source MUST contain:
+For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
 * an `iss` Claim identifying the claims source,
 * a `sub` Claim identifying the End-User in the context of the claim source,
 * a `verified_claims` element containing one or more `verified_claims` objects.
 
-The `verified_claims` element in a response MUST have one of the following forms:
+The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
 
 * a JSON string referring to a certain claim source (as defined in [@!OpenID])
 * a JSON array of strings referring to the different claim sources
-* a JSON object composed of sub elements formatted with the syntax as defined for requesting `verified_claims` where the name of the object is the name of the respective claim source. Every object contains additional information about the `verified_claims` object provided by the respective claims source, i.e., the End-User Claims and verification data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
+* a JSON object composed of sub-elements formatted with the syntax as defined for requesting `verified_claims` where the name of each object is a name for the respective claim source. Every such named object contains sub-objects called  `claims` and `verification` expressing data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
 
 Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
 
@@ -611,42 +611,6 @@ The RP MAY also request certain data within the `document` element to be present
 
 <{{examples/request/verification_document.json}}
 
-# Example Requests
-The following section show examples of requests for `verified_claims`.
-
-## Verification of Claims by a document
-
-<{{examples/request/verification_deeper.json}}
-
-## Verification of Claims by trust framework and evidence types
-
-<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
-
-## Verification of Claims by trust framework and verification method
-
-<{{examples/request/verification_spid_document_biometric.json}}
-
-## Verification of Claims by trust framework with a document and include attachments
-
-<{{examples/request/verification_aml_with_attachments.json}}
-
-## Verification of Claims by electronic signature
-
-<{{examples/request/verification_electronic_signature.json}}
-
-
-### Attachments
-
-RPs can explicitly request to receive attachments along with the Verified Claims:
-
-<{{examples/request/verification_with_attachments.json}}
-
-As with other Claims, the attachment Claim can be marked as essential in the request as well.
-
-### Error Handling
-
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
-
 ## Defining further constraints on Verification Data {#constraintedclaims}
 
 ### value/values
@@ -677,7 +641,7 @@ The following is an example of a request for Claims where the verification proce
 
 The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP MAY attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach.
 
-### Requesting Claims sets with different verification requirements
+## Requesting Claims sets with different verification requirements
 
 It is also possible to request different trust frameworks, assurance levels, and methods for different Claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object.
 
@@ -732,15 +696,53 @@ Verified Claims about the End-User can be requested as part of a pre-defined set
 
 When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
+
+# Example Requests
+This section shows examples of requests for `verified_claims`.
+
+## Verification of Claims by a document
+
+<{{examples/request/verification_deeper.json}}
+
+## Verification of Claims by trust framework and evidence types
+
+<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
+
+## Verification of Claims by trust framework and verification method
+
+<{{examples/request/verification_spid_document_biometric.json}}
+
+## Verification of Claims by trust framework with a document and attachments
+
+<{{examples/request/verification_aml_with_attachments.json}}
+
+## Verification of Claims by electronic signature
+
+<{{examples/request/verification_electronic_signature.json}}
+
+
+### Attachments
+
+RPs can explicitly request to receive attachments along with the Verified Claims:
+
+<{{examples/request/verification_with_attachments.json}}
+
+As with other Claims, the attachment Claim can be marked as essential in the request as well.
+
+### Error Handling
+
+The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
+
+
 # Example Responses
 
-The following sections show examples of responses containing `verified_claims`.
+This section shows examples of responses containing `verified_claims`.
 
-The first and second sections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
+The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
 
-The third section illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
+The third subsection illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
 
-Subsequent sections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
+Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
 ## ID document [deprecated format]
 
