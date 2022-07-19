@@ -558,7 +558,7 @@ Since `verified_claims` contains the effective Claims about the End-User in a ne
 
 Use of the `claims` parameter allows the RP to exactly select the Claims about the End-User needed for its use case. This extension therefore allows RPs to fulfill the requirement for data minimization.
 
-RPs MAY indicate that a certain Claim is essential to the successful completion of the request for Verified Claims by utilizing the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example designates both given name as well as family name as being essential.
+RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
 <{{examples/request/essential.json}}
 
@@ -727,7 +727,7 @@ RPs can explicitly request to receive attachments along with the Verified Claims
 
 <{{examples/request/verification_with_attachments.json}}
 
-As with other Claims, the attachment Claim can be marked as essential in the request as well.
+As with other Claims, the attachment Claim can be marked as `essential` in the request as well.
 
 ### Error Handling
 
