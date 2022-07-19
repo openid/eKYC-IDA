@@ -1,7 +1,7 @@
 {
   "verified_claims": {
     "verification": {
-      "trust_framework": "uk_tfida",
+      "trust_framework": "uk_diatf",
       "assurance_level": "medium",
       "assurance_process": {
         "policy": "gpg45",

@@ -754,7 +754,7 @@ Subsequent subsections contain examples for using the `verified_claims` Claim on
 
 Same document under a different `trust_framework`
 
-<{{examples/response/document_UKTDIF.json}}
+<{{examples/response/document_UK_DIATF.json}}
 
 ## Document and verifier details
 
