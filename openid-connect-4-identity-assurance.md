@@ -519,16 +519,16 @@ and distributed Claims.
 
 <{{examples/response/distributed_claims.json}}
 
-The following example shows an ID Token containing `verified_claims` from two different external claims sources, one as aggregated and the other as distributed Claims.
+The following example shows an ID Token containing `verified_claims` from two different external claim sources, one as aggregated and the other as distributed Claims.
 
 <{{examples/response/multiple_external_claims_sources.json}}
 
-The next example shows an ID Token containing `verified_claims` from two different external claims sources along with additional data about the content of the Verified Claims (look ahead).
+The next example shows an ID Token containing `verified_claims` from two different external claim sources along with additional data about the content of the Verified Claims (look ahead).
 
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
-Claims sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
-The way an RP determines the key material used for validation of the signed assertions is out of scope. The recommended way is to determine the claims source's public keys by obtaining its JSON Web Key Set via the `jwks_uri` metadata value read from its `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
+Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
+The recommended way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
 
 The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
