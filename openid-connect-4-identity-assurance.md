@@ -190,7 +190,7 @@ The normative definition is given in the following.
 * `verification`: REQUIRED. Object that contains data about the verification process.
 * `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.
 
-Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. However, extensions to this specification that specify additional sub elements MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers.
+Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers.
 
 A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@!verified_claims.json]. It can be used to automatically validate JSON documents containing a `verified_claims` element.
 
