@@ -980,7 +980,7 @@ This specification focuses on the technical mechanisms to convey Verified Claims
 
 Each party defining such identifiers MUST ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_verification_method`.
 
-The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
+The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values] that can be utilized to share predefined values with other parties.
 
 {backmatter}
 
@@ -1109,23 +1109,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="JPAML" target=" https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=420M60000f5a001#58">
-  <front>
-    <title>Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds</title>
-    <author>
-      <organization>Cabinet Office,
-Ministry of Internal Affairs and Communications,
-Ministry of Justice,
-Ministry of Finance,
-Ministry of Health, Labor and Welfare,
-Ministry of Agriculture, Forestry and Fisheries,
-Ministry of Economy, Trade and Industry,
-Ministry of Land, Infrastructure and Transport</organization>
-    </author>
-   <date day="8" month="November" year="2019"/>
-  </front>
-</reference>
-
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
     <front>
       <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
@@ -1159,17 +1142,6 @@ Ministry of Land, Infrastructure and Transport</organization>
     </front>
 </reference>
 
-<reference anchor="OxfordPassport" target="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">
-  <front>
-    <title>The New Oxford Companion to Law. ISBN 9780199290543.</title>
-    <author initials="P" surname="Cane" fullname="P. Cane">
-    </author>
-    <author initials="Mary F." surname="Conaghan" fullname="J. Conaghan">
-    </author>
-   <date year="2008"/>
-  </front>
-</reference>
-
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
     <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
@@ -1200,7 +1172,7 @@ Ministry of Land, Infrastructure and Transport</organization>
   </front>
 </reference>
 
-<reference anchor="predefined_values_page" target="https://openid.net/wg/ekyc-ida/identifiers/">
+<reference anchor="predefined_values" target="https://openid.net/wg/ekyc-ida/identifiers/">
   <front>
     <title>Overview page for predefined values</title>
     <author>
