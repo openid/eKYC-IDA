@@ -84,7 +84,7 @@ Note: This specifications fulfills the criteria for portability and interoperabi
 
 ## Terminology
 
-This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
+This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@NIST-SP-800-63a].
 
 * Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level.
 
@@ -204,7 +204,7 @@ The `verification` element consists of the following elements:
 
 `trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
 
-An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
+An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS].
 
 RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand.
 
@@ -437,7 +437,7 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
-It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@!RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
+It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
 
 The following example shows external attachments:
 
@@ -871,7 +871,7 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member.
 
-`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
+`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 
 This is an example openid-configuration snippet:
 
@@ -926,7 +926,7 @@ If the OP supports distributed and/or aggregated Claim types in `verified_claims
 
 # Client Registration and Management
 
-During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@?RFC7592] the following additional properties are available:
+During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
 
 `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
@@ -966,7 +966,7 @@ Secure identification of End-Users not only depends on the identity verification
 
 This specification does not define or require a particular security profile since there are several security 
 profiles and new security profiles under development.  Implementers shall be given flexibility to select the security profile that best suits 
-their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL].
+their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers are recommended to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
