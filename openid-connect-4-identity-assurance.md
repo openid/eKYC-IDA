@@ -704,6 +704,10 @@ This section shows examples of requests for `verified_claims`.
 
 <{{examples/request/verification_deeper.json}}
 
+Note that, as shown in the above example, this specification requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
+
+Support for these null value requests is mandatory for identity providers, so implementors are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
+
 ## Verification of Claims by trust framework and evidence types
 
 <{{examples/request/verification_claims_trust_frameworks_evidence.json}}
