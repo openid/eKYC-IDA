@@ -1153,7 +1153,7 @@ Ministry of Land, Infrastructure and Transport</organization>
 
 <reference anchor="ISO3166-3" target="https://www.iso.org/standard/72482.html">
     <front>
-      <title>ISO 3166-1:2020. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
+      <title>ISO 3166-3:2020. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
       <author surname="International Organization for Standardization">
         <organization abbrev="ISO">International Organization for
         Standardization</organization>
