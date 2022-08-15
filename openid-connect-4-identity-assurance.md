@@ -254,7 +254,7 @@ The following types of evidence are defined:
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
 
-Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`.
+Note: `id_document` is an alias for `document` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document`.
 
 Depending on the evidence type additional elements are defined, as described in the following.
 
@@ -266,7 +266,7 @@ The following elements are contained in an evidence sub-element where type is `d
 
 `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`. When present this array MUST have at least one member.
 
-  * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the document, or verifing the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values].
+  * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the document, or verifying the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
@@ -980,7 +980,7 @@ This specification focuses on the technical mechanisms to convey Verified Claims
 
 Each party defining such identifiers MUST ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_verification_method`.
 
-The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values] that can be utilized to share predefined values with other parties.
+The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
 {backmatter}
 
@@ -1172,7 +1172,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="predefined_values" target="https://openid.net/wg/ekyc-ida/identifiers/">
+<reference anchor="predefined_values_page" target="https://openid.net/wg/ekyc-ida/identifiers/">
   <front>
     <title>Overview page for predefined values</title>
     <author>
