@@ -84,7 +84,7 @@ Note: This specifications fulfills the criteria for portability and interoperabi
 
 ## Terminology
 
-This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@?NIST-SP-800-63a].
+This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@NIST-SP-800-63a].
 
 * Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level.
 
@@ -110,7 +110,7 @@ This extension will be usable by OPs operating under a certain regulation relate
 
 It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
 
-Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the beforementioned eIDAS.
+Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
 The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
@@ -204,7 +204,7 @@ The `verification` element consists of the following elements:
 
 `trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
 
-An example value is `eidas`, which denotes a notified eID system under eIDAS [@?eIDAS].
+An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS].
 
 RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand.
 
@@ -226,7 +226,7 @@ For information on predefined trust framework and assurance level values see [@!
     * `evidence_ref`: OPTIONAL. JSON array of the evidence being referred to. When present this array MUST have at least one member.
       * `txn`: REQUIRED. Identifier referring to the `txn` used in the `check_details`. The OP MUST ensure that `txn` is present in the `check_details` when `evidence_ref` element is used.
       * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
-        * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classifed by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
+        * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
 
 `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
 
@@ -254,7 +254,7 @@ The following types of evidence are defined:
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on an electronic signature.
 
-Note: `id_document` is an alias for `document` for backward compatibilty purposes but will be deprecated in future releases, implementers are recommended to use `document`.
+Note: `id_document` is an alias for `document` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document`.
 
 Depending on the evidence type additional elements are defined, as described in the following.
 
@@ -266,7 +266,7 @@ The following elements are contained in an evidence sub-element where type is `d
 
 `check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`. When present this array MUST have at least one member.
 
-  * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the document, or verifing the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values].
+  * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the document, or verifying the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601:2004 [@!ISO8601-2004] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
@@ -437,7 +437,7 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
-It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@!RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
+It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
 
 The following example shows external attachments:
 
@@ -871,7 +871,7 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member.
 
-`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@?RFC6920]).
+`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 
 This is an example openid-configuration snippet:
 
@@ -926,7 +926,7 @@ If the OP supports distributed and/or aggregated Claim types in `verified_claims
 
 # Client Registration and Management
 
-During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@?RFC7592] the following additional properties are available:
+During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
 
 `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
@@ -966,7 +966,7 @@ Secure identification of End-Users not only depends on the identity verification
 
 This specification does not define or require a particular security profile since there are several security 
 profiles and new security profiles under development.  Implementers shall be given flexibility to select the security profile that best suits 
-their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL].
+their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers are recommended to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
@@ -1109,23 +1109,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="JPAML" target=" https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=420M60000f5a001#58">
-  <front>
-    <title>Ordinance for Enforcement of the Act on Prevention of Transfer of Criminal Proceeds</title>
-    <author>
-      <organization>Cabinet Office,
-Ministry of Internal Affairs and Communications,
-Ministry of Justice,
-Ministry of Finance,
-Ministry of Health, Labor and Welfare,
-Ministry of Agriculture, Forestry and Fisheries,
-Ministry of Economy, Trade and Industry,
-Ministry of Land, Infrastructure and Transport</organization>
-    </author>
-   <date day="8" month="November" year="2019"/>
-  </front>
-</reference>
-
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
     <front>
       <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
@@ -1157,17 +1140,6 @@ Ministry of Land, Infrastructure and Transport</organization>
       </author>
       <date year="2013" />
     </front>
-</reference>
-
-<reference anchor="OxfordPassport" target="http://www.oxfordreference.com/view/10.1093/acref/9780199290543.001.0001/acref-9780199290543-e-1616">
-  <front>
-    <title>The New Oxford Companion to Law. ISBN 9780199290543.</title>
-    <author initials="P" surname="Cane" fullname="P. Cane">
-    </author>
-    <author initials="Mary F." surname="Conaghan" fullname="J. Conaghan">
-    </author>
-   <date year="2008"/>
-  </front>
 </reference>
 
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
