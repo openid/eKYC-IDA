@@ -45,6 +45,7 @@ pipelines:
             - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
           artifacts:
             - '*.html'
+            - '*.xml'
       - step:
           name: publish
           clone:
