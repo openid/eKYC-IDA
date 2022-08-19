@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-12"
+value = "openid-connect-4-identity-assurance-1_0-13"
 
 status = "standard"
 
@@ -1342,7 +1342,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2020 The OpenID Foundation.
+Copyright (c) 2022 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
@@ -1351,6 +1351,15 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -13
+   * Preparation for Implementers Draft 4
+   * Checked and fixed referencing
+   * Added note about issues with JSON null
+   * Defined clearly that JSON schema is not normative
+   * Various editorial clarifications
+   * Added checking of defined end-user claims to JSON schema
+   * Clarified OP Metadata wording
 
    -12
 
