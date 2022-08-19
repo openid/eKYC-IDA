@@ -22,6 +22,7 @@ pipelines:
           - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
         artifacts:
           - '*.html'
+          - '*.xml'
   branches:
     master:
       - step:
