@@ -451,7 +451,7 @@ As attachments will most likely contain more personal information than was reque
 
 The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
 
-The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
+The `claims` element MAY contain any of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
 
 * `name`
 * `given_name`
@@ -465,6 +465,8 @@ and the Claims defined in (#userclaims).
 The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element.
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+
+The `claims` element MAY be empty, to support use cases where verification is required but no Claims data needs to be shared.
 
 ## verified_claims Delivery
 
