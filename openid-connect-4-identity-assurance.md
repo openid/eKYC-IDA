@@ -696,163 +696,6 @@ Verified Claims about the End-User can be requested as part of a pre-defined set
 
 When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
-
-# Example Requests
-This section shows examples of requests for `verified_claims`.
-
-## Verification of Claims by a document
-
-<{{examples/request/verification_deeper.json}}
-
-Note that, as shown in the above example, this specification requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
-
-Support for these null value requests is mandatory for identity providers, so implementors are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
-
-## Verification of Claims by trust framework and evidence types
-
-<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
-
-## Verification of Claims by trust framework and verification method
-
-<{{examples/request/verification_spid_document_biometric.json}}
-
-## Verification of Claims by trust framework with a document and attachments
-
-<{{examples/request/verification_aml_with_attachments.json}}
-
-## Verification of Claims by electronic signature
-
-<{{examples/request/verification_electronic_signature.json}}
-
-
-### Attachments
-
-RPs can explicitly request to receive attachments along with the Verified Claims:
-
-<{{examples/request/verification_with_attachments.json}}
-
-As with other Claims, the attachment Claim can be marked as `essential` in the request as well.
-
-### Error Handling
-
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
-
-
-# Example Responses
-
-This section shows examples of responses containing `verified_claims`.
-
-The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
-
-The third subsection illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
-
-Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
-
-## ID document [deprecated format]
-
-<{{examples/response/id_document.json}}
-
-## Document
-
-<{{examples/response/document_800_63A.json}}
-
-Same document under a different `trust_framework`
-
-<{{examples/response/document_UK_DIATF.json}}
-
-## Document and verifier details
-
-<{{examples/response/document_verifier.json}}
-
-## Document with external attachments
-
-<{{examples/response/document_with_attachments.json}}
-
-## Evidence with all assurance details
-
-<{{examples/response/evidence_with_assurance_details.json}}
-
-## Utility statement with attachments
-
-<{{examples/response/utility_statement_with_attachments.json}}
-
-## Document + utility statement
-
-<{{examples/response/document_and_utility_statement.json}}
-
-## ID document + utility bill [deprecated format]
-
-<{{examples/response/id_document_and_utility_bill.json}}
-
-## Notified eID system (eIDAS)
-
-<{{examples/response/eidas.json}}
-
-## Electronic_record
-
-<{{examples/response/electronic_record.json}}
-
-## Vouch
-
-<{{examples/response/vouch.json}}
-
-## Vouch with embedded attachments
-
-<{{examples/response/vouch_with_attachments.json}}
-
-## Multiple Verified Claims
-
-<{{examples/response/multiple_verified_claims.json}}
-
-## Verified Claims in UserInfo Response
-
-### Request
-
-In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request Verified Claims.
-
-The scope value is: `scope=openid email`
-
-The value of the `claims` parameter is:
-
-<{{examples/request/userinfo.json}}
-
-### UserInfo Response
-
-The respective UserInfo response would be
-
-<{{examples/response/userinfo.json}}
-
-## Verified Claims in ID Tokens
-
-### Request
-
-In this case, the RP requests Verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `authorization_code`).
-
-The `claims` parameter value is
-
-<{{examples/request/id_token.json}}
-
-### ID Token
-
-The respective ID Token could be
-
-<{{examples/response/userinfo.id_token.json}}
-
-## Claims provided by the OP and external sources {#op_attested_and_external_claims}
-
-This example shows how an OP can mix own Claims and Claims provided by  
-external sources in a single ID Token.
-
-<{{examples/response/all_in_one.json}}
-
-## Self-Issued OpenID Connect Provider and External Claims
-
-This example shows how a Self-Issued OpenID Connect Provider (SIOP)
-may include Verified Claims obtained from different external Claim
-sources into a ID Token.
-
-<{{examples/response/siop_aggregated_and_distributed_claims.json}}
-
 # OP Metadata {#opmetadata}
 
 The OP advertises its capabilities with respect to Verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
@@ -1333,6 +1176,164 @@ Change Controller:
 
 Specification Document(s):
 : Section [Claims](#claims) of this document
+
+
+# Example Requests
+This section shows examples of requests for `verified_claims`.
+
+## Verification of Claims by a document
+
+<{{examples/request/verification_deeper.json}}
+
+Note that, as shown in the above example, this specification requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
+
+Support for these null value requests is mandatory for identity providers, so implementors are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
+
+## Verification of Claims by trust framework and evidence types
+
+<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
+
+## Verification of Claims by trust framework and verification method
+
+<{{examples/request/verification_spid_document_biometric.json}}
+
+## Verification of Claims by trust framework with a document and attachments
+
+<{{examples/request/verification_aml_with_attachments.json}}
+
+## Verification of Claims by electronic signature
+
+<{{examples/request/verification_electronic_signature.json}}
+
+
+### Attachments
+
+RPs can explicitly request to receive attachments along with the Verified Claims:
+
+<{{examples/request/verification_with_attachments.json}}
+
+As with other Claims, the attachment Claim can be marked as `essential` in the request as well.
+
+### Error Handling
+
+The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
+
+
+# Example Responses
+
+This section shows examples of responses containing `verified_claims`.
+
+The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
+
+The third subsection illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
+
+Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
+
+## ID document [deprecated format]
+
+<{{examples/response/id_document.json}}
+
+## Document
+
+<{{examples/response/document_800_63A.json}}
+
+Same document under a different `trust_framework`
+
+<{{examples/response/document_UK_DIATF.json}}
+
+## Document and verifier details
+
+<{{examples/response/document_verifier.json}}
+
+## Document with external attachments
+
+<{{examples/response/document_with_attachments.json}}
+
+## Evidence with all assurance details
+
+<{{examples/response/evidence_with_assurance_details.json}}
+
+## Utility statement with attachments
+
+<{{examples/response/utility_statement_with_attachments.json}}
+
+## Document + utility statement
+
+<{{examples/response/document_and_utility_statement.json}}
+
+## ID document + utility bill [deprecated format]
+
+<{{examples/response/id_document_and_utility_bill.json}}
+
+## Notified eID system (eIDAS)
+
+<{{examples/response/eidas.json}}
+
+## Electronic_record
+
+<{{examples/response/electronic_record.json}}
+
+## Vouch
+
+<{{examples/response/vouch.json}}
+
+## Vouch with embedded attachments
+
+<{{examples/response/vouch_with_attachments.json}}
+
+## Multiple Verified Claims
+
+<{{examples/response/multiple_verified_claims.json}}
+
+## Verified Claims in UserInfo Response
+
+### Request
+
+In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request Verified Claims.
+
+The scope value is: `scope=openid email`
+
+The value of the `claims` parameter is:
+
+<{{examples/request/userinfo.json}}
+
+### UserInfo Response
+
+The respective UserInfo response would be
+
+<{{examples/response/userinfo.json}}
+
+## Verified Claims in ID Tokens
+
+### Request
+
+In this case, the RP requests Verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `authorization_code`).
+
+The `claims` parameter value is
+
+<{{examples/request/id_token.json}}
+
+### ID Token
+
+The respective ID Token could be
+
+<{{examples/response/userinfo.id_token.json}}
+
+## Claims provided by the OP and external sources {#op_attested_and_external_claims}
+
+This example shows how an OP can mix own Claims and Claims provided by  
+external sources in a single ID Token.
+
+<{{examples/response/all_in_one.json}}
+
+## Self-Issued OpenID Connect Provider and External Claims
+
+This example shows how a Self-Issued OpenID Connect Provider (SIOP)
+may include Verified Claims obtained from different external Claim
+sources into a ID Token.
+
+<{{examples/response/siop_aggregated_and_distributed_claims.json}}
+
 
 # Acknowledgements {#Acknowledgements}
 
