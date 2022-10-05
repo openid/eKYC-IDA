@@ -248,11 +248,11 @@ The `evidence` element is structured with the following elements:
 
 The following types of evidence are defined:
 
-* `document`: Verification based on any kind of physical or electronic document provided by the End-User.
-* `electronic_record`: Verification based on data or information obtained electronically from an approved or recognized source.
-* `vouch`: Verification based on an attestation or reference given by an approved or recognized person declaring they believe to the best of their knowledge that the Claim(s) are genuine and true.
+* `document`: Verification based on any kind of physical or electronic document provided by the End-User, e.g. a passport, ID card, PDF signed by a recognized authority, etc.
+* `electronic_record`: Verification based on data or information obtained electronically from an approved, recognized, regulated or certified source, e.g. a Government organization, bank, utility provider, credit reference agency, etc.
+* `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the Claim(s) presented by the End-User are, to the best of their knowledge, genuine and true.
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
-* `electronic_signature`: Verification based on an electronic signature.
+* `electronic_signature`: Verification based on the use of an electronic signature that can be uniquely linked to the End-User and is capable of identifying the signatory, e.g. an eIDAS Advanced Electronic Signature (AES) or Qualified Electronic Signature (QES).
 
 Note: `id_document` is an alias for `document` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document`.
 
