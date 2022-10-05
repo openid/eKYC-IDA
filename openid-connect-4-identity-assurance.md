@@ -671,7 +671,7 @@ Extensions of this specification MAY define additional rules or override these r
 Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
 
 ### Unavailable Data
-If the RP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. If the End-User does not consent to the whole transaction, standard OpenID Connect logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
+If the OP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. If the End-User does not consent to the whole transaction, standard OpenID Connect logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 
 ### Data not Matching Requirements
@@ -688,9 +688,9 @@ If an element is to be omitted according to the rules above, but is required for
 
 ### Error Handling
 
-If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
+Requested Claims that are unknown to the OP or not available as Verified Claims MUST be ignored and omitted from the response. If the resulting claims sub-element is empty, the OP MUST abort the transaction with an invalid_request error.
 
-Claims unknown to the OP or not available as Verified Claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
+The OP MAY return an empty claims sub-element, e.g., if the use case is expected to confirm a person is verified under a trust_framework but does not require any claims data.
 
 ## Requesting sets of Claims by scope {#req_scope}
 
