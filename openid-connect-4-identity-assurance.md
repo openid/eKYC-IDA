@@ -544,6 +544,27 @@ It is also possible to use the `scope` parameter to request one or more specific
 
 Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
 
+the example authorize call in this section will use the following unencoded example claims request parameter:
+
+<{{examples/request/simple_id_token.json}}
+
+The following is the non-normative example request that would be sent by the User Agent to the Authorization Server in response to the HTTP 302 redirect from the Client initiating the authorization code flow (with line wraps within values for display purposes only):
+
+  GET /authorize?
+     response_type=code
+     &scope=openid%20profile%20email
+     &client_id=s6BhdRkqt3
+     &state=af0ifjsldkj
+     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
+     &claims=%7B%22id_token%22%3A%20%7B%22
+     given_name%22%3A%20null%2C%22
+     verified_claims%22%3A%20%7B%22
+     verification%22%3A%20%7B%22
+     trust_framework%22%3A%20null%7D%2C%22
+     claims%22%3A%20%7B%22
+     family_name%22%3A%20null%7D%7D%7D%7D HTTP/1.1
+  Host: server.example.com
+
 ## Requesting End-User Claims {#req_claims}
 
 Verified Claims can be requested on the level of individual Claims about the End-User by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
