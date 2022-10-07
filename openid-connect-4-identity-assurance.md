@@ -414,7 +414,7 @@ The following example shows embedded attachments. The actual contents of the doc
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments are not appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
+Note: Due to their size, embedded attachments may not be appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
 
 #### External Attachments
 
