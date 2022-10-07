@@ -550,6 +550,7 @@ the example authorize call in this section will use the following unencoded exam
 
 The following is the non-normative example request that would be sent by the User Agent to the Authorization Server in response to the HTTP 302 redirect from the Client initiating the authorization code flow (with line wraps within values for display purposes only):
 
+```
   GET /authorize?
      response_type=code
      &scope=openid%20profile%20email
@@ -564,6 +565,7 @@ The following is the non-normative example request that would be sent by the Use
      claims%22%3A%20%7B%22
      family_name%22%3A%20null%7D%7D%7D%7D HTTP/1.1
   Host: server.example.com
+```
 
 ## Requesting End-User Claims {#req_claims}
 
