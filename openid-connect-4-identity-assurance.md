@@ -1315,7 +1315,7 @@ The value of the `claims` parameter is:
 
 <{{examples/request/userinfo.json}}
 
-### UserInfo Response
+### Response
 
 The respective UserInfo response would be
 
@@ -1331,9 +1331,9 @@ The `claims` parameter value is
 
 <{{examples/request/id_token.json}}
 
-### ID Token
+### RESPONSE
 
-The respective ID Token could be
+The decoded body of the respective ID Token could be
 
 <{{examples/response/userinfo.id_token.json}}
 
