@@ -1218,7 +1218,6 @@ As with other Claims, the attachment Claim can be marked as `essential` in the r
 
 The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
 
-
 # Example Responses
 
 This section shows examples of responses containing `verified_claims`.
@@ -1285,6 +1284,25 @@ Same document under a different `trust_framework`
 
 <{{examples/response/multiple_verified_claims.json}}
 
+## Claims provided by the OP and external sources {#op_attested_and_external_claims}
+
+This example shows how an OP can mix own Claims and Claims provided by  
+external sources in a single ID Token.
+
+<{{examples/response/all_in_one.json}}
+
+## Self-Issued OpenID Connect Provider and External Claims
+
+This example shows how a Self-Issued OpenID Connect Provider (SIOP)
+may include Verified Claims obtained from different external Claim
+sources into a ID Token.
+
+<{{examples/response/siop_aggregated_and_distributed_claims.json}}
+
+# Example Requests and Responses
+
+This section shows examples of pairs of requests and responses containing `verified_claims`.
+
 ## Verified Claims in UserInfo Response
 
 ### Request
@@ -1318,22 +1336,6 @@ The `claims` parameter value is
 The respective ID Token could be
 
 <{{examples/response/userinfo.id_token.json}}
-
-## Claims provided by the OP and external sources {#op_attested_and_external_claims}
-
-This example shows how an OP can mix own Claims and Claims provided by  
-external sources in a single ID Token.
-
-<{{examples/response/all_in_one.json}}
-
-## Self-Issued OpenID Connect Provider and External Claims
-
-This example shows how a Self-Issued OpenID Connect Provider (SIOP)
-may include Verified Claims obtained from different external Claim
-sources into a ID Token.
-
-<{{examples/response/siop_aggregated_and_distributed_claims.json}}
-
 
 # Acknowledgements {#Acknowledgements}
 
