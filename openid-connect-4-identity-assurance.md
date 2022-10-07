@@ -1315,7 +1315,7 @@ The `claims` parameter value is
 
 ### ID Token
 
-The respective ID Token could be
+The decoded body of the respective ID Token could be
 
 <{{examples/response/userinfo.id_token.json}}
 
