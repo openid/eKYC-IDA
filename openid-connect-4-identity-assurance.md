@@ -1331,7 +1331,7 @@ The `claims` parameter value is
 
 <{{examples/request/id_token.json}}
 
-### RESPONSE
+### Response
 
 The decoded body of the respective ID Token could be
 
