@@ -553,7 +553,7 @@ The following is the non-normative example request that would be sent by the Use
 ```
   GET /authorize?
      response_type=code
-     &scope=openid%20profile%20email
+     &scope=openid%20email
      &client_id=s6BhdRkqt3
      &state=af0ifjsldkj
      &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
