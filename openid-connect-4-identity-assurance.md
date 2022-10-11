@@ -248,7 +248,7 @@ The `evidence` element is structured with the following elements:
 
 The following types of evidence are defined:
 
-* `document`: Verification based on any kind of physical or electronic document provided by the End-User, e.g. a passport, ID card, PDF signed by a recognized authority, etc.
+* `document`: Verification based on the content of a physical or electronic document provided by the End-User, e.g. a passport, ID card, PDF signed by a recognized authority, etc.
 * `electronic_record`: Verification based on data or information obtained electronically from an approved, recognized, regulated or certified source, e.g. a Government organization, bank, utility provider, credit reference agency, etc.
 * `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the Claim(s) presented by the End-User are, to the best of their knowledge, genuine and true.
 * `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
