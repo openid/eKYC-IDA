@@ -1241,7 +1241,6 @@ As with other Claims, the attachment Claim can be marked as `essential` in the r
 
 The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
 
-
 # Example Responses
 
 This section shows examples of responses containing `verified_claims`.
@@ -1308,40 +1307,6 @@ Same document under a different `trust_framework`
 
 <{{examples/response/multiple_verified_claims.json}}
 
-## Verified Claims in UserInfo Response
-
-### Request
-
-In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request Verified Claims.
-
-The scope value is: `scope=openid email`
-
-The value of the `claims` parameter is:
-
-<{{examples/request/userinfo.json}}
-
-### UserInfo Response
-
-The respective UserInfo response would be
-
-<{{examples/response/userinfo.json}}
-
-## Verified Claims in ID Tokens
-
-### Request
-
-In this case, the RP requests Verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `authorization_code`).
-
-The `claims` parameter value is
-
-<{{examples/request/id_token.json}}
-
-### ID Token
-
-The decoded body of the respective ID Token could be
-
-<{{examples/response/userinfo.id_token.json}}
-
 ## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
 This example shows how an OP can mix own Claims and Claims provided by  
@@ -1357,6 +1322,43 @@ sources into a ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
+# Example Requests and Responses
+
+This section shows examples of pairs of requests and responses containing `verified_claims`.
+
+## Verified Claims in UserInfo Response
+
+### Request
+
+In this example we assume the RP uses the `scope` parameter to request the email address and, additionally, the `claims` parameter, to request Verified Claims.
+
+The scope value is: `scope=openid email`
+
+The value of the `claims` parameter is:
+
+<{{examples/request/userinfo.json}}
+
+### Response
+
+The respective UserInfo response would be
+
+<{{examples/response/userinfo.json}}
+
+## Verified Claims in ID Tokens
+
+### Request
+
+In this case, the RP requests Verified Claims along with other Claims about the End-User in the `claims` parameter and allocates the response to the ID Token (delivered from the token endpoint in case of grant type `authorization_code`).
+
+The `claims` parameter value is
+
+<{{examples/request/id_token.json}}
+
+### Response
+
+The decoded body of the respective ID Token could be
+
+<{{examples/response/userinfo.id_token.json}}
 
 # Acknowledgements {#Acknowledgements}
 
