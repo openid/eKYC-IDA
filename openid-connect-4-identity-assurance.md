@@ -846,7 +846,7 @@ The confidentiality of all End-User data exchanged between the protocol parties 
 
 # Predefined Values {#predefined_values}
 
-This specification focuses on the technical mechanisms to convey Verified Claims and thus does not define any identifiers for trust frameworks, documents, methods, validation methods or verification methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
+This specification focuses on the technical mechanisms to convey Verified Claims and thus does not define any identifiers for trust frameworks, documents, methods, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
 
 Each party defining such identifiers MUST ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`.
 
