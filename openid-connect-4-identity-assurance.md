@@ -1216,7 +1216,7 @@ Support for these null value requests is mandatory for identity providers, so im
 
 <{{examples/request/verification_claims_trust_frameworks_evidence.json}}
 
-## Verification of Claims by trust framework and verification method
+## Verification of Claims by trust framework and check method
 
 <{{examples/request/verification_spid_document_biometric.json}}
 
