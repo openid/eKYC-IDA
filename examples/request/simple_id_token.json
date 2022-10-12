@@ -1,0 +1,13 @@
+{
+    "id_token": {
+      "given_name": null,
+      "verified_claims": {
+        "verification": {
+          "trust_framework": null
+        },
+        "claims": {
+          "family_name": null
+        }
+      }
+    }
+  }
