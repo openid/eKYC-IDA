@@ -409,7 +409,7 @@ This is an example openid-configuration snippet:
        "passport",
        "driving_permit"
    ],
-   "documents_verification_methods_supported":[
+   "document_check_methods_supported":[
        "pipp",
        "sripp",
        "eid"
@@ -468,7 +468,7 @@ methods at transport or application layer.
 
 This specification focuses on the technical mechanisms to convey authority claims and thus does not define any identifiers for trust frameworks, id documents, or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
-Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_verification_method`.
+Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_check_method`.
 
 The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
 

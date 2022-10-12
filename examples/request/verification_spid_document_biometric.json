@@ -11,8 +11,9 @@
             "type": {
               "value": "document"
             },
-            "verification_method": {
-              "type": {
+            "check_details": {
+              "type": null,
+              "check_method": {
                 "value": "bvr"
               }
             },

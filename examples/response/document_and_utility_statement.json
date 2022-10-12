@@ -29,9 +29,11 @@
         },
         {
           "type": "document",
-          "validation_method": {
-            "type": "vpip"
-          },
+          "check_details": [
+            {
+              "check_method": "vpip"
+            }
+          ],
           "time": "2012-04-22T11:30Z",
           "document_details": {
             "type": "utility_statement",
