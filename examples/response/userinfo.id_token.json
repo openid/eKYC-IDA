@@ -34,8 +34,8 @@
       ]
     },
     "claims": {
-      "given_name": "Max",
-      "family_name": "Meier",
+      "given_name": "Jane",
+      "family_name": "Doe",
       "birthdate": "1956-01-28"
     }
   }
