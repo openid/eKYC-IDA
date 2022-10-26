@@ -11,11 +11,13 @@
             "type": {
               "value": "document"
             },
-            "verification_method": {
-              "type": {
-                "value": "bvr"
+            "check_details": [
+              {
+                "check_method": {
+                  "value": "bvr"
+                }
               }
-            },
+            ],
             "document_details": {
               "type": null,
               "issuer": {
