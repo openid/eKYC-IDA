@@ -31,16 +31,11 @@
           ]
         },
         "claims": {
-          "legal_name": null,
-          "legal_person_identifier": null,
-          "lei": null,
-          "vat_registration": null,
+          "title": null,
+          "given_name": null,
+          "family_name": null,
           "address": null,
-          "tax_reference": null,
-          "sic": null,
-          "business_role": null,
-          "sub_jurisdiction": null,
-          "trading_status": null
+          "birthdate": null
         }
       },
       "src2": {
@@ -69,19 +64,17 @@
           ]
         },
         "claims": {
-          "legal_name": null,
-          "legal_person_identifier": null,
-          "sic": null,
-          "business_role": null,
-          "sub_jurisdiction": null,
-          "trading_status": null
+          "given_name": null,
+          "family_name": null,
+          "email": null,
+          "nationalities": null
         }
       }
     }
   },
   "_claim_sources": {
     "src1": {
-      "JWT": "eyJhbGciOiJIUzI1NiJ9.eyJhdF9yZWdpc3RyYXRpb24iOiIxMjM0NTQzMjEiLCJsZWkiOiIwOTg3NjU0MzIxIiwiYWRkcmVzcyI6IjEgdGhlIHN0cmVldCwgQmFyY2Vsb25hLCBTcGFpbiIsImJ1c2luZXNzX3JvbGUiOiJuL2EiLCJ0YXhfcmVmZXJlbmNlIjoiMDk4NzY1Njc4OTAiLCJsZWdhbF9uYW1lIjoiYWNtZSBsdGQiLCJzdWJfanVyaXNkaWN0aW9uIjoibi9hIiwidHJhZGluZ19zdGF0dXMiOiJhY3RpdmUiLCJzaWMiOiIwMDAwIiwibGVnYWxfcGVyc29uX2lkZW50aWZpZXIiOiIxMjM0NTY3ODkwIn0.9KMvagQjIlOLVxI9n4S0jIga9cQcWNx106b8kzHhTYU"
+      "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aXRsZSI6bnVsbCwiZ2l2ZW5fbmFtZSI6bnVsbCwiZmFtaWx5X25hbWUiOm51bGwsImFkZHJlc3MiOm51bGwsImJpcnRoZGF0ZSI6bnVsbH0.QbofJidCJQBCn799GuLTmG12jkAJ_61eI8dv0amAbog"
     },
     "src2": {
       "endpoint": "https://server.yetanotherop.com/claim_source",
