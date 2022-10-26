@@ -451,7 +451,7 @@ As attachments will most likely contain more personal information than was reque
 
 The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
 
-The `claims` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
+The `claims` element MAY contain any of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
 
 * `name`
 * `given_name`
@@ -465,6 +465,8 @@ and the Claims defined in (#userclaims).
 The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element.
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+
+The `claims` element MAY be empty, to support use cases where verification is required but no Claims data needs to be shared.
 
 ## verified_claims Delivery
 
@@ -691,9 +693,8 @@ Extensions of this specification MAY define additional rules or override these r
 
 Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
 
-### Unavailable Data
-If the RP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. If the End-User does not consent to the whole transaction, standard OpenID Connect logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
-
+### Unavailable or Non-consented Data
+If the OP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the specific data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. 
 
 ### Data not Matching Requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
@@ -709,9 +710,7 @@ If an element is to be omitted according to the rules above, but is required for
 
 ### Error Handling
 
-If the `claims` sub-element is empty, the OP MUST abort the transaction with an `invalid_request` error.
-
-Claims unknown to the OP or not available as Verified Claims MUST be ignored and omitted from the response. If the resulting `claims` sub-element is empty, the OP MUST omit the `verified_claims` element.
+If the OP encounters an error, or the End-User does not consent to the whole transaction, standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 ## Requesting sets of Claims by scope {#req_scope}
 
