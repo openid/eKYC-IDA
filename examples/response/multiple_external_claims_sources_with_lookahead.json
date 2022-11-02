@@ -7,35 +7,11 @@
     "verified_claims": {
       "src1": {
         "verification": {
-          "trust_framework": {
-            "value": "grids_kyb"
-          },
-          "evidence": [
-            {
-              "type": {
-                "value": "document"
-              },
-              "registry": {
-                "country": {
-                  "essential": true,
-                  "purpose": "string",
-                  "value": "ES"
-                }
-              },
-              "document": {
-                "SKU": {
-                  "value": "REX"
-                }
-              }
-            }
-          ]
+          "trust_framework": "trust_framework_example"
         },
         "claims": {
-          "title": null,
           "given_name": null,
-          "family_name": null,
-          "address": null,
-          "birthdate": null
+          "family_name": null
         }
       },
       "src2": {
@@ -74,7 +50,7 @@
   },
   "_claim_sources": {
     "src1": {
-      "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aXRsZSI6bnVsbCwiZ2l2ZW5fbmFtZSI6bnVsbCwiZmFtaWx5X25hbWUiOm51bGwsImFkZHJlc3MiOm51bGwsImJpcnRoZGF0ZSI6bnVsbH0.QbofJidCJQBCn799GuLTmG12jkAJ_61eI8dv0amAbog"
+      "JWT": "eyJraWQiOiJmMDgxZDI5OC1jNTgzLTQ3NDAtYWQ1NC02ZDUzMTljZjhiNWQiLCJhbGciOiJSUzI1NiJ9.ew0KICAgImlzcyI6ICJodHRwczovL3NlcnZlci5leGFtcGxlLmNvbSIsDQogICAic3ViIjogIjE0ODI4OTc2MiIsDQogICAidmVyaWZpZWRfY2xhaW1zIjogew0KICAgICJ2ZXJpZmljYXRpb24iOiB7DQogICAgICAidHJ1c3RfZnJhbWV3b3JrIjogInRydXN0X2ZyYW1ld29ya19leGFtcGxlIg0KICAgIH0sDQogICAgImNsYWltcyI6IHsNCiAgICAgICJnaXZlbl9uYW1lIjogIk1heCIsDQogICAgICAiZmFtaWx5X25hbWUiOiAiTWVpZXIiDQogICAgfQ0KICB9DQp9.jg_qxYfV0M2IU8On1iK9RBY0Cx9u3jRJ0Qzxe19Ol5VLoUTM7Uxbr3E0ZFCASHWpmz9d2g67XKGHQMppnJKX4SnEdphm6MqjnmZ9E0cirALrC016DX5geFy_0QFC8PAnCttcDgyVCyzCcDxUCaHBSRsrDwGjYe5AjgaDL8S-R72lFQHqch6uj9nhiFBtG24_0EsF6msssQ61WyqS6aju0F0PJms8danIfwc5lHyv-zKuDlY-0kw-fVn4274jY-VofElm4mhsrpo-YJhCKlz0O3CV0g9AW_60TQHCmhn6yoosaTbjlQqh5lREpqULz-MQKnD0wRmYLgBZXtzIhxb7ZA"
     },
     "src2": {
       "endpoint": "https://server.yetanotherop.com/claim_source",
