@@ -9,12 +9,13 @@
         "verification": {
           "trust_framework": {
             "value": "trust_framework_example"
-        },
+             },
         "claims": {
           "given_name": null,
           "family_name": null
+          }
         }
-      },
+      }
       "src2": {
         "verification": {
           "trust_framework": {
