@@ -789,7 +789,7 @@ This is an example openid-configuration snippet:
 }
 ```
 
-The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
+If the OP supports the `claims` parameter, the OP MUST advertise this in its OP metadata using the `claims_parameter_supported` element.
 
 If the OP supports distributed and/or aggregated Claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
 
