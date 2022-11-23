@@ -502,8 +502,13 @@ An OP or AS MAY also include `verified_claims` in the above assertions, whether 
 For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
 * an `iss` Claim identifying the claims source,
-* a `sub` Claim identifying the End-User in the context of the claim source,
+* a `sub` Claim identifying the End-User in the context of the claim source, and
 * a `verified_claims` element containing one or more `verified_claims` objects.
+
+To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions MUST NOT contain:
+
+ * an `exp` claim, or
+ * an `aud` claim.
 
 The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
 
