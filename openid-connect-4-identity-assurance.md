@@ -1220,7 +1220,7 @@ which is used to indicate that the content is a JWT describing aggregated claims
   * Security considerations: n/a
   * Interoperability considerations: n/a
   * Published specification: [[ this specification ]]
-  * Applications that use this media type: Applications using [[ this specification ]] and include aggregated or distributed claims.
+  * Applications that use this media type: Applications using [[ this specification ]] that create or process aggregated or distributed claims.
   * Fragment identifier considerations: n/a
   * Additional information:
     * File extension(s): n/a
