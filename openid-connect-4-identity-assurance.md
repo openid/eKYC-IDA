@@ -501,6 +501,7 @@ An OP or AS MAY also include `verified_claims` in the above assertions, whether 
 
 For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
+* a `typ` Claim with the value `externalclaims+jwt`,
 * an `iss` Claim identifying the claims source,
 * a `sub` Claim identifying the End-User in the context of the claim source, and
 * a `verified_claims` element containing one or more `verified_claims` objects.
@@ -1203,6 +1204,33 @@ Change Controller:
 
 Specification Document(s):
 : Section [Claims](#claims) of this document
+
+
+## Media Type Registration
+
+This section registers the `application/externalclaims+jwt` media type [@RFC2046]
+in the IANA "Media Types" registry [@IANA.MediaTypes] in the manner described in [@RFC6838],
+which is used to indicate that the content is a JWT describing aggregated claims.
+
+  * Type name: application
+  * Subtype name: externalclaims+jwt
+  * Required parameters: n/a
+  * Optional parameters: n/a
+  * Encoding considerations: binary; An external claims JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.
+  * Security considerations: n/a
+  * Interoperability considerations: n/a
+  * Published specification: [[ this specification ]]
+  * Applications that use this media type: Applications using [[ this specification ]] and include aggregated or distributed claims.
+  * Fragment identifier considerations: n/a
+  * Additional information:
+    * File extension(s): n/a
+    * Macintosh file type code(s): n/a
+  * Person &amp; email address to contact for further information: Daniel Fett, mail@danielfett.de
+  * Intended usage: COMMON
+  * Restrictions on usage: none
+  * Author: Daniel Fett, mail@danielfett.de
+  * Change controller: IETF
+  * Provisional registration? No
 
 
 # Example Requests
