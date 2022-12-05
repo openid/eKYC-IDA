@@ -1076,6 +1076,14 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
+<reference anchor="IANA.MediaTypes" target="https://www.iana.org/assignments/media-types">
+ <front>
+   <title>Media Types</title>
+   <author><organization>IANA</organization></author>
+ </front>
+</reference>
+
+
 # IANA Considerations
 
 ## JSON Web Token Claims Registration
@@ -1409,6 +1417,9 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -14
+   * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
 
    -13
    * Preparation for Implementers Draft 4
