@@ -501,7 +501,7 @@ An OP or AS MAY also include `verified_claims` in the above assertions, whether 
 
 For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
-* a `typ` Claim with the value `provided-claims+jwt`,
+* a `typ` header parameter with the value `provided-claims+jwt`,
 * an `iss` Claim identifying the claims source,
 * a `sub` Claim identifying the End-User in the context of the claim source, and
 * a `verified_claims` element containing one or more `verified_claims` objects.
