@@ -502,8 +502,13 @@ An OP or AS MAY also include `verified_claims` in the above assertions, whether 
 For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
 * an `iss` Claim identifying the claims source,
-* a `sub` Claim identifying the End-User in the context of the claim source,
+* a `sub` Claim identifying the End-User in the context of the claim source, and
 * a `verified_claims` element containing one or more `verified_claims` objects.
+
+To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions MUST NOT contain:
+
+ * an `exp` claim, or
+ * an `aud` claim.
 
 The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
 
@@ -738,7 +743,7 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
-`attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member.
+`attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member. If omitted, the OP does not support attachments.
 
 `digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 

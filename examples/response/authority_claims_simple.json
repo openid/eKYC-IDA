@@ -22,29 +22,27 @@
                 "entity_legal_form": "H0PO",
                 "organisation_status": "Active",
                 "incorporation_date": "2000-01-01",
-                "organization_identifiers": {
-                  "organization_identifier": {
+                "organization_identifiers": [{
                     "identifier_type": "LEI",
                     "identifier": "H7FNTJ4851HG0EXQ1Z70",
                     "issuer": "RapidLEI"
                   },
-                  "organization_identifier": {
+                  {
                     "identifier_type": "DUNS",
                     "identifier": "123456789",
                     "issuer": "Dun & Bradstreet"
-                  }
+                  }]
                 },
-                "organization_categories": {
-                  "organization_category": {
+                "organization_categories": [{
                     "category_type": "SIC",
                     "category": "01120",
                     "category description": "Growing of rice" 
                   },
-                  "organization_category": {
+                  {
                     "category_type": "SIC",
                     "category": "01440",
                     "category description": "Raising of camels and camelids" 
-                  }
+                  }]
                 }
                 
             },

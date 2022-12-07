@@ -228,8 +228,8 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`entity_legal_form`|String|The legal entity form as allowed in the legal jurisdiction (limited, charity, not-for-profit), from the GLEIF Entity Legal Forms list [@!GLEIF-ELF], based on [@!ISO20275]|
 |`organization_status`|String|status (active, dormant, closed)|
 |`incorporation_date`|String| A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of incorporation of the legal entity|
-|`organization_identifiers`|Array|One or more JSON objects containing an `organisation_identifier` element with sub-elements of identifier type (`identifier_type`, e.g., LEI, DUNS number, BIC code), the legal entity organization identifier (`identifier`, which is unique within the issuer domain) and issuing body (`issuer`) each of which are of type String|
-|`organization_categories`|Array|One or more JSON objects containing an `organization_category` element with sub-elements of category type (`category_type`, e.g., SIC code), category that the legal entity belongs to (`category`), and `category_description`, each of which are of type String|
+|`organization_identifiers`|Array|One or more JSON objects containing identifier type (`identifier_type`, e.g., LEI, DUNS number, BIC code), the legal entity organization identifier (`identifier`, which is unique within the issuer domain) and issuing body (`issuer`) each of which are of type String|
+|`organization_categories`|Array|One or more JSON objects containing category type (`category_type`, e.g., SIC code), category that the legal entity belongs to (`category`), and `category_description`, each of which are of type String|
 
 An LEI is a Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
 
