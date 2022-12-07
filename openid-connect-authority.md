@@ -52,14 +52,12 @@ Note: Work to define how direct claims of a legal entity are transferred could u
 This section defines some terms relevant to the topic covered in this document
 
 > Legal entity:  
->  - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity) "a company or organization that has legal rights and responsibilities"  
->  - [Business dictionary](http://www.businessdictionary.com/definition/legal-entity.html) "An association, corporation, partnership, proprietorship, trust, or individual that has legal standing in the eyes of law. A legal entity has legal capacity to enter into agreements or contracts, assume obligations, incur and pay debts, sue and be sued in its own right, and to be held responsible for its actions"
+>  - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity) "a company or organization that has legal rights and responsibilities"
 
 > Natural person:  
->  - [Business dictionary](http://www.businessdictionary.com/definition/natural-person.html) "A human being, as opposed to a juridical person created by law."
+>  - [Legal dictionary](https://legaldictionary.lawin.org/natural-person/) "Human being, as distinguished from artificial persons or corporations recognized by the law."
 
 > Authority:  
->  - [Business dictionary](http://www.businessdictionary.com/definition/authority.html) "1. Institutionalized and legal power inherent in a particular job, function, or position that is meant to enable its holder to successfully carry out his or her responsibilities. 2. Power that is delegated formally. It includes a right to command a situation, commit resources, give orders and expect them to be obeyed, it is always accompanied by an equal responsibility for one's actions or a failure to act"  
 >  - [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/authority) "the official power to make decisions for other people"
 
 
@@ -224,14 +222,16 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`organization_name`|String|Legal entity name|
 |`trading_as`|Array|Trading name(s)|
 |`registered_address`| JSON object |Registered address. The value of this member is a JSON structure containing Claims as defined in Section 5.1.1 of the OpenID Connect specification [@!OpenID]|
-|`registration_number`|Array|One or more JSON objects containing a legal entity registration identifier (`number`) and issuing body (`issuer`) both of which are of type String|
+|`registration_number`|String|The unique number that the legal entity is assigned by a Registration Authority when the legal entity is formed|
 |`registration_authority_code`|String|Globally unique code for the authority that registered the organisation, from the GLEIF registration authorities list [@!GLEIF-RA]|
 |`legal_jurisdiction`|String|The legal jurisdiction that the legal entity is registered in, from the GLEIF legal jurisdiction list [@!GLEIF-LJ]|
 |`entity_legal_form`|String|The legal entity form as allowed in the legal jurisdiction (limited, charity, not-for-profit), from the GLEIF Entity Legal Forms list [@!GLEIF-ELF], based on [@!ISO20275]|
 |`organization_status`|String|status (active, dormant, closed)|
 |`incorporation_date`|String| A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of incorporation of the legal entity|
-|`lei`|String|Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
-|`last_accounts_date`|String|A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of the most recent accounts by the legal entity|
+|`organization_identifiers`|Array|One or more JSON objects containing an `organisation_identifier` element with sub-elements of identifier type (`identifier_type`, e.g., LEI, DUNS number, BIC code), the legal entity organization identifier (`identifier`, which is unique within the issuer domain) and issuing body (`issuer`) each of which are of type String|
+|`organization_categories`|Array|One or more JSON objects containing an `organization_category` element with sub-elements of category type (`category_type`, e.g., SIC code), category that the legal entity belongs to (`category`), and `category_description`, each of which are of type String|
+
+An LEI is a Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
 
 
 ## authority Element {#authority}
@@ -276,7 +276,8 @@ In the case that the authority applies to a legal entity the `applies_to` elemen
 * `entity_legal_form`
 * `organization_status`
 * `incorporation_date`
-* `lei`
+* `organization_identifiers`
+* `organization_categories`
 * `beneficial_owners`
 
 When used the `beneficial_owners` claim will be of the form of an array containing one or more records that describe a natural person who ultimately has control over that legal entity as described in the FATF Guidance [@!FATF-BO-Guidance].  The content of the `beneficial_owners' records SHOULD be of the form described in this section when describing a natural person.
@@ -296,7 +297,7 @@ The `permission` sub-element is intended to convey the range of actions that the
 
 The `permission` sub-element consists of an array of objects that contain the following objects and MAY contain further objects that describe any additional extensions or restrictions of the authority over the target entity:
 
-* `role`: REQUIRED. Object that reflects the role held by the End-User in relation to the target entity, using roles defined by GLEIF based on [@!ISO5009]
+* `role`: REQUIRED. Object that reflects the role held by the End-User in relation to the target entity, e.g., roles defined by GLEIF based on [@!ISO5009]
 * `validity`: OPTIONAL. Object that contains an array that MUST have either a `start` or `end` and can optionally have both.  Both the `start` and `end` objects are a reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent and are used to define the date limits of the authority being conveyed.
 * `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements. This object is intended to describe the maximum extent of the End-User's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
 * `audience`: OPTIONAL. Limitation of the scope of entity or entities that the End-User may communicate with when acting on behalf of the entity defined in the `applies_to` element
@@ -536,7 +537,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -625,7 +625,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="ISO5009" target="https://www.iso.org/obp/ui/#iso:std:iso:5009:ed-1:v1:en">
+<reference anchor="ISO5009" target="https://www.iso.org/standard/80603.html">
 	<front>
 	  <title>ISO 5009. Financial services — Official organizational roles — Scheme for official organizational roles</title>
 	  <author surname="International Organization for Standardization">
