@@ -26,25 +26,24 @@
                     "identifier_type": "LEI",
                     "identifier": "H7FNTJ4851HG0EXQ1Z70",
                     "issuer": "RapidLEI"
-                  },
-                  {
+                    },
+                    {
                     "identifier_type": "DUNS",
                     "identifier": "123456789",
                     "issuer": "Dun & Bradstreet"
-                  }]
-                },
+                    }
+                ],
                 "organization_categories": [{
                     "category_type": "SIC",
                     "category": "01120",
                     "category description": "Growing of rice" 
-                  },
-                  {
+                    },
+                    {
                     "category_type": "SIC",
                     "category": "01440",
                     "category description": "Raising of camels and camelids" 
-                  }]
-                }
-                
+                    }
+                ]   
             },
             "permission": [ {
                 "role": "Director",
