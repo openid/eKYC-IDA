@@ -31,7 +31,7 @@
                     "identifier_type": "DUNS",
                     "identifier": "123456789",
                     "issuer": "Dun & Bradstreet"
-                    }
+                    },
                     {
                     "identifier_type": "FRN",
                     "identifier": "928911",
