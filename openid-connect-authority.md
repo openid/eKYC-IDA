@@ -229,7 +229,6 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`organization_status`|String|status (active, dormant, closed)|
 |`incorporation_date`|String| A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of incorporation of the legal entity|
 |`organization_identifiers`|Array|One or more JSON objects containing identifier type (`identifier_type`, e.g., LEI, DUNS number, BIC code), the legal entity organization identifier (`identifier`, which is unique within the issuer domain) and issuing body (`issuer`) each of which are of type String|
-|`organization_categories`|Array|One or more JSON objects containing category type (`category_type`, e.g., SIC code), category that the legal entity belongs to (`category`), and `category_description`, each of which are of type String|
 
 An LEI is a Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
 
@@ -277,10 +276,6 @@ In the case that the authority applies to a legal entity the `applies_to` elemen
 * `organization_status`
 * `incorporation_date`
 * `organization_identifiers`
-* `organization_categories`
-* `beneficial_owners`
-
-When used the `beneficial_owners` claim will be of the form of an array containing one or more records that describe a natural person who ultimately has control over that legal entity as described in the FATF Guidance [@!FATF-BO-Guidance].  The content of the `beneficial_owners' records SHOULD be of the form described in this section when describing a natural person.
 
 In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
 
@@ -752,16 +747,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>ITU-T</organization>
     </author>
     <date year="2010" month="11"/>
-  </front>
-</reference>
-
-<reference anchor="FATF-BO-Guidance" target="https://www.fatf-gafi.org/media/fatf/documents/reports/Guidance-transparency-beneficial-ownership.pdf">
-  <front>
-    <title>Guidance on Transparency and Beneficial Ownership</title>
-    <author initials="" surname="FATF">
-      <organization>Financial Action Task Force (FATF)</organization>
-    </author>
-   <date month="October" year="2014"/>
   </front>
 </reference>
 
