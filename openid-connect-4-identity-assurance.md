@@ -238,7 +238,7 @@ Note: While `verification_process` refers to the identity verification process a
 
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
-### evidence Element
+### evidence Element {#evidence_element}
 
 The `evidence` element is structured with the following elements:
 
@@ -732,7 +732,7 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array MUST have at least one member.
 
-`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member.
+`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see [@!evidence_element]).
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array MUST have at least one member.
 
