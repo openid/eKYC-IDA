@@ -6,7 +6,7 @@
       "verification_process": "f24c6f-6d3f-4ec5-973e-b0d8506f3bc7",
       "evidence": [
         {
-          "type": "id_document",
+          "type": "document",
           "method": "pipp",
           "time": "2012-04-22T11:30Z",
           "document": {
