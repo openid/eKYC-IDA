@@ -251,10 +251,7 @@ The following types of evidence are defined:
 * `document`: Verification based on the content of a physical or electronic document provided by the End-User, e.g. a passport, ID card, PDF signed by a recognized authority, etc.
 * `electronic_record`: Verification based on data or information obtained electronically from an approved, recognized, regulated or certified source, e.g. a Government organization, bank, utility provider, credit reference agency, etc.
 * `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the Claim(s) presented by the End-User are, to the best of their knowledge, genuine and true.
-* `utility_bill`: Verification based on a utility bill (this is to be deprecated in future releases and implementers are recommended to use the `document` type instead).
 * `electronic_signature`: Verification based on the use of an electronic signature that can be uniquely linked to the End-User and is capable of identifying the signatory, e.g. an eIDAS Advanced Electronic Signature (AES) or Qualified Electronic Signature (QES).
-
-Note: `id_document` is an alias for `document` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document`.
 
 Depending on the evidence type additional elements are defined, as described in the following.
 
@@ -280,10 +277,10 @@ The following elements are contained in an evidence sub-element where type is `d
 
 `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
 
-`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. Note: `document` can be used as an alias for `document_details` for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_details`. It consists of the following properties:
+`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note: `number` can be used as an alias for 'document_number' for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use `document_number`.
+* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc.
 * `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization).
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
@@ -350,26 +347,6 @@ The following elements are contained in an evidence sub-element where type is `v
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
-
-#### Evidence Type utility_bill
-
-Note: This type is to be deprecated in future releases. Implementers are recommended to use `document` instead.
-
-The following elements are contained in an evidence sub-element where type is `utility_bill`.
-
-`type`: REQUIRED. Value MUST be set to "utility_bill".
-
-`provider`: OPTIONAL. JSON object identifying the respective provider that issued the bill. The object consists of the following properties:
-
-* `name`: REQUIRED. String designating the provider.
-* All elements of the OpenID Connect `address` Claim (see [@!OpenID])
-* `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-
-`date`: OPTIONAL. String in ISO 8601 [@!ISO8601] `YYYY-MM-DD` format containing the date when this bill was issued.
-
-`method`: OPTIONAL. The method used to verify the utility bill. For information on predefined method values see [@!predefined_values].
-
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the utility bill was verified.
 
 #### Evidence Type electronic_signature
 
@@ -1291,10 +1268,6 @@ The third subsection illustrates how the contents of this object could look like
 
 Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
-## ID document [deprecated format]
-
-<{{examples/response/id_document.json}}
-
 ## Document
 
 <{{examples/response/document_800_63A.json}}
@@ -1322,10 +1295,6 @@ Same document under a different `trust_framework`
 ## Document + utility statement
 
 <{{examples/response/document_and_utility_statement.json}}
-
-## ID document + utility bill [deprecated format]
-
-<{{examples/response/id_document_and_utility_bill.json}}
 
 ## Notified eID system (eIDAS)
 
@@ -1420,6 +1389,7 @@ The technology described in this specification was made available from contribut
 
    -14
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
+   * Removed deprecated elements `utility_bill` and `document`
 
    -13
    * Preparation for Implementers Draft 4
