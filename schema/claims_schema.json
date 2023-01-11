@@ -32,7 +32,6 @@
     },
     "claims_type": {
       "type": "object",
-      "minProperties": 1,
       "properties": {
         "sub": { "type": "string" },
         "name": { "type": "string" },
