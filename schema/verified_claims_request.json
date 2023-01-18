@@ -170,11 +170,9 @@
             "value": {
               "enum": [
                 "electronic_signature",
-                "id_document",
                 "document",
                 "electronic_record",
-                "vouch",
-                "utility_bill"
+                "vouch"
               ]
             }
           }
@@ -217,7 +215,7 @@
           "if": {
             "properties": {
               "type": {
-                "pattern": "^(id_)?document$"
+                "value": "document"
               }
             }
           },
@@ -381,49 +379,6 @@
                     }
                   }
                 }
-              }
-            }
-          },
-          "else": {}
-        },
-        {
-          "if": {
-            "properties": {
-              "type": {
-                "value": "utility_bill"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "provider": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "formatted": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "street_address": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "locality": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "region": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "postal_code": {
-                    "$ref": "#/definitions/simple_element"
-                  },
-                  "country": {
-                    "$ref": "#/definitions/simple_element"
-                  }
-                }
-              },
-              "date": {
-                "$ref": "#/definitions/datetime_element"
               }
             }
           },

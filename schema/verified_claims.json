@@ -108,11 +108,9 @@
           "type": "string",
           "enum": [
             "electronic_signature",
-            "id_document",
             "document",
             "electronic_record",
-            "vouch",
-            "utility_bill"
+            "vouch"
           ]
         },
         "attachments": {
@@ -153,7 +151,7 @@
           "if": {
             "properties": {
               "type": {
-                "pattern": "^(id_)?document$"
+                "value": "document"
               }
             }
           },
@@ -320,49 +318,6 @@
                     }
                   }
                 }
-              }
-            }
-          },
-          "else": {}
-        },
-        {
-          "if": {
-            "properties": {
-              "type": {
-                "value": "utility_bill"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "provider": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "formatted": {
-                    "type": "string"
-                  },
-                  "street_address": {
-                    "type": "string"
-                  },
-                  "locality": {
-                    "type": "string"
-                  },
-                  "region": {
-                    "type": "string"
-                  },
-                  "postal_code": {
-                    "type": "string"
-                  },
-                  "country": {
-                    "type": "string"
-                  }
-                }
-              },
-              "date": {
-                "$ref": "#/definitions/date_type"
               }
             }
           },

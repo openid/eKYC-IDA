@@ -11,7 +11,7 @@
         "evidence": [
           {
             "type": {
-              "value": "id_document"
+              "value": "document"
             },
             "method": null,
             "time": null,
