@@ -420,12 +420,12 @@ The following example shows external attachments:
 
 #### External Attachment Validation
 
-Clients MUST validate the any member of the attachments array that is an external attachment they wish to rely on in the following manner:
+Clients MUST validate any member of the attachments array, that is an external attachment they wish to rely on, in the following manner:
 
 1. Each External attachment MUST include the required elements: `url`, `digest`.
 2. the `url` element MUST be accessible over the internet and MUST use the `https` scheme and must be a protected endpoint.
 3. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the digest element.
-4. If used, the `expires_in` element must be a positive integer
+4. If used, the `expires_in` element MUST be a positive integer
 5. If the `expires_in` element is used, the RP SHOULD NOT rely upon the content of the external attachment if the it is more than `expires_in` seconds after the `iat` value (if it is present) or after the token request.
 6. The content MIME type of the document MUST be indicated in a content-type HTTP response header
 7. Multipart or message media types SHALL NOT be used
