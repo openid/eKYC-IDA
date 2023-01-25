@@ -55,7 +55,7 @@ This section defines some terms relevant to the topic covered in this document
 >  - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity) "a company or organization that has legal rights and responsibilities"
 
 > Natural person:  
->  - [Legal dictionary](https://legaldictionary.lawin.org/natural-person/) "Human being, as distinguished from artificial persons or corporations recognized by the law."
+>  - "Human being, as distinguished from artificial persons or corporations recognized by the law."
 
 > Authority:  
 >  - [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/authority) "the official power to make decisions for other people"
@@ -264,18 +264,7 @@ A machine-readable syntax definition of `authority` is given as a JSON schema in
 
 The `applies_to` sub-element is intended to convey claims that allow unique identification of the entity that the authority applies to.  The `applies_to` sub-element may contain a number of different claims and those will depend on the particular use case and will, in particular, depend on whether the `applies_to` sub-element is identifying a legal entity or a natural person.
   
-In the case that the authority applies to a legal entity the `applies_to` element MAY contain one or more of the following Claims (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims:
-
-* `organization_name`
-* `trading_as`
-* `registered_address`
-* `registration_number`
-* `registration_authority_code`
-* `legal_jurisdiction`
-* `entity_legal_form`
-* `organization_status`
-* `incorporation_date`
-* `organization_identifiers`
+In the case that the authority applies to a legal entity the `applies_to` element MAY contain one or more of the Claims in the 'Claims about a legal entity' section above (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims.
 
 In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
 
