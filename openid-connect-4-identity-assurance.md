@@ -397,7 +397,7 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
-`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the document MUST be indicated in a content-type HTTP response header, as per [RFC6838](https://datatracker.ietf.org/doc/html/rfc6838). Multipart or message media types SHALL NOT be used.
+`url`: REQUIRED. OAuth 2.0 resource endpoint from which the document can be retrieved. Providers MUST protect this endpoint. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the document MUST be indicated in a content-type HTTP response header, as per [@!RFC6838](https://datatracker.ietf.org/doc/html/rfc6838). Multipart or message media types SHALL NOT be used.
 
 `access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the document from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
 
@@ -423,12 +423,14 @@ The following example shows external attachments:
 Clients MUST validate any member of the attachments array, that is an external attachment they wish to rely on, in the following manner:
 
 1. Each External attachment MUST include the required elements: `url`, `digest`.
-2. the `url` element MUST be accessible over the internet and MUST use the `https` scheme and must be a protected endpoint.
-3. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the digest element.
-4. If used, the `expires_in` element MUST be a positive integer
-5. If the `expires_in` element is used, the RP SHOULD NOT rely upon the content of the external attachment if the it is more than `expires_in` seconds after the `iat` value (if it is present) or after the token request.
-6. The content MIME type of the document MUST be indicated in a content-type HTTP response header
-7. Multipart or message media types SHALL NOT be used
+2. The URL defined in the `url` element MUST be accessible over the internet” 
+3. The URL defined in the `url` element MUST use the `https` scheme 
+4. The URL defined in the `url` element MUST be a protected endpoint.
+5. The endpoint URL MUST return the document whose cryptographic hash matches the value given in the digest element.
+6. If used, the `expires_in` element MUST be a positive integer
+7. If the `expires_in` element is used, the RP SHOULD NOT rely upon the content of the external attachment if the it is more than `expires_in` seconds after the `iat` value (if it is present) or after the token request.
+8. The content MIME type of the document MUST be indicated in a content-type HTTP response header
+9. Multipart or message media types SHALL NOT be used
 
 #### Privacy Considerations
 
