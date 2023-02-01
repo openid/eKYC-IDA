@@ -403,10 +403,10 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 `expires_in`: OPTIONAL. Positive integer representing the number of seconds until the attachment becomes unavailable and/or the provided `access_token` becomes invalid.
 
-`digest`: REQUIRED. JSON object representing a cryptographic hash of the document content. The JSON object has the following elements:
+`digest`: REQUIRED. JSON object containing details of a cryptographic hash of the document content taken over the bytes of the payload (and not, e.g., the representation in the HTTP response). The JSON object has the following elements:
 
 * `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
-* `value`: REQUIRED. Base64 encoded representation of the cryptographic hash.
+* `value`: REQUIRED. Base64-encoded [@RFC4648] bytes of the cryptographic hash.
 
 `txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
