@@ -33,33 +33,34 @@ organization="Beruku"
 
 .# Abstract
 
-This document defines an extension of OpenID Connect for providing Relying Parties with verified Claims about the relationships between entities, in a secure way, using OIDC and OAuth 2.0 protocols.  This extension is intended to be used to communicate a relationship between a natural person and another entity in a way that can be relied upon.
-That second related entity could be a legal entity or another natural person.
+This document defines an extension of OpenID Connect for providing Relying Parties with verified Claims about the relationships between legal persons (humans and other humans or organisations), in a secure way, using OIDC and OAuth 2.0 protocols.  This extension is intended to be used to communicate a relationship between a natural person and another natural person or legal entity in a way that can be relied upon.
 
 {mainmatter}
 
 # Introduction {#Introduction}
 
-Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another entity such as a legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables Clients to verify the identity of the End-User" This extension will therefore focus on communicating details of a natural person's authority over another entity. 
+Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another natural person or legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables Clients to verify the identity of the End-User" This extension will therefore focus on communicating details of a natural person's authority over another natural person or legal entity. 
 
 Note: Work to define how direct claims of a legal entity are transferred could use elements of eKYC & IDA specifications such as the structure of the verified_claims element and there are specific claims added as part of this document to enable legal entities to be uniquely defined.
-
-
-
 
 ## Terminology
 
 This section defines some terms relevant to the topic covered in this document
 
-> Legal entity:  
->  - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity) "a company or organization that has legal rights and responsibilities"
+> Legal person:  
+>  - [Cornell Law School](https://www.law.cornell.edu/wex/legal_person) "Legal person refers to a human or non-human entity that is treated as a person for limited legal purposes. Typically, a legal persons can sue and be sued, own property, and enter into contracts."
 
 > Natural person:  
->  - "Human being, as distinguished from artificial persons or corporations recognized by the law."
+>  - [Termly](https://termly.io/legal-dictionary/natural-person/) "A natural person (also sometimes referred to as a physical person) is a title used to identify an individual human being. This is different from a legal person, which can be an individual or a company."
+
+> Legal entity:  
+>  - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity) "a company or organization that has legal rights and responsibilities"
+>  - [ISO 17442](https://www.iso.org/standard/75998.html) "legal entities, which include, but are not limited to, unique parties that are legally or financially responsible for the performance of financial transactions or have the legal right in their jurisdiction to enter independently into legal contracts, regardless of whether they are incorporated or constituted in some other way (e.g. trust, partnership, contractual). It includes governmental organizations, supranationals and individuals when acting in a business capacity, but excludes natural persons."
+Note: the term "legal entity" is used in this specification to mean an organisation, rather than "legal person", since "legal person" can also refer to a "natural person".
 
 > Authority:  
->  - [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/authority) "the official power to make decisions for other people"
-
+>  - [Britannica Dictionary](https://www.britannica.com/dictionary/authority) "the power or right to direct or control someone or something"
+Note: the "someone" for the purposes of this specification is a "natural person", and the "something" is a "legal entity".
 
 This specification uses the terms:
 * "Access Token", 
