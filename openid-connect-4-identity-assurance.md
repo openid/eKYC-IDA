@@ -474,6 +474,8 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 
 An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
 
+### Aggregated and Distributed claims
+
 For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
 * a `typ` header parameter with the value `provided-claims+jwt`,
@@ -518,6 +520,36 @@ The OP MAY combine aggregated and distributed Claims with `verified_claims` prov
 If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
 Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
+
+### Aggregated and Distributed claims validation
+
+Clients MUST validate any Aggregated and Distributed `verified_claims` they wish to rely on in the following manner:
+
+1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response
+2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response
+3. Ensure that the `verified_claims` element contains a value that is one of the following:
+    a. a string that exists as a key name in the `claim_sources` element of the response.
+    b. a JSON array containing members that all exist as a key names in the `claim_sources` element of the response.
+    c. a JSON object containing elements that all exist as key names in the `claim_sources` element of the response and each element is formatted with the syntax as defined for requesting verified_claims.
+4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements
+5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `claim_names` element of the response
+
+When `verified_claims` are delivered as distributed claims, i.e. when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients MUST also:
+
+1. Retrieve the distributed claims object from the `endpoint` element defined in any distributed `_claim_sources`.
+2. Ensure that the object returned from the `endpoint` is a JWT as per [@RFC7519].
+3. **ENFORCE HTTPS SCHEME?**
+
+When `verified_claims` are delivered as aggregated claims, i.e. when a sub-element of the `_claim_sources` contains the `JWT` claim, clients MUST also:
+
+1. Ensure that the value in the `JWT` claim is a valid JWT as per [@RFC7519].
+
+Once the JWT has been delivered either via distributed or aggregated mechanism the client MUST:
+
+1. Verify the signature of the returned JWT.
+2. Ensure that the JWT includes the required elements: `typ`, `iss`, `sub` `verified_claims` and that their values are not null or empty.
+3. Ensure that the JWT does not contain either an `exp` claim, or an `aud` claim.
+4. Ensure that the value of the `typ` header parameter in the JWT is `provided-claims+jwt`.
 
 # Requesting Verified Claims
 
