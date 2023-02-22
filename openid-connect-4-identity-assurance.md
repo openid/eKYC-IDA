@@ -476,6 +476,8 @@ An OP or AS MAY also include `verified_claims` in the above assertions, whether 
 
 ### Aggregated and Distributed claims
 
+When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element MUST use the https URI scheme and the JWT returned SHOULD NOT be accessible via any other URI scheme.
+
 For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
 
 * a `typ` header parameter with the value `provided-claims+jwt`,
@@ -536,8 +538,9 @@ Clients MUST validate any Aggregated and Distributed `verified_claims` they wish
 
 When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients MUST also:
 
-1. Retrieve the distributed claims object from the `endpoint` element defined in any distributed `_claim_sources`.
-2. Ensure that the object returned from the `endpoint` is a JWT as per [@RFC7519].
+1. Ensure that the `endpoint` element defined in any distributed `_claim_sources` uses the https URI scheme.
+2. Retrieve the distributed claims object from the `endpoint` element defined in any distributed `_claim_sources`.
+3. Ensure that the object returned from the `endpoint` is a JWT as per [@RFC7519].
 
 When `verified_claims` are delivered as aggregated claims, i.e., when a sub-element of the `_claim_sources` contains the `JWT` claim, clients MUST also:
 
