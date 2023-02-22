@@ -27,7 +27,7 @@
               },
               "url": "https://example.com/attachments/pGL9yz4hZQ",
               "access_token": "ksj3n283dke",
-              "expires_in": 30
+              "exp": 1676552089
             },
             {
               "desc": "Back of id document",
@@ -45,7 +45,7 @@
               },
               "url": "https://example.com/attachments/4Ag8IpOf95",
               "access_token": null,
-              "expires_in": 30
+              "exp": 1676552189
             }
           ]
         }
