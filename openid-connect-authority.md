@@ -33,40 +33,34 @@ organization="Beruku"
 
 .# Abstract
 
-This document defines an extension of OpenID Connect for providing Relying Parties with verified Claims about the relationships between entities, in a secure way, using OIDC and OAuth 2.0 protocols.  This extension is intended to be used to communicate a relationship between a natural person and another entity in a way that can be relied upon.
-That second related entity could be a legal entity or another natural person.
+This document defines an extension of OpenID Connect for providing Relying Parties with verified Claims about the relationships between legal persons (humans and other humans or organisations), in a secure way, using OIDC and OAuth 2.0 protocols.  This extension is intended to be used to communicate a relationship between a natural person and another natural person or legal entity in a way that can be relied upon.
 
 {mainmatter}
 
 # Introduction {#Introduction}
 
-Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another entity such as a legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables Clients to verify the identity of the End-User" This extension will therefore focus on communicating details of a natural person's authority over another entity. 
+Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another natural person or legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables Clients to verify the identity of the End-User" This extension will therefore focus on communicating details of a natural person's authority over another natural person or legal entity. 
 
 Note: Work to define how direct claims of a legal entity are transferred could use elements of eKYC & IDA specifications such as the structure of the verified_claims element and there are specific claims added as part of this document to enable legal entities to be uniquely defined.
-
-
-
 
 ## Terminology
 
 This section defines some terms relevant to the topic covered in this document
 
-> Legal entity:
-> - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity)... "a company or organization that has legal rights and responsibilities"
-> - [Business dictionary](http://www.businessdictionary.com/definition/legal-entity.html)... "
-An association, corporation, partnership, proprietorship, trust, or individual that has legal standing in the eyes of law. A legal entity has legal capacity to enter into agreements or contracts, assume obligations, incur and pay debts, sue and be sued in its own right, and to be held responsible for its actions.
+> Legal person:  
+>  - [Cornell Law School](https://www.law.cornell.edu/wex/legal_person) "Legal person refers to a human or non-human entity that is treated as a person for limited legal purposes. Typically, a legal persons can sue and be sued, own property, and enter into contracts."
 
-> Natural person:
-> - [Business dictionary](http://www.businessdictionary.com/definition/natural-person.html)
-"A human being, as opposed to a juridical person created by law."
+> Natural person:  
+>  - [Termly](https://termly.io/legal-dictionary/natural-person/) "A natural person (also sometimes referred to as a physical person) is a title used to identify an individual human being. This is different from a legal person, which can be an individual or a company."
 
-> Authority:
-> - [Business dictionary](http://www.businessdictionary.com/definition/authority.html)
-> 1. Institutionalized and legal power inherent in a particular job, function, or position that is meant to enable its holder to successfully carry out his or her responsibilities.
-> 2. Power that is delegated formally. It includes a right to command a situation, commit resources, give orders and expect them to be obeyed, it is always accompanied by an equal responsibility for one's actions or a failure to act.
-> - [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/authority)
-> "the official power to make decisions for other people"
+> Legal entity:  
+>  - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity) "a company or organization that has legal rights and responsibilities"
+>  - [ISO 17442](https://www.iso.org/standard/75998.html) "legal entities, which include, but are not limited to, unique parties that are legally or financially responsible for the performance of financial transactions or have the legal right in their jurisdiction to enter independently into legal contracts, regardless of whether they are incorporated or constituted in some other way (e.g. trust, partnership, contractual). It includes governmental organizations, supranationals and individuals when acting in a business capacity, but excludes natural persons."
+Note: the term "legal entity" is used in this specification to mean an organisation, rather than "legal person", since "legal person" can also refer to a "natural person".
 
+> Authority:  
+>  - [Britannica Dictionary](https://www.britannica.com/dictionary/authority) "the power or right to direct or control someone or something"
+Note: the "someone" for the purposes of this specification is a "natural person", and the "something" is a "legal entity".
 
 This specification uses the terms:
 * "Access Token", 
@@ -130,7 +124,7 @@ OpenID
 
 # Scope and Requirements
 
-Use cases relating to Legal entities and initiated by an End-User relate to "authority to act" where the End-User themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the delegated authority including:
+Use cases relating to legal entities and initiated by an End-User relate to "authority to act" where the End-User themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the authority including:
 
 * Which entity the authority applies to
 * Claims about the entity that has the authority to act
@@ -140,7 +134,7 @@ Use cases relating to Legal entities and initiated by an End-User relate to "aut
 
 ## In Scope Use Cases
 
-There are a number of use cases that were considered when writing this document as detailed below.  However  this document is to deliver a specification for "authority to act" related use cases.
+There are a number of use cases that were considered when writing this document as detailed below.  However, this document is to deliver a specification for "authority to act" related use cases.
 
 ### Get authority of natural person over legal entity
 "As a relying party I require specific attributes about the relationship a natural person has to a legal entity and how the details of the relationship were established"
@@ -176,15 +170,16 @@ This use case is the focus of this document
 
 ### Get authority of natural person over another natural person
 "As a relying party I require specific attributes about the relationship a natural person has to a another natural person and how the details of the relationship were established"
+
 > - Key attributes relating to the natural person who has the authority e.g.
 >   - name
 >   - address
->   - date of Birth
+>   - date of birth
 >   - personal identification number (e.g. social security number)
 > - Key attributes relating to the natural person to which the authority applies e.g.
->   - Name
->   - Address
->   - Date of Birth
+>   - name
+>   - address
+>   - date of birth
 >   - personal identification number (e.g. social security number)
 > - The nature of the relationship between the natural persons
 >   - The scope of the authority e.g.
@@ -225,16 +220,19 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
-|`organization_name`|String|legal entity name|
-|`registration_number`|Array|One or more JSON objects containing a legal entity registration identifier (`number`) and issuing body (`issuer`) both of which are of type String|
-|`lei`|String|Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
-|`organization_type`|String|Legal entity type (limited, charity, not-for-profit)|
-|`registered_address`| JSON object | Registered address. The value of this member is a JSON structure containing Claims as defined in Section 5.1.1 of the OpenID Connect specification [@!OpenID]|
-|`registered_jurisdiction`|String|String representing the Jurisdiction that the legal entity is registered in|
+|`organization_name`|String|Legal entity name|
+|`trading_as`|Array|Trading name(s)|
+|`registered_address`| JSON object |Registered address. The value of this member is a JSON structure containing Claims as defined in Section 5.1.1 of the OpenID Connect specification [@!OpenID]|
+|`registration_number`|String|The unique number that the legal entity is assigned by a Registration Authority when the legal entity is formed|
+|`registration_authority_code`|String|Globally unique code for the authority that registered the organisation, from the GLEIF registration authorities list [@!GLEIF-RA]|
+|`legal_jurisdiction`|String|The legal jurisdiction that the legal entity is registered in, from the GLEIF legal jurisdiction list [@!GLEIF-LJ]|
+|`entity_legal_form`|String|The legal entity form as allowed in the legal jurisdiction (limited, charity, not-for-profit), from the GLEIF Entity Legal Forms list [@!GLEIF-ELF], based on [@!ISO20275]|
 |`organization_status`|String|status (active, dormant, closed)|
 |`incorporation_date`|String| A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of incorporation of the legal entity|
-|`last_accounts_date`|String|A reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent the date of the most recent accounts by the legal entity|
-|`trading_as`|Array|Trading name(s)|
+|`organization_identifiers`|Array|One or more JSON objects containing identifier type (`identifier_type`, e.g., LEI, DUNS number, BIC code), the legal entity organization identifier (`identifier`, which is unique within the issuer domain) and issuing body (`issuer`) each of which are of type String|
+
+An LEI is a Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
+
 
 ## authority Element {#authority}
 
@@ -265,7 +263,9 @@ A machine-readable syntax definition of `authority` is given as a JSON schema in
 
 ## `applies_to` element
 
-The `applies_to` sub-element is intended to convey claims that allow unique identification of the entity that the authority applies to.  The applies to sub-element may contain a number of different claims and those will depend on the particular use case and will, in particular, depend on whether the `applies_to` sub-element is identifying a legal entity or a natural person.
+The `applies_to` sub-element is intended to convey claims that allow unique identification of the entity that the authority applies to.  The `applies_to` sub-element may contain a number of different claims and those will depend on the particular use case and will, in particular, depend on whether the `applies_to` sub-element is identifying a legal entity or a natural person.
+  
+In the case that the authority applies to a legal entity the `applies_to` element MAY contain one or more of the Claims in the 'Claims about a legal entity' section above (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims.
 
 In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
 
@@ -275,27 +275,14 @@ In the case that the authority applies to a natural person the `applies_to` elem
 * `family_name`
 * `birthdate`
 * `address`
-  
-In the case that the authority applies to a Legal entity the `applies_to` element MAY contain one or more of the following Claims (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims:
-
-* `organization_name`
-* `registration_number`
-* `lei`
-* `type`
-* `registered_address`
-* `registered_jurisdiction`
-* `date_of_incorporation`
-* `beneficial_owners`
-
-When used the `beneficial_owners` claim will be of the form of an array containing one or more records that describe a natural person who ultimately has control over that legal entity as described in the FATF Guidance [@!FATF-BO-Guidance].  The content of the `beneficial_owners' records SHOULD be of the form described in this section when describing a natural person.
 
 ## `permission` element
 
 The `permission` sub-element is intended to convey the range of actions that the End-User is allowed to take when acting for the entity identified in the `applies_to` sub-element.
 
-The `permission` sub-element consists of an array of objects that contain the following objects and MAY contain further objects that describe any additional extensions or restrictions of the rights has over the target entity:
+The `permission` sub-element consists of an array of objects that contain the following objects and MAY contain further objects that describe any additional extensions or restrictions of the authority over the target entity:
 
-* `role`: REQUIRED. Object that reflects the role held by the End-User in relation to the target entity
+* `role`: REQUIRED. Object that reflects the role held by the End-User in relation to the target entity, e.g., roles defined by GLEIF based on [@!ISO5009]
 * `validity`: OPTIONAL. Object that contains an array that MUST have either a `start` or `end` and can optionally have both.  Both the `start` and `end` objects are a reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent and are used to define the date limits of the authority being conveyed.
 * `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements. This object is intended to describe the maximum extent of the End-User's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
 * `audience`: OPTIONAL. Limitation of the scope of entity or entities that the End-User may communicate with when acting on behalf of the entity defined in the `applies_to` element
@@ -308,10 +295,10 @@ The `permission` sub-element consists of an array of objects that contain the fo
 The `granted_by` sub-element is intended to convey the manner in which the permission came to be associated with the End-User. 
 The `granted_by` sub-element MAY contain the claims described below and MAY contain further objects that describe any additional data about how the authority was vested in the End-User:
 
-* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation there SHOULD be a defined set of valid values, these values MAY include:
-> * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff
-> * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the End-User.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person.
-> * "self asserted": Where the End-User themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
+* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation there SHOULD be a defined set of valid values, these values MAY include:  
+ * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff  
+ * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the End-User.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person  
+ * "self-asserted": Where the End-User themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
 * `granting_body`: OPTIONAL.  The `granting_body` claim is used to identify the body that vested the authority in the End-User.  e.g. The High Court of London or another member of staff at the End-User's employer that already has the authority and has the authority to delegate that authority.
 * `reason`: OPTIONAL. The `reason` claim is a description of why the authority was granted to the End-User.
 
@@ -342,7 +329,7 @@ The OP has the discretion to decide whether the requested verification data is t
 
 ### Company accountant... ** Chain - person, accountancy firm, client
 
-### legal counsel
+### Legal counsel
 
 ### Official Receiver
 
@@ -361,7 +348,7 @@ The OP has the discretion to decide whether the requested verification data is t
 
 ### Company accountant... ** Chain - person, accountancy firm, client
 
-### legal counsel
+### Legal counsel
 
 ### Official Receiver
 
@@ -416,9 +403,9 @@ This is an example openid-configuration snippet:
    ],
    "authority_claims_supported":[
          { "applies_to": [
-                "company_name",
-                "company_number",
-                "jurisdiction"
+                "organization_name",
+                "registration_number",
+                "legal_jurisdiction"
             ]
          },
         { "permission": [
@@ -535,7 +522,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -594,6 +580,47 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
+<reference anchor="GLEIF-RA" target="https://www.gleif.org/en/about-lei/code-lists/gleif-registration-authorities-list#">
+  <front>
+    <title>GLEIF Registration Authorities</title>
+    <author surname="GLEIF">
+      <organization>Global Legal Entity Identifier Foundation</organization>
+    </author>
+   <date year="2022"/>
+  </front>
+</reference>
+
+<reference anchor="GLEIF-LJ" target="https://www.gleif.org/en/about-lei/code-lists/gleif-accepted-legal-jurisdictions-code-list#">
+  <front>
+    <title>GLEIF Legal Jurisdictions</title>
+    <author surname="GLEIF">
+      <organization>Global Legal Entity Identifier Foundation</organization>
+    </author>
+   <date year="2022"/>
+  </front>
+</reference>
+
+<reference anchor="GLEIF-ELF" target="https://www.gleif.org/en/about-lei/code-lists/iso-20275-entity-legal-forms-code-list#">
+  <front>
+    <title>GLEIF Entity Legal Forms</title>
+    <author surname="GLEIF">
+      <organization>Global Legal Entity Identifier Foundation</organization>
+    </author>
+   <date year="2022"/>
+  </front>
+</reference>
+
+<reference anchor="ISO5009" target="https://www.iso.org/standard/80603.html">
+	<front>
+	  <title>ISO 5009. Financial services — Official organizational roles — Scheme for official organizational roles</title>
+	  <author surname="International Organization for Standardization">
+	    <organization abbrev="ISO">International Organization for
+	    Standardization</organization>
+	  </author>
+	  <date year="2022" />
+	</front>
+</reference>
+
 <reference anchor="ISO8601-2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
 	<front>
 	  <title>ISO 8601:2004. Data elements and interchange formats - Information interchange -
@@ -629,6 +656,17 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 	</front>
 </reference>
 
+<reference anchor="ISO3166-3" target="https://www.iso.org/standard/63547.html">
+	<front>
+	  <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
+	  <author surname="International Organization for Standardization">
+	    <organization abbrev="ISO">International Organization for
+	    Standardization</organization>
+	  </author>
+	  <date year="2013" />
+	</front>
+</reference>
+
 <reference anchor="ISO17442-1-2020" target="https://www.iso.org/standard/78829.html">
 	<front>
 	  <title>ISO 17442-1:2020. Financial services — Legal entity identifier (LEI) — Part 1: Assignment</title>
@@ -640,9 +678,9 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 	</front>
 </reference>
 
-<reference anchor="ISO3166-3" target="https://www.iso.org/standard/63547.html">
+<reference anchor="ISO20275" target="https://www.iso.org/obp/ui/#iso:std:iso:20275:ed-1:v1:en">
 	<front>
-	  <title>ISO 3166-1:2013. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
+	  <title>ISO 20275. Financial services — Entity legal forms (ELF)</title>
 	  <author surname="International Organization for Standardization">
 	    <organization abbrev="ISO">International Organization for
 	    Standardization</organization>
@@ -699,16 +737,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>ITU-T</organization>
     </author>
     <date year="2010" month="11"/>
-  </front>
-</reference>
-
-<reference anchor="FATF-BO-Guidance" target="https://www.fatf-gafi.org/media/fatf/documents/reports/Guidance-transparency-beneficial-ownership.pdf">
-  <front>
-    <title>Guidance on Transparency and Beneficial Ownership</title>
-    <author initials="" surname="FATF">
-      <organization>Financial Action Task Force (FATF)</organization>
-    </author>
-   <date month="October" year="2014"/>
   </front>
 </reference>
 

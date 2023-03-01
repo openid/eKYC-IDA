@@ -3,7 +3,7 @@
     "email": "bobsmith@example.com",
     "verified_claims": {
       "verification": {
-        "trust_framework": "entity_claims_example_framework",
+        "trust_framework": "authority_claims_example_framework",
         "time":"2020-04-23T18:25Z",
         "verification_process":"f24c6f-6d3f-4ec5-973e-b0d8506f3bc7"
       },
@@ -13,9 +13,31 @@
         "birthdate": "1981-01-26",
         "authority": [ {
             "applies_to": {
-                "company_name": "Example Company Limited",
-                "company_number": "12351235",
-                "jurisdiction": "england-wales"
+                "organization_name": "Example Company Limited",
+                "trading_as": "XAmple",
+                "registered_address": "123 Acacia Avenue, Newtown, UK",
+                "registration_number": "12351235",
+                "registration_authority_code": "RA000585",
+                "legal_jurisdiction": "GB",
+                "entity_legal_form": "H0PO",
+                "organisation_status": "Active",
+                "incorporation_date": "2000-01-01",
+                "organization_identifiers": [{
+                    "identifier_type": "LEI",
+                    "identifier": "H7FNTJ4851HG0EXQ1Z70",
+                    "issuer": "RapidLEI"
+                    },
+                    {
+                    "identifier_type": "DUNS",
+                    "identifier": "123456789",
+                    "issuer": "Dun & Bradstreet"
+                    },
+                    {
+                    "identifier_type": "FRN",
+                    "identifier": "928911",
+                    "issuer": "FCA"
+                    }
+                ]   
             },
             "permission": [ {
                 "role": "Director",
