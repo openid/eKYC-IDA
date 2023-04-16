@@ -153,9 +153,11 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 Strong identity verification typically requires the participants to keep an audit trail of the whole process.
 
-The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
+Use of the `txn` Claim is RECOMMENDED.
 
-If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details:
+The `txn` Claim as defined in Section 2.2 of [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
+
+When the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details:
 
 * the transaction ID,
 * the authentication method employed, and
