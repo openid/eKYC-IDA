@@ -756,7 +756,9 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array MUST have at least one member.
 
-`evidence_supported`: REQUIRED. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see [@!evidence_element]).
+`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
+
+`evidence_supported`: REQUIRED when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see [@!evidence_element]).
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array MUST have at least one member.
 
@@ -765,8 +767,6 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 `documents_check_methods_supported`: OPTIONAL. JSON array containing the check methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array MUST have at least one member.
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
-
-`claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
 `attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member. If omitted, the OP does not support attachments.
 
