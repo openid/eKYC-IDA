@@ -1,6 +1,6 @@
 %%%
-title = "OpenID Connect for Identity Assurance 1.0"
-abbrev = "openid-connect-4-identity-assurance-1_0"
+title = "OpenID Connect for Identity Assurance Baseline 1.0"
+abbrev = "openid-connect-4-identity-assurance-baseline-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
 keyword = ["security", "openid", "identity assurance", "ekyc"]
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-13"
+value = "openid-connect-4-identity-assurance-baseline-1_0-01"
 
 status = "standard"
 
@@ -524,12 +524,6 @@ If the OP supports the `claims` parameter, the OP MUST advertise this in its OP 
 
 If the OP supports distributed and/or aggregated Claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
 
-# Client Registration and Management
-
-During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
-
-`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
-
 # Transaction-specific Purpose {#purpose}
 
 This specification introduces the request parameter `purpose` to allow an RP
@@ -1021,6 +1015,6 @@ The technology described in this specification was made available from contribut
    *  Remove all history
    *  Copy the original spec
    *  Update Copyright year
-   *  Remove some content
+   *  Remove pizza topping content
    
  
