@@ -1238,68 +1238,8 @@ Specification Document(s):
 : Section [Claims](#claims) of this document
 
 
-## Media Type Registration
-
-This section registers the `application/provided-claims+jwt` media type [@RFC2046]
-in the IANA "Media Types" registry [@IANA.MediaTypes] in the manner described in [@RFC6838],
-which is used to indicate that the content is a JWT describing aggregated claims.
-
-  * Type name: application
-  * Subtype name: provided-claims+jwt
-  * Required parameters: n/a
-  * Optional parameters: n/a
-  * Encoding considerations: binary; An external claims JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.
-  * Security considerations: The main security consideration is that JWTs representing 'provided claims' must not be confused with other types of tokens, in particular ID Tokens. To avoid this, (#verified_claims_delivery) of [[ this specification ]] contains additional requirements to the claims that are allowed in the JWT.
-  * Interoperability considerations: n/a
-  * Published specification: (#verified_claims_delivery) of [[ this specification ]]
-  * Applications that use this media type: When using [[ this specification ]], this media type is used in the `typ` header of assertions provided as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
-  * Fragment identifier considerations: n/a
-  * Additional information:
-    * File extension(s): n/a
-    * Macintosh file type code(s): n/a
-  * Person &amp; email address to contact for further information: Daniel Fett, mail@danielfett.de
-  * Intended usage: COMMON
-  * Restrictions on usage: none
-  * Author: Daniel Fett, mail@danielfett.de
-  * Change controller: IETF
-  * Provisional registration? No
-
-
 # Example Requests
 This section shows examples of requests for `verified_claims`.
-
-## Verification of Claims by a document
-
-<{{examples/request/verification_deeper.json}}
-
-Note that, as shown in the above example, this specification requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
-
-Support for these null value requests is mandatory for identity providers, so implementors are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
-
-## Verification of Claims by trust framework and evidence types
-
-<{{examples/request/verification_claims_trust_frameworks_evidence.json}}
-
-## Verification of Claims by trust framework and check method
-
-<{{examples/request/verification_spid_document_biometric.json}}
-
-## Verification of Claims by trust framework with a document and attachments
-
-<{{examples/request/verification_aml_with_attachments.json}}
-
-## Verification of Claims by electronic signature
-
-<{{examples/request/verification_electronic_signature.json}}
-
-
-### Attachments
-
-RPs can explicitly request to receive attachments along with the Verified Claims:
-
-<{{examples/request/verification_with_attachments.json}}
-
-As with other Claims, the attachment Claim can be marked as `essential` in the request as well.
 
 ### Error Handling
 
@@ -1315,68 +1255,9 @@ The third subsection illustrates how the contents of this object could look like
 
 Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
-## Document
-
-<{{examples/response/document_800_63A.json}}
-
-Same document under a different `trust_framework`
-
-<{{examples/response/document_UK_DIATF.json}}
-
-## Document and verifier details
-
-<{{examples/response/document_verifier.json}}
-
-## Document with external attachments
-
-<{{examples/response/document_with_attachments.json}}
-
-## Evidence with all assurance details
-
-<{{examples/response/evidence_with_assurance_details.json}}
-
-## Utility statement with attachments
-
-<{{examples/response/utility_statement_with_attachments.json}}
-
-## Document + utility statement
-
-<{{examples/response/document_and_utility_statement.json}}
-
-## Notified eID system (eIDAS)
-
-<{{examples/response/eidas.json}}
-
-## Electronic_record
-
-<{{examples/response/electronic_record.json}}
-
-## Vouch
-
-<{{examples/response/vouch.json}}
-
-## Vouch with embedded attachments
-
-<{{examples/response/vouch_with_attachments.json}}
-
 ## Multiple Verified Claims
 
 <{{examples/response/multiple_verified_claims.json}}
-
-## Claims provided by the OP and external sources {#op_attested_and_external_claims}
-
-This example shows how an OP can mix own Claims and Claims provided by  
-external sources in a single ID Token.
-
-<{{examples/response/all_in_one.json}}
-
-## Self-Issued OpenID Connect Provider and External Claims
-
-This example shows how a Self-Issued OpenID Connect Provider (SIOP)
-may include Verified Claims obtained from different external Claim
-sources into a ID Token.
-
-<{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
 # Example Requests and Responses
 
@@ -1424,7 +1305,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2022 The OpenID Foundation.
+Copyright (c) 2023 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
@@ -1434,149 +1315,11 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
-   -14
-   * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
-   * Removed deprecated elements `utility_bill` and `document`
-
-   -13
-   * Preparation for Implementers Draft 4
-   * Checked and fixed referencing
-   * Added note about issues with JSON null
-   * Defined clearly that JSON schema is not normative
-   * Various editorial clarifications
-   * Added checking of defined end-user claims to JSON schema
-   * Clarified OP Metadata wording
-
-   -12
-
-   * introduced `document` evidence type, which is more universal than `id_document`
-   * deprecated `id_document`
-   * introduced `electronic_record` and `vouch` evidence types
-   * introduced `check_details` & `assurance_details` to provide more detail than `method`
-   * added lookahead capabilities for distributed Claims
-   * added support to attach document artifacts
-   * added txn for attachments
-   * changed evidence type `qes` to `electronic_signature`
-   * added Claim `also_known_as`
-   * added text regarding security profiles
-   * editorial improvements
-   * added further co-authors
-   * added `assurance_level` field
-   * added `assurance_process` type
-   * added text about dependency between identity assurance and authentication assurance
-   * added new field `country_code` to `address` Claim
-   * relaxed requirements for showing purpose
-
-   -11
-
-   * Added support for requesting different sets of Claims with different requirements regarding trust_framework and other verification elements (e.g., evidence)
-   * added `msisdn` Claim
-   * clarified scope of this specification
-
-   -10
-
-   * Editorial improvements
-   * Improved JSON schema (alignment with spec and bug fix)
-
-   -09
-
-   * `verified_claims` element may contain one or more Verified Claims objects
-   * an individual assertion may contain `verified_claims` elements in the assertion itself and any aggregated or distributed Claims sets it includes or refers to, respectively
-   * moved all definitions of pre-defined values for trust frameworks, id documents and verification methods to a wiki page as non-normative overview
-   * clarified and simplified request syntax
-   * reduced mandatory requirement `verified_claims` to bare minimum
-   * removed JSON schema from draft and added reference to JSON schema file instead
-   * added request JSON schema
-   * added IANA section with JSON Web Token Claims Registration
-   * integrated source into single md file
-   * added privacy considerations regarding time zone data, enhanced syntax definition of time and date-time fields in spec and response schema
-   * fixed typos
-
-   -08
-
-   * added `uripp` verification method
-   * small fixes to examples
-
-   -07
-
-   * fixed typos
-   * changed `nationality` String Claim to `nationalities` String array Claim
-   * replaced `agent` in id_document verifier element by `txn` element
-   * qes method: fixed error in description of `issuer`
-   * qes method: changed `issued_at` to `created_at` since this field applies to the signature (that is created and not issued)
-   * Changed format of `nationalities` and issuing `country` to ICAO codes
-   * Changed `date` in verification element to `time`
-   * Added Japanese trust frameworks to pre-defined values
-   * Added Japanese id documents to pre-defined values
-   * adapted JSON schema and examples
-
-   -06
-
-   * Incorporated review feedback by Marcos Sanz and Adam Cooper
-   * Added text on integrity, authenticity, and confidentiality for data passed between OP and RP to Security Considerations section
-   * added `purpose` field to `claims` parameter
-   * added feature to let the RP explicitly requested certain `verification` data
-
-   -05
-
-   * incorporated review feedback by Mike Jones
-   * Added OIDF Copyright Notices
-   * Moved Acknowledgements to Appendix A
-   * Removed RFC 2119 keywords from scope & requirements section and rephrased section
-   * rephrased introduction
-   * replaced `birth_name` with `birth_family_name`, `birth_given_name`, and `birth_middle_name`
-   * replaced `transaction_id` with `txn` from RFC 8417
-   * added references to eIDAS, ISO 3166-1, ISO 3166-3, and ISO 8601-2004
-   * added note on `purpose` and locales
-   * changed file name and document title to include 1.0 version id
-   * corrected evidence plural
-   * lots of editorial fixes
-   * Alignment with OpenID Connect Core wording
-   * Renamed `id` to `verification_process`
-   * Renamed `verified_person_data` to `verified_claims`
-
-   -04
+   -1
    
-   * incorporated review feedback by Marcos Sanz
+   *  Remove all history
+   *  Copy the original spec
+   *  Update Copyright year
+   *  Remove some content
    
-   -03
-
-   * enhanced draft to support multiple evidence
-   * added a JSON Schema for assertions containing the `verified_person_data` Claim
-   * added more identity document definitions
-   * added `region` field to `place_of_birth` Claim
-   * changed `eidas_loa_substantial/high` to `eidas_ial_substantial/high`
-   * fixed typos in examples
-   * uppercased all editorial occurences of the term `claims` to align with OpenID Connect Core
-
-   -02
-
-   * added new request parameter `purpose`
-   * simplified/reduced number of verification methods
-   * simplfied identifiers
-   * added `identity_documents_supported` to metadata section
-   * improved examples
-
-   -01
-
-   *  fixed some typos
-   *  remove organization element (redundant) (issue 1080)
-   *  allow other Claims about the End-User in the `claims` sub element (issue 1079)
-   *  changed `legal_context` to `trust_framework`
-   *  added explanation how the content of the verification element is determined by the trust framework
-   *  added URI-based identifiers for `trust_framework`, `identity_document` and (verification) `method`
-   *  added example attestation for notified/regulated eID system
-   *  adopted OP metadata section accordingly
-   *  changed error behavior for `max_age` member to alig with OpenID Core
-   *  Added feature to let the RP express requirements for verification data (trust framework, identity documents, verification method)
-   *  Added privacy consideration section and added text on legal basis for data exchange
-   *  Added explanation about regulated and un-regulated eID systems
-
-   -00 (WG document)
-
-   *  turned the proposal into a WG document
-   *  changed name
-   *  added terminology section and reworked introduction
-   *  added several examples (ID Token vs UserInfo, unverified & Verified Claims, aggregated & distributed Claims)
-   *  incorporated text proposal of Marcos Sanz regarding max_age
-   *  added IANA registration for new error code `unable_to_meet_requirement`
+ 
