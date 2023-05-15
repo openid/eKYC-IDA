@@ -130,26 +130,6 @@ Even for representing Verified Claims, this extension utilizes existing OpenID C
 
 # Claims {#claims}
 
-## txn Claim
-
-Strong identity verification typically requires the participants to keep an audit trail of the whole process.
-
-The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
-
-If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details:
-
-* the transaction ID,
-* the authentication method employed, and
-* the transaction type (e.g., the set of Claims returned).
-
-This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
-
-The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default Claim set identified by a scope value.
-
-The `txn` value MUST allow an RP to obtain these transaction details if needed.
-
-Note: The mechanism to obtain the transaction details from the OP and their format is out of scope of this specification.
-
 # Representing Verified Claims {#verified_claims}
 
 This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
@@ -162,7 +142,7 @@ The normative definition is given in the following.
 
 `verified_claims`: A single object or an array of objects, each object comprising the following sub-elements:
 
-* `verification`: REQUIRED. Object that contains data about the verification process.
+* `verification`: REQUIRED. Object that contains data about the verification process as defined in [XXXX].
 * `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers.
@@ -170,48 +150,6 @@ Note: Implementations MUST ignore any sub-element not defined in this specificat
 A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@verified_claims.json], it can be used to automatically validate JSON documents containing a `verified_claims` element. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. 
 
 Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
-
-## verification Element {#verification}
-
-This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
-
-The `verification` element consists of the following elements:
-
-`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
-
-An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS].
-
-RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand.
-
-The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
-
-`assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value.
-
-For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`.
-
-For information on predefined trust framework and assurance level values see [@!predefined_values].
-
-`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
-
-  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
-  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
-  * `assurance_details`: OPTIONAL. JSON array denoting the details about how the evidence complies with the `policy`. When present this array MUST have at least one member. Each member can have the following sub-elements:
-  * `assurance_type`: OPTIONAL. String denoting which part of the `assurance_process` the evidence fulfils.
-  * `assurance_classification`: OPTIONAL. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
-  * `evidence_ref`: OPTIONAL. JSON array of the evidence being referred to. When present this array MUST have at least one member.
-  * `txn`: OPTIONAL. Identifier referring to the `txn` used in the `check_details`. The OP MUST ensure that `txn` is present in the `check_details` when `evidence_ref` element is used.
-  * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
-  * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
-
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
-
-`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
-
-Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
-
-`evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
-
-Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
 
 #### Privacy Considerations
 
