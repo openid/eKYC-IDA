@@ -279,7 +279,6 @@ The following elements are contained in an evidence sub-element where type is `d
 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc.
-* `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization).
 * `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
@@ -288,6 +287,11 @@ The following elements are contained in an evidence sub-element where type is `d
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the document described in the evidence array member it is part of.
+The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+The `derived_claims` element MAY also contain other End-User Claims derived from the document described in the evidence array member it is part of.
+Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+When it is present the `derived_claims` element MAY NOT be empty.
 
 #### Evidence Type electronic_record
 
@@ -307,7 +311,6 @@ The following elements are contained in an evidence sub-element where type is `e
 `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
-* `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one record, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `created_at`: OPTIONAL. The time the record was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 * `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `source`: OPTIONAL. JSON object containing information about the source of this record. This object consists of the following properties:
@@ -315,6 +318,11 @@ The following elements are contained in an evidence sub-element where type is `e
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it’s not common knowledge or derivable from the address).
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the electronic record described in the evidence array member it is part of.
+The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+The `derived_claims` element MAY also contain other End-User Claims derived from the electronic record described in the evidence array member it is part of.
+Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+When it is present the `derived_claims` element MAY NOT be empty.
 
 #### Evidence Type vouch
 
@@ -335,7 +343,6 @@ The following elements are contained in an evidence sub-element where type is `v
 
 * `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
 * `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
-* `personal_number`: OPTIONAL. String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.
 * `date_of_issuance`: OPTIONAL. The date the vouch was made as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
@@ -345,20 +352,26 @@ The following elements are contained in an evidence sub-element where type is `v
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the vouch described in the evidence array member it is part of.
+The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+The `derived_claims` element MAY also contain other End-User Claims derived from the vouch described in the evidence array member it is part of.
+Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+When it is present the `derived_claims` element MAY NOT be empty.
 
 #### Evidence Type electronic_signature
 
 The following elements are contained in a `electronic_signature` evidence sub-element.
 
-`type`: REQUIRED. Value MUST be set to `electronic_signature`.
-
-`signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
-
-`issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
-
-`serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
-
-`created_at`: OPTIONAL. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+* `type`: REQUIRED. Value MUST be set to `electronic_signature`.
+* `signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
+* `issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
+* `serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
+* `created_at`: OPTIONAL. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the electronic signature described in the evidence array member it is part of.
+The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+The `derived_claims` element MAY also contain other End-User Claims derived from the electronic signature described in the evidence array member it is part of.
+Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+When it is present the `derived_claims` element MAY NOT be empty.
 
 ### Attachments {#attachments}
 
