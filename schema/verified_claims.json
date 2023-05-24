@@ -98,13 +98,6 @@
         }
       ]
     },
-
-    "derived_claims": {
-      "type": "object"
-
-    },
-
-
     "evidence": {
       "type": "object",
       "properties": {
@@ -148,7 +141,7 @@
                 "$ref": "#/definitions/time_type"
               },
               "derived_claims": {
-                "$ref": "#/definitions/derived_claims"
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
@@ -180,7 +173,7 @@
                 "$ref": "#/definitions/document_details"
               },
               "derived_claims": {
-                "$ref": "#/definitions/derived_claims"
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
@@ -249,7 +242,7 @@
                 }
               },
               "derived_claims": {
-                "$ref": "#/definitions/derived_claims"
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
@@ -324,7 +317,7 @@
                 }
               },
               "derived_claims": {
-                "$ref": "#/definitions/derived_claims"
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
