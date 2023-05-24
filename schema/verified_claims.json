@@ -25,9 +25,6 @@
         "number": {
           "$ref": "#/definitions/document_number"
         },
-        "personal_number": {
-          "type": "string"
-        },
         "serial_number": {
           "type": "string"
         },
@@ -101,6 +98,13 @@
         }
       ]
     },
+
+    "derived_claims": {
+      "type": "object"
+
+    },
+
+
     "evidence": {
       "type": "object",
       "properties": {
@@ -142,6 +146,9 @@
               },
               "created_at": {
                 "$ref": "#/definitions/time_type"
+              },
+              "derived_claims": {
+                "$ref": "#/definitions/derived_claims"
               }
             }
           },
@@ -172,8 +179,8 @@
               "document_details": {
                 "$ref": "#/definitions/document_details"
               },
-              "document": {
-                "$ref": "#/definitions/document_details"
+              "derived_claims": {
+                "$ref": "#/definitions/derived_claims"
               }
             }
           },
@@ -199,9 +206,6 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "type": "string"
-                  },
-                  "personal_number": {
                     "type": "string"
                   },
                   "created_at": {
@@ -243,6 +247,9 @@
                     }
                   }
                 }
+              },
+              "derived_claims": {
+                "$ref": "#/definitions/derived_claims"
               }
             }
           },
@@ -271,9 +278,6 @@
                     "type": "string"
                   },
                   "reference_number": {
-                    "type": "string"
-                  },
-                  "personal_number": {
                     "type": "string"
                   },
                   "date_of_issuance": {
@@ -318,6 +322,9 @@
                     }
                   }
                 }
+              },
+              "derived_claims": {
+                "$ref": "#/definitions/derived_claims"
               }
             }
           },

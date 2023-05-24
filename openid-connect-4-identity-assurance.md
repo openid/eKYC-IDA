@@ -287,13 +287,14 @@ The following elements are contained in an evidence sub-element where type is `d
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
-* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the document described in the evidence array member it is part of.
-The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
-End-User Claims contained in a `derived_claims` element MUST have corresponding Claims in the `claims` element of `verified_claims`.
-When the `derived_claims` element is used it SHOULD be present in all members of the `evidence` array and all Claims under the `claims` element of `verified_claims` SHOULD have a corresponding Claim in at least one `derived_claims` element.
-The `derived_claims` element MAY also contain other End-User Claims derived from the document described in the evidence array member it is part of.
-Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
-When it is present the `derived_claims` element MAY NOT be empty.
+
+`derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the document described in the evidence array member it is part of. When used the `derived_claims` element has the following conditions:
+* The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+* End-User Claims contained in a `derived_claims` element MUST have corresponding Claims in the `claims` element of `verified_claims`.
+* When the `derived_claims` element is used it SHOULD be present in all members of the `evidence` array and all Claims under the `claims` element of `verified_claims` SHOULD have a corresponding Claim in at least one `derived_claims` element.
+* The `derived_claims` element MAY also contain other End-User Claims derived from the document described in the evidence array member it is part of.
+* Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+* When it is present the `derived_claims` element MAY NOT be empty.
 
 #### Evidence Type electronic_record
 
