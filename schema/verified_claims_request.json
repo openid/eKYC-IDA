@@ -52,6 +52,30 @@
         }
       ]
     },
+    "claims_element": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "essential": {
+                "type": "boolean"
+              },
+              "purpose": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 300
+              }
+            }
+          }
+        ]
+      }
+    },
     "datetime_element": {
       "oneOf": [
         {
@@ -88,8 +112,8 @@
         "number": {
           "$ref": "#/definitions/simple_element"
         },
-        "personal_number": {
-          "$ref": "#/definitions/simple_element"
+        "derived_claims": {
+          "$ref": "#/definitions/claims_element"
         },
         "serial_number": {
           "$ref": "#/definitions/simple_element"
@@ -265,8 +289,8 @@
                   "type": {
                     "$ref": "#/definitions/constrainable_element"
                   },
-                  "personal_number": {
-                    "$ref": "#/definitions/simple_element"
+                  "derived_claims": {
+                    "$ref": "#/definitions/claims_element"
                   },
                   "created_at": {
                     "$ref": "#/definitions/datetime_element"
@@ -334,8 +358,8 @@
                   "reference_number": {
                     "$ref": "#/definitions/simple_element"
                   },
-                  "personal_number": {
-                    "$ref": "#/definitions/simple_element"
+                  "derived_claims": {
+                    "$ref": "#/definitions/claims_element"
                   },
                   "date_of_issuance": {
                     "$ref": "#/definitions/datetime_element"
@@ -469,28 +493,7 @@
           "additionalProperties": true
         },
         "claims": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "essential": {
-                    "type": "boolean"
-                  },
-                  "purpose": {
-                    "type": "string",
-                    "minLength": 3,
-                    "maxLength": 300
-                  }
-                }
-              }
-            ]
-          }
+          "$ref": "#/definitions/claims_element"
         }
       },
       "required": [
