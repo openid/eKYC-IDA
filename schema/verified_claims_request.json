@@ -53,28 +53,35 @@
       ]
     },
     "claims_element": {
-      "type": "object",
-      "minProperties": 1,
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "essential": {
-                "type": "boolean"
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "purpose": {
-                "type": "string",
-                "minLength": 3,
-                "maxLength": 300
+              {
+                "type": "object",
+                "properties": {
+                  "essential": {
+                    "type": "boolean"
+                  },
+                  "purpose": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 300
+                  }
+                }
               }
-            }
+            ]
           }
-        ]
-      }
+        }
+      ]
     },
     "datetime_element": {
       "oneOf": [
