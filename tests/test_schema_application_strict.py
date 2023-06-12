@@ -27,7 +27,7 @@ def get_relative_path_resolver(schema):
 Add "additionalProperties": False to whereever "properties" is defined in the schema
 """
 def add_additional_properties(schema):
-    if "properties" in schema:
+    if "properties" in schema and "additionalProperties" not in schema:
         schema["additionalProperties"] = False
         for _, value in schema["properties"].items():
             add_additional_properties(value)
