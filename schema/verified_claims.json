@@ -578,5 +578,6 @@
         "$ref": "#/definitions/_claim_sources"
       }
     }
-  }
+  },
+  "additionalProperties": true
 }

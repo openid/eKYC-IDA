@@ -517,7 +517,8 @@
         "verified_claims": {
           "$ref": "#/definitions/verified_claims"
         }
-      }
+      },
+      "additionalProperties": true
     },
     "id_token": {
       "type": "object",
@@ -525,7 +526,8 @@
         "verified_claims": {
           "$ref": "#/definitions/verified_claims"
         }
-      }
+      },
+      "additionalProperties": true
     }
   }
 }

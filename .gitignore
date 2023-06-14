@@ -2,4 +2,7 @@
 *.xml
 *.txt
 oidf.code-workspace
-tests/
+tests/__pycache__/
+tests/*.pyc
+tests/*.pyo
+tests/*~
