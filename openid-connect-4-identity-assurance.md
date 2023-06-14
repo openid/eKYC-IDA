@@ -149,26 +149,6 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 |`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
 
-## txn Claim
-
-Strong identity verification typically requires the participants to keep an audit trail of the whole process.
-
-The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
-
-If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details:
-
-* the transaction ID,
-* the authentication method employed, and
-* the transaction type (e.g., the set of Claims returned).
-
-This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation.
-
-The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default Claim set identified by a scope value.
-
-The `txn` value MUST allow an RP to obtain these transaction details if needed.
-
-Note: The mechanism to obtain the transaction details from the OP and their format is out of scope of this specification.
-
 ## Extended address Claim
 
 This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
