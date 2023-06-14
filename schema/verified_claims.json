@@ -25,9 +25,6 @@
         "number": {
           "$ref": "#/definitions/document_number"
         },
-        "personal_number": {
-          "type": "string"
-        },
         "serial_number": {
           "type": "string"
         },
@@ -142,6 +139,9 @@
               },
               "created_at": {
                 "$ref": "#/definitions/time_type"
+              },
+              "derived_claims": {
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
@@ -172,8 +172,8 @@
               "document_details": {
                 "$ref": "#/definitions/document_details"
               },
-              "document": {
-                "$ref": "#/definitions/document_details"
+              "derived_claims": {
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
@@ -199,9 +199,6 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "type": "string"
-                  },
-                  "personal_number": {
                     "type": "string"
                   },
                   "created_at": {
@@ -243,6 +240,9 @@
                     }
                   }
                 }
+              },
+              "derived_claims": {
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
@@ -271,9 +271,6 @@
                     "type": "string"
                   },
                   "reference_number": {
-                    "type": "string"
-                  },
-                  "personal_number": {
                     "type": "string"
                   },
                   "date_of_issuance": {
@@ -318,6 +315,9 @@
                     }
                   }
                 }
+              },
+              "derived_claims": {
+                "$ref": "claims_schema.json#/definitions/claims_type"
               }
             }
           },
