@@ -837,7 +837,7 @@ This specification focuses on mechanisms to carry End-User Claims and accompanyi
 * ensure End-Users are authenticated using appropriately strong authentication methods, and
 * combine this specification with an appropriate security profile for OpenID Connect.
 
-To achieve the full security and interoperability benefits, it is important the implementation of this specification, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that SHOULD be used to confirm that an implementation is correct, with information available at: https://openid.net/certification/.
+To achieve the full security and interoperability benefits, it is important the implementation of this specification, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that SHOULD be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
 
 ## End-User Authentication
 
