@@ -1,6 +1,6 @@
 %%%
-title = "OpenID Connect for Identity Assurance Baseline 1.0"
-abbrev = "openid-connect-4-identity-assurance-baseline-1_0"
+title = "OpenID Connect for Identity Assurance Core 1.0"
+abbrev = "openid-connect-4-identity-assurance-core-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
 keyword = ["security", "openid", "identity assurance", "ekyc"]
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-baseline-1_0-01"
+value = "openid-connect-4-identity-assurance-core-1_0-01"
 
 status = "standard"
 
