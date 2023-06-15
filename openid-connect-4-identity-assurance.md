@@ -132,7 +132,7 @@ Even for representing Verified Claims, this extension utilizes existing OpenID C
 
 ## Additional Claims about End-Users {#userclaims}
 
-In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDA-Claims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
+In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
 
 # Representing Verified Claims {#verified_claims}
 
@@ -935,7 +935,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="OpenID4IDA-Claims" target="http://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
+<reference anchor="OpenID4IDAClaims" target="http://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
