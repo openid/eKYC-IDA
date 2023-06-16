@@ -48,7 +48,7 @@ organization="Santander"
 initials="K."
 surname="Lehmann"
 fullname="Kai Lehmann"
-organization="1&1 Mail & Media Development & Technology GmbH"
+organization="1&amp1 Mail & Media Development & Technology GmbH"
     [author.address]
     email = "kai.lehmann@1und1.de"
 

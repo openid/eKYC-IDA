@@ -951,12 +951,12 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>Santander</organization>
     </author>
     <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
-      <organization>1&1 Mail & Media Development & Technology GmbH</organization>
+      <organization>1&amp1 Mail & Media Development & Technology GmbH</organization>
     </author>
         <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date day="16" month="Jun" year="2023"/>
   </front>
 </reference>
 
