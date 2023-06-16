@@ -951,7 +951,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>Santander</organization>
     </author>
     <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
-      <organization>1&amp;1 Mail &amp; Media Development & Technology GmbH</organization>
+      <organization>1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</organization>
     </author>
         <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
