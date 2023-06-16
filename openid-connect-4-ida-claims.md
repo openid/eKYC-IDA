@@ -48,7 +48,7 @@ organization="Santander"
 initials="K."
 surname="Lehmann"
 fullname="Kai Lehmann"
-organization="1&amp1 Mail & Media Development & Technology GmbH"
+organization="1&1 Mail & Media Development & Technology GmbH"
     [author.address]
     email = "kai.lehmann@1und1.de"
 
@@ -124,6 +124,31 @@ This specification extends the `address` Claim as defined in [@!OpenID] by anoth
       <organization>Salesforce</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="OpenID4IDA" target="http://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
+  <front>
+    <title>OpenID Connect for Identity Assurance 1.0</title>
+    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
+      <organization>yes.com</organization>
+    </author>
+    <author initials="D." surname="Fett" fullname="Daniel Fett">
+      <organization>Authlete</organization>
+    </author>
+    <author initials="M." surname="Haine" fullname="Mark Haine">
+      <organization>Considrd.Consulting Ltd</organization>
+    </author>
+    <author initials="A." surname="Pulido" fullname="Alberto Pulido">
+      <organization>Santander</organization>
+    </author>
+    <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
+      <organization>1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</organization>
+    </author>
+        <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
+      <organization>KDDI Corporation</organization>
+    </author>
+   <date day="16" month="Jun" year="2023"/>
   </front>
 </reference>
 
