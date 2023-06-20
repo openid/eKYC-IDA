@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect for Identity Assurance Claims Registration 1.0"
+title = "OpenID Connect for Identity Assurance Claims Registration 1.0 draft"
 abbrev = "openid-connect-4-ida-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -64,7 +64,7 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect that registers new JWT claims about End-Users. This extension defines new claims relating to the identity of a natural person was originally defined within OpenID Connect for Identity Assurance 1.0 and comes from the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+This specification defines an extension of OpenID Connect that registers new JWT claims about End-Users. This extension defines new claims relating to the identity of a natural person that were originally defined within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
 {mainmatter}
 
@@ -80,14 +80,14 @@ This specification only defines claims to be maintained in the IANA "JSON Web To
 
 ## Additional Claims about End-Users {#userclaims}
 
-This specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT as per [@RFC7519]:
+This specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used:
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
 |`place_of_birth`| JSON object | End-User’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
-|||`country`: String representing country in [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3] syntax.|
-|||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
-|||`locality`: String representing city or locality component.|
+| | |`country`: String representing country in [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3] syntax.|
+| | |`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
+| | |`locality`: String representing city or locality component.|
 |`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
 |`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
 |`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
@@ -95,7 +95,7 @@ This specification defines the following Claims for conveying End-User data in a
 |`salutation`| string | End-User’s salutation, e.g., “Mr.”|
 |`title`| string | End-User’s title, e.g., “Dr.”|
 |`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
-|`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
+|`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides their legal name.|
 
 ## Extended address Claim
 
@@ -203,17 +203,6 @@ This specification requests registration of the following value in the IANA "JSO
 ### Registry Contents
 
 {spacing="compact"}
-Claim Name:
-: `verified_claims`
-
-Claim Description:
-: This container Claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Verified Claims](#verified_claims) of this document
 
 Claim Name:
 : `place_of_birth`

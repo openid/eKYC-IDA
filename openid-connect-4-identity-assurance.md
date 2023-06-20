@@ -132,7 +132,7 @@ Even for representing Verified Claims, this extension utilizes existing OpenID C
 
 ## Additional Claims about End-Users {#userclaims}
 
-In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
+In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID].
 
 # Representing Verified Claims {#verified_claims}
 
@@ -1108,6 +1108,26 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 </reference>
 
 # IANA Considerations
+
+## JSON Web Token Claims Registration
+
+This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
+
+### Registry Contents
+
+{spacing="compact"}
+
+Claim Name:
+: `verified_claims`
+
+Claim Description:
+: This container Claim is composed of the verification evidence related to a certain verification process and the corresponding Claims about the End-User which were verified in this process.
+
+Change Controller:
+: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
+
+Specification Document(s):
+: Section [Verified Claims](#verified_claims) of this document
 
 ## Media Type Registration
 
