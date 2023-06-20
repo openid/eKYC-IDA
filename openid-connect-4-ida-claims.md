@@ -105,7 +105,7 @@ This specification extends the `address` Claim as defined in [@!OpenID] by anoth
 
 ## Examples
 
-
+This section contains JSON snippets showing examples of end-user claims described in this document.
 
 ```
 {
