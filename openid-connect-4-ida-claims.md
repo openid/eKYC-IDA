@@ -85,16 +85,16 @@ This specification defines the following Claims for conveying End-User data in a
 | Claim | Type | Description |
 |:------|:-----|:------------|
 |`place_of_birth`| JSON object | End-User’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
-| | |`country`: String representing country in [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3] syntax.|
+| | |`country`: String representing country in [@!ISO3166-1] Alpha-2  or [@!ISO3166-3] syntax.|
 | | |`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 | | |`locality`: String representing city or locality component.|
-|`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
+|`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
 |`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
 |`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
 |`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
-|`salutation`| string | End-User’s salutation, e.g., “Mr.”|
-|`title`| string | End-User’s title, e.g., “Dr.”|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
+|`salutation`| string | End-User’s salutation|
+|`title`| string | End-User’s title|
+|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]|
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides their legal name.|
 
 ## Extended address Claim
@@ -102,6 +102,77 @@ This specification defines the following Claims for conveying End-User data in a
 This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
 
 `country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field.
+
+## Examples
+
+
+
+```
+{
+"place_of_birth": {
+  "country": "GB",
+  "locality": "London"
+  }  
+}
+```
+
+```
+{
+"nationalities": ["GB", "SL"]
+}
+```
+
+```
+{
+"birth_family_name": "Elba"
+}
+```
+
+```
+{
+"birth_given_name": "Idrissa"
+}
+```
+
+```
+{
+"birth_middle_name": "Akuna"
+}
+```
+
+```
+{
+"salutation": "Mr"
+}
+```
+
+```
+{
+"salutation": "Dr"
+}
+```
+
+```
+{
+"msisdn": "1999550123"
+}
+```
+
+```
+{
+"also_known_as": "DJ Big Driis"
+}
+```
+
+```
+"address": {
+  "locality": "Leavesden",
+  "postal_code": "WD25 7LR",
+  "country": "United Kingdom",
+  "street_address": "4 Privet Drive",
+  "country_code": "GBR"
+}
+```
 
 {backmatter}
 
