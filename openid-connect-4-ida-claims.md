@@ -375,7 +375,7 @@ Claim Name:
 : `also_known_as`
 
 Claim Description:
-: Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).
+: Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
