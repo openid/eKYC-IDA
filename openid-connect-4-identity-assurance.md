@@ -853,6 +853,8 @@ This specification focuses on mechanisms to carry End-User Claims and accompanyi
 * ensure End-Users are authenticated using appropriately strong authentication methods, and
 * combine this specification with an appropriate security profile for OpenID Connect.
 
+To achieve the full security and interoperability benefits, it is important the implementation of this specification, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that SHOULD be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
+
 ## End-User Authentication
 
 Secure identification of End-Users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs SHOULD request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified End-User Claims. OpenID Connect supports this by way of the `acr_values` request parameter.
