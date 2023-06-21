@@ -17,9 +17,11 @@ pipelines:
           - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
           - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-authority.md
           - docker run -v `pwd`:/data danielfett/markdown2rfc openid-advanced-syntax-for-claims.md
+          - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-ida-claims.md
           - mv openid-connect-4-identity-assurance-*.html openid-connect-4-identity-assurance.html
           - mv openid-authority-*.html openid-authority.html
           - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
+          - mv openid-connect-4-ida-claims-*.html openid-connect-4-ida-claims.html
         artifacts:
           - '*.html'
           - '*.xml'
@@ -40,9 +42,11 @@ pipelines:
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-identity-assurance.md
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-authority.md
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-advanced-syntax-for-claims.md
+            - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-ida-claims.md
             - mv openid-connect-4-identity-assurance-*.html openid-connect-4-identity-assurance.html
             - mv openid-authority-*.html openid-authority.html
             - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
+            - mv openid-connect-4-ida-claims-*.html openid-connect-4-ida-claims.html
           artifacts:
             - '*.html'
             - '*.xml'

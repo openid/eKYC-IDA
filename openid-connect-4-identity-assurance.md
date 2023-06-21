@@ -132,28 +132,7 @@ Even for representing Verified Claims, this extension utilizes existing OpenID C
 
 ## Additional Claims about End-Users {#userclaims}
 
-In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
-
-| Claim | Type | Description |
-|:------|:-----|:------------|
-|`place_of_birth`| JSON object | End-User’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
-|||`country`: String representing country in [@!ISO3166-1] Alpha-2 (e.g., DE) or [@!ISO3166-3] syntax.|
-|||`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
-|||`locality`: String representing city or locality component.|
-|`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
-|`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
-|`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
-|`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
-|`salutation`| string | End-User’s salutation, e.g., “Mr.”|
-|`title`| string | End-User’s title, e.g., “Dr.”|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164], e.g., “1999550123”|
-|`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).|
-
-## Extended address Claim
-
-This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
-
-`country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field.
+In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID].
 
 # Representing Verified Claims {#verified_claims}
 
@@ -958,6 +937,31 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
+<reference anchor="OpenID4IDAClaims" target="http://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
+  <front>
+    <title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
+    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
+      <organization>yes.com</organization>
+    </author>
+    <author initials="D." surname="Fett" fullname="Daniel Fett">
+      <organization>Authlete</organization>
+    </author>
+    <author initials="M." surname="Haine" fullname="Mark Haine">
+      <organization>Considrd.Consulting Ltd</organization>
+    </author>
+    <author initials="A." surname="Pulido" fullname="Alberto Pulido">
+      <organization>Santander</organization>
+    </author>
+    <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
+      <organization>1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</organization>
+    </author>
+        <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
+      <organization>KDDI Corporation</organization>
+    </author>
+   <date day="16" month="Jun" year="2023"/>
+  </front>
+</reference>
+
 <reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
   <front>
     <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
@@ -1105,7 +1109,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
  </front>
 </reference>
 
-
 # IANA Considerations
 
 ## JSON Web Token Claims Registration
@@ -1115,6 +1118,7 @@ This specification requests registration of the following value in the IANA "JSO
 ### Registry Contents
 
 {spacing="compact"}
+
 Claim Name:
 : `verified_claims`
 
@@ -1126,115 +1130,6 @@ Change Controller:
 
 Specification Document(s):
 : Section [Verified Claims](#verified_claims) of this document
-
-Claim Name:
-: `place_of_birth`
-
-Claim Description:
-: A structured Claim representing the End-User’s place of birth.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `nationalities`
-
-Claim Description:
-: String array representing the End-User’s nationalities.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `birth_family_name`
-
-Claim Description:
-: Family name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name(s) later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `birth_given_name`
-
-Claim Description:
-: Given name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `birth_middle_name`
-
-Claim Description:
-: Middle name(s) someone has when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `salutation`
-
-Claim Description:
-: End-User’s salutation, e.g., “Mr.”
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `title`
-
-Claim Description:
-: End-User’s title, e.g., “Dr.”
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `msisdn`
-
-Claim Description:
-: End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
-Claim Name:
-: `also_known_as`
-
-Claim Description:
-: Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [Claims](#claims) of this document
-
 
 ## Media Type Registration
 
