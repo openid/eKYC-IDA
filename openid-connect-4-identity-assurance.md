@@ -406,7 +406,7 @@ Clients MUST validate any member of the attachments array that is an external at
 7. Ensure that the MIME type is not a "message" media type (see [@RFC5322])
 8. Ensure the returned attachment has a cryptographic hash digest that matches the value given in the `digest` object's `value` key.
 
-If any of these requirements are not met the content of of the attachment SHOULD NOT be used, SHOULD be discarded and MUST NOT be relied upon.
+If any of these requirements are not met the content of the attachment SHOULD NOT be used, SHOULD be discarded and MUST NOT be relied upon.
 
 #### Privacy Considerations
 
