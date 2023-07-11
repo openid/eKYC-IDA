@@ -90,7 +90,7 @@ This section defines some terms relevant to the topic covered in this document, 
 
 * Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity.
 
-* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be required to provide evidence of the identity verification process to the RP.
+* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also be REQUIRED to provide evidence of the identity verification process to the RP.
 
 * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process.
 
@@ -110,7 +110,7 @@ This extension will be usable by OPs operating under a certain regulation relate
 
 It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
 
-Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
+Every other OP not operating under such well-defined conditions may be REQUIRED to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it SHALL be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
 The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
@@ -841,7 +841,7 @@ Secure identification of End-Users not only depends on the identity verification
 ## Security Profile
 
 This specification does not define or require a particular security profile since there are several security 
-profiles and new security profiles under development.  Implementers shall be given flexibility to select the security profile that best suits 
+profiles and new security profiles under development.  Implementers SHALL be given flexibility to select the security profile that best suits 
 their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers are recommended to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
