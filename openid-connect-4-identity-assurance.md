@@ -1119,8 +1119,6 @@ This specification requests registration of the following value in the IANA "JSO
 
 ### Registry Contents
 
-{spacing="compact"}
-
 Claim Name:
 : `verified_claims`
 
