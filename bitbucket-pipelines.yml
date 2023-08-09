@@ -45,7 +45,7 @@ pipelines:
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-authority.md
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-advanced-syntax-for-claims.md
             - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-ida-claims.md
-          - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-ida-attachments.md
+            - docker run -v `pwd`:/data danielfett/markdown2rfc openid-connect-4-ida-attachments.md
             - mv openid-connect-4-identity-assurance-*.html openid-connect-4-identity-assurance.html
             - mv openid-authority-*.html openid-authority.html
             - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
