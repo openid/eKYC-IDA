@@ -1,5 +1,5 @@
 %%%
-title = "OpenID  Identity Assurance schema definition 1.0 draft"
+title = "OpenID Identity Assurance schema definition 1.0 draft"
 abbrev = "openid-verified-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -98,6 +98,240 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The specified JSON structures defined in this document should be useable by any protocol that needs to pass assured digital identity attributes or needs to transfer identity assurance metadata between systems using the [@JSON].
 
+# Verified Claims {#verified_claims}
+
+This specification defines a generic mechanism to add Verified Claims to JSON-based assertions. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
+
+The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
+
+<{{examples/response/verified_claims_simple.json}}
+
+The normative definition is given in the following.
+
+`verified_claims`: A single object or an array of objects, each object comprising the following sub-elements:
+
+* `claims`: REQUIRED. Object that is the container for the Verified Claims about the End-User.
+* `verification`: REQUIRED. Object that contains data about the verification process.
+
+Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular OpenID Connect for IDA implementers.
+
+A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@verified_claims.json], it can be used to automatically validate JSON documents containing a `verified_claims` element. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. 
+
+Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
+
+## claims Element {#claimselement}
+
+The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
+
+The `claims` element MAY contain any of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
+
+* `name`
+* `given_name`
+* `middle_name`
+* `family_name`
+* `birthdate`
+* `address`
+
+and the Claims defined in (#userclaims).
+
+The `claims` element MAY also contain other Claims provided the value of the respective Claim was verified in the verification process represented by the sibling `verification` element.
+
+Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+
+The `claims` element MAY be empty, to support use cases where verification is required but no Claims data needs to be shared.
+## verification Element {#verification}
+
+This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
+
+The `verification` element consists of the following elements:
+
+`trust_framework`: REQUIRED. String determining the trust framework governing the identity verification process of the OP.
+
+An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS].
+
+RPs SHOULD ignore `verified_claims` Claims containing a trust framework identifier they do not understand.
+
+The `trust_framework` value determines what further data is provided to the RP in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an OP not governed by eIDAS would need to provide verification evidence in order to allow the RP to fulfill its legal obligations. An example of the latter is an OP acting under the German Anti-Money Laundering Law (`de_aml`).
+
+`assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value.
+
+For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`.
+
+For information on predefined trust framework and assurance level values see [@!predefined_values].
+
+`assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
+
+  * `policy`: OPTIONAL. String representing the standard or policy that was followed.
+  * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
+  * `assurance_details`: OPTIONAL. JSON array denoting the details about how the evidence complies with the `policy`. When present this array MUST have at least one member. Each member can have the following sub-elements:
+     * `assurance_type`: OPTIONAL. String denoting which part of the `assurance_process` the evidence fulfils.
+    * `assurance_classification`: OPTIONAL. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
+    * `evidence_ref`: OPTIONAL. JSON array of the evidence being referred to. When present this array MUST have at least one member.
+      * `txn`: REQUIRED. Identifier referring to the `txn` used in the `check_details`. The OP MUST ensure that `txn` is present in the `check_details` when `evidence_ref` element is used.
+      * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
+        * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
+
+`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
+
+`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
+
+Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
+
+`evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
+
+Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
+
+### evidence Element {#evidence_element}
+
+The `evidence` element is structured with the following elements:
+
+`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
+
+`type`: REQUIRED. The value defines the type of the evidence.
+
+The following types of evidence are defined:
+
+* `document`: Verification based on the content of a physical or electronic document provided by the End-User, e.g. a passport, ID card, PDF signed by a recognized authority, etc.
+* `electronic_record`: Verification based on data or information obtained electronically from an approved, recognized, regulated or certified source, e.g. a Government organization, bank, utility provider, credit reference agency, etc.
+* `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the Claim(s) presented by the End-User are, to the best of their knowledge, genuine and true.
+* `electronic_signature`: Verification based on the use of an electronic signature that can be uniquely linked to the End-User and is capable of identifying the signatory, e.g. an eIDAS Advanced Electronic Signature (AES) or Qualified Electronic Signature (QES).
+
+Depending on the evidence type additional elements are defined, as described in the following.
+
+#### Evidence Type document
+
+The following elements are contained in an evidence sub-element where type is `document`.
+
+`type`: REQUIRED. Value MUST be set to `document`.
+
+`check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`. When present this array MUST have at least one member.
+
+  * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the document, or verifying the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values].
+  * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
+  * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+  * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
+
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD be included if the OP did not perform the identity verification itself. This object is retained for backward compatibility, implementers are recommended to use `check_details` & `organization` instead. This object consists of the following properties:
+
+* `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
+* `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+
+`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
+
+`document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. It consists of the following properties:
+
+* `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `document_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc.
+* `serial_number`: OPTIONAL. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization).
+* `date_of_issuance`: OPTIONAL. The date the document was issued as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the document will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
+* `issuer`: OPTIONAL. JSON object containing information about the issuer of this document. This object consists of the following properties:
+    * `name`: OPTIONAL. Designation of the issuer of the document.
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID])
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
+
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the document described in the evidence array member it is part of. When used the `derived_claims` element has the following conditions:
+    * The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+    * The `derived_claims` element MAY also contain other End-User Claims (not defined in the OpenID Connect specification [@!OpenID] nor in (#userclaims)) derived from the document described in the evidence array member it is part of.
+    * End-User Claims contained in a `derived_claims` element MUST have corresponding Claims in the `claims` element of `verified_claims`.
+    * When the `derived_claims` element is used it SHOULD be present in all members of the `evidence` array and all Claims under the `claims` element of `verified_claims` SHOULD have a corresponding Claim in at least one `derived_claims` element.
+    * Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+    * When it is present the `derived_claims` element MUST NOT be empty.
+
+#### Evidence Type electronic_record
+
+The following elements are contained in an evidence sub-element where type is `electronic_record`.
+
+`type`: REQUIRED. Value MUST be set to `electronic_record`.
+
+`check_details`: OPTIONAL. JSON array representing the checks done in relation to the `evidence`.
+
+  * `check_method`: REQUIRED. String representing the check done. For information on predefined `check_method` values see [@!predefined_values].
+  * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
+  * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+  * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
+
+`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
+
+`record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
+
+* `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `created_at`: OPTIONAL. The time the record was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
+* `source`: OPTIONAL. JSON object containing information about the source of this record. This object consists of the following properties:
+    * `name`: OPTIONAL. Designation of the source of the electronic_record.
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it’s not common knowledge or derivable from the address).
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the electronic record described in the evidence array member it is part of.
+    * The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+    * The `derived_claims` element MAY also contain other End-User Claims (not defined in the OpenID Connect specification [@!OpenID] nor in (#userclaims)) derived from the electronic record described in the evidence array member it is part of.
+    * Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+    * When it is present the `derived_claims` element MUST NOT be empty.
+
+#### Evidence Type vouch
+
+The following elements are contained in an evidence sub-element where type is `vouch`.
+
+`type`: REQUIRED. Value MUST be set to `vouch`.
+
+`check_details`: OPTIONAL. JSON array representing the checks done in relation to the `vouch`.
+
+  * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values].
+  * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This  SHOULD be included if the OP did not perform the check itself.
+  * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
+  * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
+
+`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
+
+`attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
+
+* `type`: REQUIRED. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values]. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.
+* `reference_number`: OPTIONAL. String representing an identifier/number that uniquely identifies a vouch given about the End-User.
+* `date_of_issuance`: OPTIONAL. The date the vouch was made as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
+* `date_of_expiry`: OPTIONAL. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
+* `voucher`: OPTIONAL. JSON object containing information about the entity giving the vouch. This object consists of the following properties:
+    * `name`: OPTIONAL. String containing the name of the person giving the vouch/reference in the same format as defined in Section 5.1 (Standard Claims) of the OpenID Connect Core specification.
+    * `birthdate`: OPTIONAL. String containing the birthdate of the person giving the vouch/reference in the same format as defined in Section 5.1 (Standard Claims) of the OpenID Connect Core specification.
+    * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
+    * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
+    * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the vouch described in the evidence array member it is part of.
+    * The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+    * The `derived_claims` element MAY also contain other End-User Claims (not defined in the OpenID Connect specification [@!OpenID] nor in (#userclaims)) derived from the vouch described in the evidence array member it is part of.
+    * Claim names MAY be annotated with language tags as specified in Section 5.2 of the   OpenID Connect specification [@!OpenID].
+    * When it is present the `derived_claims` element MUST NOT be empty.
+
+#### Evidence Type electronic_signature
+
+The following elements are contained in a `electronic_signature` evidence sub-element.
+
+* `type`: REQUIRED. Value MUST be set to `electronic_signature`.
+* `signature_type`: REQUIRED. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
+* `issuer`: REQUIRED. String denoting the certification authority that issued the signer's certificate.
+* `serial_number`: REQUIRED. String containing the serial number of the certificate used to sign.
+* `created_at`: OPTIONAL. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the electronic signature described in the evidence array member it is part of.
+    * The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in (#userclaims).
+    * The `derived_claims` element MAY also contain other End-User Claims derived from the electronically signed object described in the evidence array member it is part of, such as elements of an advanced electronic signature described under eIDAS used to uniquely link the signed object to the signatory.
+    * Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+    * When it is present the `derived_claims` element MUST NOT be empty.
+
+### Attachments {#attachments}
+
+During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
+
+* scans of filled and signed forms documenting/certifying the verification process itself,
+* scans or photocopies of the documents used to verify the identity of End-Users,
+* video recordings of the verification process,
+* certificates of electronic signatures.
+
+When supported by the OpenID Provider and requested by the RP, these elements can be included in the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information.
+
+An attachment is represented by a JSON element.  The definition of attachements and the schema representing them are described in [@IDA-Attachments].
+
 ## Examples
 
 This section contains JSON snippets showing examples of `verified_claims` described in this document.
@@ -150,6 +384,31 @@ This section contains JSON snippets showing examples of `verified_claims` descri
       <organization>KDDI Corporation</organization>
     </author>
    <date day="16" month="Jun" year="2023"/>
+  </front>
+</reference>
+
+<reference anchor="IDA-Attachments" target="http://openid.net/specs/openid-connect-4-ida-attachments-1_0.html">
+  <front>
+    <title>OpenID Connect for Identity Assurance Attachments 1.0</title>
+    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
+      <organization>yes.com</organization>
+    </author>
+    <author initials="D." surname="Fett" fullname="Daniel Fett">
+      <organization>Authlete</organization>
+    </author>
+    <author initials="M." surname="Haine" fullname="Mark Haine">
+      <organization>Considrd.Consulting Ltd</organization>
+    </author>
+    <author initials="A." surname="Pulido" fullname="Alberto Pulido">
+      <organization>Santander</organization>
+    </author>
+    <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
+      <organization>1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</organization>
+    </author>
+        <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
+      <organization>KDDI Corporation</organization>
+    </author>
+   <date day="19" month="July" year="2023"/>
   </front>
 </reference>
 
