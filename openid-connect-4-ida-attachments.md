@@ -70,11 +70,11 @@ This specification defines an extension of OpenID Connect that defines new attac
 
 # Introduction {#Introduction}
 
-This specification defines additional JWT claims about the natural person.  The attachments defined MAY be used in various contexts. 
+This specification defines attachment element as additional JWT claim about the natural person that MAY be used in various contexts. 
 
 # Scope
 
-This specification only defines attachments to be maintained in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  These evidences and attachments SHOULD be used in any context that needs to describe these characteristics of the end-user in a JWT as per [@RFC7519].
+This specification defines how embedded and external attachments can be used.
 
 ## verification Element {#verification}
 
