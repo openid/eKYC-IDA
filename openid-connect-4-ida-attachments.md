@@ -64,7 +64,7 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect that registers new JWT claims about End-Users. This extension defines new evidences and attachments relating to the identity of a natural person that were originally defined within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+This specification defines an extension of OpenID Connect that defines new attachments relating to the identity of a natural person. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
 {mainmatter}
 
@@ -80,7 +80,7 @@ This specification only defines attachments to be maintained in the IANA "JSON W
 
 ### evidence Element {#evidence_element}
 
-This specification defines additional element under `evidence`:
+This specification defines additional element:
 
 `attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
 
