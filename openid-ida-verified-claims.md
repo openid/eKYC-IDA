@@ -98,8 +98,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The specified JSON structures defined in this document should be useable by any protocol that needs to pass assured digital identity attributes or needs to transfer identity assurance metadata between systems using the [@JSON].
 
-
-
 ## Examples
 
 This section contains JSON snippets showing examples of `verified_claims` described in this document.
