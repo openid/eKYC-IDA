@@ -1,6 +1,6 @@
 %%%
 title = "OpenID Identity Assurance schema definition 1.0 draft"
-abbrev = "openid-verified-claims-1_0"
+abbrev = "openid-ida-verified-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
 keyword = ["security", "openid", "identity assurance", "ekyc", "claims"]
