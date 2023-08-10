@@ -184,6 +184,7 @@ Note: While `verification_process` refers to the identity verification process a
 `evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
+
 ### Minimum conformant
 
 Based on the definition above and that there are a significant number of optional sub-elements it is informative to show a minimum conformant `verified_claims` payload.  There can be optionally much more detail included in an openid-ida-verified-claims conformant `verified_claims` element when further detail needs to be transferred. 
