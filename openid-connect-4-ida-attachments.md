@@ -76,15 +76,7 @@ This specification defines attachment element as additional JWT claim about the 
 
 This specification defines how embedded and external attachments can be used.
 
-## verification Element {#verification}
-
-### evidence Element {#evidence_element}
-
-This specification defines additional element:
-
-`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
-
-## Attachments {#attachments}
+# Attachments {#attachments}
 
 During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
 
@@ -97,7 +89,7 @@ When requested by the RP, these artifacts can be attached to the Verified Claims
 
 An attachment is represented by a JSON object. This specification allows two types of representations:
 
-### Embedded Attachments
+## Embedded Attachments
 
 All the information of the document (including the content itself) is provided within a JSON object having the following elements:
 
@@ -115,7 +107,7 @@ The following example shows embedded attachments. The actual contents of the doc
 
 Note: Due to their size, embedded attachments may not be appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
 
-### External Attachments
+## External Attachments
 
 External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements:
 
@@ -142,7 +134,7 @@ The following example shows external attachments:
 
 <{{examples/response/external_attachments.json}}
 
-### External Attachment Validation
+## External Attachment Validation
 
 Clients MUST validate any member of the attachments array that is an external attachment they wish to rely on in the following manner:
 
@@ -157,7 +149,7 @@ Clients MUST validate any member of the attachments array that is an external at
 
 If any of these requirements are not met the content of the attachment SHOULD NOT be used, SHOULD be discarded and MUST NOT be relied upon.
 
-### Privacy Considerations
+# Privacy Considerations
 
 As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
 
@@ -180,18 +172,18 @@ This is an example openid-configuration snippet:
 }
 ```
 
-## Examples
+# Examples
 
 This section contains JSON snippets showing examples of evidences and attachments described in this document.
 
-# Example Requests
+## Example Requests
 This section shows examples of requests for `verified_claims`.
 
-## Verification of Claims by trust framework with a document and attachments
+### Verification of Claims by trust framework with a document and attachments
 
 <{{examples/request/verification_aml_with_attachments.json}}
 
-### Attachments
+#### Attachments
 
 RPs can explicitly request to receive attachments along with the Verified Claims:
 
@@ -199,27 +191,27 @@ RPs can explicitly request to receive attachments along with the Verified Claims
 
 As with other Claims, the attachment Claim can be marked as `essential` in the request as well.
 
-# Example Responses
+## Example Responses
 
 This section shows examples of responses containing `verified_claims`.
 
-## Document with external attachments
+### Document with external attachments
 
 <{{examples/response/document_with_attachments.json}}
 
-## Evidence with all assurance details
+### Evidence with all assurance details
 
 <{{examples/response/evidence_with_assurance_details.json}}
 
-## Utility statement with attachments
+### Utility statement with attachments
 
 <{{examples/response/utility_statement_with_attachments.json}}
 
-## Document + utility statement
+### Document + utility statement
 
 <{{examples/response/document_and_utility_statement.json}}
 
-## Vouch with embedded attachments
+### Vouch with embedded attachments
 
 <{{examples/response/vouch_with_attachments.json}}
 
