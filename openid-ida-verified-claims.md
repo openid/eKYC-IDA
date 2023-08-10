@@ -497,9 +497,9 @@ This section contains JSON snippets showing further examples of `verified_claims
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
     <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
-      <author surname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
-        <organization>INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
-      </author>
+    <author surname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
+      <organization>INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
+    </author>
    <date year="2015"/>
   </front>
 </reference>
@@ -567,7 +567,7 @@ This section contains JSON snippets showing further examples of `verified_claims
     <title>JSON Schema for assertions using verified_claims</title>
     <author>
         <organization>OpenID Foundation</organization>
-      </author>
+    </author>
    <date year="2020"/>
   </front>
 </reference>
@@ -575,16 +575,15 @@ This section contains JSON snippets showing further examples of `verified_claims
 <reference anchor="VerifiableCredentials" target="https://www.w3.org/TR/vc-data-model/">
   <front>
     <title>Verifiable Credentials Data Model v1.1</title>
-    <author>
-      <author initials="M" surname="Sporny" fullname="Manu Sporny">
-        <organization>Digital Bazaar</organization>
-      </author>
-      <author initials="D" surname="Longley" fullname="Dave Longley">
-        <organization>Digital Bazaar</organization>
-      </author>
-      <author initials="D" surname="Chadwick" fullname="David Chadwick">
-        <organization>Digital Bazaar</organization>
-      </author>
+    <author initials="M" surname="Sporny" fullname="Manu Sporny">
+      <organization>Digital Bazaar</organization>
+    </author>
+    <author initials="D" surname="Longley" fullname="Dave Longley">
+      <organization>Digital Bazaar</organization>
+    </author>
+    <author initials="D" surname="Chadwick" fullname="David Chadwick">
+      <organization>Digital Bazaar</organization>
+    </author>
    <date month="March" year="2022"/>
   </front>
 </reference>
