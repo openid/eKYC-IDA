@@ -187,15 +187,13 @@ Important: Implementations MUST ignore any sub-element not defined in this speci
 
 ### Minimum conformant
 
-Based on the definition above and that there are a significant number of optional sub-elements it is informative to show a minimum conformant `verified_claims` payload.  There can be optionally much more detail included in an openid-ida-verified-claims conformant `verified_claims` element when further detail needs to be transferred. 
+Based on the definition above and that there are a significant number of optional sub-elements it is informative to show a minimum conformant `verified_claims` payload.  There can be optionally much more detail included in an openid-ida-verified-claims conformant `verified_claims` element when further detail needs to be transferred. The example is not normative.
 
 <{{examples/response/ida_minimum.json}}
 
 ### evidence Element {#evidence_element}
 
-The `evidence` element is structured with the following elements:
-
-`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+Members of the `evidence` array are structured with the following elements:
 
 `type`: REQUIRED. The value defines the type of the evidence.
 
@@ -206,9 +204,10 @@ The following types of evidence are defined:
 * `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the Claim(s) presented by the End-User are, to the best of their knowledge, genuine and true.
 * `electronic_signature`: Verification based on the use of an electronic signature that can be uniquely linked to the End-User and is capable of identifying the signatory, e.g. an eIDAS Advanced Electronic Signature (AES) or Qualified Electronic Signature (QES).
 
-Depending on the evidence type additional elements are defined, as described in the following.
+`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
 
-#### Evidence Type document
+Depending on the evidence type additional elements are defined, as described in the following.
+#### Evidence Type `document`
 
 The following elements are contained in an evidence sub-element where type is `document`.
 
@@ -249,7 +248,7 @@ The following elements are contained in an evidence sub-element where type is `d
     * Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
     * When it is present the `derived_claims` element MUST NOT be empty.
 
-#### Evidence Type electronic_record
+#### Evidence Type `electronic_record`
 
 The following elements are contained in an evidence sub-element where type is `electronic_record`.
 
@@ -280,7 +279,7 @@ The following elements are contained in an evidence sub-element where type is `e
     * Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
     * When it is present the `derived_claims` element MUST NOT be empty.
 
-#### Evidence Type vouch
+#### Evidence Type `vouch`
 
 The following elements are contained in an evidence sub-element where type is `vouch`.
 
@@ -314,7 +313,7 @@ The following elements are contained in an evidence sub-element where type is `v
     * Claim names MAY be annotated with language tags as specified in Section 5.2 of the   OpenID Connect specification [@!OpenID].
     * When it is present the `derived_claims` element MUST NOT be empty.
 
-#### Evidence Type electronic_signature
+#### Evidence Type `electronic_signature`
 
 The following elements are contained in a `electronic_signature` evidence sub-element.
 
