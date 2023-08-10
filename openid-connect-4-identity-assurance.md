@@ -745,48 +745,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="ISO8601" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
-    <front>
-      <title>ISO 8601. Data elements and interchange formats - Information interchange -
-      Representation of dates and times</title>
-      <author surname="International Organization for Standardization">
-        <organization abbrev="ISO">International Organization for Standardization</organization>
-      </author>
-    </front>
-</reference>
-
-<reference anchor="ISO3166-1" target="https://www.iso.org/standard/72482.html">
-    <front>
-      <title>ISO 3166-1:2020. Codes for the representation of names of
-      countries and their subdivisions -- Part 1: Country codes</title>
-      <author surname="International Organization for Standardization">
-        <organization abbrev="ISO">International Organization for Standardization</organization>
-      </author>
-      <date year="2020" />
-    </front>
-</reference>
-
-<reference anchor="ISO3166-3" target="https://www.iso.org/standard/72482.html">
-    <front>
-      <title>ISO 3166-3:2020. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
-      <author surname="International Organization for Standardization">
-        <organization abbrev="ISO">International Organization for
-        Standardization</organization>
-      </author>
-      <date year="2020" />
-    </front>
-</reference>
-
-<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
-  <front>
-    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
-      <author surname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
-        <organization>INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
-      </author>
-   <date year="2015"/>
-  </front>
-</reference>
-
 <reference anchor="verified_claims.json" target="https://openid.net/wg/ekyc-ida/references/">
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
@@ -814,16 +772,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>OpenID Foundation</organization>
     </author>
     <date year="2021"/>
-  </front>
-</reference>
-
-<reference anchor="E.164" target="https://www.itu.int/rec/T-REC-E.164/en">
-  <front>
-    <title>Recommendation ITU-T E.164</title>
-    <author>
-      <organization>ITU-T</organization>
-    </author>
-    <date year="2010" month="11"/>
   </front>
 </reference>
 
