@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc", "claims"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-verified-claims-1_0-00"
+value = "openid-ida-verified-claims-1_0-00"
 
 status = "standard"
 
