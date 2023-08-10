@@ -66,7 +66,7 @@ organization="KDDI Corporation"
 
 This specification defines a payload schema that can be used to describe a wide variety of identity assurance metadata about a number of Claims that have been assessed as meeting a given assurance level.
 
-It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@VerifiableCredentialss].
+It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@VerifiableCredentials].
 
 This document defines a new claim relating to the identity assurance of a natural person called "verified_claims".  This was originally developed within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
