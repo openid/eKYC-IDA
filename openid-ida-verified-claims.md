@@ -66,7 +66,7 @@ organization="KDDI Corporation"
 
 This specification defines a payload schema that can be used to describe a wide variety of identity assurance metadata about a number of Claims that have been assessed as meeting a given assurance level.
 
-It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and Verifiable Credentials.  ** editor note add ref to VC data model **
+It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@VerifiableCredentialss].
 
 This document defines a new claim relating to the identity assurance of a natural person called "verified_claims".  This was originally developed within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
@@ -78,7 +78,7 @@ This specification defines a schema for describing assured identity Claims and a
 
 # Scope
 
-This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there will also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by otrher spec authors and implementers where the verification metadata is needed indepoendantly of the end-user Claims.
+This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there is also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by other spec authors and implementers where the verification metadata is needed independantly of the end-user verified Claims.
 
 ## Terminology
 
@@ -96,7 +96,7 @@ This section defines some terms relevant to the topic covered in this document, 
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 [RFC2119].
 
-The specified JSON structures defined in this document should be useable by any protocol that needs to pass assured digital identity attributes or needs to transfer identity assurance metadata between systems using the [@JSON].
+The specified JSON structures defined in this document should be useable by any protocol that needs to pass assured digital identity attributes or needs to transfer identity assurance metadata between systems using the [@JSON] Data Interchange Format.
 
 # Verified Claims {#verified_claims}
 
@@ -139,9 +139,13 @@ The `claims` element MAY also contain other Claims provided the value of the res
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
 
 The `claims` element MAY be empty, to support use cases where verification is required but no Claims data needs to be shared.
+
+
 ## verification Element {#verification}
 
 This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
+
+The `verification` element can be used independently of OpenID Connect and OpenID Connect for Identity Assurance where there is a need for representation of identity assurance metadata in a different application protocol or digital identity data format such as [@VerifiableCredentials].
 
 The `verification` element consists of the following elements:
 
@@ -180,12 +184,17 @@ Note: While `verification_process` refers to the identity verification process a
 `evidence`: OPTIONAL. JSON array containing information about the evidence the OP used to verify the End-User's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The RP uses this information to process the `evidence` property appropriately.
 
 Important: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
+#### Minimum conformant
+
+Based on the definition above and that there are a significant number of optional sub-elements it is informative to show a minimum conformant `verified_claims` payload.  There can be optionally much more detail included in an openid-ida-verified-claims conformant `verified_claims` element when further detail needs to be transferred. 
+
+<{{examples/response/ida_minimum.json}}
 
 ### evidence Element {#evidence_element}
 
 The `evidence` element is structured with the following elements:
 
-`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
+`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
 
 `type`: REQUIRED. The value defines the type of the evidence.
 
@@ -330,13 +339,19 @@ During the identity verification process, specific document artifacts may be col
 
 When supported by the OpenID Provider and requested by the RP, these elements can be included in the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information.
 
-An attachment is represented by a JSON element.  The definition of attachements and the schema representing them are described in [@IDA-Attachments].
+An attachment is represented by a JSON element.  The definition of attachements and the schema representing them are described in [@Attachments].
 
 ## Examples
 
-This section contains JSON snippets showing examples of `verified_claims` described in this document.
+This section contains JSON snippets showing further examples of `verified_claims` described in this document.
 
-**TBC**
+
+
+
+
+### Document + utility statement
+
+<{{examples/response/document_and_utility_statement.json}}
 
 {backmatter}
 
@@ -412,7 +427,7 @@ This section contains JSON snippets showing examples of `verified_claims` descri
   </front>
 </reference>
 
-<reference anchor="IDA-Attachments" target="http://openid.net/specs/openid-connect-4-ida-attachments-1_0.html">
+<reference anchor="Attachments" target="http://openid.net/specs/openid-connect-4-ida-attachments-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance Attachments 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
@@ -553,6 +568,23 @@ This section contains JSON snippets showing examples of `verified_claims` descri
         <organization>OpenID Foundation</organization>
       </author>
    <date year="2020"/>
+  </front>
+</reference>
+
+<reference anchor="VerifiableCredentials" target="https://www.w3.org/TR/vc-data-model/">
+  <front>
+    <title>Verifiable Credentials Data Model v1.1</title>
+    <author>
+      <author initials="M" surname="Sporny" fullname="Manu Sporny">
+        <organization>Digital Bazaar</organization>
+      </author>
+      <author initials="D" surname="Longley" fullname="Dave Longley">
+        <organization>Digital Bazaar</organization>
+      </author>
+      <author initials="D" surname="Chadwick" fullname="David Chadwick">
+        <organization>Digital Bazaar</organization>
+      </author>
+   <date month="March" year="2022"/>
   </front>
 </reference>
 
