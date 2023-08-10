@@ -345,13 +345,17 @@ An attachment is represented by a JSON element.  The definition of attachements 
 
 This section contains JSON snippets showing further examples of `verified_claims` described in this document.
 
+### Framework with assurance level and associated claims
 
-
-
+<{{examples/response/eidas.json}}
 
 ### Document + utility statement
 
 <{{examples/response/document_and_utility_statement.json}}
+
+### Array of Verified Claims 
+
+<{{examples/response/multiple_verified_claims.json}}
 
 {backmatter}
 
