@@ -471,6 +471,16 @@ JSON Data Interchange Format
     </front>
 </reference>
 
+<reference anchor="ISO8601" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
+    <front>
+      <title>ISO 8601. Data elements and interchange formats - Information interchange -
+      Representation of dates and times</title>
+      <author surname="International Organization for Standardization">
+        <organization abbrev="ISO">International Organization for Standardization</organization>
+      </author>
+    </front>
+</reference>
+
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
     <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
@@ -481,6 +491,16 @@ JSON Data Interchange Format
   </front>
 </reference>
 
+<reference anchor="eIDAS" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
+  <front>
+    <title>REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</title>
+    <author initials="" surname="European Parliament">
+      <organization>European Parliament</organization>
+    </author>
+   <date day="23" month="July" year="2014"/>
+  </front>
+</reference>
+
 <reference anchor="E.164" target="https://www.itu.int/rec/T-REC-E.164/en">
   <front>
     <title>Recommendation ITU-T E.164</title>
@@ -488,6 +508,54 @@ JSON Data Interchange Format
       <organization>ITU-T</organization>
     </author>
     <date year="2010" month="11"/>
+  </front>
+</reference>
+
+<reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
+  <front>
+    <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
+    <author initials="Paul. A." surname="Grassi" fullname="Paul A. Grassi">
+      <organization>NIST</organization>
+    </author>
+    <author initials="James L." surname="Fentony" fullname="James L. Fentony">
+      <organization>Altmode Networks</organization>
+    </author>
+    <author initials="Naomi B." surname="Lefkovitz" fullname="Naomi B. Lefkovitz">
+      <organization>NIST</organization>
+    </author>
+    <author initials="Jamie M." surname="Danker" fullname="Jamie M. Danker">
+      <organization>Department of Homeland Security</organization>
+    </author>
+    <author initials="Yee-Yin" surname="Choong" fullname="Yee-Yin Choong">
+      <organization>NIST</organization>
+    </author>
+    <author initials="Kristen K." surname="Greene" fullname="Kristen K. Greene">
+      <organization>NIST</organization>
+    </author>
+    <author initials="Mary F." surname="Theofanos" fullname="Mary F. Theofanos">
+      <organization>NIST</organization>
+    </author>
+   <date month="June" year="2017"/>
+  </front>
+</reference>
+
+<reference anchor="predefined_values_page" target="https://openid.net/wg/ekyc-ida/identifiers/">
+  <front>
+    <title>Overview page for predefined values</title>
+    <author>
+      <organization>OpenID Foundation</organization>
+    </author>
+    <date year="2021"/>
+  </front>
+</reference>
+
+<reference anchor="verified_claims.json" target="https://openid.net/wg/ekyc-ida/references/">
+  <front>
+    <title>JSON Schema for assertions using verified_claims</title>
+    <author>
+        <organization>OpenID Foundation</organization>
+      </author>
+   <date year="2020"/>
   </front>
 </reference>
 
