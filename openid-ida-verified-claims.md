@@ -437,8 +437,6 @@ This section contains JSON snippets showing examples of `verified_claims` descri
   </front>
 </reference>
 
-JSON Data Interchange Format
-
 <reference anchor="JSON" target="https://www.rfc-editor.org/rfc/rfc8259">
     <front>
       <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
@@ -473,8 +471,7 @@ JSON Data Interchange Format
 
 <reference anchor="ISO8601" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
     <front>
-      <title>ISO 8601. Data elements and interchange formats - Information interchange -
-      Representation of dates and times</title>
+      <title>ISO 8601. Data elements and interchange formats - Information interchange - Representation of dates and times</title>
       <author surname="International Organization for Standardization">
         <organization abbrev="ISO">International Organization for Standardization</organization>
       </author>

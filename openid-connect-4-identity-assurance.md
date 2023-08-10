@@ -982,6 +982,8 @@ The technology described in this specification was made available from contribut
    -14
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
+   * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
+   * split out schema definition of `verified_claims` into separate documemnt 
 
    -13
    * Preparation for Implementers Draft 4
