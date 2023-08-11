@@ -70,7 +70,9 @@ This specification defines an extension of OpenID Connect that defines new attac
 
 # Introduction {#Introduction}
 
-This specification defines attachment element as additional JWT claim about the natural person that MAY be used in various contexts. 
+This specification defines an attachment element as a JWT claim that MAY be used in various contexts. 
+
+Attachment element was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an identity assurance process, however, it is anticipated that there may be other cases where the ability to embed or refer to non-JSON structured data may be useful.
 
 # Scope
 
@@ -78,7 +80,7 @@ This specification defines how embedded and external attachments can be used.
 
 # Attachments {#attachments}
 
-During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
+Where attachments are used in identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
 * scans or photocopies of the documents used to verify the identity of End-Users,
@@ -99,17 +101,17 @@ All the information of the document (including the content itself) is provided w
 
 `content`: REQUIRED. Base64 encoded representation of the document content.
 
-`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
+`txn`: OPTIONAL. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response the OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
 The following example shows embedded attachments. The actual contents of the documents are truncated:
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments may not be appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
+Note: Due to their size, embedded attachments may not be appropriate when embedding in objects such as Access Tokens or ID Tokens.
 
 ## External Attachments
 
-External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements:
+External attachments are similar to distributed Claims as defined in [@OpenID]. The reference to the external document is provided in a JSON object with the following elements:
 
 `desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
@@ -124,9 +126,7 @@ External attachments are similar to distributed Claims. The reference to the ext
 * `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
 * `value`: REQUIRED. Base64-encoded [@RFC4648] bytes of the cryptographic hash.
 
-`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
-
-External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
+`txn`: OPTIONAL. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response the OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
 It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
 
@@ -136,7 +136,7 @@ The following example shows external attachments:
 
 ## External Attachment Validation
 
-Clients MUST validate any member of the attachments array that is an external attachment they wish to rely on in the following manner:
+Clients MUST validate each external attachment they wish to rely on in the following manner:
 
 1. Ensure that the object includes the required elements: `url`, `digest`.
 2. Ensure that at the time of the request the time is before the time represented by the `exp` element. 
@@ -155,7 +155,7 @@ As attachments will most likely contain more personal information than was reque
 
 # OP Metadata {#opmetadata}
 
-This specification defines additional element that OP needs to advertise its capabilities with respect to Verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
+If attachments are used in [@OpenID] implementations an additional element of OP Metadata is required to advertise its capabilities with respect to supported attachments in its openid-configuration (see [@!OpenID-Discovery]):
 
 `attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member. If omitted, the OP does not support attachments.
 
@@ -198,10 +198,6 @@ This section shows examples of responses containing `verified_claims`.
 ### Document with external attachments
 
 <{{examples/response/document_with_attachments.json}}
-
-### Evidence with all assurance details
-
-<{{examples/response/evidence_with_assurance_details.json}}
 
 ### Utility statement with attachments
 
@@ -329,7 +325,7 @@ This section shows examples of responses containing `verified_claims`.
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Nat Sakimura and Dima Postnikov for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
