@@ -121,7 +121,7 @@ Extensions of this specification, including trust framework definitions, can def
 
 ## claims Element {#claimselement}
 
-The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element.
+The `claims` element contains the Claims about the End-User which were verified by the process and according to the policies determined by the corresponding `verification` element descried in the next section.
 
 The `claims` element MAY contain any of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]
 
@@ -156,11 +156,7 @@ The `trust_framework` value determines what further data is provided to the RP i
 
 * `assurance_level`: OPTIONAL. String determining the assurance level associated with the End-User Claims in the respective 
 
-* `verified_claims`. The value range depends on the respective `trust_framework` value.
-
-For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`.
-
-For information on predefined trust framework and assurance level values see [@!predefined_values_page].
+* `verified_claims`. The value range depends on the respective `trust_framework` value. For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. For information on predefined trust framework and assurance level values see [@!predefined_values_page].
 
 * `assurance_process`: OPTIONAL. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
   * `policy`: OPTIONAL. String representing the standard or policy that was followed.
@@ -304,7 +300,7 @@ The following elements are contained in an evidence sub-element where type is `v
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
     * `occupation`: OPTIONAL. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: OPTIONAL. String containing the name of the organization the voucher is representing.
-* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the vouch described in the evidence array member it is part of.
+* `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the vouch described in the evidence array member it is part of (an example is presented later in this document)
     * The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in [@OpenID4IDAClaims].
     * The `derived_claims` element MAY also contain other End-User Claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the vouch described in the evidence array member it is part of.
     * Claim names MAY be annotated with language tags as specified in Section 5.2 of the   OpenID Connect specification [@!OpenID].
@@ -353,6 +349,10 @@ This section contains JSON snippets showing further examples of `verified_claims
 ### Array of Verified Claims 
 
 <{{examples/response/multiple_verified_claims.json}}
+
+### Derived Claims
+
+<{{examples/response/derived_claims_1.json}}
 
 {backmatter}
 
