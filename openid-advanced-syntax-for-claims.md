@@ -42,32 +42,47 @@ TBD
 
 # Scope
 
-This specification is based on OpenID Connect Core [@!OpenID] and defines the technical mechanisms to allow Relying Parties present "Selective Abort and Omit" conditions and to request "Transformed Claims".  The specification also allows implementers the choice to implement each feature in isolation or in conjunction depending on their requirements, provides options for restricted implementations, provides features for communication of these capabilities to Relying Parties and includes examples of how both features may be used.
+This specification is based on OpenID Connect Core [@!OpenID] and defines the
+technical mechanisms to allow Relying Parties present "Selective Abort and Omit" (SAO)
+conditions and to request "Transformed Claims" (TC).  The specification also allows
+implementers the choice to implement each feature in isolation or in conjunction
+depending on their requirements, provides options for restricted
+implementations, provides features for communication of these capabilities to
+Relying Parties and includes examples of how both features may be used.
 
 # Selective Abort/Omit
 
-Using Selective Abort/Omit (SAO), an RP can define the expected behavior of an OP when certain data is not available, when a user does not consent to the release of the data, or when restrictions defined on claims using `value`, `values`, or `max_age` cannot be fulfilled. 
+Using Selective Abort/Omit (SAO), an RP can define the expected behavior of an
+OP when certain data is not available, when a user does not consent to the
+release of the data, or when restrictions defined on claims using `value` or
+`values` cannot be fulfilled. It supports a lightweight extension of existing
+OpenID Connect features as well as more complex cases by allowing matching of
+claims structures against JSON Schemas.
 
-Note: SAO is in particular useful when some of the claims (e.g., verified claims) are priced and the RP is only interested to pay for the respective claims if certain conditions are met.
+Note: SAO is in particular useful when some of the claims (e.g., verified
+claims) are priced and the RP is only interested to pay for the respective
+claims if certain conditions are met.
 
-This feature is fully independent from the use of `essential` as defined in Section 5.5 of [@!OpenID].
+This feature is fully independent from the use of `essential` as defined in
+Section 5.5 of [@!OpenID].
 
-## Syntax
+## Example
 
-Example:
+
+Example 1:
 
 ```json
 {
-   "id_token":{
-      "verified_claims":{
-         "verification":{
+   "id_token": {
+      "verified_claims": {
+         "verification": {
             "trust_framework":null,
-            "assurance_level":{
+            "assurance_level": {
                "value":"example_assurance_level"
             }
          },
-         "claims":{
-            "family_name":{
+         "claims": {
+            "family_name": {
                "value":"nonexistent_family_name"
             },
             "given_name":null,
@@ -76,36 +91,38 @@ Example:
          }
       }
    },
-   "userinfo":{
+   "userinfo": {
       "address":null
    },
-   "_asc":{
-      "sao":{
+   "_asc": {
+      "sao": {
          "id_token":[
+            {
+              "loc":"/verified_claims/verification/assurance_level",
+              "match": "oidc",
+              "else":"abort"
+            },
             {
                "loc":"/verified_claims/claims",
                "match": "schema",
-               "schema":{
+               "schema": {
                   "$schema":"http://json-schema.org/draft-07/schema#",
                   "type":"object",
-                  "properties":{
-                     "birthdate":{
+                  "properties": {
+                     "birthdate": {
                         "type":"string",
                         "const":"1900-01-01"
                      }
                   }
                },
-               "else":"omit",
-               "what":[
-                  "/verified_claims/claims"
-               ]
+               "else":"omit"
             },
             {
                "loc":"/verified_claims/claims/family_name",
                "match": "oidc",
                "else":"omit",
                "what":[
-                  "/verified_claims/claims"
+                  "/verified_claims"
                ]
             }
          ],
@@ -121,19 +138,25 @@ Example:
 }
 ```
 
+Another example for using SAO together with TC is shown below.
+
+## Syntax and Processing
+
 To use Advanced Syntax for Claims, the RP adds a new subelement `_asc` to the
 root level of the `claims` JSON structure in the authentication request. Within
 `_asc`, the RP adds a new subelement `sao` that contains the SAO rules. The SAO
-rules are grouped by response type, i.e., `id_token` and `userinfo`. 
+rules are grouped by delivery type, i.e., `id_token` and `userinfo`. 
 
-Within each response type, there is an array of SAO rules, each being an object
+Within each delivery type, there is an array of SAO rules, each being an object
 with the following fields:
 
  * `loc`: REQUIRED. A string containing a JSON Pointer [@!RFC6901] to the
    respective element in the ID Token or Userinfo response structure where the
    rule is to be applied.
  * `match`: OPTIONAL string. If provided, MUST be one of `oidc`, `schema`, or
-   `exists`. If omitted, defaults to `exists`.
+   `exists`. If omitted, defaults to `exists`. Support for `schema` is OPTIONAL
+   for OPs and can be discovered using metadata, as described in
+   (#sao-metadata).
  * `schema`: REQUIRED if `match` is `schema`, MUST NOT be present otherwise. A
    JSON schema object as defined in [@!JSON-SCHEMA] that the respective element
    in the ID Token or Userinfo response structure must validate against.
@@ -147,34 +170,51 @@ with the following fields:
    structure that are to be omitted if the rule is not fulfilled. If `what` is
    not defined, the element specified in `loc` is omitted.
 
-If the element indicated by `loc` does not exist, the `else` action MUST be
-triggered. This includes the case when the element was removed by a previously
-executed `omit` rule. 
+The `else` action MUST be triggered when
+
+ * the element indicated by `loc` does not exist, 
+ * the element was removed by a previously executed `omit` rule, or
+ * the user does not consent to the release of the claim. 
 
 Additionally, depending on the value of `match`, the following matches MUST be
 performed:
 
- * If `match` is `oidc`, the value of the claim indicated by `loc` is matched
+ * `oidc`: The value of the claim indicated by `loc` is matched
    against `value` or `values` provided in the claim request as defined in
    [@!OpenID], Section 5.5.1. In the example above, the `family_name` claim
    would be matched against `nonexistent_family_name`. The `else` action MUST be
    triggered if the value of the claim does not match the requested value or
    values. If neither `value` nor `values` was defined for the respective claim,
    an `invalid_request` error MUST be returned.
- * If `match` is `schema`, the JSON Schema `schema` element MUST apply to the
+ * `schema`: The JSON Schema `schema` element MUST apply to the
    JSON structure under the element indicated by `loc`. In the example above,
    the schema would be applied to the whole `claims` object under
    `verified_claims`. The `else` action MUST be triggered if the schema does not
    apply. 
- * If `match` is `exists`, no additional matches are performed.
+ * `exists`: No additional matches are performed.
 
 The SAO rules provided MUST be executed first for all `id_token` rules and then
-for all `userinfo` rules. Within each response type, the SAO rules MUST be
+for all `userinfo` rules.  Within each delivery type, the SAO rules MUST be
 executed in the order they are provided in the request. If an `abort` action is
 triggered, the transaction MUST be aborted and remaining SAO rules MUST NOT be
 executed. If an `omit` action is triggered, the respective elements MUST be
-omitted from the response and no further SAO rules MUST be executed for the
-respective response type.
+omitted from the response; further SAO rules MUST be executed. Note that `omit`
+is scoped to the respective delivery type, i.e., an element that was omitted
+from the `id_token` response can still be present in the `userinfo` response if
+it was requested for both delivery types.
+
+In Example 1, data would be processed as follows:
+
+ 1. If the `birthdate` claim is not available or the birthdate is not a string
+    with the value `1900-01-01`, the `verified_claims/claims` object is omitted
+    from the response. Since the `verified_claims` element may not be used
+    without the `claims` subelement, the whole `verified_claims` object is
+    omitted.
+ 2. If the `family_name` is not available as a verified claim or it does not
+    match the string `nonexistent_family_name`, the `verified_claims` object is
+    omitted from the response.
+ 3. If the `postal_code` is not available in the `address` object, the
+    transaction is aborted.
 
 ### Interoperability with OIDC Rules
 
@@ -191,37 +231,80 @@ To restore the original behavior, RPs can define an SAO rule with `match` set to
 `oidc` and `else` set to `abort` for all claims with a `value`/`values`
 constraint.
 
-## OP Metadata
 
-The OP advertises its capabilities with respect to Selective Abort/Omit in its openid-configuration (see [@!OpenID-Discovery]) using the following new element:
+## OP Metadata {#sao-metadata}
 
-`selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit" 
+The OP advertises its capabilities with respect to Selective Abort/Omit in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-## Error Handling
-
-If the `claims` sub-element is empty or if an action is used that is unknown to the OP, the OP MUST abort the transaction with an `invalid_request` error. If a case key is used that is unknown to the OP, it MUST be ignored.
+ * `selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit". Defaults to `false`.
+ * `selective_abort_omit_schema_supported`: OPTIONAL. Boolean value indicating
+   OP support for the `match` method `schema`. Defaults to `true`. If `false`,
+   the OP MUST abort the transaction with an `invalid_request` error if a JSON
+   Schema is used in an SAO rule.
 
 ## Privacy Considerations {#privacy}
 
-Using Selective Abort/Omit can in general lead to more privacy preserving systems, as an RP can instruct an OP not to send incomplete datasets that are not useful to the RP.
+Using Selective Abort/Omit can in general lead to more privacy preserving
+systems, as an RP can instruct an OP not to send incomplete datasets that are
+not useful to the RP.
 
-An RP might be able to derive information from a response even if the response is an error response or claims are omitted. For example, the following request can be used to derive whether or not the user is named `Max`:
+An RP might be able to derive information from a response even if the response
+is an error response or claims are omitted. For example, the following request
+can be used to derive whether or not the user is named `Max`:
 
 ```json
-TBD
+{
+  "id_token": {
+    "given_name": {
+      "value": "Max"
+    }
+  },
+  "_asc": {
+    "sao": {
+      "id_token": [
+        {
+          "loc": "/given_name",
+          "match": "oidc",
+          "else": "abort"
+        }
+      ]
+    }
+  }
+}
 ```
 
-When the request is aborted, the user is not called Max. In a naive implementation, the abort of the request might happen before the user has consented to the release of the data. In this case, using a series of carefully crafted requests, an RP might be able to derive substantial information about a user even if the user's name is never transferred from the OP to the RP directly. A malicious RP can use this to derive user information without the user's consent or without paying for the data.
+When the request is aborted, the user is not called Max. In a naive
+implementation, the abort of the request might happen before the user has
+consented to the release of the data. In this case, using a series of carefully
+crafted requests, an RP might be able to derive substantial information about a
+user even if the user's name is never transferred from the OP to the RP
+directly. A malicious RP can use this to derive user information without the
+user's consent or without paying for the data. Note that `omit` can leak
+information in a similar way.
 
-To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `XXX` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
+To avoid leakage of user information through this mechanism without the user's
+consent, implementations SHOULD in general avoid returning a result before a
+user has consented to the release of the base data if privacy is a concern in
+the respective application. In the example above, the user would be asked to
+confirm the release of the given name data field before the OP aborts the
+transaction or omits the claim. OPs MAY make exceptions for RPs when a
+contractual or trust relationship with this RP was established beforehand or
+there are other mechanisms in place to ensure that misuse is prevented.
 
-OPs MUST also consider whether the (un)availability of data (`XXXX`) can leak data in a similar way in the respective application and, if so, apply the same restrictions. 
-
-To the same end, and to avoid relying parties not paying for data, OPs SHOULD additionally consider rate-limiting requests and monitoring requests for anomalies (frequent dynamic changes in request structure, frequent aborts).
+To the same end, and to avoid relying parties not paying for data, OPs SHOULD
+additionally consider rate-limiting requests and monitoring requests for
+anomalies (frequent dynamic changes in request structure, frequent aborts).
 
 ## Compatibility Considerations
 
-An OP not supporting SAO will ignore the additional keys as defined in Section 5.5.1 of [@!OpenID]. The RP may therefore receive data from such an OP when aborting the transaction was requested instead. RPs can avoid this by checking for SAO support at the OP before sending the request.
+An OP not supporting ASC will ignore the additional `_asc` key as defined in
+Section 5.5.1 of [@!OpenID]. An OP supporting ASC but not SAO MUST ignore the
+`sao` key. 
+
+An RP may receive data from an OP that does not support SAO when aborting the
+transaction or not delivering the data was requested instead. RPs can avoid this
+by checking for SAO support in the metadata of the OP before sending the
+request.
 
 
 # Transformed Claims
@@ -347,6 +430,49 @@ Any option available for normal Claims can also be used with Transformed Claims.
 
 There is no requirement to use all defined Transformed Claims within a request.
 
+### Combination with Selective Abort/Omit
+
+Transformed Claims can be used together with Selective Abort/Omit. In this case,
+transformed claims are evaluated before the SAO rules are applied. The SAO rules
+are applied to the transformed value.
+
+Example:
+
+```json
+{
+  "id_token": {
+    "given_name": null,
+    "family_name": null,
+    ":age_18_or_over": {
+      "value": true
+    }
+  },
+  "_asc": {
+    "transformed_claims": {
+      "age_18_or_over": {
+        "claim": "birthdate",
+        "fn": [
+          "years_ago",
+          [
+            "gte",
+            18
+          ]
+        ]
+      }
+    },
+    "sao": {
+      "id_token": [
+        {
+          "loc": "/:age_18_or_over",
+          "match": "oidc",
+          "else": "abort"
+        }
+      ]
+    }
+  }
+}
+```
+
 ## Data Types 
 
 Claims defined in [@!OpenID] and [@!IDA] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
@@ -384,6 +510,14 @@ Function signatures:
  * `eq(date|datetime Input, date|datetime Compare) -> boolean`
 
 Return `true` if and only if `Input` equals `Output`. Return `false` otherwise. For comparisons between `date` and `datetime` values, the time of day is ignored unless `Input` and `Compare` are both of type `datetime`.
+
+Additionally, the following functions for partial string matching are defined:
+
+  * `contains(string Input, string Compare) -> boolean`
+  * `starts_with(string Input, string Compare) -> boolean`
+  * `ends_with(string Input, string Compare) -> boolean`
+
+Return `true` if and only if `Input` contains, starts with, or ends with `Compare`. Return `false` otherwise.
 
 ### Number/Date/Datetime Comparison
 
