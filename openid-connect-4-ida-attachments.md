@@ -80,6 +80,8 @@ This specification defines how embedded and external attachments can be used.
 
 # Attachments {#attachments}
 
+This definition was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an assurance process, however, it is anticipated that there may be other cases where the ability to embed or refer to non-JSON structured data may be useful.
+
 Where attachments are used in identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
@@ -202,10 +204,6 @@ This section shows examples of responses containing `verified_claims`.
 ### Utility statement with attachments
 
 <{{examples/response/utility_statement_with_attachments.json}}
-
-### Document + utility statement
-
-<{{examples/response/document_and_utility_statement.json}}
 
 ### Vouch with embedded attachments
 
