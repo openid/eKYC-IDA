@@ -158,7 +158,7 @@ with the following fields:
    for OPs and can be discovered using metadata, as described in
    (#sao-metadata).
  * `schema`: REQUIRED if `match` is `schema`, MUST NOT be present otherwise. A
-   JSON schema object as defined in [@!JSON-SCHEMA] that the respective element
+   JSON schema object as defined in [@!I-D.bhutton-json-schema] that the respective element
    in the ID Token or Userinfo response structure must validate against.
  * `else`: REQUIRED. A string, either `abort` or `omit`, indicating the action
    to take if the rule is not fulfilled. If `abort` is used, the transaction
