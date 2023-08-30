@@ -319,6 +319,16 @@ This section shows examples of responses containing `verified_claims`.
   </front>
 </reference>
 
+<reference anchor="RFC4648" target="https://datatracker.ietf.org/doc/html/rfc4648">
+  <front>
+    <title>The Base16, Base32, and Base64 Data Encodings</title>
+    <author initials="S." surname="Josefsson" fullname="S. Josefsson">
+      <organization>SJD</organization>
+    </author>
+   <date month="Oct" year="2006"/>
+  </front>
+</reference>
+
 # Acknowledgements {#Acknowledgements}
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
@@ -341,4 +351,5 @@ The technology described in this specification was made available from contribut
    -00 (WG document)
 
    *  Split this content from openid-connect-4-identity-assurance-1_0-13 WG document
+   * Add RFC4648 as normative reference
 
