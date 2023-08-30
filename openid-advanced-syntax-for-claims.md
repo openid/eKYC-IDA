@@ -16,7 +16,7 @@ status = "standard"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete Inc."
     [author.address]
     email = "mail@danielfett.de"
 
@@ -54,69 +54,142 @@ This feature is fully independent from the use of `essential` as defined in Sect
 
 ## Syntax
 
-The RP can use the following two "case keys" on all standard OpenID Connect claims, verified claims, and verification elements:
-
- * `if_unavailable` describes the case that the OP does not have data about this
-   claim or does not support this claim, or that the user did not consent to the release of the data. Note that the latter can only apply if the user interface of the OP allows the user to deselect single claims. If the user does not consent to the whole transaction, standard OpenID Connect logic applies. 
-
- * `if_different` describes the case that the restrictions on claim data expressed using
-   `value`, `values`, or `max_age` cannot be fulfilled with the available data.
-   Will be ignored if no restriction was defined.
-
-
-For each of these two keys, one of the following expected "actions" can be defined:
-
- * `omit`: Omit this particular claim from the response. If an element is to be
-   omitted that is required for a valid response, its parent elements MUST be
-   omitted as well, recursively until the response is valid.
-
- * `omit_set`: Omit this particular claim and all claims for which the same
-   action is set. This can be used by the RP to define a set of claims that is
-   only useful when delivered in full.
-
- * `omit_verified_claims`: (Only applicable when used with [@!IDA].) Omit this
-   particular claim and the whole `verified_claims` section. Only valid within
-   the `verified_claims` section.
-
- * `abort`: Abort the whole transaction by returning an Authentication Error
-   Response (as in Section 3.1.2.6 of [@!OpenID]) using the error code
-   `access_denied` to the RP. The `error_description` SHOULD indicate which rule
-   led to the abort of the transaction if and only if the action is
-   `if_unavailable` or the user has consented to the release of the data (see
-   (#privacy) below).
-
-If both conditions apply (e.g., the user did not consent to the release of data
-and this data does not fulfill a `value` restriction), the case `if_unavailable`
-takes precedence.  Whenever an `abort` action is met, it takes precedence over
-any of the other actions, i.e., the transaction is aborted in this case.
-
-Omitting Claims can be recursive: If a Claim is omitted through `omit` or `omit_set`, or it is a Claim within `verified_claims` and `omit_verified_claims` was applied, the Claim's `if_unavailable` action is triggered as well.
-
-The following table shows the default actions when case keys are omitted:
-
-|                  | default | within `verified_claims/verification` of [@!IDA] |
-| ---------------- | ------- | ------------------------------------------------ |
-| `if_unavailable` | `omit`  | `omit`                                           |
-| `if_different`   | `omit`  | `omit_verified_claims`                           |
-
-
 Example:
 
-<{{examples/request/omit_abort.json}}
+```json
+{
+   "id_token":{
+      "verified_claims":{
+         "verification":{
+            "trust_framework":null,
+            "assurance_level":{
+               "value":"example_assurance_level"
+            }
+         },
+         "claims":{
+            "family_name":{
+               "value":"nonexistent_family_name"
+            },
+            "given_name":null,
+            "birthdate": null,
+            "address":null
+         }
+      }
+   },
+   "userinfo":{
+      "address":null
+   },
+   "_asc":{
+      "sao":{
+         "id_token":[
+            {
+               "loc":"/verified_claims/claims",
+               "match": "schema",
+               "schema":{
+                  "$schema":"http://json-schema.org/draft-07/schema#",
+                  "type":"object",
+                  "properties":{
+                     "birthdate":{
+                        "type":"string",
+                        "const":"1900-01-01"
+                     }
+                  }
+               },
+               "else":"omit",
+               "what":[
+                  "/verified_claims/claims"
+               ]
+            },
+            {
+               "loc":"/verified_claims/claims/family_name",
+               "match": "oidc",
+               "else":"omit",
+               "what":[
+                  "/verified_claims/claims"
+               ]
+            }
+         ],
+         "userinfo":[
+            {
+               "loc":"/address/postal_code",
+               "match": "exists",
+               "else":"abort"
+            }
+         ]
+      }
+   }
+}
+```
 
-This example would yield the following results (among other outcomes, always assuming that other data is available and matches the requirements):
+To use Advanced Syntax for Claims, the RP adds a new subelement `_asc` to the
+root level of the `claims` JSON structure in the authentication request. Within
+`_asc`, the RP adds a new subelement `sao` that contains the SAO rules. The SAO
+rules are grouped by response type, i.e., `id_token` and `userinfo`. 
 
+Within each response type, there is an array of SAO rules, each being an object
+with the following fields:
 
-| Condition                                                             | Result                                                                  |
-| --------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `phone_number` not available                                          | Transaction is aborted.                                                 |
-| `email` not available                                        | `email` is omitted.                                            |
-| `email` is not `test@example.com`                            | Transaction is aborted.                                                 |
-| `trust_framework` is not `de_aml` or is unavailable                   | Transaction is aborted.                                                 |
-| `verification_process` is unavailable                                 | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
-| verified `address` is unavailable                                     | `verified_claims` is omitted -> `custom_paid_claim` is omitted as well   |
-| verified `nationalities` or verified `place_of_birth` are unavailable | `nationalities`, `place_of_birth`, and `custom_paid_claim` are omitted. |
+ * `loc`: REQUIRED. A string containing a JSON Pointer [@!RFC6901] to the
+   respective element in the ID Token or Userinfo response structure where the
+   rule is to be applied.
+ * `match`: OPTIONAL string. If provided, MUST be one of `oidc`, `schema`, or
+   `exists`. If omitted, defaults to `exists`.
+ * `schema`: REQUIRED if `match` is `schema`, MUST NOT be present otherwise. A
+   JSON schema object as defined in [@!JSON-SCHEMA] that the respective element
+   in the ID Token or Userinfo response structure must validate against.
+ * `else`: REQUIRED. A string, either `abort` or `omit`, indicating the action
+   to take if the rule is not fulfilled. If `abort` is used, the transaction
+   MUST be aborted. If `omit` is used, one or more elements MUST be omitted from
+   the response, as defined next.
+ * `what`: OPTIONAL if the value of `else` is `omit`, MUST NOT be used
+   otherwise. An array of one or more strings, each containing a JSON Pointer
+   [@!RFC6901] to the respective element in the ID Token or Userinfo response
+   structure that are to be omitted if the rule is not fulfilled. If `what` is
+   not defined, the element specified in `loc` is omitted.
 
+If the element indicated by `loc` does not exist, the `else` action MUST be
+triggered. This includes the case when the element was removed by a previously
+executed `omit` rule. 
+
+Additionally, depending on the value of `match`, the following matches MUST be
+performed:
+
+ * If `match` is `oidc`, the value of the claim indicated by `loc` is matched
+   against `value` or `values` provided in the claim request as defined in
+   [@!OpenID], Section 5.5.1. In the example above, the `family_name` claim
+   would be matched against `nonexistent_family_name`. The `else` action MUST be
+   triggered if the value of the claim does not match the requested value or
+   values. If neither `value` nor `values` was defined for the respective claim,
+   an `invalid_request` error MUST be returned.
+ * If `match` is `schema`, the JSON Schema `schema` element MUST apply to the
+   JSON structure under the element indicated by `loc`. In the example above,
+   the schema would be applied to the whole `claims` object under
+   `verified_claims`. The `else` action MUST be triggered if the schema does not
+   apply. 
+ * If `match` is `exists`, no additional matches are performed.
+
+The SAO rules provided MUST be executed first for all `id_token` rules and then
+for all `userinfo` rules. Within each response type, the SAO rules MUST be
+executed in the order they are provided in the request. If an `abort` action is
+triggered, the transaction MUST be aborted and remaining SAO rules MUST NOT be
+executed. If an `omit` action is triggered, the respective elements MUST be
+omitted from the response and no further SAO rules MUST be executed for the
+respective response type.
+
+### Interoperability with OIDC Rules
+
+[@!OpenID], Section 5.5.1 defines that a mismatch for `value`/`values` results
+in no user data returned. This behavior MUST NOT be applied if the element
+`_asc`/`sao` is present and understood by the OP. This allows RPs to define
+omitting elements using SAO rules instead of returning no user data at all. 
+
+RPs SHOULD define SAO rules for all claims that have a `value` or `values`
+constraint defined. It is not an error to use `value` or `values` without a
+respective SAO rule, but the OP will ignore the constraint in this case.
+
+To restore the original behavior, RPs can define an SAO rule with `match` set to
+`oidc` and `else` set to `abort` for all claims with a `value`/`values`
+constraint.
 
 ## OP Metadata
 
@@ -135,20 +208,14 @@ Using Selective Abort/Omit can in general lead to more privacy preserving system
 An RP might be able to derive information from a response even if the response is an error response or claims are omitted. For example, the following request can be used to derive whether or not the user is named `Max`:
 
 ```json
-{
-  "given_name": {
-    "value": "Max",
-    "if_different": "abort",
-    "if_unavailable": "omit"
-  }
-}
+TBD
 ```
 
 When the request is aborted, the user is not called Max. In a naive implementation, the abort of the request might happen before the user has consented to the release of the data. In this case, using a series of carefully crafted requests, an RP might be able to derive substantial information about a user even if the user's name is never transferred from the OP to the RP directly. A malicious RP can use this to derive user information without the user's consent or without paying for the data.
 
-To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `if_different` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
+To avoid leakage of user information through this mechanism without the user's consent, implementations MUST in general avoid evaluating `XXX` before a user has consented to the release of the data if privacy is a concern in the respective application. In the example above, the user would be asked to confirm the release of the given name data field before the OP aborts the transaction or omits the claim. OPs MAY make exceptions for RPs when a contractual or trust relationship with this RP was established beforehand or there are other mechanisms in place such that this kind of misuse is prevented.
 
-OPs MUST also consider whether the (un)availability of data (`if_unavailable`) can leak data in a similar way in the respective application and, if so, apply the same restrictions. 
+OPs MUST also consider whether the (un)availability of data (`XXXX`) can leak data in a similar way in the respective application and, if so, apply the same restrictions. 
 
 To the same end, and to avoid relying parties not paying for data, OPs SHOULD additionally consider rate-limiting requests and monitoring requests for anomalies (frequent dynamic changes in request structure, frequent aborts).
 
@@ -173,7 +240,7 @@ If data for the original Claim `birthdate` is unavailable, the new Claim `age_18
 
 ## Defining Transformed Claims
 
-Transformed Claims are defined by the RP in the `claims` parameter of the Authentication Request. The RP adds a new subelement `transformed_claims` within the root of the `claims` JSON structure.
+Transformed Claims are defined by the RP in the `claims` parameter of the Authentication Request. The RP adds a new subelement `transformed_claims` within the `_asc` element in the root of the `claims` JSON structure.
 
 `transformed_claims` is a JSON object in which each key represents a definition for a new Transformed Claim. Each definition consists of an object with the following keys:
 
@@ -184,16 +251,18 @@ For example, the Transformed Claim for age verification from above could be defi
 
 ```json
 {
-  "transformed_claims": {
-    "age_18_or_over": {
-      "claim": "birthdate",
-      "fn": [
-        "years_ago",
-        [
-          "gte",
-          18
+  "_asc": {
+    "transformed_claims": {
+      "age_18_or_over": {
+        "claim": "birthdate",
+        "fn": [
+          "years_ago",
+          [
+            "gte",
+            18
+          ]
         ]
-      ]
+      }
     }
   },
   "id_token": {
@@ -214,16 +283,18 @@ To request a Transformed Claim, the RP uses the name of the Transformed Claim wh
 Example:
 ```json
 {
-  "transformed_claims": {
-    "age_18_or_over": {
-      "claim": "birthdate",
-      "fn": [
-        "years_ago",
-        [
-          "gte",
-          18
+  "_asc": {
+    "transformed_claims": {
+      "age_18_or_over": {
+        "claim": "birthdate",
+        "fn": [
+          "years_ago",
+          [
+            "gte",
+            18
+          ]
         ]
-      ]
+      }
     }
   },
   "id_token": {
@@ -506,7 +577,7 @@ The following error conditions MUST be checked by an OP, in this order:
  2. If an RP uses, in a definition for a transformed claim, a function not supported by the OP and therefore not listed in `transformed_claims_functions_supported`, or the wrong number of arguments, or a wrong type of argument, the OP MUST abort the transaction with an `invalid_request` error. The `error_description` provided by the OP SHOULD indicate the location and nature of the error.
  3. Each transformed claim is based on a single base claim, as expressed by the `claim` key in the definition of the transformed claim. In case this base claim is not known to the OP, or data is not available for this claim, or similar conditions, the transformed claim MUST be treated the same as the base claim. For example, if the base claim is unknown to the OP, the transformed claim is handled as if it were an unknown claim as well. If an End-User choses not to release the base claim, or the base claim is not released to the RP for some other reason, the transformed claim MUST NOT be released as well.
 
-In general, if an RP references an undefined transformed claim in the `claims` parameter, the claim MUST be treated like a claim unknown to the OP. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
+In general, if an RP references an undefined transformed claim in the `claims` parameter, the claim MUST be treated like a claim unknown to the OP. If Selective Abort/Omit is supported as defined above, the `XXXX` case will be triggered.
 
 ## UX and Privacy Considerations
 
@@ -527,7 +598,7 @@ OPs can use a number of strategies to ensure that End-User consent is always giv
 
 ## Compatibility Considerations
 
-An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored. If Selective Abort/Omit is supported as defined above, the `if_unknown` case will be triggered.
+An OP not supporting Transformed Claims will ignore the additional element in the `claims` parameter as defined in Section 5.5 of [@!OpenID]. All Transformed Claims requested by RPs are therefore unknown to the OP and treated like other unknown claims, i.e., they will typically be ignored.
 
 ## Examples
 
