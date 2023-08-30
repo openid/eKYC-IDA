@@ -30,7 +30,7 @@ This specification defines an extension of OpenID Connect to enable new features
 
 # Introduction {#Introduction}
 
-When using OpenID Connect there are two existing mechanisms to limit the data returned.  These are through the use of the `scope` parameter (where a predefines set of claims may be described) or the `claims` parameter where individual claims can be requested explicitly. The OpenID Provider in these case may return some or all of the requested claims dependent on availability, end-user approval or some other policy. 
+When using OpenID Connect there are two existing mechanisms to limit the data returned.  These are through the use of the `scope` parameter (where a predefines set of claims may be described) or the `claims` parameter where individual claims can be requested explicitly. The OpenID Provider in these case may return some or all of the requested claims dependent on availability, end-user approval or some other policy.
 
 With OpenID Connect Advanced Syntax for Claims (ASC) two further tools are made available to implementers.  The "Selective Abort and Omit" feature allows the Relying Party to express to the Identity Provider certain conditions when it might like some subset or perhaps all of the requested claims to be not returned. This is provided to allow for cases where when one or more key attributes are unavailable then the rest are insufficient to meet the business requirement and reduced return of data is better than incomplete data. With the "Transformed Claims" feature a general purpose way of taking an existing "base claim" and applying functions to it is provided.  This capability was inspired by the age verification use case where the full `birthdate` is not needed to satisfy the business requirement and would not meet the principle of data minimization. With Transformed Claims it is possible to transform `birthdate` to `age is greater than or equal to x` but also express `postcode contains "EH1"`  or `end-user nationality includes "USA"` meeting the business and policy requirements of Relying Parties much more effectively.
 
@@ -145,7 +145,7 @@ Another example for using SAO together with TC is shown below.
 To use Advanced Syntax for Claims, the RP adds a new subelement `_asc` to the
 root level of the `claims` JSON structure in the authentication request. Within
 `_asc`, the RP adds a new subelement `sao` that contains the SAO rules. The SAO
-rules are grouped by delivery type, i.e., `id_token` and `userinfo`. 
+rules are grouped by delivery type, i.e., `id_token` and `userinfo`.
 
 Within each delivery type, there is an array of SAO rules, each being an object
 with the following fields:
@@ -172,9 +172,9 @@ with the following fields:
 
 The `else` action MUST be triggered when
 
- * the element indicated by `loc` does not exist, 
+ * the element indicated by `loc` does not exist,
  * the element was removed by a previously executed `omit` rule, or
- * the user does not consent to the release of the claim. 
+ * the user does not consent to the release of the claim.
 
 Additionally, depending on the value of `match`, the following matches MUST be
 performed:
@@ -190,7 +190,7 @@ performed:
    JSON structure under the element indicated by `loc`. In the example above,
    the schema would be applied to the whole `claims` object under
    `verified_claims`. The `else` action MUST be triggered if the schema does not
-   apply. 
+   apply.
  * `exists`: No additional matches are performed.
 
 The SAO rules provided MUST be executed first for all `id_token` rules and then
@@ -221,7 +221,7 @@ In Example 1, data would be processed as follows:
 [@!OpenID], Section 5.5.1 defines that a mismatch for `value`/`values` results
 in no user data returned. This behavior MUST NOT be applied if the element
 `_asc`/`sao` is present and understood by the OP. This allows RPs to define
-omitting elements using SAO rules instead of returning no user data at all. 
+omitting elements using SAO rules instead of returning no user data at all.
 
 RPs SHOULD define SAO rules for all claims that have a `value` or `values`
 constraint defined. It is not an error to use `value` or `values` without a
@@ -299,7 +299,7 @@ anomalies (frequent dynamic changes in request structure, frequent aborts).
 
 An OP not supporting ASC will ignore the additional `_asc` key as defined in
 Section 5.5.1 of [@!OpenID]. An OP supporting ASC but not SAO MUST ignore the
-`sao` key. 
+`sao` key.
 
 An RP may receive data from an OP that does not support SAO when aborting the
 transaction or not delivering the data was requested instead. RPs can avoid this
@@ -355,13 +355,13 @@ For example, the Transformed Claim for age verification from above could be defi
 
 ```
 
-Note: There can be multiple Transformed Claims defined on the same base Claim. 
+Note: There can be multiple Transformed Claims defined on the same base Claim.
 
-TODO: Define charset for transformed claim names, shall not start with ':'. 
+TODO: Define charset for transformed claim names, shall not start with ':'.
 
 ### Requesting Transformed Claims
 
-To request a Transformed Claim, the RP uses the name of the Transformed Claim where it would normally use the base Claim. A colon (`:`) is prepended to avoid confusion with potentially existing normal Claims. 
+To request a Transformed Claim, the RP uses the name of the Transformed Claim where it would normally use the base Claim. A colon (`:`) is prepended to avoid confusion with potentially existing normal Claims.
 
 Example:
 ```json
@@ -473,7 +473,7 @@ Example:
 }
 ```
 
-## Data Types 
+## Data Types
 
 Claims defined in [@!OpenID] and [@!IDA] have one of the data types 'string', 'boolean', 'number', 'JSON object' or 'array'. For the purpose of this specification, these data types are used as well as the new data type 'date', which applies to Claims representing dates, and 'datetime', which applies to Claims representing date and time. Therefore, `birthdate` is both of type `string` and `date`, and `updated_at` is both of type `number` and `datetime`.
 
@@ -494,11 +494,11 @@ This specification defines the following functions:
 
 Function signature: `years_ago(date|datetime Input, optional date ReferenceDate) -> number`
 
-If only an input date or datetime is provided, returns the number of years elapsed since the given `Input` day, rounded down. With a `ReferenceDate`, returns the number of years elapsed between the `Input` date and the `ReferenceDate`. 
+If only an input date or datetime is provided, returns the number of years elapsed since the given `Input` day, rounded down. With a `ReferenceDate`, returns the number of years elapsed between the `Input` date and the `ReferenceDate`.
 
 Note: If the year of the `Input` date is `0000`, the resulting Claim shall be unavailable.
 
-Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
+Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order.
 
 ### Equality
 
@@ -523,10 +523,10 @@ Return `true` if and only if `Input` contains, starts with, or ends with `Compar
 
 Function signatures:
 
- * `gt(number Input, number Compare): -> boolean` 
- * `gt(date|datetime Input, date|datetime Compare): -> boolean` 
- * `lt(number Input, number Compare): -> boolean` 
- * `lt(date|datetime Input, date|datetime Compare): -> boolean` 
+ * `gt(number Input, number Compare): -> boolean`
+ * `gt(date|datetime Input, date|datetime Compare): -> boolean`
+ * `lt(number Input, number Compare): -> boolean`
+ * `lt(date|datetime Input, date|datetime Compare): -> boolean`
  * `gte(number Input, number Compare): -> boolean`
  * `gte(date|datetime Input, date|datetime Compare): -> boolean`
  * `lte(number Input, number Compare): -> boolean`
@@ -536,7 +536,7 @@ Evaluate whether `Input` is greather/less than (or equal to) the given
 `Compare`. For comparisons between `date` and `datetime` values, the time of day
 is ignored unless `Input` and `Compare` are both of type `datetime`.
 
-Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order. 
+Note: When applied to an array of valid input values, returns an array with the function applied to each input value in order.
 
 ### Hashing
 
@@ -551,7 +551,7 @@ Example: `hash('Jörg', 'sha-256')` produces the string
 
 This function can be used together with the `eq` operator or a restriction
 expressed using `value` or `values` to have the OP match a string against a
-value without revealing the clear-text value to the OP. 
+value without revealing the clear-text value to the OP.
 
 It is important to note that the privacy advantage is generally limited,
 especially when the input strings can be enumerated easily, as is common for
@@ -563,8 +563,8 @@ hash provided by the RP in order to reveal the original clear-text value.
 
 Function signatures:
 
- * `any(array of booleans Input) -> boolean` 
- * `all(array of booleans Input) -> boolean` 
+ * `any(array of booleans Input) -> boolean`
+ * `all(array of booleans Input) -> boolean`
  * `none(array of booleans Input) -> boolean`
 
 Return `true` if and only if any, all, or none of the boolean values in the `Input` array are `true`. Return `false` otherwise.
@@ -575,7 +575,7 @@ Function signature: `get(JSON object Input, string Key) -> *`
 
 From the JSON object `Input`, return the member with key `Key`. If the respective key is not available in the JSON object, the resulting Claim shall be unavailable.
 
-### Matching 
+### Matching
 
 Function signature: `match(string Input, string RegEx) -> boolean`
 
@@ -594,13 +594,13 @@ New Transformation Functions defined outside official standards shall use the
 prefix `x-` to avoid naming collisions with standardized Transformation
 Functions.
 
-TODO: Registry? Prefixing considered harmful? 
+TODO: Registry? Prefixing considered harmful?
 
 All Transformation Functions shall follow the following conventions:
 
  * To avoid information leakage to the RP, a Transformation Function shall be designed such that it does not open a side-channel to other information stored at the OP. To this end, a Transformation Function shall only make use of information that is either
    * directly provided via the static function arguments,
-   * can be derived from the `Input`, or 
+   * can be derived from the `Input`, or
    * is available to the RP from other sources, e.g., public information like time and date.
  * The application of Transformation Functions shall have no side effects on other Claim values.
  * Transformation Functions shall be safe to execute for the OP for all combinations of inputs and arguments, as the requests generally come from an untrusted source. This includes security against Denial-of-Service attacks.
@@ -636,7 +636,7 @@ To predefine a Transformed Claim, the OP publishes the key `transformed_claims_p
           18
         ]
       ]
-    }, 
+    },
     "age_21_or_over": {
       "claim": "birthdate",
       "fn": [
@@ -746,11 +746,11 @@ The following example shows two custom Transformed Claims being defined and used
 
 
 ## Integrity Protection of the Authentication Request
-For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or attacker could create situations where the RP receives misleading data. 
+For a secure operation of the mechanisms defined in this specification, it is important to protect the `claims` parameter against modifications. Otherwise, a malicious End-User or attacker could create situations where the RP receives misleading data.
 
-Moreover, some features in this specification are particularly suited for use cases of OpenID Connect where the RP pays for data received. In such use cases, integrity protection of the `claims` parameter can be advised to avoid having the RP pay for data not requested. 
+Moreover, some features in this specification are particularly suited for use cases of OpenID Connect where the RP pays for data received. In such use cases, integrity protection of the `claims` parameter can be advised to avoid having the RP pay for data not requested.
 
-As an example for a malicious modification, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from 
+As an example for a malicious modification, when an RP defines a transformed claim `:age_18_or_over` as shown above, an End-User that is only 12 years old could modify the definition of the Claim from
 
 ```
     "age_18_or_over": {
@@ -787,7 +787,7 @@ Therefore, the following rules apply:
  * Authentication requests using features from Selective Abort/Omit SHOULD only be accepted by an OP if they are integrity-protected and authenticated.
  * Authentication requests using Transformed Claims MUST only be accepted by an OP if they are integrity-protected, unless `transformed_claims_max_count` is set to `0` in which case the OP MAY accept authentication requests without integrity protection and authentication. Since Predefined Transformed Claims are defined by the OP, integrity protection and authentication is not required for their use.
 
-Integrity protection and authentication of authentication requests can be achieved in particular by 
+Integrity protection and authentication of authentication requests can be achieved in particular by
 
  * using Pushed Authorization Requests [@RFC9126] to send requests server-to-server with authentication of the RP, or
  * using JWT-Secured Authorization Requests [@RFC9101] to sign the authentication request parameters.
@@ -795,7 +795,7 @@ Integrity protection and authentication of authentication requests can be achiev
 Using a suitable security profile for OpenID Connect that includes authentication and integrity protection for the authentication request is RECOMMENDED, as this helps to ensure that the protection cannot be circumvented.
 
 ## Safe Execution of Transformation Functions
-OPs MUST ensure that all possible combinations of transformation functions and their respective arguments can be executed securely and without undesired side effects. In particular, for any function supported by the OP, the OP MUST ensure that time and memory limits apply to avoid Denial-of-Service Attacks. For many functions, for example, comparison functions, this is usually inherent to the function itself. For other functions, execution time and complexity limits SHOULD be considered. For example, when applying regular expressions, Regular Expression DoS attacks (ReDoS) are a concern. 
+OPs MUST ensure that all possible combinations of transformation functions and their respective arguments can be executed securely and without undesired side effects. In particular, for any function supported by the OP, the OP MUST ensure that time and memory limits apply to avoid Denial-of-Service Attacks. For many functions, for example, comparison functions, this is usually inherent to the function itself. For other functions, execution time and complexity limits SHOULD be considered. For example, when applying regular expressions, Regular Expression DoS attacks (ReDoS) are a concern.
 
 OPs therefore MAY limit the range of valid input arguments and valid combinations of functions to ensure a secure operation.
 
