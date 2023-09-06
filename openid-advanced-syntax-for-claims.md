@@ -68,6 +68,8 @@ Section 5.5 of [@!OpenID].
 
 ## Example
 
+The following example illustrates the new syntax introduced by this
+specification. It shows the contents of the `claims` request parameter.
 
 Example 1:
 
@@ -77,9 +79,7 @@ Example 1:
       "verified_claims": {
          "verification": {
             "trust_framework":null,
-            "assurance_level": {
-               "value":"example_assurance_level"
-            }
+            "assurance_level": null
          },
          "claims": {
             "family_name": {
@@ -100,6 +100,7 @@ Example 1:
             {
               "loc":"/verified_claims/verification/assurance_level",
               "match": "oidc",
+              "value": "example_assurance_level",
               "else":"abort"
             },
             {
@@ -120,6 +121,7 @@ Example 1:
             {
                "loc":"/verified_claims/claims/family_name",
                "match": "oidc",
+               "value": "nonexistent_family_name",
                "else":"omit",
                "what":[
                   "/verified_claims"
@@ -160,6 +162,9 @@ with the following fields:
  * `schema`: REQUIRED if `match` is `schema`, MUST NOT be present otherwise. A
    JSON schema object as defined in [@!I-D.bhutton-json-schema] that the respective element
    in the ID Token or Userinfo response structure must validate against.
+ * `value` or `values`: Either `value` or `values` is REQUIRED if `match` is
+   `oidc`; MUST NOT be present otherwise; `value` and `values` MUST NOT be used
+   together. As defined in [@!OpenID], Section 5.5.1.
  * `else`: REQUIRED. A string, either `abort` or `omit`, indicating the action
    to take if the rule is not fulfilled. If `abort` is used, the transaction
    MUST be aborted. If `omit` is used, one or more elements MUST be omitted from
@@ -179,13 +184,13 @@ The `else` action MUST be triggered when
 Additionally, depending on the value of `match`, the following matches MUST be
 performed:
 
- * `oidc`: The value of the claim indicated by `loc` is matched
-   against `value` or `values` provided in the claim request as defined in
-   [@!OpenID], Section 5.5.1. In the example above, the `family_name` claim
-   would be matched against `nonexistent_family_name`. The `else` action MUST be
+ * `oidc`: The value of the claim indicated by `loc` is matched against `value`
+   or `values` provided in the SAO rule, with the matching defined in
+   [@!OpenID], Section 5.5.1. In the example above, the `assurance_level` would
+   be matched against `example_assurance_level` and `family_name` would be
+   matched against `nonexistent_family_name`. The `else` action MUST be
    triggered if the value of the claim does not match the requested value or
-   values. If neither `value` nor `values` was defined for the respective claim,
-   an `invalid_request` error MUST be returned.
+   values.
  * `schema`: The JSON Schema `schema` element MUST apply to the
    JSON structure under the element indicated by `loc`. In the example above,
    the schema would be applied to the whole `claims` object under
@@ -205,32 +210,29 @@ it was requested for both delivery types.
 
 In Example 1, data would be processed as follows:
 
- 1. If the `birthdate` claim is not available or the birthdate is not a string
+ 1. If the `assurance_level` is not available as a verified claim or it does not
+    match the string `example_assurance_level`, the transaction is aborted.
+ 2. If the `birthdate` claim is not available or the birthdate is not a string
     with the value `1900-01-01`, the `verified_claims/claims` object is omitted
     from the response. Since the `verified_claims` element may not be used
     without the `claims` subelement, the whole `verified_claims` object is
     omitted.
- 2. If the `family_name` is not available as a verified claim or it does not
+ 3. If the `family_name` is not available as a verified claim or it does not
     match the string `nonexistent_family_name`, the `verified_claims` object is
     omitted from the response.
- 3. If the `postal_code` is not available in the `address` object, the
+ 4. If the `postal_code` is not available in the `address` object, the
     transaction is aborted.
 
 ### Interoperability with OIDC Rules
+Any restrictions defined using `value` or `values` in the `claims` parameter
+outside of `_asc`/`sao` MUST be ignored when `_asc`/`sao` is present. This means
+that RPs that define `_asc`/`sao` MUST define all restrictions explicitly as SAO
+rules.
 
-[@!OpenID], Section 5.5.1 defines that a mismatch for `value`/`values` results
-in no user data returned. This behavior MUST NOT be applied if the element
-`_asc`/`sao` is present and understood by the OP. This allows RPs to define
-omitting elements using SAO rules instead of returning no user data at all.
-
-RPs SHOULD define SAO rules for all claims that have a `value` or `values`
-constraint defined. It is not an error to use `value` or `values` without a
-respective SAO rule, but the OP will ignore the constraint in this case.
-
-To restore the original behavior, RPs can define an SAO rule with `match` set to
-`oidc` and `else` set to `abort` for all claims with a `value`/`values`
-constraint.
-
+Relying parties MAY still use `value`/`values` outside of `_asc`/`sao` to
+provide a fallback in case the OP does not support SAO. In this case, there is
+no requirement for the rules outside of `_asc`/`sao` to be consistent with the
+SAO rules.
 
 ## OP Metadata {#sao-metadata}
 
@@ -465,6 +467,7 @@ Example:
         {
           "loc": "/:age_18_or_over",
           "match": "oidc",
+          "value": true,
           "else": "abort"
         }
       ]
