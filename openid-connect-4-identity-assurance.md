@@ -203,8 +203,6 @@ Important: Implementations MUST ignore any sub-element not defined in this speci
 
 The `evidence` element is structured with the following elements:
 
-`attachments`: OPTIONAL. Array of JSON objects representing attachments like photocopies of documents or certificates. See (#attachments) on how an attachment is structured.
-
 `type`: REQUIRED. The value defines the type of the evidence.
 
 The following types of evidence are defined:
@@ -336,79 +334,6 @@ The following elements are contained in a `electronic_signature` evidence sub-el
     * The `derived_claims` element MAY also contain other End-User Claims derived from the electronically signed object described in the evidence array member it is part of, such as elements of an advanced electronic signature described under eIDAS used to uniquely link the signed object to the signatory.
     * Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
     * When it is present the `derived_claims` element MUST NOT be empty.
-
-### Attachments {#attachments}
-
-During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
-
-* scans of filled and signed forms documenting/certifying the verification process itself,
-* scans or photocopies of the documents used to verify the identity of End-Users,
-* video recordings of the verification process,
-* certificates of electronic signatures.
-
-When requested by the RP, these artifacts can be attached to the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information.
-
-An attachment is represented by a JSON object. This specification allows two types of representations:
-
-#### Embedded Attachments
-
-All the information of the document (including the content itself) is provided within a JSON object having the following elements:
-
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
-
-`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
-
-`content`: REQUIRED. Base64 encoded representation of the document content.
-
-`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
-
-The following example shows embedded attachments. The actual contents of the documents are truncated:
-
-<{{examples/response/embedded_attachments.json}}
-
-Note: Due to their size, embedded attachments may not be appropriate when embedding Verified Claims in Access Tokens or ID Tokens.
-
-#### External Attachments
-
-External attachments are similar to distributed Claims. The reference to the external document is provided in a JSON object with the following elements:
-
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
-
-`url`: REQUIRED. OAuth 2.0 resource endpoint from which the attachment can be retrieved. Providers MUST protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL MUST return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment MUST be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types SHALL NOT be used.
-
-`access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the attachment from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
-
-`exp`: OPTIONAL. The "exp" (expiration time) claim identifies the expiration time on or after which the External Attachment will not be available from the resource endpoint defined in the `url` element (e.g. the `access_token` may expire or the document may be removed at that time). Implementers MAY provide for some small leeway, usually no more than a few minutes, to account for clock skew.  Its value MUST be a number containing a NumericDate value as per as per [@!RFC7519].
-
-`digest`: REQUIRED. JSON object containing details of a cryptographic hash of the document content taken over the bytes of the payload (and not, e.g., the representation in the HTTP response). The JSON object has the following elements:
-
-* `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
-* `value`: REQUIRED. Base64-encoded [@RFC4648] bytes of the cryptographic hash.
-
-`txn`: OPTIONAL. Identifier referring to the transaction. The OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
-
-External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
-
-It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
-
-The following example shows external attachments:
-
-<{{examples/response/external_attachments.json}}
-
-#### External Attachment Validation
-
-Clients MUST validate any member of the attachments array that is an external attachment they wish to rely on in the following manner:
-
-1. Ensure that the object includes the required elements: `url`, `digest`.
-2. Ensure that at the time of the request the time is before the time represented by the `exp` element. 
-3. Ensure that the URL defined in the `url` element uses the `https` scheme.
-4. Retrieve the attachment from the `url` element in the object.
-5. Ensure that the content MIME type of the attachment is indicated in a content-type HTTP response header
-6. Ensure that the MIME type is not Multipart (see Section 5.1 of [@RFC2046])
-7. Ensure that the MIME type is not a "message" media type (see [@RFC5322])
-8. Ensure the returned attachment has a cryptographic hash digest that matches the value given in the `digest` object's `value` key.
-
-If any of these requirements are not met the content of the attachment SHOULD NOT be used, SHOULD be discarded and MUST NOT be relied upon.
 
 #### Privacy Considerations
 
@@ -745,8 +670,6 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member. If omitted, the OP does not support attachments.
-
 `digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 
 This is an example openid-configuration snippet:
@@ -785,10 +708,6 @@ This is an example openid-configuration snippet:
       "nationalities",
       "address"
    ],
-  "attachments_supported": [
-    "external",
-    "embedded"
-  ],
   "digest_algorithms_supported": [
     "sha-256"
   ],
@@ -1177,22 +1096,9 @@ Support for these null value requests is mandatory for identity providers, so im
 
 <{{examples/request/verification_spid_document_biometric.json}}
 
-## Verification of Claims by trust framework with a document and attachments
-
-<{{examples/request/verification_aml_with_attachments.json}}
-
 ## Verification of Claims by electronic signature
 
 <{{examples/request/verification_electronic_signature.json}}
-
-
-### Attachments
-
-RPs can explicitly request to receive attachments along with the Verified Claims:
-
-<{{examples/request/verification_with_attachments.json}}
-
-As with other Claims, the attachment Claim can be marked as `essential` in the request as well.
 
 ### Error Handling
 
@@ -1220,21 +1126,9 @@ Same document under a different `trust_framework`
 
 <{{examples/response/document_verifier.json}}
 
-## Document with external attachments
-
-<{{examples/response/document_with_attachments.json}}
-
 ## Evidence with all assurance details
 
 <{{examples/response/evidence_with_assurance_details.json}}
-
-## Utility statement with attachments
-
-<{{examples/response/utility_statement_with_attachments.json}}
-
-## Document + utility statement
-
-<{{examples/response/document_and_utility_statement.json}}
 
 ## Notified eID system (eIDAS)
 
@@ -1247,10 +1141,6 @@ Same document under a different `trust_framework`
 ## Vouch
 
 <{{examples/response/vouch.json}}
-
-## Vouch with embedded attachments
-
-<{{examples/response/vouch_with_attachments.json}}
 
 ## Multiple Verified Claims
 
@@ -1313,7 +1203,7 @@ The decoded body of the respective ID Token could be
 
 The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
