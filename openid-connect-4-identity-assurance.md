@@ -183,15 +183,15 @@ For information on predefined trust framework and assurance level values see [@!
   * `procedure`: OPTIONAL. String representing a specific procedure from the `policy` that was followed.
   * `assurance_details`: OPTIONAL. JSON array denoting the details about how the evidence complies with the `policy`. When present this array MUST have at least one member. Each member can have the following sub-elements:
      * `assurance_type`: OPTIONAL. String denoting which part of the `assurance_process` the evidence fulfils.
-    * `assurance_classification`: OPTIONAL. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
+    * `assurance_classification`: OPTIONAL. String reflecting how the `evidence` has been classified or measured as REQUIRED by the `trust_framework`.
     * `evidence_ref`: OPTIONAL. JSON array of the evidence being referred to. When present this array MUST have at least one member.
       * `txn`: REQUIRED. Identifier referring to the `txn` used in the `check_details`. The OP MUST ensure that `txn` is present in the `check_details` when `evidence_ref` element is used.
-      * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
+      * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is REQUIRED by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
         * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
+`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be REQUIRED for certain trust frameworks.
 
-`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
+`verification_process`: OPTIONAL. Unique reference to the identity verification process as performed by the OP. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be REQUIRED for certain trust frameworks.
 
 Note: While `verification_process` refers to the identity verification process at the OP, the `txn` Claim refers to a particular OpenID Connect transaction in which the OP provided the End-User's verified identity data towards an RP.
 
@@ -846,7 +846,7 @@ This specification does not define or require a particular security profile sinc
 profiles and new security profiles under development.  Implementers have the flexibility flexibility to select the security profile that best suits 
 their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
-Implementers are recommended to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
+Implementers are RECOMMENDED to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
 The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing.
 
@@ -1142,7 +1142,7 @@ which is used to indicate that the content is a JWT describing aggregated claims
   * Required parameters: n/a
   * Optional parameters: n/a
   * Encoding considerations: binary; An external claims JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.
-  * Security considerations: The main security consideration is that JWTs representing 'provided claims' must not be confused with other types of tokens, in particular ID Tokens. To avoid this, (#verified_claims_delivery) of [[ this specification ]] contains additional requirements to the claims that are allowed in the JWT.
+  * Security considerations: See https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-representing-verified-claim
   * Interoperability considerations: n/a
   * Published specification: (#verified_claims_delivery) of [[ this specification ]]
   * Applications that use this media type: When using [[ this specification ]], this media type is used in the `typ` header of assertions provided as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
