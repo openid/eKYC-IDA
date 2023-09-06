@@ -273,7 +273,7 @@ This specification requests registration of the following value in the IANA "JSO
 
 ### Registry Contents
 
-{spacing="compact"}
+#### Claim `place_of_birth`
 
 Claim Name:
 : `place_of_birth`
@@ -287,6 +287,8 @@ Change Controller:
 Specification Document(s):
 : Section [Claims](#claims) of this document
 
+#### Claim `nationalities`
+
 Claim Name:
 : `nationalities`
 
@@ -298,6 +300,8 @@ Change Controller:
 
 Specification Document(s):
 : Section [Claims](#claims) of this document
+
+#### Claim `birth_family_name`
 
 Claim Name:
 : `birth_family_name`
@@ -311,6 +315,8 @@ Change Controller:
 Specification Document(s):
 : Section [Claims](#claims) of this document
 
+#### Claim `birth_given_name`
+
 Claim Name:
 : `birth_given_name`
 
@@ -322,6 +328,8 @@ Change Controller:
 
 Specification Document(s):
 : Section [Claims](#claims) of this document
+
+#### Claim `birth_middle_name`
 
 Claim Name:
 : `birth_middle_name`
@@ -335,6 +343,8 @@ Change Controller:
 Specification Document(s):
 : Section [Claims](#claims) of this document
 
+#### Claim `salutation`
+
 Claim Name:
 : `salutation`
 
@@ -346,6 +356,8 @@ Change Controller:
 
 Specification Document(s):
 : Section [Claims](#claims) of this document
+
+#### Claim `title`
 
 Claim Name:
 : `title`
@@ -359,6 +371,8 @@ Change Controller:
 Specification Document(s):
 : Section [Claims](#claims) of this document
 
+#### Claim `msisdn`
+
 Claim Name:
 : `msisdn`
 
@@ -370,6 +384,8 @@ Change Controller:
 
 Specification Document(s):
 : Section [Claims](#claims) of this document
+
+#### Claim `also_known_as`
 
 Claim Name:
 : `also_known_as`

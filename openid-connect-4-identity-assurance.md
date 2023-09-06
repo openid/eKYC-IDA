@@ -104,6 +104,8 @@ Note: Although such aspects are out of scope, the aim of the specification is to
 
 # Requirements
 
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 [RFC2119].
+
 The RP will be able to request the minimal data set it needs (data minimization) and to express requirements regarding this data, the evidence and the identity verification processes employed by the OP.
 
 This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation.
@@ -1116,8 +1118,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
 
 ### Registry Contents
-
-{spacing="compact"}
 
 Claim Name:
 : `verified_claims`
