@@ -229,7 +229,7 @@ The following elements are contained in an evidence sub-element where type is `d
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that this is present when `evidence_ref` element is used. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
-`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD be included if the OP did not perform the identity verification itself. This object is retained for backward compatibility, implementers are recommended to use `check_details` & `organization` instead. This object consists of the following properties:
+`verifier`: OPTIONAL. JSON object denoting the legal entity that performed the identity verification. This object SHOULD be included if the OP did not perform the identity verification itself. This object is retained for backward compatibility, implementers are RECOMMENDED to use `check_details` & `organization` instead. This object consists of the following properties:
 
 * `organization`: REQUIRED. String denoting the organization which performed the verification on behalf of the OP.
 * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The OP MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
@@ -339,7 +339,7 @@ The following elements are contained in a `electronic_signature` evidence sub-el
 
 ### Attachments {#attachments}
 
-During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
+During the identity verification process, specific document artifacts will be created and depending on the trust framework, will be REQUIRED to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
 * scans or photocopies of the documents used to verify the identity of End-Users,
@@ -389,7 +389,7 @@ External attachments are similar to distributed Claims. The reference to the ext
 
 External attachments are suitable when embedding Verified Claims in Tokens. However, the `verified_claims` element is not self-contained. The documents need to be retrieved separately, and the digest values MUST be calculated and validated to ensure integrity.
 
-It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
+It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which SHOULD be tied to an access token being issued.
 
 The following example shows external attachments:
 
@@ -399,7 +399,7 @@ The following example shows external attachments:
 
 Clients MUST validate any member of the attachments array that is an external attachment they wish to rely on in the following manner:
 
-1. Ensure that the object includes the required elements: `url`, `digest`.
+1. Ensure that the object includes the REQUIRED elements: `url`, `digest`.
 2. Ensure that at the time of the request the time is before the time represented by the `exp` element. 
 3. Ensure that the URL defined in the `url` element uses the `https` scheme.
 4. Retrieve the attachment from the `url` element in the object.
@@ -433,7 +433,7 @@ The `claims` element MAY also contain other Claims provided the value of the res
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
 
-The `claims` element MAY be empty, to support use cases where verification is required but no Claims data needs to be shared.
+The `claims` element MAY be empty, to support use cases where verification is REQUIRED but no Claims data needs to be shared.
 
 ## verified_claims Delivery {#verified_claims_delivery}
 
@@ -507,7 +507,7 @@ The next example shows an ID Token containing `verified_claims` from two differe
 <{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
 
 Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
-The recommended way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
+The RECOMMENDED way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
 
 The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
@@ -541,7 +541,7 @@ When `verified_claims` are delivered as aggregated claims, i.e., when a sub-elem
 Once the JWT has been delivered either via distributed or aggregated mechanism the client MUST:
 
 1. Verify the signature of the returned JWT.
-2. Ensure that the JWT includes the required elements `typ`, `iss`, `sub`, and `verified_claims`; and that their values are not null or empty.
+2. Ensure that the JWT includes the REQUIRED elements `typ`, `iss`, `sub`, and `verified_claims`; and that their values are not null or empty.
 3. Ensure that the JWT does not contain either an `exp` claim or an `aud` claim.
 4. Ensure that the value of the `typ` header parameter in the JWT is `provided-claims+jwt`.
 
@@ -588,7 +588,7 @@ Since `verified_claims` contains the effective Claims about the End-User in a ne
 
 <{{examples/request/claims.json}}
 
-Use of the `claims` parameter allows the RP to request specified Claims about the End-User needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only required Claims. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
+Use of the `claims` parameter allows the RP to request specified Claims about the End-User needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only REQUIRED Claims. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
 
 RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
@@ -637,7 +637,7 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 
 `check_details` is an array of the processes that have been applied to the `evidence`. An RP MAY filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
 
-`assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP SHOULD only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP MUST return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they MUST use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
+`assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP SHOULD only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP MUST return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they MUST use those methods to do so, e.g. requesting an `assurance_type` SHOULD have no filtering effect.
 
 The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
@@ -665,7 +665,7 @@ The OP MUST NOT ignore some or all of the query restrictions on possible values 
 
 The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
 
-`max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value.
+`max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP SHOULD make the calculation of elapsed time starting from the last valid second of the date value.
 
 The following is an example of a request for Claims where the verification process of the data is not allowed to be older than 63113852 seconds:
 
@@ -713,7 +713,7 @@ In both cases, the OP MUST NOT return an error to the RP.
 
 ### Omitting Elements
 
-If an element is to be omitted according to the rules above, but is required for a valid response, its parent element MUST be omitted as well. This process MUST be repeated until the response is valid.
+If an element is to be omitted according to the rules above, but is REQUIRED for a valid response, its parent element MUST be omitted as well. This process MUST be repeated until the response is valid.
 
 ### Error Handling
 
