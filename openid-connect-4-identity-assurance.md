@@ -146,9 +146,6 @@ The following example would assert to the RP that the OP has verified the Claims
 
 This specification requires that the schema defined in [!@IDA-verified-claims] MUST be used.  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
 
-### Privacy Considerations
-
-As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
 ## verified_claims Delivery {#verified_claims_delivery}
 
 OPs can deliver `verified_claims` in various ways.
