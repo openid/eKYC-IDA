@@ -433,7 +433,7 @@ The `claims` element MAY also contain other Claims provided the value of the res
 
 Claim names MAY be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
 
-The `claims` element MAY be empty, to support use cases where verification is REQUIRED but no Claims data needs to be shared.
+The `claims` element MAY be empty, to support use cases where verification is needed by the RP, but no Claims data needs to be shared.
 
 ## verified_claims Delivery {#verified_claims_delivery}
 
@@ -541,7 +541,7 @@ When `verified_claims` are delivered as aggregated claims, i.e., when a sub-elem
 Once the JWT has been delivered either via distributed or aggregated mechanism the client MUST:
 
 1. Verify the signature of the returned JWT.
-2. Ensure that the JWT includes the REQUIRED elements `typ`, `iss`, `sub`, and `verified_claims`; and that their values are not null or empty.
+2. Ensure that the JWT includes the `typ`, `iss`, `sub`, and `verified_claims` elements; and that their values are not null or empty.
 3. Ensure that the JWT does not contain either an `exp` claim or an `aud` claim.
 4. Ensure that the value of the `typ` header parameter in the JWT is `provided-claims+jwt`.
 
@@ -588,7 +588,7 @@ Since `verified_claims` contains the effective Claims about the End-User in a ne
 
 <{{examples/request/claims.json}}
 
-Use of the `claims` parameter allows the RP to request specified Claims about the End-User needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only REQUIRED Claims. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
+Use of the `claims` parameter allows the RP to request specified Claims about the End-User needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only Claims needed for its use case. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
 
 RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
@@ -713,7 +713,7 @@ In both cases, the OP MUST NOT return an error to the RP.
 
 ### Omitting Elements
 
-If an element is to be omitted according to the rules above, but is REQUIRED for a valid response, its parent element MUST be omitted as well. This process MUST be repeated until the response is valid.
+If an element is to be omitted according to the rules above, but is a requirement for a valid response, its parent element MUST be omitted as well. This process MUST be repeated until the response is valid.
 
 ### Error Handling
 
