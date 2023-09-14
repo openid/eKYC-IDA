@@ -86,6 +86,8 @@ Note: This specifications fulfills the criteria for portability and interoperabi
 
 This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@NIST-SP-800-63a].
 
+* Claim - as per definition is section 1.2 of [@!OpenID]
+
 * Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level.
 
 * Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity.
