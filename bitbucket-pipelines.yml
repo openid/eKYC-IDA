@@ -54,7 +54,7 @@ pipelines:
             - mv openid-connect-advanced-syntax-for-claims-*.html openid-connect-advanced-syntax-for-claims.html
             - mv openid-connect-4-ida-claims-*.html openid-connect-4-ida-claims.html
             - mv openid-connect-4-ida-attachments-*.html openid-connect-4-ida-attachments.html
-            - mv openid-connect-4-ida-claims-*.html openid-ida-verified-claims.html
+            - mv openid-openid-ida-verified-claims-*.html openid-ida-verified-claims.html
           artifacts:
             - '*.html'
             - '*.xml'
