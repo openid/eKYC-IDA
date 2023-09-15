@@ -326,7 +326,7 @@ Example:
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request Claims about the End-User. When the claims request parametere is being used the syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request Claims about the End-User. When the claims request parameter is being used the syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` are requested by adding the respective element as shown in the following example:
 
@@ -869,7 +869,7 @@ This section shows examples of responses containing `verified_claims`.
 
 The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
 
-The third subsection illustrates how the contents of this object could be in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
+The third subsection illustrates the possible contents of this object in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
 
 Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
