@@ -98,7 +98,7 @@ This section defines some terms relevant to the topic covered in this document, 
 
 This specification defines the technical mechanisms to allow Relying Parties to request Verified Claims and to enable OpenID Providers to provide Relying Parties with Verified Claims ("the tools").
 
-Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
+Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
 
 Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
 
@@ -114,7 +114,7 @@ It is assumed that OPs operating under a suitable regulation can assure identity
 
 Every other OP not operating under such well-defined conditions may be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
-The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
+The concept of this specification is that the OP can provide all identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
 From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
@@ -138,7 +138,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 # Verified Claims {#verified_claims}
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
+This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified and which are not, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
 
 The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
@@ -264,7 +264,7 @@ It is also possible to use the `scope` parameter to request one or more specific
 
 Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
 
-the example authorize call in this section will use the following unencoded example claims request parameter:
+The example authorize call in this section will use the following unencoded example claims request parameter:
 
 <{{examples/request/simple_id_token.json}}
 
@@ -326,7 +326,7 @@ Example:
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request Claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request Claims about the End-User. When the claims request parametere is being used the syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` are requested by adding the respective element as shown in the following example:
 
@@ -336,11 +336,11 @@ It requests the trust framework the OP complies with and the date of the verific
 
 The RP MUST explicitly request any data it wants the OP to add to the `verification` element.
 
-Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `document`.
+Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following example shows a request asking for evidence of type `document` only.
 
 <{{examples/request/verification_deeper.json}}
 
-The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` Claim.
+The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type), for every evidence array member, to the resulting `verified_claims` Claim.
 
 A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field.
 
@@ -392,7 +392,7 @@ The following example illustrates this functionality.
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
 
-When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User Claim(s), the OP delivers the Claim in as many Verified Claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
+When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User Claim(s), the OP delivers the Claim in as many Verified Claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
 
 The RP MAY combine multiple `verified_claims` Claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
@@ -446,13 +446,13 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
-`evidence_supported`: REQUIRED when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see [!@IDA-verified-claims]).
+`evidence_supported`: REQUIRED when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see section 4.2.2 of [!@IDA-verified-claims]).
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array MUST have at least one member.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array MUST have at least one member.
+`documents_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array MUST have at least one member.
 
-`documents_check_methods_supported`: OPTIONAL. JSON array containing the check methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array MUST have at least one member.
+`documents_check_methods_supported`: OPTIONAL. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values]). When present this array MUST have at least one member.
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
@@ -501,9 +501,9 @@ This is an example openid-configuration snippet:
 }
 ```
 
-If the OP supports the `claims` parameter, the OP MUST advertise this in its OP metadata using the `claims_parameter_supported` element.
+If the OP supports the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID], the OP MUST advertise this in its OP metadata using the `claims_parameter_supported` element.
 
-If the OP supports distributed and/or aggregated Claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
+If the OP supports distributed and/or aggregated Claim types, as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID], in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
 
 # Client Registration and Management
 
@@ -528,9 +528,9 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 # Privacy Consideration {#Privacy}
 
-Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and Verified Claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related Claim in verified data.
-
 The use of scopes is a potential shortcut to request a pre-defined set of Claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP SHOULD only request End-User Claims and metadata it requires.
+
+Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and Verified Claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related Claim in verified data.
 
 # Security Considerations {#Security}
 
@@ -869,7 +869,7 @@ This section shows examples of responses containing `verified_claims`.
 
 The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
 
-The third subsection illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
+The third subsection illustrates how the contents of this object could be in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
 
 Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
