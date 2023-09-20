@@ -326,7 +326,7 @@ Example:
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request Claims about the End-User. When the claims request parameter is being used the syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request Claims about the End-User. When the claims request parameter is being used, the syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` are requested by adding the respective element as shown in the following example:
 
@@ -446,7 +446,7 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
-`evidence_supported`: REQUIRED when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see section 4.2.2 of [!@IDA-verified-claims]).
+`evidence_supported`: REQUIRED when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see section 4.2.2 of [@!IDA-verified-claims]).
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array MUST have at least one member.
 
@@ -530,7 +530,7 @@ Note: In order to prevent injection attacks, the OP MUST escape the text appropr
 
 The use of scopes is a potential shortcut to request a pre-defined set of Claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP SHOULD only request End-User Claims and metadata it requires.
 
-Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and Verified Claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related Claim in verified data.
+Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy, timestamps within the verification element and Verified Claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related Claim in verified data.
 
 # Security Considerations {#Security}
 
