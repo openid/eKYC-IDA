@@ -402,7 +402,9 @@ The RP MAY combine multiple `verified_claims` Claims in the request with multipl
 
 In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `document` or under trust framework `silver` or `bronze` but with an evidence `electronic_record`.
 
-## Handling Unfulfillable Requests and Unavailable Data
+## Returning less data than requested
+As stated in Section 3.3.6 of [@!OpenID], "the OP MAY choose to return fewer Claims about the End-User from the Authorization Endpoint".  This document makes no change to that provision.  The OP MAY also choose to return a subset of the `verification` element of any `verified_claims` providing it remains complaint with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
+
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
 Extensions of this specification MAY define additional rules or override these rules, for example
@@ -860,10 +862,6 @@ Support for these null value requests is mandatory for identity providers, so im
 ## Verification of Claims by electronic signature
 
 <{{examples/request/verification_electronic_signature.json}}
-
-### Error Handling
-
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
 
 # Example Responses
 
