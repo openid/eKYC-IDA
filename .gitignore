@@ -6,3 +6,4 @@ tests/__pycache__/
 tests/*.pyc
 tests/*.pyo
 tests/*~
+.DS_Store
