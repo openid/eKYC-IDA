@@ -5,6 +5,26 @@
 * This is the repository for OpenID Foundation's [eKYC and Identity Assurance WG](https://openid.net/wg/ekyc-ida/).
 * The document(s) are written in [markdown](https://bitbucket.org/tutorials/markdowndemo) and translated to html using [mmark](https://github.com/mmarkdown/mmark)
 
+### What are each of the documents about? ###
+openid-connect-4-identity-assurance.md
+ - An extension of OpenID Connect to be explicit about (verified) claims that have been through an identity assurance process and to represent details fo the assurance processes used when assuring those claims
+ - This document depends upon "openid-ida-verified-claims.md" for the schema definition of the verified_claims element
+
+openid-ida-verified-claims.md
+- A schema definition for the vereified _claims element, written in such a way tyat it can be used in the context of various application protocols including OpenID Connect.
+
+openid-connect-4-ida-claims.md
+- Registration of a number of new end-user claims that are used in some identity assurance use cases
+
+openid-connect-4-ida-attachments.md
+
+openid-authority.md
+ - a draft that allows expression of "on behalf of" cases whether on behalf of a person or legal entity
+
+openid-connect-advanced-syntax-for-claims.md
+- a draft that extends OpenID Connect to permit the relying party to be much more specific about their requirements for claims
+- it adds two features "Transformed Claims" and "Selective Abort and Omit"
+
 ### Current version
 
 The current SNAPSHOT versions is being built automatically from the master branch and can be accessed at:
@@ -14,6 +34,7 @@ The current SNAPSHOT versions is being built automatically from the master branc
 * https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html
 * https://openid.bitbucket.io/ekyc/openid-ida-verified-claims.html
 * https://openid.bitbucket.io/ekyc/openid-connect-4-ida-claims.html
+* https://openid.bitbucket.io/ekyc/openid-connect-4-ida-attachments.html
  
 ### How do I get set up? ###
 
