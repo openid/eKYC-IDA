@@ -415,8 +415,15 @@ Extensions of this specification MAY define additional rules or override these r
 
 Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
 
-### Unavailable or Non-consented Data
-If the OP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the specific data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. 
+### Unavailable Data
+
+If the OP does not have data about a certain Claim, does not understand/support the respective Claim, the respective Claim MUST be omitted from any corresponding id_token or Userinfo response.
+
+### Non-consented Data
+
+When relying on end-user consent to determine the specific data to be shared the End-User may make a choice to release only a subset of the data requested. In this case data that has not had End-User consent for sharing MUST be omitted from any corresponding id_token or Userinfo response.
+
+Alternatively, when relying on end-user consent to determine the specific data to be shared the End-User may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 ### Data not Matching Requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
@@ -432,7 +439,7 @@ If an element is to be omitted according to the rules above, but is a requiremen
 
 ### Error Handling
 
-If the OP encounters an error, or the End-User does not consent to the whole transaction, standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
+If the OP encounters an error, standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 ## Requesting sets of Claims by scope {#req_scope}
 
@@ -489,7 +496,7 @@ This is an example openid-configuration snippet:
    ],
    "electronic_records_supported": [
        "secure_mail"
-   ],   
+   ],
    "claims_in_verified_claims_supported": [
       "given_name",
       "family_name",
@@ -551,8 +558,8 @@ Secure identification of End-Users not only depends on the identity verification
 
 ## Security Profile
 
-This specification does not define or require a particular security profile since there are several security 
-profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits 
+This specification does not define or require a particular security profile since there are several security
+profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
 their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers are RECOMMENDED to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
@@ -907,7 +914,7 @@ Same document under a different `trust_framework`
 
 ## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
-This example shows how an OP can mix own Claims and Claims provided by  
+This example shows how an OP can mix own Claims and Claims provided by
 external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
@@ -980,7 +987,7 @@ The technology described in this specification was made available from contribut
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate documemnt 
+   * split out schema definition of `verified_claims` into separate documemnt
 
    -13
    * Preparation for Implementers Draft 4
@@ -1080,9 +1087,9 @@ The technology described in this specification was made available from contribut
    * Renamed `verified_person_data` to `verified_claims`
 
    -04
-   
+
    * incorporated review feedback by Marcos Sanz
-   
+
    -03
 
    * enhanced draft to support multiple evidence
