@@ -177,7 +177,7 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 }
 ```
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
+An OP or AS MAY also include aggregated or distributed `verified_claims` in the above assertions (see below for more details).
 
 ## Requesting End-User Claims {#req_claims}
 
