@@ -177,7 +177,7 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 }
 ```
 
-An OP or AS MAY also include aggregated or distributed `verified_claims` in the above assertions (see #aggregated_distributed_claims for more details).
+An OP or AS MAY also include aggregated or distributed `verified_claims` in the above assertions (see {#aggregated_distributed_claims} for more details).
 
 ## Requesting End-User Claims {#req_claims}
 
