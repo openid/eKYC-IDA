@@ -177,7 +177,7 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 }
 ```
 
-An OP or AS MAY also include aggregated or distributed `verified_claims` in the above assertions (see below for more details).
+An OP or AS MAY also include aggregated or distributed `verified_claims` in the above assertions (see #aggregated_distributed_claims for more details).
 
 ## Requesting End-User Claims {#req_claims}
 
@@ -330,7 +330,7 @@ Verified Claims about the End-User can be requested as part of a pre-defined set
 
 When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
-# Aggregated and Distributed claims
+# Aggregated and Distributed claims {#aggregated_distributed_claims}
 ## Aggregated and Distributed claims assertions
 
 When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element MUST use the https URI scheme and the JWT returned SHOULD NOT be accessible via any other URI scheme.
