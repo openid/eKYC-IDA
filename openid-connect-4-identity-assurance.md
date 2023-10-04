@@ -116,7 +116,7 @@ It is assumed that OPs operating under a suitable regulation can assure identity
 
 Every other OP not operating under such well-defined conditions may have the need to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
-The concept of this specification is that the OP can provide all identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
+The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
 From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
@@ -140,7 +140,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 # Verified Claims {#verified_claims}
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified and which are not, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
+This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
 
 The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
@@ -306,7 +306,7 @@ Extensions of this specification MAY define additional rules or override these r
 Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
 
 ### Unavailable or Non-consented Data
-If the OP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the specific data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. 
+If the OP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the specific data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP.
 
 ### Data not Matching Requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
@@ -490,7 +490,7 @@ This is an example openid-configuration snippet:
    ],
    "electronic_records_supported": [
        "secure_mail"
-   ],   
+   ],
    "claims_in_verified_claims_supported": [
       "given_name",
       "family_name",
@@ -552,8 +552,8 @@ Secure identification of End-Users not only depends on the identity verification
 
 ## Security Profile
 
-This specification does not define or require a particular security profile since there are several security 
-profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits 
+This specification does not define or require a particular security profile since there are several security
+profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
 their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers are RECOMMENDED to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
@@ -908,7 +908,7 @@ Same document under a different `trust_framework`
 
 ## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
-This example shows how an OP can mix own Claims and Claims provided by  
+This example shows how an OP can mix own Claims and Claims provided by
 external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
@@ -981,7 +981,7 @@ The technology described in this specification was made available from contribut
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate documemnt 
+   * split out schema definition of `verified_claims` into separate documemnt
 
    -13
    * Preparation for Implementers Draft 4
@@ -1081,9 +1081,9 @@ The technology described in this specification was made available from contribut
    * Renamed `verified_person_data` to `verified_claims`
 
    -04
-   
+
    * incorporated review feedback by Marcos Sanz
-   
+
    -03
 
    * enhanced draft to support multiple evidence
