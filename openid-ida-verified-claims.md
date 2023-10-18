@@ -269,7 +269,7 @@ The following elements are contained in an evidence sub-element where type is `e
     * `name`: OPTIONAL. Designation of the source of the electronic_record.
     * All elements of the OpenID Connect `address` Claim (see [@!OpenID]): OPTIONAL.
     * `country_code`: OPTIONAL. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
-    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it’s not common knowledge or derivable from the address).
+    * `jurisdiction`: OPTIONAL. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it's not common knowledge or derivable from the address).
 * `derived_claims`: OPTIONAL. JSON object containing Claims about the End-User which were derived from the electronic record described in the evidence array member it is part of.
     * The `derived_claims` element MAY contain any of the Claims defined in Section 5.1 of the OpenID Connect specification [@!OpenID] and the Claims defined in [@OpenID4IDAClaims].
     * The `derived_claims` element MAY also contain other End-User Claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the electronic record described in the evidence array member it is part of.
