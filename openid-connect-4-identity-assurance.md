@@ -305,8 +305,15 @@ Extensions of this specification MAY define additional rules or override these r
 
 Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
 
-### Unavailable or Non-consented Data
-If the OP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the specific data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP.
+### Unavailable Data
+
+If the OP does not have data about a certain Claim, does not understand/support the respective Claim, the respective Claim MUST be omitted from any corresponding id_token or Userinfo response.
+
+### Non-consented Data
+
+When relying on end-user consent to determine the specific data to be shared the End-User may make a choice to release only a subset of the data requested. In this case data that has not had End-User consent for sharing MUST be omitted from any corresponding id_token or Userinfo response.
+
+Alternatively, when relying on end-user consent to determine the specific data to be shared the End-User may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 ### Data not Matching Requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
@@ -322,7 +329,7 @@ If an element is to be omitted according to the rules above, but is a requiremen
 
 ### Error Handling
 
-If the OP encounters an error, or the End-User does not consent to the whole transaction, standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
+If the OP encounters an error, standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 ## Requesting sets of Claims by scope {#req_scope}
 
