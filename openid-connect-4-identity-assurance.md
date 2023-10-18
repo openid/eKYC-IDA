@@ -116,7 +116,7 @@ It is assumed that OPs operating under a suitable regulation can assure identity
 
 Every other OP not operating under such well-defined conditions may have the need to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
-The concept of this specification is that the OP can provide all identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
+The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
 From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
@@ -140,7 +140,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 # Verified Claims {#verified_claims}
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified and which are not, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
+This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
 
 The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
@@ -177,117 +177,7 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 }
 ```
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
-
-### Aggregated and Distributed claims
-
-When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element MUST use the https URI scheme and the JWT returned SHOULD NOT be accessible via any other URI scheme.
-
-For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
-
-* a `typ` header parameter with the value `provided-claims+jwt`,
-* an `iss` Claim identifying the claims source,
-* a `sub` Claim identifying the End-User in the context of the claim source, and
-* a `verified_claims` element containing one or more `verified_claims` objects.
-
-To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions MUST NOT contain:
-
- * an `exp` claim, or
- * an `aud` claim.
-
-The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
-
-* a JSON string referring to a certain claim source (as defined in [@!OpenID])
-* a JSON array of strings referring to the different claim sources
-* a JSON object composed of sub-elements formatted with the syntax as defined for requesting `verified_claims` where the name of each object is a name for the respective claim source. Every such named object contains sub-objects called  `claims` and `verification` expressing data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
-
-Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
-
-The following are examples of assertions including Verified Claims as aggregated Claims
-
-<{{examples/response/aggregated_claims_simple.json}}
-
-and distributed Claims.
-
-<{{examples/response/distributed_claims.json}}
-
-The following example shows an ID Token containing `verified_claims` from two different external claim sources, one as aggregated and the other as distributed Claims.
-
-<{{examples/response/multiple_external_claims_sources.json}}
-
-The next example shows an ID Token containing `verified_claims` from two different external claim sources along with additional data about the content of the Verified Claims (look ahead).
-
-<{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
-
-Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
-The RECOMMENDED way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
-
-The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
-
-If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
-
-Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
-
-### Aggregated and Distributed claims validation
-
-Clients MUST validate any Aggregated and Distributed `verified_claims` they wish to rely on in the following manner:
-
-1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response
-2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response
-3. Ensure that the `verified_claims` element contains a value that is one of the following:
-    a. a string that exists as a key name in the `_claim_sources` element of the response.
-    b. a JSON array containing members that all exist as key names in the `_claim_sources` element of the response.
-    c. a JSON object containing elements that all exist as key names in the `_claim_sources` element of the response and each element is formatted with the syntax as defined for requesting `verified_claims`.
-4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements
-5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response
-
-When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients MUST also:
-
-1. Ensure that the `endpoint` element defined in any distributed `_claim_sources` uses the https URI scheme.
-2. Retrieve the distributed claims object from the `endpoint` element defined in any distributed `_claim_sources`.
-3. Ensure that the object returned from the `endpoint` is a JWT as per [@RFC7519].
-
-When `verified_claims` are delivered as aggregated claims, i.e., when a sub-element of the `_claim_sources` contains the `JWT` claim, clients MUST also:
-
-1. Ensure that the value in the `JWT` claim is a valid JWT as per [@RFC7519].
-
-Once the JWT has been delivered either via distributed or aggregated mechanism the client MUST:
-
-1. Verify the signature of the returned JWT.
-2. Ensure that the JWT includes the `typ`, `iss`, `sub`, and `verified_claims` elements; and that their values are not null or empty.
-3. Ensure that the JWT does not contain either an `exp` claim or an `aud` claim.
-4. Ensure that the value of the `typ` header parameter in the JWT is `provided-claims+jwt`.
-
-# Requesting Verified Claims
-
-Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
-
-It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
-
-Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
-
-The example authorize call in this section will use the following unencoded example claims request parameter:
-
-<{{examples/request/simple_id_token.json}}
-
-The following is the non-normative example request that would be sent by the User Agent to the Authorization Server in response to the HTTP 302 redirect from the Client initiating the authorization code flow (with line wraps within values for display purposes only):
-
-```
-  GET /authorize?
-     response_type=code
-     &scope=openid%20email
-     &client_id=s6BhdRkqt3
-     &state=af0ifjsldkj
-     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
-     &claims=%7B%22id_token%22%3A%20%7B%22
-     given_name%22%3A%20null%2C%22
-     verified_claims%22%3A%20%7B%22
-     verification%22%3A%20%7B%22
-     trust_framework%22%3A%20null%7D%2C%22
-     claims%22%3A%20%7B%22
-     family_name%22%3A%20null%7D%7D%7D%7D HTTP/1.1
-  Host: server.example.com
-```
+An OP or AS MAY also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details).
 
 ## Requesting End-User Claims {#req_claims}
 
@@ -446,6 +336,117 @@ If the OP encounters an error, standard OpenID Connect authentication error resp
 Verified Claims about the End-User can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
 When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
+
+# Aggregated and Distributed claims {#aggregated_distributed_claims}
+## Aggregated and Distributed claims assertions
+
+When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element MUST use the https URI scheme and the JWT returned SHOULD NOT be accessible via any other URI scheme.
+
+For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
+
+* a `typ` header parameter with the value `provided-claims+jwt`,
+* an `iss` Claim identifying the claims source,
+* a `sub` Claim identifying the End-User in the context of the claim source, and
+* a `verified_claims` element containing one or more `verified_claims` objects.
+
+To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions MUST NOT contain:
+
+ * an `exp` claim, or
+ * an `aud` claim.
+
+The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
+
+* a JSON string referring to a certain claim source (as defined in [@!OpenID])
+* a JSON array of strings referring to the different claim sources
+* a JSON object composed of sub-elements formatted with the syntax as defined for requesting `verified_claims` where the name of each object is a name for the respective claim source. Every such named object contains sub-objects called  `claims` and `verification` expressing data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
+
+Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
+
+The following are examples of assertions including Verified Claims as aggregated Claims
+
+<{{examples/response/aggregated_claims_simple.json}}
+
+and distributed Claims.
+
+<{{examples/response/distributed_claims.json}}
+
+The following example shows an ID Token containing `verified_claims` from two different external claim sources, one as aggregated and the other as distributed Claims.
+
+<{{examples/response/multiple_external_claims_sources.json}}
+
+The next example shows an ID Token containing `verified_claims` from two different external claim sources along with additional data about the content of the Verified Claims (look ahead).
+
+<{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
+
+Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
+The RECOMMENDED way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
+
+The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
+
+If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+
+Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
+
+## Aggregated and Distributed claims validation
+
+Clients MUST validate any Aggregated and Distributed `verified_claims` they wish to rely on in the following manner:
+
+1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response
+2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response
+3. Ensure that the `verified_claims` element contains a value that is one of the following:
+    a. a string that exists as a key name in the `_claim_sources` element of the response.
+    b. a JSON array containing members that all exist as key names in the `_claim_sources` element of the response.
+    c. a JSON object containing elements that all exist as key names in the `_claim_sources` element of the response and each element is formatted with the syntax as defined for requesting `verified_claims`.
+4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements
+5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response
+
+When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients MUST also:
+
+1. Ensure that the `endpoint` element defined in any distributed `_claim_sources` uses the https URI scheme.
+2. Retrieve the distributed claims object from the `endpoint` element defined in any distributed `_claim_sources`.
+3. Ensure that the object returned from the `endpoint` is a JWT as per [@RFC7519].
+
+When `verified_claims` are delivered as aggregated claims, i.e., when a sub-element of the `_claim_sources` contains the `JWT` claim, clients MUST also:
+
+1. Ensure that the value in the `JWT` claim is a valid JWT as per [@RFC7519].
+
+Once the JWT has been delivered either via distributed or aggregated mechanism the client MUST:
+
+1. Verify the signature of the returned JWT.
+2. Ensure that the JWT includes the `typ`, `iss`, `sub`, and `verified_claims` elements; and that their values are not null or empty.
+3. Ensure that the JWT does not contain either an `exp` claim or an `aud` claim.
+4. Ensure that the value of the `typ` header parameter in the JWT is `provided-claims+jwt`.
+
+# Requesting Verified Claims
+
+Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+
+Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
+
+The example authorize call in this section will use the following unencoded example claims request parameter:
+
+<{{examples/request/simple_id_token.json}}
+
+The following is the non-normative example request that would be sent by the User Agent to the Authorization Server in response to the HTTP 302 redirect from the Client initiating the authorization code flow (with line wraps within values for display purposes only):
+
+```
+  GET /authorize?
+     response_type=code
+     &scope=openid%20email
+     &client_id=s6BhdRkqt3
+     &state=af0ifjsldkj
+     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
+     &claims=%7B%22id_token%22%3A%20%7B%22
+     given_name%22%3A%20null%2C%22
+     verified_claims%22%3A%20%7B%22
+     verification%22%3A%20%7B%22
+     trust_framework%22%3A%20null%7D%2C%22
+     claims%22%3A%20%7B%22
+     family_name%22%3A%20null%7D%7D%7D%7D HTTP/1.1
+  Host: server.example.com
+```
 
 # OP Metadata {#opmetadata}
 
