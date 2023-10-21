@@ -70,7 +70,7 @@ This specification defines an extension of OpenID Connect that defines new attac
 
 # Introduction {#Introduction}
 
-This specification defines an attachment element as a JWT claim that MAY be used in various contexts. 
+This specification defines an attachment element as a JWT claim that MAY be used in various contexts.
 
 Attachment element was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an identity assurance process, however, it is anticipated that there may be other cases where the ability to embed or refer to non-JSON structured data may be useful.
 
@@ -141,7 +141,7 @@ The following example shows external attachments:
 Clients MUST validate each external attachment they wish to rely on in the following manner:
 
 1. Ensure that the object includes the required elements: `url`, `digest`.
-2. Ensure that at the time of the request the time is before the time represented by the `exp` element. 
+2. Ensure that at the time of the request the time is before the time represented by the `exp` element.
 3. Ensure that the URL defined in the `url` element uses the `https` scheme.
 4. Retrieve the attachment from the `url` element in the object.
 5. Ensure that the content MIME type of the attachment is indicated in a content-type HTTP response header
@@ -155,11 +155,19 @@ If any of these requirements are not met the content of the attachment SHOULD NO
 
 As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
 
+# Client Registration and Management
+
+During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
+
+`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
+
 # OP Metadata {#opmetadata}
 
 If attachments are used in [@OpenID] implementations an additional element of OP Metadata is required to advertise its capabilities with respect to supported attachments in its openid-configuration (see [@!OpenID-Discovery]):
 
 `attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member. If omitted, the OP does not support attachments.
+
+`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 
 This is an example openid-configuration snippet:
 
@@ -169,7 +177,10 @@ This is an example openid-configuration snippet:
   "attachments_supported": [
     "external",
     "embedded"
-  ]
+  ],
+    "digest_algorithms_supported": [
+    "sha-256"
+  ],
 ...
 }
 ```
