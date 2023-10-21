@@ -609,22 +609,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="OpenID-Registration" target="https://openid.net/specs/openid-connect-registration-1_0.html">
-  <front>
-    <title>OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1</title>
-    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
-    </author>
-    <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
-    </author>
-    <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
-    </author>
-   <date day="8" month="Nov" year="2014"/>
-  </front>
-</reference>
-
 <reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
   <front>
     <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
@@ -770,16 +754,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>OpenID Foundation</organization>
     </author>
     <date year="2021"/>
-  </front>
-</reference>
-
-<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
-  <front>
-    <title>Named Information Hash Algorithm Registry</title>
-    <author>
-      <organization>IANA</organization>
-    </author>
-    <date year="2016" month="09"/>
   </front>
 </reference>
 
