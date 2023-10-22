@@ -956,7 +956,7 @@ The technology described in this specification was made available from contribut
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
    * split out schema definition of `verified_claims` into separate documement
-   * split attachments intop separate document
+   * split attachments into separate document
    * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
 
    -13
