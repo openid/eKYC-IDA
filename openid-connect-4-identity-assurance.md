@@ -197,25 +197,6 @@ RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Conn
 
 <{{examples/request/essential.json}}
 
-This specification introduces the additional field `purpose` to allow an RP
-to state the purpose for the transfer of a certain End-User Claim it is asking for.
-The field `purpose` can be a member value of each individually requested
-Claim, but a Claim cannot have more than one associated purpose.
-
-`purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
-longer than 300 characters. If this rule is violated, the authentication
-request MUST fail and the OP return an error `invalid_request` to the RP.
-The OP MUST display this purpose in the respective End-User consent screen(s)
-in order to inform the End-User about the designated use of the data to be
-transferred or the authorization to be approved. If the parameter `purpose`
-is not present in the request, the OP MAY display a
-value that was pre-configured for the respective RP. For details on UI
-localization, see (#purpose).
-
-Example:
-
-<{{examples/request/purpose.json}}
-
 ## Requesting Verification Data {#req_verification}
 
 RPs request verification data in the same way they request Claims about the End-User. When the claims request parameter is being used, the syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
@@ -522,21 +503,6 @@ If the OP supports distributed and/or aggregated Claim types, as defined in Sect
 During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
 
 `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
-
-# Transaction-specific Purpose {#purpose}
-
-This specification introduces the request parameter `purpose` to allow an RP
-to state the purpose for the transfer of End-User data it is asking for.
-
-`purpose`: OPTIONAL. String describing the purpose for obtaining certain End-User data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
-
-The OP SHOULD use the purpose provided by the RP to inform the respective End-User about the designated use of the data to be transferred or the authorization to be approved.
-
-In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
-
-If the parameter `purpose` is not present in the request, the OP MAY utilize a description that was pre-configured for the respective RP.
-
-Note: In order to prevent injection attacks, the OP MUST escape the text appropriately before it will be shown in a user interface. The OP MUST expect special characters in the URL decoded purpose text provided by the RP. The OP MUST ensure that any special characters in the purpose text cannot be used to inject code into the web interface of the OP (e.g., cross-site scripting, defacing). Proper escaping MUST be applied by the OP. The OP SHALL NOT remove characters from the purpose text to this end.
 
 # Privacy Consideration {#Privacy}
 
@@ -985,12 +951,16 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -14
+
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate documemnt
+   * split out schema definition of `verified_claims` into separate documement
+   * split attachments intop separate document
+   * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
 
    -13
+
    * Preparation for Implementers Draft 4
    * Checked and fixed referencing
    * Added note about issues with JSON null
