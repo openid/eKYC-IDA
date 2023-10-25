@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -70,7 +70,7 @@ This specification defines an extension of OpenID Connect that defines new attac
 
 # Introduction {#Introduction}
 
-This specification defines an attachment element as a JWT claim that MAY be used in various contexts. 
+This specification defines an attachment element as a JWT claim that MAY be used in various contexts.
 
 Attachment element was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an identity assurance process, however, it is anticipated that there may be other cases where the ability to embed or refer to non-JSON structured data may be useful.
 
@@ -141,7 +141,7 @@ The following example shows external attachments:
 Clients MUST validate each external attachment they wish to rely on in the following manner:
 
 1. Ensure that the object includes the required elements: `url`, `digest`.
-2. Ensure that at the time of the request the time is before the time represented by the `exp` element. 
+2. Ensure that at the time of the request the time is before the time represented by the `exp` element.
 3. Ensure that the URL defined in the `url` element uses the `https` scheme.
 4. Retrieve the attachment from the `url` element in the object.
 5. Ensure that the content MIME type of the attachment is indicated in a content-type HTTP response header
