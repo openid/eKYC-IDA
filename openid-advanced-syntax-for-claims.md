@@ -99,13 +99,13 @@ Example 1:
          "id_token":[
             {
               "loc":"/verified_claims/verification/assurance_level",
-              "match": "oidc",
+              "method": "simple",
               "value": "example_assurance_level",
               "else":"abort"
             },
             {
                "loc":"/verified_claims/claims",
-               "match": "schema",
+               "method": "schema",
                "schema": {
                   "$schema":"http://json-schema.org/draft-07/schema#",
                   "type":"object",
@@ -120,7 +120,7 @@ Example 1:
             },
             {
                "loc":"/verified_claims/claims/family_name",
-               "match": "oidc",
+               "method": "simple",
                "value": "nonexistent_family_name",
                "else":"omit",
                "what":[
@@ -131,7 +131,7 @@ Example 1:
          "userinfo":[
             {
                "loc":"/address/postal_code",
-               "match": "exists",
+               "method": "exists",
                "else":"abort"
             }
          ]
@@ -155,15 +155,15 @@ with the following fields:
  * `loc`: REQUIRED. A string containing a JSON Pointer [@!RFC6901] to the
    respective element in the ID Token or Userinfo response structure where the
    rule is to be applied.
- * `match`: OPTIONAL string. If provided, MUST be one of `oidc`, `schema`, or
+ * `method`: OPTIONAL string. If provided, MUST be one of `simple`, `schema`, or
    `exists`. If omitted, defaults to `exists`. Support for `schema` is OPTIONAL
    for OPs and can be discovered using metadata, as described in
    (#sao-metadata).
- * `schema`: REQUIRED if `match` is `schema`, MUST NOT be present otherwise. A
+ * `schema`: REQUIRED if `method` is `schema`, MUST NOT be present otherwise. A
    JSON schema object as defined in [@!I-D.bhutton-json-schema] that the respective element
    in the ID Token or Userinfo response structure must validate against.
- * `value` or `values`: Either `value` or `values` is REQUIRED if `match` is
-   `oidc`; MUST NOT be present otherwise; `value` and `values` MUST NOT be used
+ * `value` or `values`: Either `value` or `values` is REQUIRED if `method` is
+   `simple`; MUST NOT be present otherwise; `value` and `values` MUST NOT be used
    together. As defined in [@!OpenID], Section 5.5.1.
  * `else`: REQUIRED. A string, either `abort` or `omit`, indicating the action
    to take if the rule is not fulfilled. If `abort` is used, the transaction
@@ -181,10 +181,10 @@ The `else` action MUST be triggered when
  * the element was removed by a previously executed `omit` rule, or
  * the user does not consent to the release of the claim.
 
-Additionally, depending on the value of `match`, the following matches MUST be
+Additionally, depending on the value of `method`, the following matches MUST be
 performed:
 
- * `oidc`: The value of the claim indicated by `loc` is matched against `value`
+ * `simple`: The value of the claim indicated by `loc` is matched against `value`
    or `values` provided in the SAO rule, with the matching defined in
    [@!OpenID], Section 5.5.1. In the example above, the `assurance_level` would
    be matched against `example_assurance_level` and `family_name` would be
@@ -240,7 +240,7 @@ The OP advertises its capabilities with respect to Selective Abort/Omit in its o
 
  * `selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit". Defaults to `false`.
  * `selective_abort_omit_schema_supported`: OPTIONAL. Boolean value indicating
-   OP support for the `match` method `schema`. Defaults to `true`. If `false`,
+   OP support for the `method` method `schema`. Defaults to `true`. If `false`,
    the OP MUST abort the transaction with an `invalid_request` error if a JSON
    Schema is used in an SAO rule.
 
@@ -266,7 +266,7 @@ can be used to derive whether or not the user is named `Max`:
       "id_token": [
         {
           "loc": "/given_name",
-          "match": "oidc",
+          "method": "simple",
           "else": "abort"
         }
       ]
@@ -466,7 +466,7 @@ Example:
       "id_token": [
         {
           "loc": "/:age_18_or_over",
-          "match": "oidc",
+          "method": "simple",
           "value": true,
           "else": "abort"
         }
