@@ -15,6 +15,7 @@ for schema in SCHEMA_PATH.glob('*.json'):
 
 registry = Registry().with_contents(pairs=schema_store)
 
+
 def test_request_schema(request_example):
     data = loads(request_example.read_text().replace("\n", ""))
     loaded_schema = loads(REQUEST_SCHEMA.read_text())

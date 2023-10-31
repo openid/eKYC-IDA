@@ -1,7 +1,52 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openid.net/schemas/ekyc-ida/12/verified_claims.json",
-  "definitions": {
+  "properties": {
+    "verified_claims": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/verified_claims_def"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verified_claims_def"
+          }
+        }
+      ]
+    },
+    "_claim_names": {
+      "type": "object",
+      "properties": {
+        "verified_claims": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/$defs/distributed_claims_available_def"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "_claim_sources": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": {
+        "$ref": "#/$defs/_claim_sources"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
     "date_type": {
       "type": "string",
       "pattern": "^(?:(?:(?:(?:(?:[1-9]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:[2468][048]|[13579][26])00))(\\/|-|\\.)(?:0?2\\1(?:29)))|(?:(?:[1-9]\\d{3})(\\/|-|\\.)(?:(?:(?:0?[13578]|1[02])\\2(?:31))|(?:(?:0?[13-9]|1[0-2])\\2(?:29|30))|(?:(?:0?[1-9])|(?:1[0-2]))\\2(?:0?[1-9]|1\\d|2[0-8])))))$"
@@ -20,19 +65,19 @@
           "type": "string"
         },
         "document_number": {
-          "$ref": "#/definitions/document_number"
+          "$ref": "#/$defs/document_number"
         },
         "number": {
-          "$ref": "#/definitions/document_number"
+          "$ref": "#/$defs/document_number"
         },
         "serial_number": {
           "type": "string"
         },
         "date_of_issuance": {
-          "$ref": "#/definitions/date_type"
+          "$ref": "#/$defs/date_type"
         },
         "date_of_expiry": {
-          "$ref": "#/definitions/date_type"
+          "$ref": "#/$defs/date_type"
         },
         "issuer": {
           "type": "object",
@@ -81,7 +126,7 @@
     },
     "check_details": {
       "type": "array",
-      "items": [
+      "prefixItems": [
         {
           "check_method": {
             "type": "string"
@@ -93,7 +138,7 @@
             "type": "string"
           },
           "time": {
-            "$ref": "#/definitions/time_type"
+            "$ref": "#/$defs/time_type"
           }
         }
       ]
@@ -111,7 +156,7 @@
           ]
         },
         "attachments": {
-          "$ref": "#/definitions/attachments"
+          "$ref": "#/$defs/attachments"
         }
       },
       "required": [
@@ -138,14 +183,14 @@
                 "type": "string"
               },
               "created_at": {
-                "$ref": "#/definitions/time_type"
+                "$ref": "#/$defs/time_type"
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/definitions/claims_type"
+                "$ref": "claims_schema.json#/$defs/claims_type"
               }
             }
           },
-          "else": {}
+          "else": true
         },
         {
           "if": {
@@ -158,26 +203,26 @@
           "then": {
             "properties": {
               "check_details": {
-                "$ref": "#/definitions/check_details"
+                "$ref": "#/$defs/check_details"
               },
               "method": {
                 "type": "string"
               },
               "verifier": {
-                "$ref": "#/definitions/verifier"
+                "$ref": "#/$defs/verifier"
               },
               "time": {
-                "$ref": "#/definitions/time_type"
+                "$ref": "#/$defs/time_type"
               },
               "document_details": {
-                "$ref": "#/definitions/document_details"
+                "$ref": "#/$defs/document_details"
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/definitions/claims_type"
+                "$ref": "claims_schema.json#/$defs/claims_type"
               }
             }
           },
-          "else": {}
+          "else": true
         },
         {
           "if": {
@@ -190,10 +235,10 @@
           "then": {
             "properties": {
               "check_details": {
-                "$ref": "#/definitions/check_details"
+                "$ref": "#/$defs/check_details"
               },
               "time": {
-                "$ref": "#/definitions/time_type"
+                "$ref": "#/$defs/time_type"
               },
               "record": {
                 "type": "object",
@@ -202,10 +247,10 @@
                     "type": "string"
                   },
                   "created_at": {
-                    "$ref": "#/definitions/date_type"
+                    "$ref": "#/$defs/date_type"
                   },
                   "date_of_expiry": {
-                    "$ref": "#/definitions/date_type"
+                    "$ref": "#/$defs/date_type"
                   },
                   "source": {
                     "type": "object",
@@ -235,18 +280,18 @@
                         "type": "string"
                       },
                       "jurisdiction": {
-                         "type": "string"
+                        "type": "string"
                       }
                     }
                   }
                 }
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/definitions/claims_type"
+                "$ref": "claims_schema.json#/$defs/claims_type"
               }
             }
           },
-          "else": {}
+          "else": true
         },
         {
           "if": {
@@ -259,10 +304,10 @@
           "then": {
             "properties": {
               "check_details": {
-                "$ref": "#/definitions/check_details"
+                "$ref": "#/$defs/check_details"
               },
               "time": {
-                "$ref": "#/definitions/time_type"
+                "$ref": "#/$defs/time_type"
               },
               "attestation": {
                 "type": "object",
@@ -274,10 +319,10 @@
                     "type": "string"
                   },
                   "date_of_issuance": {
-                    "$ref": "#/definitions/date_type"
+                    "$ref": "#/$defs/date_type"
                   },
                   "date_of_expiry": {
-                    "$ref": "#/definitions/date_type"
+                    "$ref": "#/$defs/date_type"
                   },
                   "voucher": {
                     "type": "object",
@@ -286,7 +331,7 @@
                         "type": "string"
                       },
                       "birthdate": {
-                        "$ref": "#/definitions/date_type"
+                        "$ref": "#/$defs/date_type"
                       },
                       "formatted": {
                         "type": "string"
@@ -317,11 +362,11 @@
                 }
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/definitions/claims_type"
+                "$ref": "claims_schema.json#/$defs/claims_type"
               }
             }
           },
-          "else": {}
+          "else": true
         }
       ]
     },
@@ -348,7 +393,7 @@
           "type": "string"
         },
         "digest": {
-          "$ref": "#/definitions/digest"
+          "$ref": "#/$defs/digest"
         },
         "txn": {
           "type": "string"
@@ -358,7 +403,10 @@
           "format": "uri"
         },
         "access_token": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "expires_in": {
           "type": "integer",
@@ -398,10 +446,10 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "#/definitions/external_attachment"
+            "$ref": "#/$defs/external_attachment"
           },
           {
-            "$ref": "#/definitions/embedded_attachment"
+            "$ref": "#/$defs/embedded_attachment"
           }
         ]
       }
@@ -421,7 +469,7 @@
             "assurance_process": {
               "type": "object",
               "properties": {
-                "policy":{
+                "policy": {
                   "type": "string"
                 },
                 "procedure": {
@@ -429,7 +477,7 @@
                 },
                 "assurance_details": {
                   "type": "array",
-                  "items": [
+                  "prefixItems": [
                     {
                       "assurance_type": {
                         "type": "string"
@@ -461,7 +509,7 @@
               }
             },
             "time": {
-              "$ref": "#/definitions/time_type"
+              "$ref": "#/$defs/time_type"
             },
             "verification_process": {
               "type": "string"
@@ -472,7 +520,7 @@
               "items": {
                 "oneOf": [
                   {
-                    "$ref": "#/definitions/evidence"
+                    "$ref": "#/$defs/evidence"
                   }
                 ]
               }
@@ -484,7 +532,7 @@
           "additionalProperties": true
         },
         "claims": {
-          "$ref": "claims_schema.json#/definitions/claims_type"
+          "$ref": "claims_schema.json#/$defs/claims_type"
         }
       },
       "required": [
@@ -497,7 +545,7 @@
       "type": "object",
       "properties": {},
       "additionalProperties": {
-        "$ref": "verified_claims_request.json#/definitions/verified_claims_def"
+        "$ref": "verified_claims_request.json#/$defs/verified_claims_def"
       }
     },
     "aggregated_claims": {
@@ -527,57 +575,12 @@
     "_claim_sources": {
       "anyOf": [
         {
-          "$ref": "#/definitions/aggregated_claims"
+          "$ref": "#/$defs/aggregated_claims"
         },
         {
-          "$ref": "#/definitions/distributed_claims"
+          "$ref": "#/$defs/distributed_claims"
         }
       ]
     }
-  },
-  "properties": {
-    "verified_claims": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/verified_claims_def"
-        },
-        {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/verified_claims_def"
-          }
-        }
-      ]
-    },
-    "_claim_names": {
-      "type": "object",
-      "properties": {
-        "verified_claims": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "$ref": "#/definitions/distributed_claims_available_def"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
-    },
-    "_claim_sources": {
-      "type": "object",
-      "properties": {},
-      "additionalProperties": {
-        "$ref": "#/definitions/_claim_sources"
-      }
-    }
-  },
-  "additionalProperties": true
+  }
 }
