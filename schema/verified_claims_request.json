@@ -205,6 +205,9 @@
           },
           "txn": {
             "type": "string"
+          },
+          "time": {
+            "$ref": "#/$defs/datetime_element"
           }
         }
       ]
@@ -217,10 +220,12 @@
           "properties": {
             "value": {
               "enum": [
-                "electronic_signature",
+                "id_document",
                 "document",
                 "electronic_record",
-                "vouch"
+                "vouch",
+                "utility_bill",
+                "electronic_signature"
               ]
             }
           }
@@ -269,7 +274,7 @@
           },
           "then": {
             "properties": {
-              "check": {
+              "check_details": {
                 "$ref": "#/$defs/check_details"
               },
               "method": {
@@ -282,9 +287,6 @@
                 "$ref": "#/$defs/datetime_element"
               },
               "document_details": {
-                "$ref": "#/$defs/document_details"
-              },
-              "document": {
                 "$ref": "#/$defs/document_details"
               }
             }
@@ -485,7 +487,22 @@
                           "$ref": "#/$defs/constrainable_element"
                         },
                         "evidence_ref": {
-                          "$ref": "#/$defs/constrainable_element"
+                          "type": "object",
+                          "properties": {
+                            "txn": {
+                              "$ref": "#/$defs/constrainable_element"
+                            },
+                            "evidence_metadata": {
+                              "$ref": "#/$defs/constrainable_element"
+                            },
+                            "evidence_classification": {
+                              "$ref": "#/$defs/constrainable_element"
+                            }
+                          },
+                          "required": [
+                            "txn"
+                          ],
+                          "additionalProperties": true
                         }
                       }
                     ]
