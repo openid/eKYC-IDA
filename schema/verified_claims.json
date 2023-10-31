@@ -186,7 +186,7 @@
                 "$ref": "#/$defs/time_type"
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/$defs/claims_type"
+                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -218,7 +218,7 @@
                 "$ref": "#/$defs/document_details"
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/$defs/claims_type"
+                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -287,7 +287,7 @@
                 }
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/$defs/claims_type"
+                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -362,7 +362,7 @@
                 }
               },
               "derived_claims": {
-                "$ref": "claims_schema.json#/$defs/claims_type"
+                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -532,7 +532,7 @@
           "additionalProperties": true
         },
         "claims": {
-          "$ref": "claims_schema.json#/$defs/claims_type"
+          "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
         }
       },
       "required": [
@@ -545,7 +545,7 @@
       "type": "object",
       "properties": {},
       "additionalProperties": {
-        "$ref": "verified_claims_request.json#/$defs/verified_claims_def"
+        "$ref": "https://openid.net/schemas/ekyc-ida/12/verified_claims_request.json#/$defs/verified_claims_def"
       }
     },
     "aggregated_claims": {
