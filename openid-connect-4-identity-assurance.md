@@ -433,8 +433,6 @@ The following is the non-normative example request that would be sent by the Use
 
 The OP advertises its capabilities with respect to Verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-`verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e., the OpenID Connect for Identity Assurance extension.
-
 `trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array MUST have at least one member.
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
@@ -456,7 +454,6 @@ This is an example openid-configuration snippet:
 ```json
 {
 ...
-   "verified_claims_supported":true,
    "trust_frameworks_supported":[
      "nist_800_63A"
    ],
@@ -940,7 +937,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2022 The OpenID Foundation.
+Copyright (c) 2023 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
@@ -955,9 +952,10 @@ The technology described in this specification was made available from contribut
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate documement
+   * split out schema definition of `verified_claims` into separate document
    * split attachments into separate document
    * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
+   * drop verified_claims_supported OP metadata as redundant
 
    -13
 
