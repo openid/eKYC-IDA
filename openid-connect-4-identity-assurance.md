@@ -490,21 +490,6 @@ If the OP supports the `claims` parameter as defined in Section 5.5 of the OpenI
 
 If the OP supports distributed and/or aggregated Claim types, as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID], in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
 
-# Transaction-specific Purpose {#purpose}
-
-This specification introduces the request parameter `purpose` to allow an RP
-to state the purpose for the transfer of End-User data it is asking for.
-
-`purpose`: OPTIONAL. String describing the purpose for obtaining certain End-User data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
-
-The OP SHOULD use the purpose provided by the RP to inform the respective End-User about the designated use of the data to be transferred or the authorization to be approved.
-
-In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
-
-If the parameter `purpose` is not present in the request, the OP MAY utilize a description that was pre-configured for the respective RP.
-
-Note: In order to prevent injection attacks, the OP MUST escape the text appropriately before it will be shown in a user interface. The OP MUST expect special characters in the URL decoded purpose text provided by the RP. The OP MUST ensure that any special characters in the purpose text cannot be used to inject code into the web interface of the OP (e.g., cross-site scripting, defacing). Proper escaping MUST be applied by the OP. The OP SHALL NOT remove characters from the purpose text to this end.
-
 # Privacy Consideration {#Privacy}
 
 The use of scopes is a potential shortcut to request a pre-defined set of Claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP SHOULD only request End-User Claims and metadata it requires.
