@@ -155,11 +155,19 @@ If any of these requirements are not met the content of the attachment SHOULD NO
 
 As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
 
+# Client Registration and Management
+
+During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
+
+`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
+
 # OP Metadata {#opmetadata}
 
 If attachments are used in [@OpenID] implementations an additional element of OP Metadata is required to advertise its capabilities with respect to supported attachments in its openid-configuration (see [@!OpenID-Discovery]):
 
 `attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member. If omitted, the OP does not support attachments.
+
+`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 
 This is an example openid-configuration snippet:
 
@@ -169,7 +177,10 @@ This is an example openid-configuration snippet:
   "attachments_supported": [
     "external",
     "embedded"
-  ]
+  ],
+    "digest_algorithms_supported": [
+    "sha-256"
+  ],
 ...
 }
 ```
@@ -319,6 +330,22 @@ This section shows examples of responses containing `verified_claims`.
   </front>
 </reference>
 
+<reference anchor="OpenID-Registration" target="https://openid.net/specs/openid-connect-registration-1_0.html">
+  <front>
+    <title>OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1</title>
+    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
+      <organization>NRI</organization>
+    </author>
+    <author initials="J." surname="Bradley" fullname="John Bradley">
+      <organization>Ping Identity</organization>
+    </author>
+    <author initials="M." surname="Jones" fullname="Mike Jones">
+      <organization>Microsoft</organization>
+    </author>
+   <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
 <reference anchor="RFC4648" target="https://datatracker.ietf.org/doc/html/rfc4648">
   <front>
     <title>The Base16, Base32, and Base64 Data Encodings</title>
@@ -326,6 +353,16 @@ This section shows examples of responses containing `verified_claims`.
       <organization>SJD</organization>
     </author>
    <date month="Oct" year="2006"/>
+  </front>
+</reference>
+
+<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
+  <front>
+    <title>Named Information Hash Algorithm Registry</title>
+    <author>
+      <organization>IANA</organization>
+    </author>
+    <date year="2016" month="09"/>
   </front>
 </reference>
 
