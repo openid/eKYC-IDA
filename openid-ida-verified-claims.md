@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -121,7 +121,7 @@ The normative definition is given in the following.
 
 Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification. Extensions to this specification that specify additional sub-elements under the `verified_claims` element MAY be created by the OpenID Foundation, ecosystem or scheme operators or indeed singular implementers using this specification.
 
-A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@verified_claims.json], it can be used to automatically validate JSON documents containing a `verified_claims` element. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations. 
+A machine-readable syntax definition of `verified_claims` is given as JSON schema in [@verified_claims.json], it can be used to automatically validate JSON documents containing a `verified_claims` element. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
 
 Extensions of this specification, including trust framework definitions, can define further constraints on the data structure.
 
@@ -256,7 +256,7 @@ The following elements are contained in an evidence sub-element where type is `e
   * `check_method`: REQUIRED. String representing the check done. For information on predefined `check_method` values see [@!predefined_values_page].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This SHOULD be included if the Claims Provider did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
-  * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
+  * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
 
@@ -287,7 +287,7 @@ The following elements are contained in an evidence sub-element where type is `v
   * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values_page].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This SHOULD be included if the Claims Provider did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the identity verification transaction. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
-  * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.  
+  * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
 
@@ -350,7 +350,7 @@ This section contains JSON snippets showing further examples of `verified_claims
 
 <{{examples/response/document_and_utility_statement.json}}
 
-### Array of Verified Claims 
+### Array of Verified Claims
 
 <{{examples/response/multiple_verified_claims.json}}
 

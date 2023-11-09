@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -105,7 +105,7 @@ All the information of the document (including the content itself) is provided w
 
 `txn`: OPTIONAL. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response the OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
-The following example shows embedded attachments. The actual contents of the documents are truncated:
+The following example shows embedded attachments within a UserInfo endpoint response. The actual contents of the attached documents are truncated:
 
 <{{examples/response/embedded_attachments.json}}
 

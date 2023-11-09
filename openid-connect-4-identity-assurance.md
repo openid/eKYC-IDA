@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -196,25 +196,6 @@ Use of the `claims` parameter allows the RP to request specified Claims about th
 RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
 <{{examples/request/essential.json}}
-
-This specification introduces the additional field `purpose` to allow an RP
-to state the purpose for the transfer of a certain End-User Claim it is asking for.
-The field `purpose` can be a member value of each individually requested
-Claim, but a Claim cannot have more than one associated purpose.
-
-`purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
-longer than 300 characters. If this rule is violated, the authentication
-request MUST fail and the OP return an error `invalid_request` to the RP.
-The OP MUST display this purpose in the respective End-User consent screen(s)
-in order to inform the End-User about the designated use of the data to be
-transferred or the authorization to be approved. If the parameter `purpose`
-is not present in the request, the OP MAY display a
-value that was pre-configured for the respective RP. For details on UI
-localization, see (#purpose).
-
-Example:
-
-<{{examples/request/purpose.json}}
 
 ## Requesting Verification Data {#req_verification}
 
@@ -452,8 +433,6 @@ The following is the non-normative example request that would be sent by the Use
 
 The OP advertises its capabilities with respect to Verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
 
-`verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e., the OpenID Connect for Identity Assurance extension.
-
 `trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array MUST have at least one member.
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
@@ -473,7 +452,6 @@ This is an example openid-configuration snippet:
 ```json
 {
 ...
-   "verified_claims_supported":true,
    "trust_frameworks_supported":[
      "nist_800_63A"
    ],
@@ -937,7 +915,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2022 The OpenID Foundation.
+Copyright (c) 2023 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
@@ -948,12 +926,17 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -14
+
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate documemnt
+   * split out schema definition of `verified_claims` into separate document
+   * split attachments into separate document
+   * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
+   * drop verified_claims_supported OP metadata as redundant
 
    -13
+
    * Preparation for Implementers Draft 4
    * Checked and fixed referencing
    * Added note about issues with JSON null
