@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -447,8 +447,6 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
-
 This is an example openid-configuration snippet:
 
 ```json
@@ -484,9 +482,6 @@ This is an example openid-configuration snippet:
       "nationalities",
       "address"
    ],
-  "digest_algorithms_supported": [
-    "sha-256"
-  ],
 ...
 }
 ```
@@ -494,12 +489,6 @@ This is an example openid-configuration snippet:
 If the OP supports the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID], the OP MUST advertise this in its OP metadata using the `claims_parameter_supported` element.
 
 If the OP supports distributed and/or aggregated Claim types, as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID], in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
-
-# Client Registration and Management
-
-During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
-
-`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
 # Privacy Consideration {#Privacy}
 
@@ -578,22 +567,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization>Illumila</organization>
-    </author>
-   <date day="8" month="Nov" year="2014"/>
-  </front>
-</reference>
-
-<reference anchor="OpenID-Registration" target="https://openid.net/specs/openid-connect-registration-1_0.html">
-  <front>
-    <title>OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1</title>
-    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
-    </author>
-    <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
-    </author>
-    <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>
@@ -744,16 +717,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>OpenID Foundation</organization>
     </author>
     <date year="2021"/>
-  </front>
-</reference>
-
-<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
-  <front>
-    <title>Named Information Hash Algorithm Registry</title>
-    <author>
-      <organization>IANA</organization>
-    </author>
-    <date year="2016" month="09"/>
   </front>
 </reference>
 
