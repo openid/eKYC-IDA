@@ -12,11 +12,19 @@ value = "openid-connect-txn-claim-1_0-00"
 
 status = "standard"
 
+[[author]]
+initials="D."
+surname="Postnikov"
+fullname="Dima Postnikov"
+organization="ConnectID"
+    [author.address]
+    email = "dima@postnikov.net"
+
 %%%
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect that defines a use of txn claim. 
+This specification defines an extension of OpenID Connect that defines a use of txn claim.
 
 {mainmatter}
 
