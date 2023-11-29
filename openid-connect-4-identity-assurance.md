@@ -90,7 +90,7 @@ This section defines some terms relevant to the topic covered in this document, 
 
 * Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity.
 
-* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP may also need to provide evidence of the identity verification process to the RP.
+* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain End-User with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP might also need to provide evidence of the identity verification process to the RP.
 
 * Verified Claims - Claims about an End-User, typically a natural person, whose binding to a particular End-User account was verified in the course of an identity verification process.
 
@@ -175,7 +175,7 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 }
 ```
 
-An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
+An OP or AS can also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
 
 ### Aggregated and Distributed claims
 
@@ -220,11 +220,11 @@ The next example shows an ID Token containing `verified_claims` from two differe
 Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
 The RECOMMENDED way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
 
-The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
+The OP can combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
 If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
-Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
+Note: Any assertion provided by an OP or AS including aggregated or distributed Claims can contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
 
 ### Aggregated and Distributed claims validation
 
@@ -262,7 +262,7 @@ Making a request for Verified Claims and related verification data can be explic
 
 It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
-Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
+Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP can at its discretion, omit Claims from the response.
 
 the example authorize call in this section will use the following unencoded example claims request parameter:
 
@@ -301,7 +301,7 @@ Since `verified_claims` contains the effective Claims about the End-User in a ne
 
 Use of the `claims` parameter allows the RP to request specified Claims about the End-User needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only Claims needed for its use case. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
 
-RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
+RPs can use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
 <{{examples/request/essential.json}}
 
@@ -316,7 +316,7 @@ request MUST fail and the OP return an error `invalid_request` to the RP.
 The OP MUST display this purpose in the respective End-User consent screen(s)
 in order to inform the End-User about the designated use of the data to be
 transferred or the authorization to be approved. If the parameter `purpose`
-is not present in the request, the OP MAY display a
+is not present in the request, the OP can display a
 value that was pre-configured for the respective RP. For details on UI
 localization, see (#purpose).
 
@@ -346,11 +346,11 @@ A single entry in the `evidence` array represents a filter over elements of a ce
 
 If multiple entries are present in `evidence`, these filters are linked by a logical OR.
 
-`check_details` is an array of the processes that have been applied to the `evidence`. An RP MAY filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
+`check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
 
 `assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP SHOULD only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP MUST return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they MUST use those methods to do so, e.g. requesting an `assurance_type` SHOULD have no filtering effect.
 
-The RP MAY also request certain data within the `document` element to be present. This again follows the syntax rules used above:
+The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
 
@@ -358,11 +358,11 @@ The RP MAY also request certain data within the `document` element to be present
 
 ### value/values
 
-The RP MAY limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/check_details`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
+The RP can limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/check_details`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section.
 
-The following example shows how an RP may request Claims either complying with trust framework `gold` or `silver`.
+The following example shows how an RP can request Claims either complying with trust framework `gold` or `silver`.
 
 <{{examples/request/verification_claims_different_trust_frameworks.json}}
 
@@ -374,7 +374,7 @@ The OP MUST NOT ignore some or all of the query restrictions on possible values 
 
 ### max_age
 
-The RP MAY also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
+The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
 
 `max_age`: OPTIONAL. JSON number value only applicable to Claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP SHOULD make the calculation of elapsed time starting from the last valid second of the date value.
 
@@ -382,7 +382,7 @@ The following is an example of a request for Claims where the verification proce
 
 <{{examples/request/verification_max_age.json}}
 
-The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP MAY attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach.
+The OP SHOULD try to fulfill this requirement. If the verification data of the End-User is older than the requested `max_age`, the OP can attempt to refresh the End-User’s verification by sending them through an online identity verification process, e.g., by utilizing an electronic ID card or a video identification approach.
 
 ## Requesting Claims sets with different verification requirements
 
@@ -394,7 +394,7 @@ The following example illustrates this functionality.
 
 When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User Claim(s), the OP delivers the Claim in as many Verified Claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
 
-The RP MAY combine multiple `verified_claims` Claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
+The RP can combine multiple `verified_claims` Claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
 <{{examples/request/verification_claims_by_trust_frameworks_same_claims.json}}
 
@@ -403,7 +403,7 @@ In the above example, the RP asks for family and given name either under trust f
 ## Handling Unfulfillable Requests and Unavailable Data
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
-Extensions of this specification MAY define additional rules or override these rules, for example
+Extensions of this specification MAY define additional rules or override these rules, for example:
 
 * to allow or disallow the use of Claims depending on scheme-specific checks,
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
@@ -520,9 +520,9 @@ to state the purpose for the transfer of End-User data it is asking for.
 
 The OP SHOULD use the purpose provided by the RP to inform the respective End-User about the designated use of the data to be transferred or the authorization to be approved.
 
-In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
+In order to ensure a consistent UX, the RP can send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
 
-If the parameter `purpose` is not present in the request, the OP MAY utilize a description that was pre-configured for the respective RP.
+If the parameter `purpose` is not present in the request, the OP can utilize a description that was pre-configured for the respective RP.
 
 Note: In order to prevent injection attacks, the OP MUST escape the text appropriately before it will be shown in a user interface. The OP MUST expect special characters in the URL decoded purpose text provided by the RP. The OP MUST ensure that any special characters in the purpose text cannot be used to inject code into the web interface of the OP (e.g., cross-site scripting, defacing). Proper escaping MUST be applied by the OP. The OP SHALL NOT remove characters from the purpose text to this end.
 
@@ -915,7 +915,7 @@ external sources in a single ID Token.
 ## Self-Issued OpenID Connect Provider and External Claims
 
 This example shows how a Self-Issued OpenID Connect Provider (SIOP)
-may include Verified Claims obtained from different external Claim
+can include Verified Claims obtained from different external Claim
 sources into a ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
