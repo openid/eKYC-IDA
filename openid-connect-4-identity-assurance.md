@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -86,6 +86,8 @@ Note: This specifications fulfills the criteria for portability and interoperabi
 
 This section defines some terms relevant to the topic covered in this document, inspired by NIST SP 800-63A [@NIST-SP-800-63a].
 
+* Claim - as per definition in Section 1.2 of [@!OpenID]
+
 * Identity Proofing - process in which an End-User provides evidence to an OP or Claim provider reliably identifying themselves, thereby allowing the OP or Claim provider to assert that identification at a useful assurance level.
 
 * Identity Verification - process conducted by the OP or a Claim provider to verify the End-User's identity.
@@ -98,7 +100,7 @@ This section defines some terms relevant to the topic covered in this document, 
 
 This specification defines the technical mechanisms to allow Relying Parties to request Verified Claims and to enable OpenID Providers to provide Relying Parties with Verified Claims ("the tools").
 
-Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), concrete trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
+Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
 
 Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
 
@@ -114,7 +116,7 @@ It is assumed that OPs operating under a suitable regulation can assure identity
 
 Every other OP not operating under such well-defined conditions may have the need to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an Anti Money Laundering Law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
-The basic idea of this specification is that the OP provides all identity data along with metadata about the identity verification process at the OP. It is the responsibility of the RP to assess this data and map it into its own legal context.
+The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
 From a technical perspective, this means this specification allows the OP to provide Verified Claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
@@ -138,7 +140,7 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 # Verified Claims {#verified_claims}
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, RPs cannot mix up Verified Claims and unverified Claims and accidentally process unverified Claims as Verified Claims.
+This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
 
 The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
@@ -175,7 +177,7 @@ Here is an example of the payload of an Access Token in JWT format including Ver
 }
 ```
 
-An OP or AS can also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
+An OP or AS MAY also include `verified_claims` in the above assertions, whether they are Access Tokens or in Token Introspection responses, as aggregated or distributed claims (see Section 5.6.2 of the OpenID Connect specification [@!OpenID]).
 
 ### Aggregated and Distributed claims
 
@@ -220,11 +222,11 @@ The next example shows an ID Token containing `verified_claims` from two differe
 Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
 The RECOMMENDED way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
 
-The OP can combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
+The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
 
 If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
 
-Note: Any assertion provided by an OP or AS including aggregated or distributed Claims can contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
+Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
 
 ### Aggregated and Distributed claims validation
 
@@ -262,7 +264,7 @@ Making a request for Verified Claims and related verification data can be explic
 
 It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
 
-Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP can at its discretion, omit Claims from the response.
+Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
 
 the example authorize call in this section will use the following unencoded example claims request parameter:
 
@@ -316,7 +318,7 @@ request MUST fail and the OP return an error `invalid_request` to the RP.
 The OP MUST display this purpose in the respective End-User consent screen(s)
 in order to inform the End-User about the designated use of the data to be
 transferred or the authorization to be approved. If the parameter `purpose`
-is not present in the request, the OP can display a
+is not present in the request, the OP MAY display a
 value that was pre-configured for the respective RP. For details on UI
 localization, see (#purpose).
 
@@ -326,7 +328,7 @@ Example:
 
 ## Requesting Verification Data {#req_verification}
 
-RPs request verification data in the same way they request Claims about the End-User. The syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
+RPs request verification data in the same way they request Claims about the End-User. When the claims request parameter is being used, the syntax is based on the rules given in (#req_claims) and extends them for navigation into the structure of the `verification` element.
 
 Elements within `verification` are requested by adding the respective element as shown in the following example:
 
@@ -336,11 +338,11 @@ It requests the trust framework the OP complies with and the date of the verific
 
 The RP MUST explicitly request any data it wants the OP to add to the `verification` element.
 
-Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following examples shows a request asking for evidence of type `document`.
+Therefore, the RP MUST set fields one step deeper into the structure if it wants to obtain evidence. One or more entries in the `evidence` array are used as filter criteria and templates for all entries in the result array. The following example shows a request asking for evidence of type `document` only.
 
 <{{examples/request/verification_deeper.json}}
 
-The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type) for every evidence to the resulting `verified_claims` Claim.
+The example also requests the OP to add the respective `method` and the `document` elements (including data about the document type), for every evidence array member, to the resulting `verified_claims` Claim.
 
 A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore MUST specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element MUST NOT be used for the `evidence/type` field.
 
@@ -392,7 +394,7 @@ The following example illustrates this functionality.
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
 
-When the RP requests multiple verifications as described above, the OP is supposed to process any element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User Claim(s), the OP delivers the Claim in as many Verified Claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
+When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same End-User Claim(s), the OP delivers the Claim in as many Verified Claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
 
 The RP can combine multiple `verified_claims` Claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
@@ -400,7 +402,9 @@ The RP can combine multiple `verified_claims` Claims in the request with multipl
 
 In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `document` or under trust framework `silver` or `bronze` but with an evidence `electronic_record`.
 
-## Handling Unfulfillable Requests and Unavailable Data
+## Returning less data than requested
+As stated in Section 3.3.6 of [@!OpenID], "the OP MAY choose to return fewer Claims about the End-User from the Authorization Endpoint".  This document makes no change to that provision.  The OP MAY also choose to return a subset of the `verification` element of any `verified_claims` providing it remains complaint with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
+
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
 Extensions of this specification MAY define additional rules or override these rules, for example:
@@ -411,8 +415,15 @@ Extensions of this specification MAY define additional rules or override these r
 
 Important: The behavior described below is independent from the use of `essential` (as defined in Section 5.5 of [@!OpenID]).
 
-### Unavailable or Non-consented Data
-If the OP does not have data about a certain Claim, does not understand/support the respective Claim, or the End-User does not consent to the release of the specific data, the respective Claim MUST be omitted from the response. The OP MUST NOT return an error to the RP. 
+### Unavailable Data
+
+If the OP does not have data about a certain Claim, does not understand/support the respective Claim, the respective Claim MUST be omitted from any corresponding id_token or Userinfo response.
+
+### Non-consented Data
+
+When relying on end-user consent to determine the specific data to be shared the End-User may make a choice to release only a subset of the data requested. In this case data that has not had End-User consent for sharing MUST be omitted from any corresponding id_token or Userinfo response.
+
+Alternatively, when relying on end-user consent to determine the specific data to be shared the End-User may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 ### Data not Matching Requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
@@ -428,7 +439,7 @@ If an element is to be omitted according to the rules above, but is a requiremen
 
 ### Error Handling
 
-If the OP encounters an error, or the End-User does not consent to the whole transaction, standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
+If the OP encounters an error, standard OpenID Connect authentication error response logic applies, as defined in Section 3.1.2.6 of [@!OpenID].
 
 ## Requesting sets of Claims by scope {#req_scope}
 
@@ -436,34 +447,140 @@ Verified Claims about the End-User can be requested as part of a pre-defined set
 
 When using this approach the Claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the Claims are returned via the ID Token or UserInfo endpoint as defined in Section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
+# Aggregated and Distributed claims {#aggregated_distributed_claims}
+## Aggregated and Distributed claims assertions
+
+When distributed claims are used the URL that is the value of the `endpoint` element in any distributed `_claim_source` sub-element MUST use the https URI scheme and the JWT returned SHOULD NOT be accessible via any other URI scheme.
+
+For aggregated or distributed claims, every assertion provided by the external Claims source MUST contain:
+
+* a `typ` header parameter with the value `provided-claims+jwt`,
+* an `iss` Claim identifying the claims source,
+* a `sub` Claim identifying the End-User in the context of the claim source, and
+* a `verified_claims` element containing one or more `verified_claims` objects.
+
+To ensure that assertions cannot be confused with OpenID Connect ID Tokens, assertions MUST NOT contain:
+
+ * an `exp` claim, or
+ * an `aud` claim.
+
+The `verified_claims` element in an aggregated or distributed claims object MUST have one of the following forms:
+
+* a JSON string referring to a certain claim source (as defined in [@!OpenID])
+* a JSON array of strings referring to the different claim sources
+* a JSON object composed of sub-elements formatted with the syntax as defined for requesting `verified_claims` where the name of each object is a name for the respective claim source. Every such named object contains sub-objects called  `claims` and `verification` expressing data provided by the respective claims source. This allows the RP to look ahead before it actually requests distributed Claims in order to prevent extra time, cost, data collisions, etc. caused by these requests.
+
+Note: The two later forms extend the syntax as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID]) in order to accommodate the specific use cases for `verified_claims`.
+
+The following are examples of assertions including Verified Claims as aggregated Claims
+
+<{{examples/response/aggregated_claims_simple.json}}
+
+and distributed Claims.
+
+<{{examples/response/distributed_claims.json}}
+
+The following example shows an ID Token containing `verified_claims` from two different external claim sources, one as aggregated and the other as distributed Claims.
+
+<{{examples/response/multiple_external_claims_sources.json}}
+
+The next example shows an ID Token containing `verified_claims` from two different external claim sources along with additional data about the content of the Verified Claims (look ahead).
+
+<{{examples/response/multiple_external_claims_sources_with_lookahead.json}}
+
+Claim sources SHOULD sign the assertions containing `verified_claims` in order to demonstrate authenticity and provide for non-repudiation.
+The RECOMMENDED way for an RP to determine the key material used for validation of the signed assertions is via the claim source's public keys. These keys SHOULD be available in the JSON Web Key Set available in the `jwks_uri` metadata value in the `openid-configuration` metadata document. This document can be discovered using the `iss` Claim of the particular JWT.
+
+The OP MAY combine aggregated and distributed Claims with `verified_claims` provided by itself (see (#op_attested_and_external_claims)).
+
+If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated Claim, the RP MUST preserve the claims source as context of the particular `verified_claims` element.
+
+Note: Any assertion provided by an OP or AS including aggregated or distributed Claims MAY contain multiple instances of the same End-User Claim. It is up to the RP to decide how to process these different instances.
+
+## Aggregated and Distributed claims validation
+
+Clients MUST validate any Aggregated and Distributed `verified_claims` they wish to rely on in the following manner:
+
+1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response
+2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response
+3. Ensure that the `verified_claims` element contains a value that is one of the following:
+    a. a string that exists as a key name in the `_claim_sources` element of the response.
+    b. a JSON array containing members that all exist as key names in the `_claim_sources` element of the response.
+    c. a JSON object containing elements that all exist as key names in the `_claim_sources` element of the response and each element is formatted with the syntax as defined for requesting `verified_claims`.
+4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements
+5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response
+
+When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients MUST also:
+
+1. Ensure that the `endpoint` element defined in any distributed `_claim_sources` uses the https URI scheme.
+2. Retrieve the distributed claims object from the `endpoint` element defined in any distributed `_claim_sources`.
+3. Ensure that the object returned from the `endpoint` is a JWT as per [@RFC7519].
+
+When `verified_claims` are delivered as aggregated claims, i.e., when a sub-element of the `_claim_sources` contains the `JWT` claim, clients MUST also:
+
+1. Ensure that the value in the `JWT` claim is a valid JWT as per [@RFC7519].
+
+Once the JWT has been delivered either via distributed or aggregated mechanism the client MUST:
+
+1. Verify the signature of the returned JWT.
+2. Ensure that the JWT includes the `typ`, `iss`, `sub`, and `verified_claims` elements; and that their values are not null or empty.
+3. Ensure that the JWT does not contain either an `exp` claim or an `aud` claim.
+4. Ensure that the value of the `typ` header parameter in the JWT is `provided-claims+jwt`.
+
+# Requesting Verified Claims
+
+Making a request for Verified Claims and related verification data can be explicitly requested on the level of individual data elements by utilizing the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID].
+
+It is also possible to use the `scope` parameter to request one or more specific pre-defined Claim sets as defined in Section 5.4 of the OpenID Connect specification [@!OpenID].
+
+Note: The OP MUST NOT provide the RP with any data it did not request. However, the OP MAY at its discretion omit Claims from the response.
+
+The example authorize call in this section will use the following unencoded example claims request parameter:
+
+<{{examples/request/simple_id_token.json}}
+
+The following is the non-normative example request that would be sent by the User Agent to the Authorization Server in response to the HTTP 302 redirect from the Client initiating the authorization code flow (with line wraps within values for display purposes only):
+
+```
+  GET /authorize?
+     response_type=code
+     &scope=openid%20email
+     &client_id=s6BhdRkqt3
+     &state=af0ifjsldkj
+     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
+     &claims=%7B%22id_token%22%3A%20%7B%22
+     given_name%22%3A%20null%2C%22
+     verified_claims%22%3A%20%7B%22
+     verification%22%3A%20%7B%22
+     trust_framework%22%3A%20null%7D%2C%22
+     claims%22%3A%20%7B%22
+     family_name%22%3A%20null%7D%7D%7D%7D HTTP/1.1
+  Host: server.example.com
+```
+
 # OP Metadata {#opmetadata}
 
 The OP advertises its capabilities with respect to Verified Claims in its openid-configuration (see [@!OpenID-Discovery]) using the following new elements:
-
-`verified_claims_supported`: REQUIRED. Boolean value indicating support for `verified_claims`, i.e., the OpenID Connect for Identity Assurance extension.
 
 `trust_frameworks_supported`: REQUIRED. JSON array containing all supported trust frameworks. This array MUST have at least one member.
 
 `claims_in_verified_claims_supported`: REQUIRED. JSON array containing all Claims supported within `verified_claims`. Claims that are not present in this array MUST NOT be returned within the `verified_claims` object. This array MUST have at least one member.
 
-`evidence_supported`: REQUIRED when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see [!@IDA-verified-claims]).
+`evidence_supported`: REQUIRED when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array MUST have at least one member. Members of this array SHOULD only be the types of evidence supported by the OP in the evidence element (see section 4.2.2 of [@!IDA-verified-claims]).
 
 `documents_supported`: REQUIRED when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array MUST have at least one member.
 
-`documents_methods_supported`: OPTIONAL. JSON array containing the methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array MUST have at least one member.
+`documents_methods_supported`: OPTIONAL. JSON array containing the verification methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array MUST have at least one member.
 
-`documents_check_methods_supported`: OPTIONAL. JSON array containing the check methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array MUST have at least one member.
+`documents_check_methods_supported`: OPTIONAL. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values]). When present this array MUST have at least one member.
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
-
-`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 
 This is an example openid-configuration snippet:
 
 ```json
 {
 ...
-   "verified_claims_supported":true,
    "trust_frameworks_supported":[
      "nist_800_63A"
    ],
@@ -485,7 +602,7 @@ This is an example openid-configuration snippet:
    ],
    "electronic_records_supported": [
        "secure_mail"
-   ],   
+   ],
    "claims_in_verified_claims_supported": [
       "given_name",
       "family_name",
@@ -494,14 +611,11 @@ This is an example openid-configuration snippet:
       "nationalities",
       "address"
    ],
-  "digest_algorithms_supported": [
-    "sha-256"
-  ],
 ...
 }
 ```
 
-If the OP supports the `claims` parameter, the OP MUST advertise this in its OP metadata using the `claims_parameter_supported` element.
+If the OP supports the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID], the OP MUST advertise this in its OP metadata using the `claims_parameter_supported` element.
 
 If the OP supports distributed and/or aggregated Claim types in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
 
@@ -520,17 +634,17 @@ to state the purpose for the transfer of End-User data it is asking for.
 
 The OP SHOULD use the purpose provided by the RP to inform the respective End-User about the designated use of the data to be transferred or the authorization to be approved.
 
-In order to ensure a consistent UX, the RP can send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
+In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
 
-If the parameter `purpose` is not present in the request, the OP can utilize a description that was pre-configured for the respective RP.
+If the parameter `purpose` is not present in the request, the OP MAY utilize a description that was pre-configured for the respective RP.
 
 Note: In order to prevent injection attacks, the OP MUST escape the text appropriately before it will be shown in a user interface. The OP MUST expect special characters in the URL decoded purpose text provided by the RP. The OP MUST ensure that any special characters in the purpose text cannot be used to inject code into the web interface of the OP (e.g., cross-site scripting, defacing). Proper escaping MUST be applied by the OP. The OP SHALL NOT remove characters from the purpose text to this end.
 
 # Privacy Consideration {#Privacy}
 
-Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy timestamps within the verification element and Verified Claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related Claim in verified data.
-
 The use of scopes is a potential shortcut to request a pre-defined set of Claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimization. The RP SHOULD only request End-User Claims and metadata it requires.
+
+Timestamps with a time zone component can potentially reveal the person’s location. To preserve the person’s privacy, timestamps within the verification element and Verified Claims that represent times SHOULD be represented in Coordinated Universal Time (UTC), unless there is a specific reason to include the time zone, such as the time zone being an essential part of a consented time related Claim in verified data.
 
 # Security Considerations {#Security}
 
@@ -547,8 +661,8 @@ Secure identification of End-Users not only depends on the identity verification
 
 ## Security Profile
 
-This specification does not define or require a particular security profile since there are several security 
-profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits 
+This specification does not define or require a particular security profile since there are several security
+profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
 their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers are RECOMMENDED to select a security profile that has a certification program or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
@@ -603,22 +717,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization>Illumila</organization>
-    </author>
-   <date day="8" month="Nov" year="2014"/>
-  </front>
-</reference>
-
-<reference anchor="OpenID-Registration" target="https://openid.net/specs/openid-connect-registration-1_0.html">
-  <front>
-    <title>OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1</title>
-    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
-    </author>
-    <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
-    </author>
-    <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>
@@ -772,16 +870,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
-  <front>
-    <title>Named Information Hash Algorithm Registry</title>
-    <author>
-      <organization>IANA</organization>
-    </author>
-    <date year="2016" month="09"/>
-  </front>
-</reference>
-
 <reference anchor="IANA.MediaTypes" target="https://www.iana.org/assignments/media-types">
  <front>
    <title>Media Types</title>
@@ -859,17 +947,13 @@ Support for these null value requests is mandatory for identity providers, so im
 
 <{{examples/request/verification_electronic_signature.json}}
 
-### Error Handling
-
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP.
-
 # Example Responses
 
 This section shows examples of responses containing `verified_claims`.
 
 The first and second subsections show JSON snippets of the general identity assurance case, where the RP is provided with verification evidence for different methods along with the actual Claims about the End-User.
 
-The third subsection illustrates how the contents of this object could look like in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
+The third subsection illustrates the possible contents of this object in case of a notified eID system under eIDAS, where the OP does not need to provide evidence of the identity verification process to the RP.
 
 Subsequent subsections contain examples for using the `verified_claims` Claim on different channels and in combination with other (unverified) Claims.
 
@@ -907,7 +991,7 @@ Same document under a different `trust_framework`
 
 ## Claims provided by the OP and external sources {#op_attested_and_external_claims}
 
-This example shows how an OP can mix own Claims and Claims provided by  
+This example shows how an OP can mix own Claims and Claims provided by
 external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
@@ -966,7 +1050,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2022 The OpenID Foundation.
+Copyright (c) 2023 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
@@ -977,12 +1061,17 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -14
+
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate documemnt 
+   * split out schema definition of `verified_claims` into separate document
+   * split attachments into separate document
+   * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
+   * drop verified_claims_supported OP metadata as redundant
 
    -13
+
    * Preparation for Implementers Draft 4
    * Checked and fixed referencing
    * Added note about issues with JSON null
@@ -1080,9 +1169,9 @@ The technology described in this specification was made available from contribut
    * Renamed `verified_person_data` to `verified_claims`
 
    -04
-   
+
    * incorporated review feedback by Marcos Sanz
-   
+
    -03
 
    * enhanced draft to support multiple evidence

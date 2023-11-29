@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -70,7 +70,7 @@ This specification defines an extension of OpenID Connect that registers new JWT
 
 # Introduction {#Introduction}
 
-This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an id_token. 
+This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an id_token.
 
 # Scope
 
@@ -112,7 +112,7 @@ This section contains JSON snippets showing examples of end-user claims describe
 "place_of_birth": {
   "country": "GB",
   "locality": "London"
-  }  
+  }
 }
 ```
 
