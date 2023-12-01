@@ -35,7 +35,7 @@ The `txn` Claim as defined in [@!RFC8417] is used in the context of this extensi
 
 # txn request
 
-The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default Claim set identified by a scope value.
+The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default claim set identified by a scope value, for example:
 
 ```
 "txn": null
@@ -43,7 +43,7 @@ The RP requests this Claim like any other Claim via the `claims` parameter or as
 
 # txn issuance, response and processing
 
-The OP generates txn claim as a unique identifier and attaches it to the other claims requested, for example:
+The OP generates txn claim as a unique identifier, for example:
 
 ```
 {
@@ -92,7 +92,7 @@ Note: The mechanism to obtain the transaction details from the OP and their form
 
 # Acknowledgements {#Acknowledgements}
 
-We would like to thank TBC? for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Mark Haine, Andres Uribe for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
