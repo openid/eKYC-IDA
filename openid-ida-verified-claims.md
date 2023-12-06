@@ -216,8 +216,6 @@ The following elements are contained in an evidence sub-element where type is `d
   * `txn`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit. Note: any use of a `txn` key outside `check_details` and this `evidence_ref` definition is unrelated.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this document was verified.
-
 `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of the document. For information on predefined document values see [@!predefined_values_page]. The Claims Provider MAY use other predefined values in which case the Claims Recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
@@ -252,8 +250,6 @@ The following elements are contained in an evidence sub-element where type is `e
   * `txn`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit. Note: any use of a `txn` key outside `check_details` and this `evidence_ref` definition is unrelated.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
-
 `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
 * `type`: REQUIRED. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values_page]. The Claims Provider MAY use other predefined values in which case the Claims Recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
@@ -282,8 +278,6 @@ The following elements are contained in an evidence sub-element where type is `v
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This SHOULD be included if the Claims Provider did not perform the check itself.
   * `txn`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit. Note: any use of a `txn` key outside `check_details` and this `evidence_ref` definition is unrelated.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
-
-`time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
 
 `attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
 
