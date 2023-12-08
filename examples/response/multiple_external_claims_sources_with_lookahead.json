@@ -29,7 +29,6 @@
               "registry": {
                 "country": {
                   "essential": true,
-                  "purpose": "string",
                   "value": "ES"
                 }
               },

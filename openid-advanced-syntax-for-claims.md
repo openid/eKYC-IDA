@@ -16,7 +16,7 @@ status = "standard"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="Authlete Inc."
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -856,7 +856,7 @@ OPs SHOULD consider setting `transformed_claims_max_depth` and `transformed_clai
       <organization>yes.com</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
-      <organization>yes.com</organization>
+      <organization>Authlete</organization>
     </author>
     <author initials="M." surname="Haine" fullname="Mark Haine">
       <organization>Considrd.Consulting Ltd</organization>

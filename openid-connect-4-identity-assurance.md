@@ -24,7 +24,7 @@ organization="yes.com"
 initials="D."
 surname="Fett"
 fullname="Daniel Fett"
-organization="yes.com"
+organization="Authlete"
     [author.address]
     email = "mail@danielfett.de"
 
@@ -196,25 +196,6 @@ Use of the `claims` parameter allows the RP to request specified Claims about th
 RPs MAY use the `essential` field as defined in Section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
 <{{examples/request/essential.json}}
-
-This specification introduces the additional field `purpose` to allow an RP
-to state the purpose for the transfer of a certain End-User Claim it is asking for.
-The field `purpose` can be a member value of each individually requested
-Claim, but a Claim cannot have more than one associated purpose.
-
-`purpose`: OPTIONAL. String describing the purpose for obtaining a certain End-User Claim from the OP. The purpose MUST NOT be shorter than 3 characters or
-longer than 300 characters. If this rule is violated, the authentication
-request MUST fail and the OP return an error `invalid_request` to the RP.
-The OP MUST display this purpose in the respective End-User consent screen(s)
-in order to inform the End-User about the designated use of the data to be
-transferred or the authorization to be approved. If the parameter `purpose`
-is not present in the request, the OP MAY display a
-value that was pre-configured for the respective RP. For details on UI
-localization, see (#purpose).
-
-Example:
-
-<{{examples/request/purpose.json}}
 
 ## Requesting Verification Data {#req_verification}
 
@@ -466,8 +447,6 @@ The OP advertises its capabilities with respect to Verified Claims in its openid
 
 `electronic_records_supported`: REQUIRED when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array MUST have at least one member.
 
-`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
-
 This is an example openid-configuration snippet:
 
 ```json
@@ -503,9 +482,6 @@ This is an example openid-configuration snippet:
       "nationalities",
       "address"
    ],
-  "digest_algorithms_supported": [
-    "sha-256"
-  ],
 ...
 }
 ```
@@ -513,27 +489,6 @@ This is an example openid-configuration snippet:
 If the OP supports the `claims` parameter as defined in Section 5.5 of the OpenID Connect specification [@!OpenID], the OP MUST advertise this in its OP metadata using the `claims_parameter_supported` element.
 
 If the OP supports distributed and/or aggregated Claim types, as defined in Section 5.6.2 of the OpenID Connect specification [@!OpenID], in `verified_claims`, the OP MUST advertise this in its metadata using the `claim_types_supported` element.
-
-# Client Registration and Management
-
-During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
-
-`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
-
-# Transaction-specific Purpose {#purpose}
-
-This specification introduces the request parameter `purpose` to allow an RP
-to state the purpose for the transfer of End-User data it is asking for.
-
-`purpose`: OPTIONAL. String describing the purpose for obtaining certain End-User data from the OP. The purpose MUST NOT be shorter than 3 characters and MUST NOT be longer than 300 characters. If these rules are violated, the authentication request MUST fail and the OP returns an error `invalid_request` to the RP.
-
-The OP SHOULD use the purpose provided by the RP to inform the respective End-User about the designated use of the data to be transferred or the authorization to be approved.
-
-In order to ensure a consistent UX, the RP MAY send the `purpose` in a certain language and request the OP to use the same language using the `ui_locales` parameter.
-
-If the parameter `purpose` is not present in the request, the OP MAY utilize a description that was pre-configured for the respective RP.
-
-Note: In order to prevent injection attacks, the OP MUST escape the text appropriately before it will be shown in a user interface. The OP MUST expect special characters in the URL decoded purpose text provided by the RP. The OP MUST ensure that any special characters in the purpose text cannot be used to inject code into the web interface of the OP (e.g., cross-site scripting, defacing). Proper escaping MUST be applied by the OP. The OP SHALL NOT remove characters from the purpose text to this end.
 
 # Privacy Consideration {#Privacy}
 
@@ -612,22 +567,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization>Illumila</organization>
-    </author>
-   <date day="8" month="Nov" year="2014"/>
-  </front>
-</reference>
-
-<reference anchor="OpenID-Registration" target="https://openid.net/specs/openid-connect-registration-1_0.html">
-  <front>
-    <title>OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1</title>
-    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
-    </author>
-    <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
-    </author>
-    <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
   </front>
@@ -778,16 +717,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>OpenID Foundation</organization>
     </author>
     <date year="2021"/>
-  </front>
-</reference>
-
-<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
-  <front>
-    <title>Named Information Hash Algorithm Registry</title>
-    <author>
-      <organization>IANA</organization>
-    </author>
-    <date year="2016" month="09"/>
   </front>
 </reference>
 
@@ -982,13 +911,17 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -14
+
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
    * Removed deprecated elements `utility_bill` and `document`
    * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate documemnt
+   * split out schema definition of `verified_claims` into separate document
+   * split attachments into separate document
+   * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
    * drop verified_claims_supported OP metadata as redundant
 
    -13
+
    * Preparation for Implementers Draft 4
    * Checked and fixed referencing
    * Added note about issues with JSON null
