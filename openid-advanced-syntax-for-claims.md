@@ -163,8 +163,10 @@ with the following fields:
    JSON schema object as defined in [@!I-D.bhutton-json-schema] that the respective element
    in the ID Token or Userinfo response structure must validate against.
  * `value` or `values`: Either `value` or `values` is REQUIRED if `method` is
-   `simple`; MUST NOT be present otherwise; `value` and `values` MUST NOT be used
-   together. As defined in [@!OpenID], Section 5.5.1.
+   `simple`; MUST NOT be present otherwise; `value` and `values` MUST NOT be
+   used together. For `value`, a valid claim value MUST be provided which is
+   either a string, a number, or a boolean. For `values`, an array of such
+   values MUST be provided.
  * `else`: REQUIRED. A string, either `abort` or `omit`, indicating the action
    to take if the rule is not fulfilled. If `abort` is used, the transaction
    MUST be aborted. If `omit` is used, one or more elements MUST be omitted from
@@ -184,13 +186,14 @@ The `else` action MUST be triggered when
 Additionally, depending on the value of `method`, the following matches MUST be
 performed:
 
- * `simple`: The value of the claim indicated by `loc` is matched against `value`
-   or `values` provided in the SAO rule, with the matching defined in
-   [@!OpenID], Section 5.5.1. In the example above, the `assurance_level` would
-   be matched against `example_assurance_level` and `family_name` would be
-   matched against `nonexistent_family_name`. The `else` action MUST be
-   triggered if the value of the claim does not match the requested value or
-   values.
+ * `simple`: The value of the claim indicated by `loc` is matched against
+   `value` or `values` provided in the SAO rule. If `value` is provided, the
+   claim value will be matched to the provided value using exact matching. For
+   `values`, the claim value must exactly match at least one of the values in
+   the array. In the example above, the `assurance_level` would be matched
+   against `example_assurance_level` and `family_name` would be matched against
+   `nonexistent_family_name`. The `else` action MUST be triggered if the value
+   of the claim does not match the requested value or values.
  * `schema`: The JSON Schema `schema` element MUST apply to the
    JSON structure under the element indicated by `loc`. In the example above,
    the schema would be applied to the whole `claims` object under
