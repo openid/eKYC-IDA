@@ -243,7 +243,7 @@ The OP advertises its capabilities with respect to Selective Abort/Omit in its o
 
  * `selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit". Defaults to `false`.
  * `selective_abort_omit_schema_supported`: OPTIONAL. Boolean value indicating
-   OP support for the `method` method `schema`. Defaults to `true`. If `false`,
+   OP support for the `method` value `schema`. Defaults to `true`. If `false`,
    the OP MUST abort the transaction with an `invalid_request` error if a JSON
    Schema is used in an SAO rule.
 
