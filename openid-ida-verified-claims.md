@@ -169,7 +169,7 @@ The `trust_framework` value determines what further data is provided to the Clai
      * `assurance_type`: OPTIONAL. String denoting which part of the `assurance_process` the evidence fulfils.
     * `assurance_classification`: OPTIONAL. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
     * `evidence_ref`: OPTIONAL. JSON array of the evidence being referred to. When present this array MUST have at least one member.
-      * `txn`: REQUIRED. Identifier referring to the `txn` key used in the `check_details`. The Claims Provider MUST ensure that `txn` is present in the `check_details` when `evidence_ref` element is used. Note: use of a `txn` key outside `check_details` and this `evidence_ref` definition is unrelated.
+      * `check_id`: REQUIRED. Identifier referring to the `check_id` key used in the `check_details` element of memers of the `evidence` array. The Claims Provider MUST ensure that `check_id` is present in the `check_details` when `evidence_ref` element is used.
       * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
         * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
 
@@ -213,7 +213,7 @@ The following elements are contained in an evidence sub-element where type is `d
 
   * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the document, or verifying the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values_page].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This SHOULD be included if the Claims Provider did not perform the check itself.
-  * `txn`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit. Note: any use of a `txn` key outside `check_details` and this `evidence_ref` definition is unrelated.
+  * `check_id`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `document_details`: OPTIONAL. JSON object representing the document used to perform the identity verification. It consists of the following properties:
@@ -247,7 +247,7 @@ The following elements are contained in an evidence sub-element where type is `e
 
   * `check_method`: REQUIRED. String representing the check done. For information on predefined `check_method` values see [@!predefined_values_page].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This SHOULD be included if the Claims Provider did not perform the check itself.
-  * `txn`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit. Note: any use of a `txn` key outside `check_details` and this `evidence_ref` definition is unrelated.
+  * `check_id`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `record`: OPTIONAL. JSON object representing the record used to perform the identity verification. It consists of the following properties:
@@ -276,7 +276,7 @@ The following elements are contained in an evidence sub-element where type is `v
 
   * `check_method`: REQUIRED. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values_page].
   * `organization`: OPTIONAL. String denoting the legal entity that performed the check. This SHOULD be included if the Claims Provider did not perform the check itself.
-  * `txn`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit. Note: any use of a `txn` key outside `check_details` and this `evidence_ref` definition is unrelated.
+  * `check_id`: OPTIONAL. Identifier referring to the event where a check (either verification or validation) was performed. The Claims Provider MUST ensure that this is present when `evidence_ref` element is used. The Claims Provider MUST ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: OPTIONAL. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `attestation`: OPTIONAL. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
