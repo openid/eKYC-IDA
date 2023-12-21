@@ -220,11 +220,9 @@
           "properties": {
             "value": {
               "enum": [
-                "id_document",
                 "document",
                 "electronic_record",
                 "vouch",
-                "utility_bill",
                 "electronic_signature"
               ]
             }
