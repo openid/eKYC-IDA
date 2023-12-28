@@ -8,7 +8,7 @@
             "assurance_type": "evidence_validation",
             "evidence_ref": [
               {
-                "txn": "LD-95912059850982"
+                "check_id": "LD-95912059850982"
               }
             ]
           },
@@ -16,7 +16,7 @@
             "assurance_type": "verification",
             "evidence_ref": [
               {
-                "txn": "V-ng034hng2945nqw"
+                "check_id": "V-ng034hng2945nqw"
               }
             ]
           }
@@ -30,11 +30,11 @@
           "check_details": [
             {
               "check_method": "vcrypt",
-              "txn": "LD-95912059850982"
+              "check_id": "LD-95912059850982"
             },
             {
               "check_method": "bvr",
-              "txn": "V-ng034hng2945nqw"
+              "check_id": "V-ng034hng2945nqw"
             }
           ],
           "time": "2019-04-20T20:11Z",
