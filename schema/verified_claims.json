@@ -89,7 +89,7 @@
           "organization": {
             "type": "string"
           },
-          "txn": {
+          "check_id": {
             "type": "string"
           },
           "time": {
@@ -441,7 +441,7 @@
                         "type": "array",
                         "items": [
                           {
-                            "txn": {
+                            "check_id": {
                               "type": "string"
                             },
                             "evidence_metadata": {
