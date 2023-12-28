@@ -165,17 +165,6 @@
         }
       }
     },
-    "verifier": {
-      "type": "object",
-      "properties": {
-        "organization": {
-          "$ref": "#/definitions/simple_element"
-        },
-        "txn": {
-          "$ref": "#/definitions/simple_element"
-        }
-      }
-    },
     "check_details": {
       "type": "array",
       "items": [
@@ -257,9 +246,6 @@
               },
               "method": {
                 "$ref": "#/definitions/constrainable_element"
-              },
-              "verifier": {
-                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/datetime_element"
