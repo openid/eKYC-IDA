@@ -68,17 +68,6 @@
         }
       }
     },
-    "verifier": {
-      "type": "object",
-      "properties": {
-        "organization": {
-          "type": "string"
-        },
-        "txn": {
-          "type": "string"
-        }
-      }
-    },
     "check_details": {
       "type": "array",
       "items": [
@@ -162,9 +151,6 @@
               },
               "method": {
                 "type": "string"
-              },
-              "verifier": {
-                "$ref": "#/definitions/verifier"
               },
               "time": {
                 "$ref": "#/definitions/time_type"
