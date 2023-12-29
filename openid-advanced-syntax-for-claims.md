@@ -99,13 +99,13 @@ Example 1:
          "id_token":[
             {
               "loc":"/verified_claims/verification/assurance_level",
-              "match": "oidc",
+              "method": "simple",
               "value": "example_assurance_level",
               "else":"abort"
             },
             {
                "loc":"/verified_claims/claims",
-               "match": "schema",
+               "method": "schema",
                "schema": {
                   "$schema":"http://json-schema.org/draft-07/schema#",
                   "type":"object",
@@ -120,7 +120,7 @@ Example 1:
             },
             {
                "loc":"/verified_claims/claims/family_name",
-               "match": "oidc",
+               "method": "simple",
                "value": "nonexistent_family_name",
                "else":"omit",
                "what":[
@@ -131,7 +131,7 @@ Example 1:
          "userinfo":[
             {
                "loc":"/address/postal_code",
-               "match": "exists",
+               "method": "exists",
                "else":"abort"
             }
          ]
@@ -155,16 +155,18 @@ with the following fields:
  * `loc`: REQUIRED. A string containing a JSON Pointer [@!RFC6901] to the
    respective element in the ID Token or Userinfo response structure where the
    rule is to be applied.
- * `match`: OPTIONAL string. If provided, MUST be one of `oidc`, `schema`, or
+ * `method`: OPTIONAL string. If provided, MUST be one of `simple`, `schema`, or
    `exists`. If omitted, defaults to `exists`. Support for `schema` is OPTIONAL
    for OPs and can be discovered using metadata, as described in
    (#sao-metadata).
- * `schema`: REQUIRED if `match` is `schema`, MUST NOT be present otherwise. A
+ * `schema`: REQUIRED if `method` is `schema`, MUST NOT be present otherwise. A
    JSON schema object as defined in [@!I-D.bhutton-json-schema] that the respective element
    in the ID Token or Userinfo response structure must validate against.
- * `value` or `values`: Either `value` or `values` is REQUIRED if `match` is
-   `oidc`; MUST NOT be present otherwise; `value` and `values` MUST NOT be used
-   together. As defined in [@!OpenID], Section 5.5.1.
+ * `value` or `values`: Either `value` or `values` is REQUIRED if `method` is
+   `simple`; MUST NOT be present otherwise; `value` and `values` MUST NOT be
+   used together. For `value`, a valid claim value MUST be provided which is
+   either a string, a number, or a boolean. For `values`, an array of such
+   values MUST be provided.
  * `else`: REQUIRED. A string, either `abort` or `omit`, indicating the action
    to take if the rule is not fulfilled. If `abort` is used, the transaction
    MUST be aborted. If `omit` is used, one or more elements MUST be omitted from
@@ -181,16 +183,17 @@ The `else` action MUST be triggered when
  * the element was removed by a previously executed `omit` rule, or
  * the user does not consent to the release of the claim.
 
-Additionally, depending on the value of `match`, the following matches MUST be
+Additionally, depending on the value of `method`, the following matches MUST be
 performed:
 
- * `oidc`: The value of the claim indicated by `loc` is matched against `value`
-   or `values` provided in the SAO rule, with the matching defined in
-   [@!OpenID], Section 5.5.1. In the example above, the `assurance_level` would
-   be matched against `example_assurance_level` and `family_name` would be
-   matched against `nonexistent_family_name`. The `else` action MUST be
-   triggered if the value of the claim does not match the requested value or
-   values.
+ * `simple`: The value of the claim indicated by `loc` is matched against
+   `value` or `values` provided in the SAO rule. If `value` is provided, the
+   claim value will be matched to the provided value using exact matching. For
+   `values`, the claim value must exactly match at least one of the values in
+   the array. In the example above, the `assurance_level` would be matched
+   against `example_assurance_level` and `family_name` would be matched against
+   `nonexistent_family_name`. The `else` action MUST be triggered if the value
+   of the claim does not match the requested value or values.
  * `schema`: The JSON Schema `schema` element MUST apply to the
    JSON structure under the element indicated by `loc`. In the example above,
    the schema would be applied to the whole `claims` object under
@@ -240,7 +243,7 @@ The OP advertises its capabilities with respect to Selective Abort/Omit in its o
 
  * `selective_abort_omit_supported`: OPTIONAL. Boolean value indicating OP support for "Selective Abort/Omit". Defaults to `false`.
  * `selective_abort_omit_schema_supported`: OPTIONAL. Boolean value indicating
-   OP support for the `match` method `schema`. Defaults to `true`. If `false`,
+   OP support for the `method` value `schema`. Defaults to `true`. If `false`,
    the OP MUST abort the transaction with an `invalid_request` error if a JSON
    Schema is used in an SAO rule.
 
@@ -266,7 +269,7 @@ can be used to derive whether or not the user is named `Max`:
       "id_token": [
         {
           "loc": "/given_name",
-          "match": "oidc",
+          "method": "simple",
           "else": "abort"
         }
       ]
@@ -466,7 +469,7 @@ Example:
       "id_token": [
         {
           "loc": "/:age_18_or_over",
-          "match": "oidc",
+          "method": "simple",
           "value": true,
           "else": "abort"
         }
