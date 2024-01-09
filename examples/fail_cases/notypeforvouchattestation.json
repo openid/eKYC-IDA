@@ -1,0 +1,20 @@
+{
+    "verified_claims": {
+      "verification": {
+        "trust_framework": "nist_800_63A",
+        "assurance_level": "ial2",
+        "evidence": [
+          {
+            "type": "vouch",
+            "attestation": {
+              "date_of_issuance": "2020-09-23"
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": "Inga",
+        "family_name": "Silverstone"
+      }
+    }
+  }
