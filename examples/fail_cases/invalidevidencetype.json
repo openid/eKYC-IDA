@@ -1,0 +1,14 @@
+{
+    "verified_claims": {
+      "verification": {
+        "trust_framework": "nist_800_63A",
+        "evidence": [
+          {
+            "type": "photograph"
+          }
+          
+        ]
+      },
+      "claims": {}
+    }
+  }

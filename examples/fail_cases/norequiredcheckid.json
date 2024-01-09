@@ -1,0 +1,41 @@
+{
+    "verified_claims": {
+      "verification": {
+        "trust_framework": "nist_800_63A",
+        "assurance_level": "ial2",
+        "assurance_process": {
+          "assurance_details": [
+            {
+              "assurance_type": "evidence_validation",
+              "assurance_classification": "strong",
+              "evidence_ref": [
+                {
+                  "check_id": "DL1-93h506th2f45hf"
+                }
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "type": "document",
+            "check_details": [
+              {
+                "check_method": "vpiruv",
+                "organization": "doc_checker",
+                "check_id": "DL1-93h506th2f45hf"
+              }
+            ],
+            "document_details": {
+              "type": "driving_permit",
+              "document_number": "I1234568"
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": "Inga",
+        "family_name": "Silverstone"
+      }
+    }
+  }

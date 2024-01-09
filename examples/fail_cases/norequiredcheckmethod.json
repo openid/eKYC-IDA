@@ -1,0 +1,22 @@
+{
+    "verified_claims": {
+      "verification": {
+        "trust_framework": "nist_800_63A",
+        "assurance_level": "ial2",
+        "evidence": [
+          {
+            "type": "document",
+            "check_details": [
+              {
+                "organization": "doc_checker"
+              }
+            ]
+          }
+        ]
+      },
+      "claims": {
+        "given_name": "Inga",
+        "family_name": "Silverstone"
+      }
+    }
+}

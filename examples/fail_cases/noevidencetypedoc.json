@@ -1,0 +1,16 @@
+{
+    "verified_claims": {
+      "verification": {
+        "trust_framework": "nist_800_63A",
+        "evidence": [
+          {
+            "document_details": {
+              "type": "driving_permit",
+              "document_number": "I1234568"
+            }
+          }
+        ]
+      },
+      "claims": {}
+    }
+  }

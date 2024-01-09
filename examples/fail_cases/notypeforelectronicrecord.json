@@ -1,0 +1,20 @@
+{
+    "verified_claims": {
+      "verification": {
+        "trust_framework": "nist_800_63A",
+        "assurance_level": "ial2",
+        "evidence": [
+          {
+            "type": "electronic_record",
+            "record": {
+              "created_at": "2020-09-23T14:12Z"
+            }
+          }
+        ]
+      },
+      "claims": {
+        "given_name": "Inga",
+        "family_name": "Silverstone"
+      }
+    }
+  }
