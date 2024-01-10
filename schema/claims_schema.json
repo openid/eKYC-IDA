@@ -1,7 +1,7 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json",
-  "definitions": {
+  "$defs": {
     "ISO_country_code_type": {
       "type": "string",
       "pattern": "^[a-zA-Z]{2}[a-zA-Z]?$"
@@ -33,60 +33,132 @@
     "claims_type": {
       "type": "object",
       "properties": {
-        "sub": { "type": "string" },
-        "name": { "type": "string" },
-        "given_name": { "type": "string" },
-        "family_name": { "type": "string" },
-        "middle_name": { "type": "string" },
-        "preferred_username": { "type": "string" },
-        "profile": { "type": "string" },
-        "picture": { "type": "string" },
-        "website": { "type": "string" },
-        "email": { "$ref": "#/definitions/email_type" },
-        "email_verified": { "type": "boolean" },
-        "gender": { "type": "string" },
-        "birthdate": { "$ref": "#/definitions/birthdate_type" },
-        "zoneinfo": { "type": "string" },
-        "locale": { "$ref": "#/definitions/locale_type" },
-        "phone_number": { "$ref": "#/definitions/phone_number_type" },
-        "phone_number_verified": { "type": "boolean" },
-        "updated_at": { "type": "number" },
-        "address": { 
+        "sub": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "given_name": {
+          "type": "string"
+        },
+        "family_name": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "preferred_username": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "email": {
+          "$ref": "#/$defs/email_type"
+        },
+        "email_verified": {
+          "type": "boolean"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "birthdate": {
+          "$ref": "#/$defs/birthdate_type"
+        },
+        "zoneinfo": {
+          "type": "string"
+        },
+        "locale": {
+          "$ref": "#/$defs/locale_type"
+        },
+        "phone_number": {
+          "$ref": "#/$defs/phone_number_type"
+        },
+        "phone_number_verified": {
+          "type": "boolean"
+        },
+        "updated_at": {
+          "type": "number"
+        },
+        "address": {
           "type": "object",
           "minProperties": 1,
           "properties": {
-            "formatted": { "type": "string" },
-            "street_address": { "type": "string" },
-            "locality": { "type": "string" },
-            "region": { "type": "string" },
-            "postal-code": { "type": "string" },
-            "country": { "type": "string" },
-            "country_code": { "$ref": "#/definitions/ISO_country_code_type" }
+            "formatted": {
+              "type": "string"
+            },
+            "street_address": {
+              "type": "string"
+            },
+            "locality": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "postal-code": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "country_code": {
+              "$ref": "#/$defs/ISO_country_code_type"
+            }
           }
         },
-        "place_of_birth": { 
+        "place_of_birth": {
           "type": "object",
           "minProperties": 1,
           "properties": {
-            "country": { "$ref": "#/definitions/ISO_country_code_type" },
-            "region": { "type": "string" },
-            "locality": { "type": "string" }
+            "country": {
+              "$ref": "#/$defs/ISO_country_code_type"
+            },
+            "region": {
+              "type": "string"
+            },
+            "locality": {
+              "type": "string"
+            }
           }
         },
         "nationalities": {
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": { "$ref": "#/definitions/ICAO_nationalities_type" }
+          "items": {
+            "$ref": "#/$defs/ICAO_nationalities_type"
+          }
         },
-        "birth_family_name": { "type": "string" },
-        "birth_given_name": { "type": "string" },
-        "birth_middle_name": { "type": "string" },
-        "salutation": { "type": "string" },
-        "title": { "type": "string" },
-        "msisdn": { "$ref": "#/definitions/E.164_type" },
-        "also_known_as": { "type": "string" }
+        "birth_family_name": {
+          "type": "string"
+        },
+        "birth_given_name": {
+          "type": "string"
+        },
+        "birth_middle_name": {
+          "type": "string"
+        },
+        "salutation": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "msisdn": {
+          "$ref": "#/$defs/E.164_type"
+        },
+        "also_known_as": {
+          "type": "string"
         }
+      }
     }
-}
+  }
 }
