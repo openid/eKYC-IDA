@@ -169,7 +169,7 @@ The `trust_framework` value determines what further data is provided to the Clai
      * `assurance_type`: OPTIONAL. String denoting which part of the `assurance_process` the evidence fulfils.
     * `assurance_classification`: OPTIONAL. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
     * `evidence_ref`: OPTIONAL. JSON array of the evidence being referred to. When present this array MUST have at least one member.
-      * `check_id`: REQUIRED. Identifier referring to the `check_id` key used in the `check_details` element of memers of the `evidence` array. The Claims Provider MUST ensure that `check_id` is present in the `check_details` when `evidence_ref` element is used.
+      * `check_id`: REQUIRED. Identifier referring to the `check_id` key used in the `check_details` element of members of the `evidence` array. The Claims Provider MUST ensure that `check_id` is present in the `check_details` when `evidence_ref` element is used.
       * `evidence_metadata`: OPTIONAL. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
         * `evidence_classification`: OPTIONAL. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
 
