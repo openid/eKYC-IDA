@@ -10,7 +10,7 @@
             "assurance_classification": "strong",
             "evidence_ref": [
               {
-                "txn": "DL1-93h506th2f45hf"
+                "check_id": "DL1-93h506th2f45hf"
               }
             ]
           },
@@ -19,7 +19,7 @@
             "assurance_classification": "strong",
             "evidence_ref": [
               {
-                "txn": "v-93jfk284ugjfj2093"
+                "check_id": "v-93jfk284ugjfj2093"
               }
             ]
           }
@@ -34,12 +34,12 @@
             {
               "check_method": "vpiruv",
               "organization": "doc_checker",
-              "txn": "DL1-93h506th2f45hf"
+              "check_id": "DL1-93h506th2f45hf"
             },
             {
               "check_method": "pvp",
               "organization": "face_checker",
-              "txn": "v-93jfk284ugjfj2093"
+              "check_id": "v-93jfk284ugjfj2093"
             }
           ],         
           "time": "2021-06-06T05:33Z",

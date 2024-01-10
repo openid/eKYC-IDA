@@ -29,12 +29,17 @@ openid-connect-advanced-syntax-for-claims.md
 
 The current SNAPSHOT versions is being built automatically from the master branch and can be accessed at:
 
-* https://openid.bitbucket.io/ekyc/openid-connect-4-identity-assurance.html
-* https://openid.bitbucket.io/ekyc/openid-authority.html
-* https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html
 * https://openid.bitbucket.io/ekyc/openid-ida-verified-claims.html
+* https://openid.bitbucket.io/ekyc/openid-connect-4-identity-assurance.html
 * https://openid.bitbucket.io/ekyc/openid-connect-4-ida-claims.html
+
 * https://openid.bitbucket.io/ekyc/openid-connect-4-ida-attachments.html
+
+* https://openid.bitbucket.io/ekyc/openid-authority.html
+
+* https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html
+
+
  
 ### How do I get set up? ###
 

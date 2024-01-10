@@ -8,10 +8,8 @@
         {
           "type": "document",
           "method": "pipp",
-          "verifier": {
-            "organization": "Deutsche Post",
-            "txn": "1aa05779-0775-470f-a5c4-9f1f5e56cf06"
-          },
+          "organization": "Deutsche Post",
+          "check_id": "1aa05779-0775-470f-a5c4-9f1f5e56cf06",
           "time": "2012-04-22T11:30Z",
           "document_details": {
             "type": "idcard",

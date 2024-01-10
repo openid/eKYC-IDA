@@ -182,17 +182,6 @@
         }
       }
     },
-    "verifier": {
-      "type": "object",
-      "properties": {
-        "organization": {
-          "$ref": "#/$defs/simple_element"
-        },
-        "txn": {
-          "$ref": "#/$defs/simple_element"
-        }
-      }
-    },
     "check_details": {
       "type": "array",
       "prefixItems": [
@@ -203,7 +192,7 @@
           "organization": {
             "type": "string"
           },
-          "txn": {
+          "check_id": {
             "type": "string"
           },
           "time": {
@@ -277,9 +266,6 @@
               },
               "method": {
                 "$ref": "#/$defs/constrainable_element"
-              },
-              "verifier": {
-                "$ref": "#/$defs/verifier"
               },
               "time": {
                 "$ref": "#/$defs/datetime_element"

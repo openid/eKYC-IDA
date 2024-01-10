@@ -12,7 +12,7 @@
             "assurance_classification": "score_2",
             "evidence_ref": [
               {
-                "txn": "DL1-85762937582385820",
+                "check_id": "DL1-85762937582385820",
                 "evidence_metadata": {
                   "evidence_classification": "score_3_strength"
                 }
@@ -24,19 +24,19 @@
             "assurance_classification": "score_2",
             "evidence_ref": [
               {
-                "txn": "kbv1-hf934hn09234ng03jj3",
+                "check_id": "kbv1-hf934hn09234ng03jj3",
                 "evidence_metadata": {
                   "evidence_classification": "high_kbv"
                 }
               },
               {
-                "txn": "kbv2-nm0f23u9459fj38u5j6",
+                "check_id": "kbv2-nm0f23u9459fj38u5j6",
                 "evidence_metadata": {
                   "evidence_classification": "medium_kbv"
                 }
               },
               {
-                "txn": "kbv3-jf9028h023hj0f9jh23",
+                "check_id": "kbv3-jf9028h023hj0f9jh23",
                 "evidence_metadata": {
                   "evidence_classification": "medium_kbv"
                 }
@@ -48,13 +48,13 @@
             "assurance_classification": "score_2",
             "evidence_ref": [
               {
-                "txn": "GRO-9824hngvp9278hf5tmp924y5h",
+                "check_id": "GRO-9824hngvp9278hf5tmp924y5h",
                 "evidence_metadata": {
                   "evidence_classification": "mortality_check"
                 }
               },
               {
-                "txn": "fi-2nbf02hfn384ufn",
+                "check_id": "fi-2nbf02hfn384ufn",
                 "evidence_metadata": {
                   "evidence_classification": "id_fraud"
                 }
@@ -73,7 +73,7 @@
               "check_method": "data",
               "organization": "DVLA",
               "time": "2021-04-09T14:15Z",
-              "txn": "DL1-85762937582385820"
+              "check_id": "DL1-85762937582385820"
             }
           ],
           "time": "2021-04-09T14:12Z",
@@ -98,7 +98,7 @@
             {
               "check_method": "kbv",
               "organization": "TheCreditBureau",
-              "txn": "kbv1-hf934hn09234ng03jj3"
+              "check_id": "kbv1-hf934hn09234ng03jj3"
             }
           ],
           "time": "2021-04-09T14:12Z",
@@ -115,7 +115,7 @@
             {
               "check_method": "kbv",
               "organization": "OpenBankingTPP",
-              "txn": "kbv2-nm0f23u9459fj38u5j6"
+              "check_id": "kbv2-nm0f23u9459fj38u5j6"
             }
           ],
           "time": "2021-04-09T14:12Z",
@@ -132,7 +132,7 @@
             {
               "check_method": "kbv",
               "organization": "GSMA",
-              "txn": "kbv3-jf9028h023hj0f9jh23"
+              "check_id": "kbv3-jf9028h023hj0f9jh23"
             }
           ],
           "time": "2021-04-09T15:42Z",
@@ -149,7 +149,7 @@
             {
               "check_method": "data",
               "organization": "GRO",
-              "txn": "GRO-9824hngvp9278hf5tmp924y5h"
+              "check_id": "GRO-9824hngvp9278hf5tmp924y5h"
             }
           ],
           "time": "2021-04-09T16:12Z",
@@ -172,7 +172,7 @@
             {
               "check_method": "data",
               "organization": "NextLex",
-              "txn": "fi-2nbf02hfn384ufn"
+              "check_id": "fi-2nbf02hfn384ufn"
             }
           ],
           "time": "2021-04-09T16:51Z",
