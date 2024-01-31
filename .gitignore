@@ -7,3 +7,4 @@ tests/*.pyc
 tests/*.pyo
 tests/*~
 .DS_Store
+.idea

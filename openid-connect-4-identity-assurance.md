@@ -919,6 +919,7 @@ The technology described in this specification was made available from contribut
    * split attachments into separate document
    * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
    * drop verified_claims_supported OP metadata as redundant
+   * renamed the `txn` element to `check_id`
 
    -13
 

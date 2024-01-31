@@ -1,7 +1,27 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openid.net/schemas/ekyc-ida/12/verified_claims_request.json",
-  "definitions": {
+  "properties": {
+    "userinfo": {
+      "type": "object",
+      "properties": {
+        "verified_claims": {
+          "$ref": "#/$defs/verified_claims"
+        }
+      },
+      "additionalProperties": true
+    },
+    "id_token": {
+      "type": "object",
+      "properties": {
+        "verified_claims": {
+          "$ref": "#/$defs/verified_claims"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
     "simple_element": {
       "oneOf": [
         {
@@ -111,74 +131,60 @@
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/constrainable_element"
+          "$ref": "#/$defs/constrainable_element"
         },
         "document_number": {
-          "$ref": "#/definitions/simple_element"
+          "$ref": "#/$defs/simple_element"
         },
-        "number": {
-          "$ref": "#/definitions/simple_element"
-        },
-        "derived_claims": {
-          "$ref": "#/definitions/claims_element"
+        "personal_number": {
+          "$ref": "#/$defs/simple_element"
         },
         "serial_number": {
-          "$ref": "#/definitions/simple_element"
+          "$ref": "#/$defs/simple_element"
         },
         "date_of_issuance": {
-          "$ref": "#/definitions/datetime_element"
+          "$ref": "#/$defs/datetime_element"
         },
         "date_of_expiry": {
-          "$ref": "#/definitions/datetime_element"
+          "$ref": "#/$defs/datetime_element"
         },
         "issuer": {
           "type": "object",
           "properties": {
             "name": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "formatted": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "street_address": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "locality": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "region": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "postal_code": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "country": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "country_code": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "jurisdiction": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             }
           }
         }
       }
     },
-    "verifier": {
-      "type": "object",
-      "properties": {
-        "organization": {
-          "$ref": "#/definitions/simple_element"
-        },
-        "txn": {
-          "$ref": "#/definitions/simple_element"
-        }
-      }
-    },
     "check_details": {
       "type": "array",
-      "items": [
+      "prefixItems": [
         {
           "check_method": {
             "type": "string"
@@ -186,8 +192,11 @@
           "organization": {
             "type": "string"
           },
-          "txn": {
+          "check_id": {
             "type": "string"
+          },
+          "time": {
+            "$ref": "#/$defs/datetime_element"
           }
         }
       ]
@@ -200,16 +209,16 @@
           "properties": {
             "value": {
               "enum": [
-                "electronic_signature",
                 "document",
                 "electronic_record",
-                "vouch"
+                "vouch",
+                "electronic_signature"
               ]
             }
           }
         },
         "attachments": {
-          "$ref": "#/definitions/simple_element"
+          "$ref": "#/$defs/simple_element"
         }
       },
       "required": [
@@ -227,20 +236,20 @@
           "then": {
             "properties": {
               "signature_type": {
-                "$ref": "#/definitions/simple_element"
+                "$ref": "#/$defs/simple_element"
               },
               "issuer": {
-                "$ref": "#/definitions/simple_element"
+                "$ref": "#/$defs/simple_element"
               },
               "serial_number": {
-                "$ref": "#/definitions/simple_element"
+                "$ref": "#/$defs/simple_element"
               },
               "created_at": {
-                "$ref": "#/definitions/datetime_element"
+                "$ref": "#/$defs/datetime_element"
               }
             }
           },
-          "else": {}
+          "else": true
         },
         {
           "if": {
@@ -252,27 +261,21 @@
           },
           "then": {
             "properties": {
-              "check": {
-                "$ref": "#/definitions/check_details"
+              "check_details": {
+                "$ref": "#/$defs/check_details"
               },
               "method": {
-                "$ref": "#/definitions/constrainable_element"
-              },
-              "verifier": {
-                "$ref": "#/definitions/verifier"
+                "$ref": "#/$defs/constrainable_element"
               },
               "time": {
-                "$ref": "#/definitions/datetime_element"
+                "$ref": "#/$defs/datetime_element"
               },
               "document_details": {
-                "$ref": "#/definitions/document_details"
-              },
-              "document": {
-                "$ref": "#/definitions/document_details"
+                "$ref": "#/$defs/document_details"
               }
             }
           },
-          "else": {}
+          "else": true
         },
         {
           "if": {
@@ -285,52 +288,52 @@
           "then": {
             "properties": {
               "check_details": {
-                "$ref": "#/definitions/check_details"
+                "$ref": "#/$defs/check_details"
               },
               "time": {
-                "$ref": "#/definitions/datetime_element"
+                "$ref": "#/$defs/datetime_element"
               },
               "record": {
                 "type": "object",
                 "properties": {
                   "type": {
-                    "$ref": "#/definitions/constrainable_element"
+                    "$ref": "#/$defs/constrainable_element"
                   },
                   "derived_claims": {
-                    "$ref": "#/definitions/claims_element"
+                    "$ref": "#/$defs/claims_element"
                   },
                   "created_at": {
-                    "$ref": "#/definitions/datetime_element"
+                    "$ref": "#/$defs/datetime_element"
                   },
                   "date_of_expiry": {
-                    "$ref": "#/definitions/datetime_element"
+                    "$ref": "#/$defs/datetime_element"
                   },
                   "source": {
                     "type": "object",
                     "properties": {
                       "name": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "formatted": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "street_address": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "locality": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "region": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "postal_code": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "country": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "country_code": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       }
                     }
                   }
@@ -338,7 +341,7 @@
               }
             }
           },
-          "else": {}
+          "else": true
         },
         {
           "if": {
@@ -351,61 +354,61 @@
           "then": {
             "properties": {
               "check_details": {
-                "$ref": "#/definitions/check_details"
+                "$ref": "#/$defs/check_details"
               },
               "time": {
-                "$ref": "#/definitions/datetime_element"
+                "$ref": "#/$defs/datetime_element"
               },
               "attestation": {
                 "type": "object",
                 "properties": {
                   "type": {
-                    "$ref": "#/definitions/constrainable_element"
+                    "$ref": "#/$defs/constrainable_element"
                   },
                   "reference_number": {
-                    "$ref": "#/definitions/simple_element"
+                    "$ref": "#/$defs/simple_element"
                   },
                   "derived_claims": {
-                    "$ref": "#/definitions/claims_element"
+                    "$ref": "#/$defs/claims_element"
                   },
                   "date_of_issuance": {
-                    "$ref": "#/definitions/datetime_element"
+                    "$ref": "#/$defs/datetime_element"
                   },
                   "date_of_expiry": {
-                    "$ref": "#/definitions/datetime_element"
+                    "$ref": "#/$defs/datetime_element"
                   },
                   "voucher": {
                     "type": "object",
                     "properties": {
                       "name": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "birthdate": {
-                        "$ref": "#/definitions/datetime_element"
+                        "$ref": "#/$defs/datetime_element"
                       },
                       "formatted": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "street_address": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "locality": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "region": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "postal_code": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "country": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "occupation": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       },
                       "organization": {
-                        "$ref": "#/definitions/simple_element"
+                        "$ref": "#/$defs/simple_element"
                       }
                     }
                   }
@@ -413,7 +416,7 @@
               }
             }
           },
-          "else": {}
+          "else": true
         }
       ]
     },
@@ -424,13 +427,13 @@
           "items": {
             "anyOf": [
               {
-                "$ref": "#/definitions/verified_claims_def"
+                "$ref": "#/$defs/verified_claims_def"
               }
             ]
           }
         },
         {
-          "$ref": "#/definitions/verified_claims_def"
+          "$ref": "#/$defs/verified_claims_def"
         }
       ]
     },
@@ -441,19 +444,19 @@
           "type": "object",
           "properties": {
             "trust_framework": {
-              "$ref": "#/definitions/constrainable_element"
+              "$ref": "#/$defs/constrainable_element"
             },
             "assurance_level": {
-              "$ref": "#/definitions/constrainable_element"
+              "$ref": "#/$defs/constrainable_element"
             },
             "assurance_process": {
               "type": "object",
               "properties": {
-                "policy":{
-                  "$ref": "#/definitions/constrainable_element"
+                "policy": {
+                  "$ref": "#/$defs/constrainable_element"
                 },
                 "procedure": {
-                  "$ref": "#/definitions/constrainable_element"
+                  "$ref": "#/$defs/constrainable_element"
                 },
                 "assurance_details": {
                   "type": "array",
@@ -461,14 +464,29 @@
                   "items": {
                     "oneOf": [
                       {
-                        "assurance_type":{
-                          "$ref": "#/definitions/constrainable_element"
+                        "assurance_type": {
+                          "$ref": "#/$defs/constrainable_element"
                         },
                         "assurance_classification": {
-                          "$ref": "#/definitions/constrainable_element"
+                          "$ref": "#/$defs/constrainable_element"
                         },
                         "evidence_ref": {
-                          "$ref": "#/definitions/constrainable_element"
+                          "type": "object",
+                          "properties": {
+                            "txn": {
+                              "$ref": "#/$defs/constrainable_element"
+                            },
+                            "evidence_metadata": {
+                              "$ref": "#/$defs/constrainable_element"
+                            },
+                            "evidence_classification": {
+                              "$ref": "#/$defs/constrainable_element"
+                            }
+                          },
+                          "required": [
+                            "txn"
+                          ],
+                          "additionalProperties": true
                         }
                       }
                     ]
@@ -477,10 +495,10 @@
               }
             },
             "time": {
-              "$ref": "#/definitions/datetime_element"
+              "$ref": "#/$defs/datetime_element"
             },
             "verification_process": {
-              "$ref": "#/definitions/simple_element"
+              "$ref": "#/$defs/simple_element"
             },
             "evidence": {
               "type": "array",
@@ -488,7 +506,7 @@
               "items": {
                 "oneOf": [
                   {
-                    "$ref": "#/definitions/evidence"
+                    "$ref": "#/$defs/evidence"
                   }
                 ]
               }
@@ -500,7 +518,7 @@
           "additionalProperties": true
         },
         "claims": {
-          "$ref": "#/definitions/claims_element"
+          "$ref": "#/$defs/claims_element"
         }
       },
       "required": [
@@ -508,26 +526,6 @@
         "claims"
       ],
       "additionalProperties": false
-    }
-  },
-  "properties": {
-    "userinfo": {
-      "type": "object",
-      "properties": {
-        "verified_claims": {
-          "$ref": "#/definitions/verified_claims"
-        }
-      },
-      "additionalProperties": true
-    },
-    "id_token": {
-      "type": "object",
-      "properties": {
-        "verified_claims": {
-          "$ref": "#/definitions/verified_claims"
-        }
-      },
-      "additionalProperties": true
     }
   }
 }

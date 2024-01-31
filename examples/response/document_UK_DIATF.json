@@ -12,7 +12,7 @@
             "assurance_classification": "score_3",
             "evidence_ref": [
               {
-                "txn": "DL1-93h506th2f45hf",
+                "check_id": "DL1-93h506th2f45hf",
                 "evidence_metadata": {
                   "evidence_classification": "score_3_strength"
                 }
@@ -24,7 +24,7 @@
             "assurance_classification": "score_3",
             "evidence_ref": [
               {
-                "txn": "v-93jfk284ugjfj2093"
+                "check_id": "v-93jfk284ugjfj2093"
               }
             ]
           }
@@ -39,13 +39,13 @@
             {
               "check_method": "vpiruv",
               "organization": "doc_checker",
-              "txn": "DL1-93h506th2f45hf",
+              "check_id": "DL1-93h506th2f45hf",
               "time": "2021-06-08T11:41Z"
             },
             {
               "check_method": "pvp",
               "organization": "face_checker",
-              "txn": "v-93jfk284ugjfj2093",
+              "check_id": "v-93jfk284ugjfj2093",
               "time": "2021-06-08T11:42Z"
             }
           ],
