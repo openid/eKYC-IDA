@@ -66,7 +66,7 @@ organization="KDDI Corporation"
 
 This specification defines an extension of OpenID Connect for providing relying parties with verified claims about end-users. This extension facilitates the verification of the identity of a natural person.
 
-.# Foreward
+.# Foreword
 
 The OpenID Foundation (OIDF) promotes, protects, and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
 
