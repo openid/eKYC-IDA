@@ -146,7 +146,7 @@ This extension will be usable by OPs operating under a certain regulation relate
 
 It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
 
-Every other OP not operating under such well-defined conditions can be required to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
+Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
 The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
@@ -163,8 +163,6 @@ For example, OpenID Connect [@!OpenID] defines claims for representing family na
 In the same way, existing claims to inform the RP of the verification status of the `phone_number` and `email` claims can be used together with this extension.
 
 Even for representing verified claims, this extension utilizes existing OpenID Connect claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified claims as verified claims.
-
-In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID].
 
 In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID].
 
@@ -275,7 +273,7 @@ The following example shows that the RP wants to obtain an attestation based on 
 
 <{{examples/request/verification_aml.json}}
 
-The OP shall notignore some or all of the query restrictions on possible values and shall not deliver available verified/verification data that does not match these constraints.
+The OP shall not ignore some or all of the query restrictions on possible values and shall not deliver available verified/verification data that does not match these constraints.
 
 ### max_age
 
@@ -307,7 +305,6 @@ In the above example, the RP asks for family and given name either under trust f
 
 ## Returning less data than requested
 
-## Rules for returning less data (*Review title*)
 As stated in section 3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains complaint with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
 
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
@@ -532,14 +529,10 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security considerations {#Security}
 
-## Implementation and interoperability (*Review title*)
-
 This specification focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
 
 * ensure end-users are authenticated using appropriately strong authentication methods, and
 * combine this specification with an appropriate security profile for OpenID Connect.
-
-To achieve the full security and interoperability benefits, it is important the implementation of this specification, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
 
 ## End-user authentication
 
@@ -556,6 +549,10 @@ Implementers should select a security profile that has a certification program o
 The integrity and authenticity of the issued assertions shall be ensured in order to prevent identity spoofing.
 
 The confidentiality of all end-user data exchanged between the protocol parties MUST be ensured using suitable methods at transport or application layer.
+
+# Implementation and interoperability {#Interoperability}
+
+To achieve the full security and interoperability benefits, it is important the implementation of this specification, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
 
 # Predefined values {#predefined_values}
 
@@ -954,6 +951,9 @@ The technology described in this specification was made available from contribut
 # Document history
 
    [[ To be removed from the final specification ]]
+
+   -15
+   * Reformatted to meet ISO Directive part 2
 
    -14
 
