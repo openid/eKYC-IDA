@@ -26,51 +26,16 @@ organization="ConnectID"
 
 This specification defines an extension of OpenID Connect that defines a use of txn claim.
 
-.# Foreword
-
-The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
-
-Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.
+{mainmatter}
 
 # Introduction {#Introduction}
 
 Strong identity verification typically requires the participants to keep an audit trail of the whole process.
-The `txn` claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
-
-.# Warning
-
-This document is not an OIDF International Standard. It is distributed for
-review and comment. It is subject to change without notice and may not be
-referred to as an International Standard.
-
-Recipients of this draft are invited to submit, with their comments,
-notification of any relevant patent rights of which they are aware and to
-provide supporting documentation.
-
-.# Notational conventions
-
-The keywords "shall", "shall not", "should", "should not", "may", and "can" in
-this document are to be interpreted as described in ISO Directive Part 2
-[@!ISODIR2]. These keywords are not used as dictionary terms such that any
-occurrence of them shall be interpreted as keywords and are not to be
-interpreted with their natural language meanings.
-
-{mainmatter}
-
-# Scope
-
-Add specification scope
-
-# Normative references
-
-See section 6 for normative references.
-
-# Terms and definitions
-No terms and definitions are listed in this document.
+The `txn` Claim as defined in [@!RFC8417] is used in the context of this extension to build audit trails across the parties involved in an OpenID Connect transaction.
 
 # txn request
 
-The RP requests this claim like any other claim via the `claims` parameter or as part of a default claim set identified by a scope value, for example:
+The RP requests this Claim like any other Claim via the `claims` parameter or as part of a default claim set identified by a scope value, for example:
 
 ```
 "txn": null
@@ -86,13 +51,13 @@ The OP generates txn claim as a unique identifier, for example:
 }
 ```
 
-If the OP issues a `txn`, it shall maintain a corresponding audit trail, which at least consists of the following details:
+If the OP issues a `txn`, it MUST maintain a corresponding audit trail, which at least consists of the following details:
 
 * the transaction ID,
 * the transaction date and time,
 * the transaction parties,
 * the authentication method employed, and
-* the transaction details (e.g., the set of claims returned).
+* the transaction details (e.g., the set of Claims returned).
 
 This transaction data MUST be stored as long as it is required to store transaction data for auditing purposes by the respective regulation or ecoysystem governance rules and procedures.
 
@@ -102,15 +67,6 @@ Note: The mechanism to obtain the transaction details from the OP and their form
 
 
 {backmatter}
-
-<reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
-<front>
-<title>ISO/IEC Directives Part 2 - </title>
-    <author fullname="International Organization for Standardization">
-      <organization></organization>
-    </author>
-</front>
-</reference>
 
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
   <front>
@@ -146,7 +102,7 @@ The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, 
 
 The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
 
-# Document history
+# Document History
 
    [[ To be removed from the final specification ]]
 
