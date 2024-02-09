@@ -76,8 +76,6 @@ The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID communit
 
 Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.
 
-.# Introduction (#Introduction)
-
 This specification defines a schema for describing assured identity  claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimisation, which elements of the JSON schema described in this document will be needed for a specific transaction.]
 
 .# Warning
