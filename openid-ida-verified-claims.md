@@ -145,8 +145,8 @@ The specified JSON structures defined in this document should be useable by any 
 
 # Verified claims {#verified_claims}
 
-## General (*Review title*)
-This specification defines a generic mechanism to add verified claims to JSON-based assertions. It uses a container element, called `verified_claims`, to provide the claims recipient with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way,  claims recipients cannot mix up verified claims and unverified claims and accidentally process unverified claims as verified claims.
+## General
+This specification defines a generic mechanism to add verified claims to JSON-based assertions. It uses a container element, called `verified_claims`, to provide the claims recipient with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, claims recipients cannot mix up verified claims and unverified claims and accidentally process unverified claims as verified claims.
 
 The following example would assert to the claims recipient that the claims provider has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
@@ -188,7 +188,7 @@ The `claims` element may be empty, to support use cases where verification is re
 
 ## verification element {#verification}
 
-### General (*Review title*)
+### General
 
 This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
 
