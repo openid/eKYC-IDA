@@ -304,9 +304,9 @@ The RP can combine multiple `verified_claims` claims in the request with multipl
 
 In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `document` or under trust framework `silver` or `bronze` but with an evidence `electronic_record`.
 
-## Rules for returning less data (*Review title*)
+## Returning less data than requested
 
-As stated in section 3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains complaint with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
+As stated in section 3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
 
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
@@ -955,6 +955,7 @@ The technology described in this specification was made available from contribut
 
    -15
    * Reformatted to meet ISO Directive part 2
+   * Fixed typos
 
    -14
 
