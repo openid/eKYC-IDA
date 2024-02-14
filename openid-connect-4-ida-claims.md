@@ -104,7 +104,24 @@ See section 5 for normative references.
 
 # Terms and definitions
 
-No terms and definitions are listed in this document.
+For the purposes of this document, the following terms and definitions apply.
+
+## claim
+piece of information asserted about an entity
+
+[SOURCE: [@!OpenID], 1.2]
+
+## identity proofing
+process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level
+
+## identity verification
+process conducted by the OP or a claim provider to verify the end-user's identity
+
+## identity assurance
+process in which the OP or a claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP can be required to provide evidence of the identity verification process to the RP
+
+## verified claims
+claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process
 
 # Claims {#claims}
 
