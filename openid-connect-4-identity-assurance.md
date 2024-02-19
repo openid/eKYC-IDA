@@ -180,7 +180,7 @@ The following example would assert to the RP that the OP has verified the Claims
 <{{examples/response/verified_claims_simple.json}}
 
 This specification requires that the schema defined in [@!IDA-verified-claims] MUST be used.  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
->>>>>>> 2cf4196f9162b5ccf3364c8037738b01978a2279
+
 
 ## verified_claims delivery {#verified_claims_delivery}
 
