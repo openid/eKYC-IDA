@@ -293,8 +293,6 @@ The following elements are contained in an evidence sub-element where type is `e
   * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claims provider shall ensure that this is present when `evidence_ref` element is used. The claims provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
-`time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this record was verified.
-
 `record`: Optional. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
 * `type`: Required. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values_page]. The claims provider may use other predefined values in which case the  claims recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
@@ -323,8 +321,6 @@ The following elements are contained in an evidence sub-element where type is `v
   * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claims provider did not perform the check itself.
   * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claims provider shall ensure that this is present when `evidence_ref` element is used. The claims provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
-
-`time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when this vouch was verified.
 
 `attestation`: Optional. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
 
