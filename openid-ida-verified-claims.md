@@ -154,6 +154,8 @@ The following example would assert to the claims recipient that the claims provi
 
 The normative definition is given in the following.
 
+## Base elements
+
 `verified_claims`: A single object or an array of objects, each object comprising the following sub-elements:
 
 * `claims`: Required. Object that is the container for the verified claims about the end-user.
@@ -191,6 +193,8 @@ The `claims` element may be empty, to support use cases where verification is re
 ### General
 
 This element contains the information about the process conducted to verify a person's identity and bind the respective person data to a user account.
+
+### Element structure
 
 The `verification` element can be used independently of OpenID Connect and OpenID Connect for Identity Assurance where there is a need for representation of identity assurance metadata in a different application protocol or digital identity data format such as [@VerifiableCredentials].
 
@@ -370,9 +374,6 @@ When supported by the claims provider and requested by the claims recipient, the
 An attachment is represented by a JSON element.  The definition of attachements and the schema representing them are described in [@Attachments].
 
 ## Examples
-
-### General (*Review title*)
-This section contains JSON snippets showing further examples of `verified_claims` described in this document.
 
 ### Framework with assurance level and associated claims
 
