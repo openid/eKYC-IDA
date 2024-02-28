@@ -97,7 +97,6 @@ notification of any relevant patent rights of which they are aware and to
 provide supporting documentation.
 
 .# Notational conventions
-* Identity Assurance - process in which the OP or a Claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP might also need to provide evidence of the identity verification process to the RP.
 
 The keywords "shall", "shall not", "should", "should not", "may", and "can" in
 this document are to be interpreted as described in ISO Directive Part 2
