@@ -64,23 +64,70 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect that registers new JWT claims about End-Users. This extension defines new claims relating to the identity of a natural person that were originally defined within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+This specification defines an extension of OpenID Connect that registers new JWT claims about end-users. This extension defines new claims relating to the identity of a natural person that were originally defined within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
-{mainmatter}
+.# Foreword
 
-# Introduction {#Introduction}
+The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
+
+Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.
+
+.# Introduction {#Introduction}
 
 This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an id_token.
 
+.# Warning
+This document is not an OIDF International Standard. It is distributed for
+review and comment. It is subject to change without notice and may not be
+referred to as an International Standard.
+Recipients of this draft are invited to submit, with their comments,
+notification of any relevant patent rights of which they are aware and to
+provide supporting documentation.
+
+.# Notational conventions
+
+The keywords "shall", "shall not", "should", "should not", "may", and "can" in
+this document are to be interpreted as described in ISO Directive Part 2
+[@!ISODIR2]. These keywords are not used as dictionary terms such that any
+occurrence of them shall be interpreted as keywords and are not to be
+interpreted with their natural language meanings.
+
+{mainmatter}
+
 # Scope
 
-This specification only defines claims to be maintained in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  These claims SHOULD be used in any context that needs to describe these characteristics of the end-user in a JWT as per [@RFC7519].
+This specification only defines claims to be maintained in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  These claims should be used in any context that needs to describe these characteristics of the end-user in a JWT as per [@RFC7519].
+
+# Normative references
+
+See section 5 for normative references.
+
+# Terms and definitions
+
+For the purposes of this document, the following terms and definitions apply.
+
+## claim
+piece of information asserted about an entity
+
+[SOURCE: [@!OpenID], 1.2]
+
+## identity proofing
+process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level
+
+## identity verification
+process conducted by the OP or a claim provider to verify the end-user's identity
+
+## identity assurance
+process in which the OP or a claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP can be required to provide evidence of the identity verification process to the RP
+
+## verified claims
+claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process
 
 # Claims {#claims}
 
-## Additional Claims about End-Users {#userclaims}
+## Additional claims about end-users {#userclaims}
 
-This specification defines the following Claims for conveying End-User data in addition to the Claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used:
+This specification defines the following claims for conveying End-User data in addition to the claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used:
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
@@ -88,20 +135,20 @@ This specification defines the following Claims for conveying End-User data in a
 | | |`country`: String representing country in [@!ISO3166-1] Alpha-2  or [@!ISO3166-3] syntax.|
 | | |`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 | | |`locality`: String representing city or locality component.|
-|`nationalities`| array | End-User’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.|
-|`birth_family_name`| string | End-User’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
-|`birth_given_name`| string | End-User’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
-|`birth_middle_name`| string | End-User’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
-|`salutation`| string | End-User’s salutation|
-|`title`| string | End-User’s title|
-|`msisdn`| string | End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]|
+|`nationalities`| array | End-user’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], 2-letter ICAO codes may be used in some circumstances for compatibility reasons. |
+|`birth_family_name`| string | End-user’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
+|`birth_given_name`| string | End-user’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
+|`birth_middle_name`| string | End-user’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
+|`salutation`| string | End-user’s salutation|
+|`title`| string | End-user’s title|
+|`msisdn`| string | End-user’s mobile phone number formatted according to ITU-T recommendation [@!E.164] |
 |`also_known_as`| string | Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides their legal name.|
 
-## Extended address Claim
+## Extended address claim
 
-This specification extends the `address` Claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
+This specification extends the `address` claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
 
-`country_code`: OPTIONAL. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field.
+`country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field.
 
 ## Examples
 
@@ -175,6 +222,15 @@ This section contains JSON snippets showing examples of end-user claims describe
 ```
 
 {backmatter}
+
+<reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
+<front>
+<title>ISO/IEC Directives Part 2 - </title>
+    <author fullname="International Organization for Standardization">
+      <organization></organization>
+    </author>
+</front>
+</reference>
 
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
   <front>
@@ -265,13 +321,13 @@ This section contains JSON snippets showing examples of end-user claims describe
   </front>
 </reference>
 
-# IANA Considerations
+# IANA considerations
 
-## JSON Web Token Claims Registration
+## JSON Web Token claims registration
 
 This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
 
-### Registry Contents
+### Registry contents
 
 #### Claim `place_of_birth`
 
@@ -279,7 +335,7 @@ Claim Name:
 : `place_of_birth`
 
 Claim Description:
-: A structured Claim representing the End-User’s place of birth.
+: A structured claim representing the end-user’s place of birth.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -293,7 +349,7 @@ Claim Name:
 : `nationalities`
 
 Claim Description:
-: String array representing the End-User’s nationalities.
+: String array representing the end-user’s nationalities.
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -413,7 +469,7 @@ The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, 
 
 The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
 
-# Document History
+# Document history
 
    [[ To be removed from the final specification ]]
 
