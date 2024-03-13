@@ -33,13 +33,13 @@ organization="Beruku"
 
 .# Abstract
 
-This document defines an extension of OpenID Connect for providing Relying Parties with verified Claims about the relationships between legal persons (humans and other humans or organisations), in a secure way, using OIDC and OAuth 2.0 protocols.  This extension is intended to be used to communicate a relationship between a natural person and another natural person or legal entity in a way that can be relied upon.
+This document defines an extension of OpenID Connect for providing Relying Parties with verified claims about the relationships between legal persons (humans and other humans or organisations), in a secure way, using OIDC and OAuth 2.0 protocols.  This extension is intended to be used to communicate a relationship between a natural person and another natural person or legal entity in a way that can be relied upon.
 
 {mainmatter}
 
 # Introduction {#Introduction}
 
-Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another natural person or legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables Clients to verify the identity of the End-User" This extension will therefore focus on communicating details of a natural person's authority over another natural person or legal entity. 
+Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another natural person or legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables Clients to verify the identity of the end-user" This extension will therefore focus on communicating details of a natural person's authority over another natural person or legal entity.
 
 Note: Work to define how direct claims of a legal entity are transferred could use elements of eKYC & IDA specifications such as the structure of the verified_claims element and there are specific claims added as part of this document to enable legal entities to be uniquely defined.
 
@@ -47,74 +47,74 @@ Note: Work to define how direct claims of a legal entity are transferred could u
 
 This section defines some terms relevant to the topic covered in this document
 
-> Legal person:  
+> Legal person:
 >  - [Cornell Law School](https://www.law.cornell.edu/wex/legal_person) "Legal person refers to a human or non-human entity that is treated as a person for limited legal purposes. Typically, a legal persons can sue and be sued, own property, and enter into contracts."
 
-> Natural person:  
+> Natural person:
 >  - [Termly](https://termly.io/legal-dictionary/natural-person/) "A natural person (also sometimes referred to as a physical person) is a title used to identify an individual human being. This is different from a legal person, which can be an individual or a company."
 
-> Legal entity:  
+> Legal entity:
 >  - [Cambridge dictionary](https://dictionary.cambridge.org/dictionary/english/legal-entity) "a company or organization that has legal rights and responsibilities"
 >  - [ISO 17442](https://www.iso.org/standard/75998.html) "legal entities, which include, but are not limited to, unique parties that are legally or financially responsible for the performance of financial transactions or have the legal right in their jurisdiction to enter independently into legal contracts, regardless of whether they are incorporated or constituted in some other way (e.g. trust, partnership, contractual). It includes governmental organizations, supranationals and individuals when acting in a business capacity, but excludes natural persons."
 Note: the term "legal entity" is used in this specification to mean an organisation, rather than "legal person", since "legal person" can also refer to a "natural person".
 
-> Authority:  
+> Authority:
 >  - [Britannica Dictionary](https://www.britannica.com/dictionary/authority) "the power or right to direct or control someone or something"
 Note: the "someone" for the purposes of this specification is a "natural person", and the "something" is a "legal entity".
 
 This specification uses the terms:
-* "Access Token", 
-* "Authorization Code", 
-* "Authorization Endpoint", 
-* "Authorization Grant", 
-* "Authorization Server", 
-* "Client", 
-* "Client Authentication", 
-* "Client Identifier", 
-* "Client Secret", 
-* "Grant Type", 
-* "Protected Resource", 
-* "Redirection URI", 
-* "Refresh Token",  
+* "Access Token",
+* "Authorization Code",
+* "Authorization Endpoint",
+* "Authorization Grant",
+* "Authorization Server",
+* "Client",
+* "Client Authentication",
+* "Client Identifier",
+* "Client Secret",
+* "Grant Type",
+* "Protected Resource",
+* "Redirection URI",
+* "Refresh Token",
 * "Response Type",
-* and "Token Endpoint" 
+* and "Token Endpoint"
 defined by [@!RFC6749]
 
-the terms: 
-* "Claim Name", 
-* "Claim Value" 
-* and "JSON Web Token (JWT)" 
+the terms:
+* "Claim Name",
+* "Claim Value"
+* and "JSON Web Token (JWT)"
 defined by [@!RFC7519]
 
-the terms: 
-* "Header Parameter", 
-* "JOSE Header" 
-* and "JSON Web Signature (JWS)" 
+the terms:
+* "Header Parameter",
+* "JOSE Header"
+* and "JSON Web Signature (JWS)"
 defined by [@!RFC7519]
 
 the term "User Agent" defined by [@!RFC2616]
 
 the terms:
-* "Authentication", 
-* "Authentication Request", 
-* "Authorization Request", 
-* "Claim", 
-* "Claim Type", 
-* "Claims Provider", 
-* "Credential", 
-* "End-User", 
-* "Entity", 
-* "ID Token", 
-* "Identifier", 
-* "Identity", 
-* "Issuer", 
-* "OpenID Provider (OP)", 
-* "Request Object", 
-* "Request URI", 
-* "Relying Party (RP)", 
-* "UserInfo Endpoint", 
-* "Validation", 
-* "Verification" 
+* "Authentication",
+* "Authentication Request",
+* "Authorization Request",
+* "Claim",
+* "Claim Type",
+* "Claims Provider",
+* "Credential",
+* "End-User",
+* "Entity",
+* "ID Token",
+* "Identifier",
+* "Identity",
+* "Issuer",
+* "OpenID Provider (OP)",
+* "Request Object",
+* "Request URI",
+* "Relying Party (RP)",
+* "UserInfo Endpoint",
+* "Validation",
+* "Verification"
 defined by OpenID Connect [@!OpenID]
 
 This specification also use to the following terms:
@@ -124,12 +124,12 @@ OpenID
 
 # Scope and Requirements
 
-Use cases relating to legal entities and initiated by an End-User relate to "authority to act" where the End-User themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the authority including:
+Use cases relating to legal entities and initiated by an end-user relate to "authority to act" where the end-user themselves is authorizing the presentation of the claims.  In one example a director of a company has the authority to act on its behalf.  When communicating data in this example there will be data about the authority including:
 
 * Which entity the authority applies to
 * Claims about the entity that has the authority to act
 * Claims that define the scope of the authority
-* Claims that may apply limitations of the authority
+* Claims that apply limitations of the authority
 * Claims about how the authority is granted
 
 ## In Scope Use Cases
@@ -205,16 +205,16 @@ This use case is the secondary focus of this document
 ### Get details of legal entity
 "As a relying party I require specific attributes about a legal entity"
 
-While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the End-User.
+While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the end-user.
 
 ### Details of the relationship of legal entity to another legal entity
 "As a relying party I require specific attributes about the relationship between two legal entities and how that relationship was established"
 
-While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the End-User.
+While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the end-user.
 
 # Claims
 
-In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following Claims for conveying data in addition to the Claims defined in the OpenID Connect specification [@!OpenID]:
+In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following claims for conveying data in addition to the claims defined in the OpenID Connect specification [@!OpenID]:
 
 ## Claims about a legal entity
 
@@ -234,10 +234,10 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 An LEI is a Legal Entity Identifier as defined in [@!ISO17442-1-2020]|
 
 
-## authority Element {#authority}
+## authority element {#authority}
 
-This specification defines a generic mechanism to allow communication of authority claims via JSON-based assertions. The basic idea is to use a container element, called `authority` to provide the RP with a set of claims that can be used to express the authority that may exist of one entity over another.
-This set of `authority` claims are presented as claims about the End-User and it allows for the use of the sub-elements `applies_to`, `permission`, and `granted_by`.
+This specification defines a generic mechanism to allow communication of authority claims via JSON-based assertions. The basic idea is to use a container element, called `authority` to provide the RP with a set of claims that expresses the authority that may exist of one entity over another.
+This set of `authority` claims are presented as claims about the end-user and it allows for the use of the sub-elements `applies_to`, `permission`, and `granted_by`.
 
 The following example uses the verified claims structure from the draft eKYC & Identity assurance specification:
 
@@ -251,23 +251,23 @@ The normative definition is given of the following.
 
 A single `authority` object consists of the following sub-elements:
 
-* `applies_to`: REQUIRED. Object that contains data about the entity that the authority applies to.
-* `permission`: REQUIRED. Object that is the container used for defining the actions that the End-User is permitted to take in relation to the entity defined in the `applies_to` sub element of `authority`.
-* `granted_by`: OPTIONAL. Object that is the container for definition of how the authority was granted to the End-User.
+* `applies_to`: Required. Object that contains data about the entity that the authority applies to.
+* `permission`: Required. Object that is the container used for defining the actions that the end-user is permitted to take in relation to the entity defined in the `applies_to` sub element of `authority`.
+* `granted_by`: Optional. Object that is the container for definition of how the authority was granted to the end-user.
 
-Note: Implementations MUST ignore any sub-element not defined in this specification or extensions of this specification.
+Note: Implementations shall ignore any sub-element not defined in this specification or extensions of this specification.
 
-Note: If not stated otherwise, the sub-elements in `authority` are as defined above. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure by changing `granted_by` from "OPTIONAL" to "REQUIRED".
+Note: If not stated otherwise, the sub-elements in `authority` are as defined above. Extensions of this specification, including trust framework definitions, can define further constraints on the data structure by changing `granted_by` from "optional" to "required".
 
 A machine-readable syntax definition of `authority` is given as a JSON schema in [@!authority.json]. It can be used to automatically validate JSON documents containing an `authority` element.
 
 ## `applies_to` element
 
-The `applies_to` sub-element is intended to convey claims that allow unique identification of the entity that the authority applies to.  The `applies_to` sub-element may contain a number of different claims and those will depend on the particular use case and will, in particular, depend on whether the `applies_to` sub-element is identifying a legal entity or a natural person.
-  
-In the case that the authority applies to a legal entity the `applies_to` element MAY contain one or more of the Claims in the 'Claims about a legal entity' section above (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims.
+The `applies_to` sub-element is intended to convey claims that allow unique identification of the entity that the authority applies to.  The `applies_to` sub-element contains a number of different claims and those will depend on the particular use case and will, in particular, depend on whether the `applies_to` sub-element is identifying a legal entity or a natural person.
 
-In the case that the authority applies to a natural person the `applies_to` element MAY contain one or more of the following Claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
+In the case that the authority applies to a legal entity the `applies_to` element may contain one or more of the claims in the 'Claims about a legal entity' section above (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims.
+
+In the case that the authority applies to a natural person the `applies_to` element may contain one or more of the following claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
 
 * `name`
 * `given_name`
@@ -278,31 +278,31 @@ In the case that the authority applies to a natural person the `applies_to` elem
 
 ## `permission` element
 
-The `permission` sub-element is intended to convey the range of actions that the End-User is allowed to take when acting for the entity identified in the `applies_to` sub-element.
+The `permission` sub-element is intended to convey the range of actions that the end-user is allowed to take when acting for the entity identified in the `applies_to` sub-element.
 
-The `permission` sub-element consists of an array of objects that contain the following objects and MAY contain further objects that describe any additional extensions or restrictions of the authority over the target entity:
+The `permission` sub-element consists of an array of objects that contain the following objects and may contain further objects that describe any additional extensions or restrictions of the authority over the target entity:
 
-* `role`: REQUIRED. Object that reflects the role held by the End-User in relation to the target entity, e.g., roles defined by GLEIF based on [@!ISO5009]
-* `validity`: OPTIONAL. Object that contains an array that MUST have either a `start` or `end` and can optionally have both.  Both the `start` and `end` objects are a reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent and are used to define the date limits of the authority being conveyed.
-* `budget`: OPTIONAL. Object that contains an array that MUST have both `value` and `currency` elements. This object is intended to describe the maximum extent of the End-User's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
-* `audience`: OPTIONAL. Limitation of the scope of entity or entities that the End-User may communicate with when acting on behalf of the entity defined in the `applies_to` element
-* `function`: OPTIONAL. Limitation of the scope of action that the End-User may take by functional domain.
-* `may_delegate`: OPTIONAL. A boolean value that indicates whether the authority or components of the authority may be delegated by the subject to other entities or not.
+* `role`: Required. Object that reflects the role held by the end-user in relation to the target entity, e.g., roles defined by GLEIF based on [@!ISO5009]
+* `validity`: Optional. Object that contains an array that shall have either a `start` or `end` and can optionally have both.  Both the `start` and `end` objects are a reference date in [@!ISO8601-2004] YYYY-MM-DD format that is used to represent and are used to define the date limits of the authority being conveyed.
+* `budget`: Optional. Object that contains an array that shall have both `value` and `currency` elements. This object is intended to describe the maximum extent of the end-user's financial authority. The `value` object will be a string that includes a decimal point and accurate to two decimal places. The `currency` object will contain the alphabetic format defined in [@!ISO4217-2015] (Currency codes) and defines which financial currency the value is in.
+* `audience`: Optional. Limitation of the scope of entity or entities that the end-user communicates with when acting on behalf of the entity defined in the `applies_to` element
+* `function`: Optional. Limitation of the scope of action that the end-user takes by functional domain.
+* `may_delegate`: Optional. A boolean value that indicates whether the authority or components of the authority can be delegated by the subject to other entities or not.
 
 
 ## `granted_by` element
 
-The `granted_by` sub-element is intended to convey the manner in which the permission came to be associated with the End-User. 
-The `granted_by` sub-element MAY contain the claims described below and MAY contain further objects that describe any additional data about how the authority was vested in the End-User:
+The `granted_by` sub-element is intended to convey the manner in which the permission came to be associated with the end-user.
+The `granted_by` sub-element may contain the claims described below and may contain further objects that describe any additional data about how the authority was vested in the end-user:
 
-* `method`: REQUIRED. The `method` claim is a definition of how the authority came to lie with the End-User.  In an implementation there SHOULD be a defined set of valid values, these values MAY include:  
- * "delegated": Where a holder of authority passes some or all of their authority on to the End-User. e.g. director of company delegates some authority to a member of staff  
- * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the End-User.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person  
- * "self-asserted": Where the End-User themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
-* `granting_body`: OPTIONAL.  The `granting_body` claim is used to identify the body that vested the authority in the End-User.  e.g. The High Court of London or another member of staff at the End-User's employer that already has the authority and has the authority to delegate that authority.
-* `reason`: OPTIONAL. The `reason` claim is a description of why the authority was granted to the End-User.
+* `method`: Required. The `method` claim is a definition of how the authority came to lie with the end-user.  In an implementation there should be a defined set of valid values, these values may include:
+ * "delegated": Where a holder of authority passes some or all of their authority on to the end-user. e.g. director of company delegates some authority to a member of staff
+ * "appointed": Where a legal authority such as a court of law defined that the authority will be vested in the end-user.  e.g. administrators are appointed by the court to manage a company in difficulties or social services are appointed as guardians of a vulnerable person
+ * "self-asserted": Where the end-user themselves has stated that the authority belongs to them.  e.g. the claim of parenthood over a child
+* `granting_body`: Optional.  The `granting_body` claim is used to identify the body that vested the authority in the end-user.  e.g. The High Court of London or another member of staff at the end-user's employer that already has the authority and has the authority to delegate that authority.
+* `reason`: Optional. The `reason` claim is a description of why the authority was granted to the end-user.
 
-** Question - should there be a chain of authority built or should it just be a summary of the overall grant process? perhaps with clearer definition in the trust framework ** 
+** Question - should there be a chain of authority built or should it just be a summary of the overall grant process? perhaps with clearer definition in the trust framework **
 
 # Requesting authority claims
 
@@ -312,11 +312,11 @@ It is also possible to use the `scope` parameter to request one or more specific
 
 ## Error Handling
 
-The OP has the discretion to decide whether the requested verification data is to be provided to the RP. An OP MUST NOT return an error in case it cannot return a requested verification data, even if it was marked as essential, regardless of the data being unavailable or the End-User not authorizing its release.
+The OP has the discretion to decide whether the requested verification data is to be provided to the RP. An OP shall not return an error in case it cannot return a requested verification data, even if it was marked as essential, regardless of the data being unavailable or the end-user not authorizing its release.
 
 # Examples
 
-> Incomplete
+> Incomplete, insert 'company director, power of attorney idToken & userInfo response examples here
 
 
 ## Responses
@@ -359,7 +359,7 @@ The OP has the discretion to decide whether the requested verification data is t
 ## Verified Claims in ID Tokens
 
 
-## UserInfo 
+## UserInfo
 
 
 
@@ -428,34 +428,34 @@ This is an example openid-configuration snippet:
 }
 ```
 
-The OP MUST support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
+The OP shall support the `claims` parameter and needs to publish this in its openid-configuration using the `claims_parameter_supported` element.
 
 # Privacy Consideration {#Privacy}
 
-The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP SHOULD only request End-User claims and metadata it requires.
+The use of scopes is a potential shortcut to request a pre-defined set of claims, however, the use of scopes might result in more data being returned to the RP than is strictly necessary and not achieving the goal of data minimisation. The RP should only request end-user claims and metadata it requires.
 
 # Security Considerations {#Security}
 
-This specification focuses on mechanisms to carry End-User claims and accompanying metadata in JSON objects and JSON web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers MUST combine this specification with an appropriate security profile for OpenID Connect. 
+This specification focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall combine this specification with an appropriate security profile for OpenID Connect.
 
-This specification does not define or require a particular security profile since there are several security 
-profiles and new security profiles under development. Implementers shall be given flexibility to select the security profile that best suits their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL]. 
+This specification does not define or require a particular security profile since there are several security
+profiles and new security profiles under development. Implementers shall be given flexibility to select the security profile that best suits their needs. Implementers might consider [@?FAPI-1-RW] or [@?FAPI-2-BL].
 
-Implementers are recommended to select a security profile that has a certification program 
-or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and 
+Implementers should select a security profile that has a certification program
+or other resources that allow both OpenID Providers and Relying Parties to ensure they have complied with the profile’s security and
 interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
-The integrity and authenticity of the issued assertions MUST be ensured in order to prevent identity spoofing. 
-The Claims source MUST therefore cryptographically sign all assertions.
+The integrity and authenticity of the issued assertions shall be ensured in order to prevent identity spoofing.
+The claims source shall therefore cryptographically sign all assertions.
 
-The confidentiality of all End-User data exchanged between the protocol parties MUST be ensured using suitable 
+The confidentiality of all end-user data exchanged between the protocol parties shall be ensured using suitable
 methods at transport or application layer.
 
 # Predefined Values {#predefined_values}
 
 This specification focuses on the technical mechanisms to convey authority claims and thus does not define any identifiers for trust frameworks, id documents, or verification methods. This is left to adopters of the technical specification, e.g. implementers, identity schemes, or jurisdictions.
 
-Each party defining such identifiers MUST ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_check_method`.
+Each party defining such identifiers shall ensure the collision resistance of those identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g. `https://mycompany.com/identifiers/cool_check_method`.
 
 The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
 
@@ -744,7 +744,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 ## JSON Web Token Claims Registration
 
-This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519]. 
+This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
 
 ### Registry Contents
 
@@ -755,7 +755,7 @@ This specification requests registration of the following value in the IANA "JSO
 
 The following people at Considrd.consulting, partner companies and OpenID Foundation contributed to the the initial draft of this specification: Edmund Sutcliffe, Seinar Noem, Ben Helps, Torsten Lodderstedt, Alberto Pulido, Taylor Ongaro, Tom Jones, Adam Cooper, Jim Willeke, Don Thibeau, Nat Sakimura and Kai Lehmann.
 
-We would also like to thank Naohiro Fujie,  Bjorn Hjelm, Stephane Mouy, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai and Takahiko Kawasaki for their valuable feedback and contributions that helped to evolve this specification.
+We would also like to thank Naohiro Fujie,  Bjorn Hjelm, Stephane Mouy, Joseph Heenan, Vladimir Dzhuvinov, Kosuke Koiwai, Takahiko Kawasaki, Edmund Jay, and Hodari McClain for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
