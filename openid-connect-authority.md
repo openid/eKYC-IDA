@@ -39,7 +39,7 @@ This document defines an extension of OpenID Connect for providing Relying Parti
 
 # Introduction {#Introduction}
 
-Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another natural person or legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables Clients to verify the identity of the end-user" This extension will therefore focus on communicating details of a natural person's authority over another natural person or legal entity.
+Building upon the work done in the OIDF [@!OpenID] eKYC & IDA Working group on verified claims for natural persons there is a need to be able to deliver verified claims about the authority a natural person has to act on behalf of another natural person or legal entity.  As described in Section 1 of the OpenID Connect specification [@!OpenID], OpenID Connect "enables clients to verify the identity of the end-user" This extension will therefore focus on communicating details of a natural person's authority over another natural person or legal entity.
 
 Note: Work to define how direct claims of a legal entity are transferred could use elements of eKYC & IDA specifications such as the structure of the verified_claims element and there are specific claims added as part of this document to enable legal entities to be uniquely defined.
 
