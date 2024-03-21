@@ -103,7 +103,7 @@
             "region": {
               "type": "string"
             },
-            "postal-code": {
+            "postal_code": {
               "type": "string"
             },
             "country": {
