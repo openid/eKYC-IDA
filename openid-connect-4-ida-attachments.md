@@ -250,6 +250,15 @@ This section shows examples of responses containing `verified_claims`.
 
 {backmatter}
 
+<reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
+<front>
+<title>ISO/IEC Directives Part 2 - </title>
+    <author fullname="International Organization for Standardization">
+      <organization></organization>
+    </author>
+</front>
+</reference>
+
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
