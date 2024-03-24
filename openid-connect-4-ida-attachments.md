@@ -62,11 +62,17 @@ organization="KDDI Corporation"
 
 %%%
 
-# Abstract
+.# Abstract
 
 This specification defines an extension of OpenID Connect that defines new attachments relating to the identity of a natural person. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
-# Warning
+.# Introduction {#Introduction}
+
+This specification defines an attachment element as a JWT claim for use in various contexts.
+
+Attachment element was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an identity assurance process. However, it is anticipated that there are other cases where the ability to embed or refer to non-JSON structured data is useful.
+
+.# Warning
 
 This document is not an OIDF International Standard. It is distributed for
 review and comment. It is subject to change without notice and may not be
@@ -75,25 +81,19 @@ Recipients of this draft are invited to submit, with their comments,
 notification of any relevant patent rights of which they are aware and to
 provide supporting documentation.
 
-# Foreword
+.# Foreword
 
 The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
 
 Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.
 
-# Notational conventions
+.# Notational conventions
 
 The keywords "shall", "shall not", "should", "should not", "may", and "can" in
 this document are to be interpreted as described in ISO Directive Part 2
 [@!ISODIR2]. These keywords are not used as dictionary terms such that any
 occurrence of them shall be interpreted as keywords and are not to be
 interpreted with their natural language meanings.
-
-# Introduction {#Introduction}
-
-This specification defines an attachment element as a JWT claim for use in various contexts.
-
-Attachment element was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an identity assurance process. However, it is anticipated that there are other cases where the ability to embed or refer to non-JSON structured data is useful.
 
 {mainmatter}
 
