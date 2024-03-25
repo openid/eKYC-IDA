@@ -86,13 +86,6 @@
                 }
             }
         },
-        "distributed_claims_available_def": {
-            "type": "object",
-            "properties": {},
-            "additionalProperties": {
-                "$ref": "#/$defs/verified_claims_def"
-            }
-        },
         "document_details": {
             "type": "object",
             "properties": {
@@ -506,11 +499,7 @@
                         "evidence": {
                             "type": "array",
                             "items": {
-                                "oneOf": [
-                                    {
-                                        "$ref": "#/$defs/evidence"
-                                    }
-                                ]
+                                "$ref": "#/$defs/evidence"
                             },
                             "minItems": 1
                         },
@@ -547,7 +536,7 @@
                             }
                         },
                         {
-                            "$ref": "#/$defs/distributed_claims_available_def"
+                            "$ref": "#/$defs/verified_claims_def"
                         }
                     ]
                 }
