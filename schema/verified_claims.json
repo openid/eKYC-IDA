@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://openid.net/schemas/ekyc-ida/12/verified_claims.json",
+  "$id": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/verified_claims.json",
   "properties": {
     "verified_claims": {
       "anyOf": [
@@ -175,7 +175,7 @@
                 "$ref": "#/$defs/time_type"
               },
               "derived_claims": {
-                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
+                "$ref": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -204,7 +204,7 @@
                 "$ref": "#/$defs/document_details"
               },
               "derived_claims": {
-                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
+                "$ref": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -273,7 +273,7 @@
                 }
               },
               "derived_claims": {
-                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
+                "$ref": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -348,7 +348,7 @@
                 }
               },
               "derived_claims": {
-                "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
+                "$ref": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/claims_schema.json#/$defs/claims_type"
               }
             }
           },
@@ -518,7 +518,7 @@
           "additionalProperties": true
         },
         "claims": {
-          "$ref": "https://openid.net/schemas/ekyc-ida/12/claims_schema.json#/$defs/claims_type"
+          "$ref": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/claims_schema.json#/$defs/claims_type"
         }
       },
       "required": [
@@ -531,7 +531,7 @@
       "type": "object",
       "properties": {},
       "additionalProperties": {
-        "$ref": "https://openid.net/schemas/ekyc-ida/12/verified_claims_request.json#/$defs/verified_claims_def"
+        "$ref": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/verified_claims_request.json#/$defs/verified_claims_def"
       }
     },
     "aggregated_claims": {

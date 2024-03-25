@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://openid.net/schemas/ekyc-ida/12/verified_claims_request.json",
+  "$id": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/verified_claims_request.json",
   "properties": {
     "userinfo": {
       "type": "object",
