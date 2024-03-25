@@ -86,6 +86,13 @@
                 }
             }
         },
+        "distributed_claims_available_def": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+                "$ref": "https://bitbucket.org/openid/ekyc-ida/raw/master/schema/verified_claims_request.json#/$defs/verified_claims_def"
+            }
+        },
         "document_details": {
             "type": "object",
             "properties": {
@@ -499,7 +506,11 @@
                         "evidence": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/$defs/evidence"
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/$defs/evidence"
+                                    }
+                                ]
                             },
                             "minItems": 1
                         },
@@ -536,7 +547,7 @@
                             }
                         },
                         {
-                            "$ref": "#/$defs/verified_claims_def"
+                            "$ref": "#/$defs/distributed_claims_available_def"
                         }
                     ]
                 }
