@@ -1,5 +1,5 @@
 {
-    "$id": "https://bitbucket.org/openid/ekyc-ida/src/master/schema/verified_claims_request.json",
+    "$id": "https://bitbucket.org/openid/ekyc-ida/raw/master/schema/verified_claims_request.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$defs": {
         "check_details": {
