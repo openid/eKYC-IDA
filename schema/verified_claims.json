@@ -90,7 +90,7 @@
             "type": "object",
             "properties": {},
             "additionalProperties": {
-                "$ref": "https://bitbucket.org/openid/ekyc-ida/raw/master/schema/verified_claims_request.json#/$defs/verified_claims_def"
+                "$ref": "#/$defs/verified_claims_def"
             }
         },
         "document_details": {
