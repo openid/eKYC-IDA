@@ -166,11 +166,9 @@ Even for representing verified claims, this extension utilizes existing OpenID C
 
 In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID].
 
-# Verified claims {#verified_claims}
-
 ## Verified claims schema
 
-# Verified Claims {#verified_claims}
+# Verified claims {#verified_claims}
 
 This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
 
@@ -179,7 +177,6 @@ The following example would assert to the RP that the OP has verified the Claims
 <{{examples/response/verified_claims_simple.json}}
 
 This specification requires that the schema defined in [@!IDA-verified-claims] MUST be used.  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
-
 
 ## verified_claims delivery {#verified_claims_delivery}
 
