@@ -16,7 +16,7 @@ status = "standard"
 initials="T."
 surname="Lodderstedt"
 fullname="Torsten Lodderstedt"
-organization="Tuconic"
+organization="sprind.org"
     [author.address]
     email = "torsten@lodderstedt.net"
 
@@ -258,7 +258,7 @@ This section contains JSON snippets showing examples of end-user claims describe
   <front>
     <title>OpenID Connect for Identity Assurance 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>Tuconic</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
