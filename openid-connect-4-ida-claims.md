@@ -16,7 +16,7 @@ status = "standard"
 initials="T."
 surname="Lodderstedt"
 fullname="Torsten Lodderstedt"
-organization="yes.com"
+organization="Tuconic"
     [author.address]
     email = "torsten@lodderstedt.net"
 
@@ -74,7 +74,7 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 .# Introduction {#Introduction}
 
-This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an id_token.
+This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an ID Token.
 
 .# Warning
 This document is not an OIDF International Standard. It is distributed for
@@ -131,7 +131,7 @@ This specification defines the following claims for conveying End-User data in a
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
-|`place_of_birth`| JSON object | End-User’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
+|`place_of_birth`| JSON object | End-user’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
 | | |`country`: String representing country in [@!ISO3166-1] Alpha-2  or [@!ISO3166-3] syntax.|
 | | |`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 | | |`locality`: String representing city or locality component.|
@@ -232,7 +232,7 @@ This section contains JSON snippets showing examples of end-user claims describe
 </front>
 </reference>
 
-<reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
@@ -254,11 +254,11 @@ This section contains JSON snippets showing examples of end-user claims describe
   </front>
 </reference>
 
-<reference anchor="OpenID4IDA" target="http://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
+<reference anchor="OpenID4IDA" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>Tuconic</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -405,7 +405,7 @@ Claim Name:
 : `salutation`
 
 Claim Description:
-: End-User’s salutation, e.g., “Mr.”
+: End-user’s salutation, e.g., “Mr”
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -419,7 +419,7 @@ Claim Name:
 : `title`
 
 Claim Description:
-: End-User’s title, e.g., “Dr.”
+: End-user’s title, e.g., “Dr”
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -433,7 +433,7 @@ Claim Name:
 : `msisdn`
 
 Claim Description:
-: End-User’s mobile phone number formatted according to ITU-T recommendation [@!E.164]
+: End-user’s mobile phone number formatted according to ITU-T recommendation [@!E.164]end
 
 Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
@@ -463,7 +463,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2024 The OpenID Foundation.
+Copyright (c) 2023 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
