@@ -66,7 +66,7 @@ organization="KDDI Corporation"
 
 This specification defines a payload schema that can be used to describe a wide variety of identity assurance metadata about a number of claims that have been assessed as meeting a given assurance level.
 
-It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@W3C VCDM].
+It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@W3C_VCDM].
 
 This document defines a new claim relating to the identity assurance of a natural person called "verified_claims".  This was originally developed within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
@@ -134,7 +134,7 @@ process in which an end-user provides evidence to a provider reliably identifyin
 process conducted by the provider to verify the end-user's identity.
 
 ## identity assurance
-process in which the provider asserts identity data of a certain end-user with a certain assurance towards another consuming entity (such as a relying party or verifier as described in [@W3C VCDM]), typically expressed by way of an assurance level
+process in which the provider asserts identity data of a certain end-user with a certain assurance towards another consuming entity (such as a relying party or verifier as described in [@W3C_VCDM]), typically expressed by way of an assurance level
 
 Note 1 to entry: Depending on legal requirements, the provider can be required to provide evidence of the identity verification process to the consuming entity.
 
@@ -198,7 +198,7 @@ This element contains the information about the process conducted to verify a pe
 
 ### Element structure
 
-The `verification` element can be used independently of OpenID Connect and OpenID Connect for Identity Assurance where there is a need for representation of identity assurance metadata in a different application protocol or digital identity data format such as [@W3C VCDM].
+The `verification` element can be used independently of OpenID Connect and OpenID Connect for Identity Assurance where there is a need for representation of identity assurance metadata in a different application protocol or digital identity data format such as [@W3C_VCDM].
 
 The `verification` element consists of the following elements:
 
@@ -595,7 +595,7 @@ An attachment is represented by a JSON element.  The definition of attachements 
   </front>
 </reference>
 
-<reference anchor="W3C VCDM" target="https://www.w3.org/TR/vc-data-model/">
+<reference anchor="W3C_VCDM" target="https://www.w3.org/TR/vc-data-model/">
   <front>
     <title>Verifiable Credentials Data Model v1.1</title>
     <author initials="M" surname="Sporny" fullname="Manu Sporny">
