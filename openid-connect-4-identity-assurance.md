@@ -16,7 +16,7 @@ status = "standard"
 initials="T."
 surname="Lodderstedt"
 fullname="Torsten Lodderstedt"
-organization="yes.com"
+organization="sprind.org"
     [author.address]
     email = "torsten@lodderstedt.net"
 
@@ -76,7 +76,7 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 This specification defines an extension to OpenID Connect [@!OpenID] for providing relying parties with identity information, i.e., verified claims, along with an explicit statement about the verification status of these  claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as anti-money laundering laws or access to health data, risk mitigation, or fraud prevention.
 
-In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID Connect provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims.
+In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims.
 
 The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
@@ -84,7 +84,7 @@ For example, the assurance an OP typically will be able to give for an e-mail ad
 
 Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
 
-Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity].
+Note: This specification fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity].
 
 .# Warning
 
@@ -144,7 +144,7 @@ The RP will be able to request the minimal data set it needs (data minimization)
 
 This extension will be usable by OPs operating under a certain regulation related to identity assurance, such as eIDAS, as well as other OPs operating without such a regulation.
 
-It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
+It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID system.
 
 Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
@@ -156,7 +156,7 @@ The representation defined in this specification can be used to provide RPs with
 
 This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes.
 
-In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey claims about end-users.
+In order to give implementers as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey claims about end-users.
 
 For example, OpenID Connect [@!OpenID] defines claims for representing family name and given name of an end-user without a verification status. These claims can be used in the same OpenID Connect assertion beside verified claims represented according to this extension.
 
@@ -164,7 +164,7 @@ In the same way, existing claims to inform the RP of the verification status of 
 
 Even for representing verified claims, this extension utilizes existing OpenID Connect claims if possible and reasonable. The extension will, however, ensure RPs cannot (accidentally) interpret unverified claims as verified claims.
 
-In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines the a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID].
+In order to fulfill the requirements of some jurisdictions on identity assurance, the OpenID Connect for IDA claims [@OpenID4IDAClaims] specification defines a number of claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID].
 
 # Verified claims {#verified_claims}
 
@@ -172,7 +172,7 @@ The basic idea is to use a container element, called `verified_claims`, to provi
 
 ## Verified claims schema
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
+This specification uses the [@!IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
 
 The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
@@ -215,7 +215,7 @@ An OP or AS can also include aggregated or distributed `verified_claims` in the 
 
 Verified claims can be requested on the level of individual claims about the end-user by utilizing the `claims` parameter as defined in section 5.5 of the OpenID Connect specification [@!OpenID].
 
-Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], it can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
+Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], which can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
 
 To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
 
@@ -223,7 +223,7 @@ Since `verified_claims` contains the effective claims about the end-user in a ne
 
 <{{examples/request/claims.json}}
 
-Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. Note: it is not possible to request sub-claims (for example the ‘country’ subclaim of the ‘address’ claim) using mechanisms from OpenID Connect Core or this draft.
+Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this specification.
 
 RPs can use the `essential` field as defined in section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
@@ -253,7 +253,7 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 
 `check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
 
-`assurance_details` is an array representing how the `evidence` and `check_details` meets the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` have been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
+`assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_methods` they shall use those methods to do so, e.g. requesting an `assurance_type` should have no filtering effect.
 
 The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
@@ -279,7 +279,7 @@ The OP shall not ignore some or all of the query restrictions on possible values
 
 ### max_age
 
-The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
+The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
 
 `max_age`: Optional. JSON number value only applicable to claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value.
 
@@ -307,7 +307,7 @@ In the above example, the RP asks for family and given name either under trust f
 
 ## Returning less data than requested
 
-As stated in section 3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
+As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
 
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
@@ -317,15 +317,15 @@ Extensions of this specification can define additional rules or override these r
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
 * to abort transactions (return error codes) in cases where requests cannot be fulfilled.
 
-Important: The behavior described below is independent from the use of `essential` (as defined in section 5.5 of [@!OpenID]).
+Important: The behavior described below is independent from the use of `essential` (as defined in section .1 of [@!OpenID]).
 
 ### Unavailable data
 
-If the OP does not have data about a certain claim, does not understand/support the respective claim, the respective claim shall be omitted from any corresponding id_token or Userinfo response.
+If the OP does not have data about a certain claim, does not understand/support the respective claim, the respective claim shall be omitted from any corresponding ID Token or UserInfo response.
 
 ### Non-consented data
 
-When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case data that has not had end-user consent for sharing shall be omitted from any corresponding id_token or Userinfo response.
+When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case data that has not had end-user consent for sharing shall be omitted from any corresponding ID Token or Userinfo response.
 
 Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID].
 
@@ -349,7 +349,7 @@ If the OP encounters an error, standard OpenID Connect authentication error resp
 
 Verified claims about the end-user can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in section 5.4 of the OpenID Connect specification [@!OpenID].
 
-When using this approach the claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID].
+When using this approach the claims associated with a `scope` value are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
 # Aggregated and distributed claims {#aggregated_distributed_claims}
 ## Aggregated and distributed claims assertions
@@ -399,20 +399,20 @@ The OP can combine aggregated and distributed claims with `verified_claims` prov
 
 If `verified_claims` elements are contained in multiple places of a response, e.g., in the ID Token and an embedded aggregated claim, the RP shall preserve the claims source as context of the particular `verified_claims` element.
 
-Note: Any assertion provided by an OP or AS including aggregated or distributed claims can contain multiple instances of the same end-user Claim. It is up to the RP to decide how to process these different instances.
+Note: Any assertion provided by an OP or AS including aggregated or distributed claims can contain multiple instances of the same end-user claim. It is up to the RP to decide how to process these different instances.
 
 ## Aggregated and distributed claims validation
 
 Clients shall validate any aggregated and distributed `verified_claims` they wish to rely on in the following manner:
 
-1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response
-2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response
+1. Ensure that both the `_claim_names` and `_claim_sources` are present in the response.
+2. Ensure that there is a `verified_claims` element present in the `_claim_names` member of the response.
 3. Ensure that the `verified_claims` element contains a value that is one of the following:
     a. a string that exists as a key name in the `_claim_sources` element of the response.
     b. a JSON array containing members that all exist as key names in the `_claim_sources` element of the response.
     c. a JSON object containing elements that all exist as key names in the `_claim_sources` element of the response and each element is formatted with the syntax as defined for requesting `verified_claims`.
-4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements
-5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response
+4. Ensure that the `_claim_sources` element is a JSON structured object that has one or more sub-elements.
+5. Ensure that the sub-elements of the `_claim_sources` element have matching values in the `_claim_names` element of the response.
 
 When `verified_claims` are delivered as distributed claims, i.e., when a sub-element of the `_claim_sources` contains the `endpoint` claim, clients shall also:
 
@@ -470,11 +470,11 @@ The OP advertises its capabilities with respect to verified claims in its openid
 
 `claims_in_verified_claims_supported`: Required. JSON array containing all claims supported within `verified_claims`. claims that are not present in this array shall not be returned within the `verified_claims` object. This array shall have at least one member.
 
-`evidence_supported`: Required when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array shall have at least one member. Members of this array should only be the types of evidence supported by the OP in the evidence element (see section 4.2.2 of [@!IDA-verified-claims]).
+`evidence_supported`: Required when one or more type of evidence is supported. JSON array containing all types of identity evidence the OP uses. This array shall have at least one member. Members of this array should only be the types of evidence supported by the OP in the `evidence` element (see section 5.4.4 of [@!IDA-verified-claims]).
 
 `documents_supported`: Required when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array shall have at least one member.
 
-`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see @!predefined_values). When present this array shall have at least one member.
+`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see [@!predefined_values]). When present this array shall have at least one member.
 
 `documents_check_methods_supported`: Optional. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values]). When present this array shall have at least one member.
 
@@ -575,7 +575,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 </front>
 </reference>
 
-<reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
@@ -636,11 +636,11 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="OpenID4IDAClaims" target="http://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
+<reference anchor="OpenID4IDAClaims" target="https://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -827,7 +827,7 @@ This section shows examples of requests for `verified_claims`.
 
 Note that, as shown in the above example, this specification requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
 
-Support for these null value requests is mandatory for identity providers, so implementors are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
+Support for these null value requests is mandatory for identity providers, so implementers are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
 
 ## Verification of claims by trust framework and evidence types
 
@@ -890,11 +890,11 @@ external sources in a single ID Token.
 
 <{{examples/response/all_in_one.json}}
 
-## Self-Issued OpenID Connect provider and external claims
+## Self-Issued OpenID provider and external claims
 
-This example shows how a Self-Issued OpenID Connect provider (SIOP)
+This example shows how a Self-Issued OpenID provider (SIOP)
 may include verified claims obtained from different external claim
-sources into a ID Token.
+sources into an ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
