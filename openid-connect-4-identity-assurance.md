@@ -317,7 +317,7 @@ Extensions of this specification can define additional rules or override these r
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
 * to abort transactions (return error codes) in cases where requests cannot be fulfilled.
 
-Important: The behavior described below is independent from the use of `essential` (as defined in section .1 of [@!OpenID]).
+Important: The behavior described below is independent from the use of `essential` (as defined in section 5.5.1 of [@!OpenID]).
 
 ### Unavailable data
 
@@ -325,7 +325,7 @@ If the OP does not have data about a certain claim, does not understand/support 
 
 ### Non-consented data
 
-When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case data that has not had end-user consent for sharing shall be omitted from any corresponding ID Token or Userinfo response.
+When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case data that has not had end-user consent for sharing shall be omitted from any corresponding ID Token or UserInfo response.
 
 Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID].
 
