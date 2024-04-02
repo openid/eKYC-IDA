@@ -957,7 +957,6 @@ The technology described in this specification was made available from contribut
    -15
    * Reformatted to meet ISO Directive part 2
    * Fixed typos
-   * test commit
 
    -14
 
