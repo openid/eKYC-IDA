@@ -76,7 +76,7 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 This specification defines an extension to OpenID Connect [@!OpenID] for providing relying parties with identity information, i.e., verified claims, along with an explicit statement about the verification status of these  claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as anti-money laundering laws or access to health data, risk mitigation, or fraud prevention.
 
-In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the claims about the end-user that the OpenID provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims.
+In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims.
 
 The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
@@ -957,6 +957,7 @@ The technology described in this specification was made available from contribut
    -15
    * Reformatted to meet ISO Directive part 2
    * Fixed typos
+   * test commit
 
    -14
 
