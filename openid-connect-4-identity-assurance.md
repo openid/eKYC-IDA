@@ -168,18 +168,17 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 # Verified claims {#verified_claims}
 
+The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims.
+
 ## Verified claims schema
 
-# Verified Claims {#verified_claims}
+This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata. The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of Claims along with the respective metadata and verification evidence related to the verification of these Claims. This way, it is explicit which Claims are verified, reducing the risk of RPs accidentally processing unverified Claims as Verified Claims.
-
-The following example would assert to the RP that the OP has verified the Claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
+The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
 <{{examples/response/verified_claims_simple.json}}
 
-This specification requires that the schema defined in [@!IDA-verified-claims] MUST be used.  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
-
+This specification requires that the schema defined in [@!IDA-verified-claims] shall be used.  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
 
 ## verified_claims delivery {#verified_claims_delivery}
 
@@ -945,7 +944,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2023 The OpenID Foundation.
+Copyright (c) 2024 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
