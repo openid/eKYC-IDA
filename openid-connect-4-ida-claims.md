@@ -127,7 +127,7 @@ claims about an end-user, typically a natural person, whose binding to a particu
 
 ## Additional claims about end-users {#userclaims}
 
-This specification defines the following claims for conveying End-User data in addition to the claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used:
+This specification defines the following claims for conveying end-user data in addition to the claims defined in the OpenID Connect specification [@!OpenID] and the OpenID Connect for Identity Assurance specification [@!OpenID4IDA] and in any other context that a JWT (as per [@RFC7519]) may be used:
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
