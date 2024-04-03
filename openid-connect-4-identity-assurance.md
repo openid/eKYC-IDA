@@ -474,11 +474,11 @@ The OP advertises its capabilities with respect to verified claims in its openid
 
 `documents_supported`: Required when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array shall have at least one member.
 
-`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see [@!predefined_values]). When present this array shall have at least one member.
+`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
 
-`documents_check_methods_supported`: Optional. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values]). When present this array shall have at least one member.
+`documents_check_methods_supported`: Optional. JSON array containing the check methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
 
-`electronic_records_supported`: Required when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values]). When present this array shall have at least one member.
+`electronic_records_supported`: Required when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values_page]). When present this array shall have at least one member.
 
 This is an example openid-configuration snippet:
 
