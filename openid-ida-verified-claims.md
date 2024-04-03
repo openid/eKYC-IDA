@@ -78,7 +78,7 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 .# Introduction {#Introduction}
 
-This specification defines a schema for describing assured identity  claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimisation, which elements of the JSON schema described in this document will be needed for a specific transaction.]
+This specification defines a schema for describing assured identity claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimisation, which elements of the JSON schema described in this document will be needed for a specific transaction.
 
 .# Warning
 
@@ -102,7 +102,7 @@ interpreted with their natural language meanings.
 
 # Scope
 
-This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there is also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by other spec authors and implementers where the verification metadata is needed independantly of the end-user verified  claims.
+This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there is also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by other spec authors and implementers where the verification metadata is needed independantly of the end-user verified claims.
 
 # Normative references
 
@@ -117,15 +117,15 @@ piece of information asserted about an entity
 
 [SOURCE: [@!OpenID], 1.2]
 
-## claims provider
+## claim provider
 server that can return claims and verified claims about an entity
 
-Note 1 to entry : A claims provider could be an OpenID Connect provider, a verifiable claims issuer or other application component that provides verified claims.
+Note 1 to entry : A claim provider could be an OpenID Connect provider, a verifiable claim issuer or other application component that provides verified claims.
 
 [SOURCE: [@!OpenID], 1.2, modified - added requirement to return verified claims]
 
-## claims recipient
-an application that receives claims from the  claims provider
+## claim recipient
+an application that receives claims from the claim provider
 
 ## identity proofing
 process in which an end-user provides evidence to a provider reliably identifying themselves, thereby allowing the provider to assert that identification at a useful assurance level.
@@ -148,9 +148,9 @@ The specified JSON structures defined in this document should be useable by any 
 # Verified claims {#verified_claims}
 
 ## General
-This specification defines a generic mechanism to add verified claims to JSON-based assertions. It uses a container element, called `verified_claims`, to provide the claims recipient with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, claims recipients cannot mix up verified claims and unverified claims and accidentally process unverified claims as verified claims.
+This specification defines a generic mechanism to add verified claims to JSON-based assertions. It uses a container element, called `verified_claims`, to provide the claim recipient with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, claim recipients cannot mix up verified claims and unverified claims and accidentally process unverified claims as verified claims.
 
-The following example would assert to the claims recipient that the claims provider has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
+The following example would assert to the claim recipient that the claim provider has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
 <{{examples/response/verified_claims_simple.json}}
 
@@ -202,12 +202,12 @@ The `verification` element can be used independently of OpenID Connect and OpenI
 
 The `verification` element consists of the following elements:
 
-* `trust_framework`: Required. String determining the trust framework governing the identity verification process of the claims provider.
+* `trust_framework`: Required. String determining the trust framework governing the identity verification process of the claim provider.
 An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS].
 
-Claims recipients should ignore `verified_claims` claims containing a trust framework identifier they do not understand.
+Claim recipients should ignore `verified_claims` claims containing a trust framework identifier they do not understand.
 
-The `trust_framework` value determines what further data is provided to the claims recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an claims provider not governed by eIDAS would need to provide verification evidence in order to allow the claims recipient to fulfill its legal obligations. An example of the latter is an claims provider acting under the German anti-money laundering law (`de_aml`).
+The `trust_framework` value determines what further data is provided to the claim recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an claim provider not governed by eIDAS would need to provide verification evidence in order to allow the claim recipient to fulfill its legal obligations. An example of the latter is an claim provider acting under the German anti-money laundering law (`de_aml`).
 
 * `assurance_level`: Optional. String determining the assurance level associated with the end-user claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. For information on predefined trust framework and assurance level values see [@!predefined_values_page].
 
@@ -218,15 +218,15 @@ The `trust_framework` value determines what further data is provided to the clai
      * `assurance_type`: Optional. String denoting which part of the `assurance_process` the evidence fulfils.
     * `assurance_classification`: Optional. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
     * `evidence_ref`: Optional. JSON array of the evidence being referred to. When present this array shall have at least one member.
-      * `check_id`: Required. Identifier referring to the `check_id` key used in the `check_details` element of members of the `evidence` array. The claims provider shall ensure that `check_id` is present in the `check_details` when `evidence_ref` element is used.
+      * `check_id`: Required. Identifier referring to the `check_id` key used in the `check_details` element of members of the `evidence` array. The claim provider shall ensure that `check_id` is present in the `check_details` when `evidence_ref` element is used.
       * `evidence_metadata`: Optional. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
         * `evidence_classification`: Optional. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
 
 * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
 
-* `verification_process`: Optional. Unique reference to the identity verification process as performed by the claims provider. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
+* `verification_process`: Optional. Unique reference to the identity verification process as performed by the claim provider. Used for identifying and retrieving details in case of disputes or audits. Presence of this element might be required for certain trust frameworks.
 
-* `evidence`: Optional. JSON array containing information about the evidence the claims provider used to verify the end-user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The claims recipient uses this information to process the `evidence` property appropriately.
+* `evidence`: Optional. JSON array containing information about the evidence the claim provider used to verify the end-user's identity as separate JSON objects. Every object contains the property `type` which determines the type of the evidence. The claim recipient uses this information to process the `evidence` property appropriately.
 
 Important: Implementations shall ignore any sub-element not defined in this specification or extensions of this specification.
 
@@ -261,13 +261,13 @@ The following elements are contained in an evidence sub-element where type is `d
 `check_details`: Optional. JSON array representing the checks done in relation to the `evidence`. When present this array shall have at least one member.
 
   * `check_method`: Required. String representing the check done, this includes processes such as checking the authenticity of the document, or verifying the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values_page].
-  * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claims provider did not perform the check itself.
-  * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claims provider shall ensure that this is present when `evidence_ref` element is used. The claims provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
+  * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claim provider did not perform the check itself.
+  * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claim provider shall ensure that this is present when `evidence_ref` element is used. The claim provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `document_details`: Optional. JSON object representing the document used to perform the identity verification. It consists of the following properties:
 
-* `type`: Required. String denoting the type of the document. For information on predefined document values see [@!predefined_values_page]. The claims provider may use other predefined values in which case the  claims recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
+* `type`: Required. String denoting the type of the document. For information on predefined document values see [@!predefined_values_page]. The claim provider may use other predefined values in which case the  claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
 * `document_number`: Optional. String representing an identifier/number that uniquely identifies a document that was issued to the end-user. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc.
 * `serial_number`: Optional. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization).
 * `date_of_issuance`: Optional. The date the document was issued as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
@@ -295,13 +295,13 @@ The following elements are contained in an evidence sub-element where type is `e
 `check_details`: Optional. JSON array representing the checks done in relation to the `evidence`.
 
   * `check_method`: Required. String representing the check done. For information on predefined `check_method` values see [@!predefined_values_page].
-  * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claims provider did not perform the check itself.
-  * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claims provider shall ensure that this is present when `evidence_ref` element is used. The claims provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
+  * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claim provider did not perform the check itself.
+  * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claim provider shall ensure that this is present when `evidence_ref` element is used. The claim provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `record`: Optional. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
-* `type`: Required. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values_page]. The claims provider may use other predefined values in which case the  claims recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
+* `type`: Required. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values_page]. The claim provider may use other predefined values in which case the  claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
 * `created_at`: Optional. The time the record was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 * `date_of_expiry`: Optional. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `source`: Optional. JSON object containing information about the source of this record. This object consists of the following properties:
@@ -324,13 +324,13 @@ The following elements are contained in an evidence sub-element where type is `v
 `check_details`: Optional. JSON array representing the checks done in relation to the `vouch`.
 
   * `check_method`: Required. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values_page].
-  * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claims provider did not perform the check itself.
-  * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claims provider shall ensure that this is present when `evidence_ref` element is used. The claims provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
+  * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claim provider did not perform the check itself.
+  * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claim provider shall ensure that this is present when `evidence_ref` element is used. The claim provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
 
 `attestation`: Optional. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
 
-* `type`: Required. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values_page]. The claims provider may use other than the predefined values in which case the  claims recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
+* `type`: Required. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values_page]. The claim provider may use other than the predefined values in which case the  claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
 * `reference_number`: Optional. String representing an identifier/number that uniquely identifies a vouch given about the end-user.
 * `date_of_issuance`: Optional. The date the vouch was made as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `date_of_expiry`: Optional. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
@@ -371,7 +371,7 @@ During the identity verification process, specific document artifacts could be c
 * video recordings of the verification process,
 * certificates of electronic signatures.
 
-When supported by the claims provider and requested by the claims recipient, these elements can be included in the verified claims response allowing the claims Recipient to store these artifacts along with the verified claims information.
+When supported by the claim provider and requested by the claim recipient, these elements can be included in the verified claims response allowing the claims Recipient to store these artifacts along with the verified claims information.
 
 An attachment is represented by a JSON element.  The definition of attachements and the schema representing them are described in [@Attachments].
 
