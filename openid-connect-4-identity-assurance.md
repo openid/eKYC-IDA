@@ -544,7 +544,7 @@ Secure identification of end-users not only depends on the identity verification
 
 This specification does not define or require a particular security profile since there are several security
 profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
-their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
+their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP].
 
 Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
@@ -616,23 +616,23 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="FAPI-1-RW" target="https://bitbucket.org/openid/fapi/src/master/Financial_API_WD_002.md">
+<reference anchor="FAPI-1-SP" target="https://openid.net/specs/openid-financial-api-part-2-1_0.html">
   <front>
-    <title>Financial-grade API - Part 2: Read and Write API Security Profile</title>
+    <title>Financial-grade API (FAPI) Security Profile 1.0 - Part 2: Advanced</title>
     <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
       <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
     </author>
-   <date day="9" month="Sep" year="2020"/>
+   <date day="12" month="Mar" year="2021"/>
   </front>
 </reference>
 
-<reference anchor="FAPI-2-BL" target="https://bitbucket.org/openid/fapi/src/master/FAPI_2_0_Baseline_Profile.md">
+<reference anchor="FAPI-2-SP" target="https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html">
   <front>
-    <title>FAPI 2.0 Baseline Profile </title>
+    <title>Financial-grade API (FAPI) 2.0 Security Profile - draft</title>
     <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
       <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
     </author>
-   <date day="9" month="Sep" year="2020"/>
+   <date day="3" month="Apr" year="2024"/>
   </front>
 </reference>
 
@@ -665,7 +665,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   <front>
     <title>OpenID Identity Assurance schema definition</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
