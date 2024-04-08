@@ -623,8 +623,10 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <title>Financial-grade API (FAPI) Security Profile 1.0 - Part 2: Advanced</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
       <organization>Nat.Consulting</organization>
+   </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
       <organization>Yubico</organization>
+    </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization>Illumila</organization>
     </author>
@@ -637,8 +639,10 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <title>Financial-grade API (FAPI) 2.0 Security Profile - draft</title>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
+    </author>
     <author initials="D." surname="Tonge" fullname="Dave Tonge">
       <organization>Moneyhub Financial Technology</organization>
+    </author>
     <author initials="J." surname="Heenan" fullname="Joseph Heenan">
       <organization>Authlete</organization>
     </author>
