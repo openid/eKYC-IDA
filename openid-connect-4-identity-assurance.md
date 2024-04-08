@@ -209,7 +209,7 @@ Here is an example of the payload of an access token in JWT format including ver
 }
 ```
 
-An OP or AS can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details).
+An OP or Authorization Server (AS) can also include aggregated or distributed `verified_claims` in the above assertions (see (#aggregated_distributed_claims) for more details).
 
 ## Requesting end-user claims {#req_claims}
 
@@ -223,7 +223,9 @@ Since `verified_claims` contains the effective claims about the end-user in a ne
 
 <{{examples/request/claims.json}}
 
-Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case. Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this specification.
+Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case.
+
+Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this specification.
 
 RPs can use the `essential` field as defined in section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
@@ -297,7 +299,7 @@ The following example illustrates this functionality.
 
 <{{examples/request/verification_claims_by_trust_frameworks.json}}
 
-When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfil. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
+When the RP requests multiple verifications as described above, the OP will process each element in the array independently. The OP will provide `verified_claims` response elements for every `verified_claims` request element whose requirements it is able to fulfill. This also means if multiple `verified_claims` elements contain the same end-user claim(s), the OP delivers the claim in as many verified claims response objects it can fulfill. For example, if the trust framework the OP uses is compatible with multiple of the requested trust frameworks, it provides a `verified_claims` element for each of them.
 
 The RP can combine multiple `verified_claims` claims in the request with multiple `trust_framework` and/or `assurance_level` values using the `values` element. In that case, the rules given above for processing `values` are applied for the particular `verified_claims` request object.
 
@@ -531,7 +533,7 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security considerations {#Security}
 
-This specification focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON web tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
+This specification focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
 
 * ensure end-users are authenticated using appropriately strong authentication methods, and
 * combine this specification with an appropriate security profile for OpenID Connect.
@@ -619,8 +621,12 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 <reference anchor="FAPI-1-SP" target="https://openid.net/specs/openid-financial-api-part-2-1_0.html">
   <front>
     <title>Financial-grade API (FAPI) Security Profile 1.0 - Part 2: Advanced</title>
-    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
-      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
+      <organization>Nat.Consulting</organization>
+    <author initials="J." surname="Bradley" fullname="John Bradley">
+      <organization>Yubico</organization>
+    <author initials="E." surname="Jay" fullname="Edmund Jay">
+      <organization>Illumila</organization>
     </author>
    <date day="12" month="Mar" year="2021"/>
   </front>
@@ -629,8 +635,12 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 <reference anchor="FAPI-2-SP" target="https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html">
   <front>
     <title>Financial-grade API (FAPI) 2.0 Security Profile - draft</title>
-    <author initials="" surname="OpenID Foundation's Financial API (FAPI) Working Group">
-      <organization>OpenID Foundation's Financial API (FAPI) Working Group</organization>
+    <author initials="D." surname="Fett" fullname="Daniel Fett">
+      <organization>Authlete</organization>
+    <author initials="D." surname="Tonge" fullname="Dave Tonge">
+      <organization>Moneyhub Financial Technology</organization>
+    <author initials="J." surname="Heenan" fullname="Joseph Heenan">
+      <organization>Authlete</organization>
     </author>
    <date day="3" month="Apr" year="2024"/>
   </front>
