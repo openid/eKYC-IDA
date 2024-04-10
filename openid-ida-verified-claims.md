@@ -16,7 +16,7 @@ status = "standard"
 initials="T."
 surname="Lodderstedt"
 fullname="Torsten Lodderstedt"
-organization="yes.com"
+organization="sprind.org"
     [author.address]
     email = "torsten@lodderstedt.net"
 
@@ -66,7 +66,7 @@ organization="KDDI Corporation"
 
 This specification defines a payload schema that can be used to describe a wide variety of identity assurance metadata about a number of claims that have been assessed as meeting a given assurance level.
 
-It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@VerifiableCredentials].
+It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@W3C_VCDM].
 
 This document defines a new claim relating to the identity assurance of a natural person called "verified_claims".  This was originally developed within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
@@ -134,7 +134,7 @@ process in which an end-user provides evidence to a provider reliably identifyin
 process conducted by the provider to verify the end-user's identity.
 
 ## identity assurance
-process in which the provider asserts identity data of a certain end-user with a certain assurance towards another consuming entity (such as an OpenID Connect relying party or verifier as described in [@VerifiableCredentials]), typically expressed by way of an assurance level
+process in which the provider asserts identity data of a certain end-user with a certain assurance towards another consuming entity (such as a relying party or verifier as described in [@W3C_VCDM]), typically expressed by way of an assurance level
 
 Note 1 to entry: Depending on legal requirements, the provider can be required to provide evidence of the identity verification process to the consuming entity.
 
@@ -143,7 +143,7 @@ claims about an end-user, typically a natural person, whose binding to a particu
 
 # Requirements
 
-The specified JSON structures defined in this document should be useable by any protocol that needs to pass assured digital identity attributes or needs to transfer identity assurance metadata between systems using the [@JSON] Data Interchange Format.
+The specified JSON structures defined in this document should be usable by any protocol that needs to pass assured digital identity attributes or needs to transfer identity assurance metadata between systems using the [@JSON] Data Interchange Format.
 
 # Verified claims {#verified_claims}
 
@@ -186,9 +186,9 @@ and the claims defined in [@OpenID4IDAClaims].
 
 The `claims` element may also contain other claims provided the value of the respective claim was verified in the verification process represented by the sibling `verification` element.
 
-Claim names may be annotated with language tags as specified in Section 5.2 of the OpenID Connect specification [@!OpenID].
+Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
 
-The `claims` element may be empty, to support use cases where verification is required but no Claims data needs to be shared.
+The `claims` element may be empty, to support use cases where verification is required but no claims data needs to be shared.
 
 ## verification element {#verification}
 
@@ -198,7 +198,7 @@ This element contains the information about the process conducted to verify a pe
 
 ### Element structure
 
-The `verification` element can be used independently of OpenID Connect and OpenID Connect for Identity Assurance where there is a need for representation of identity assurance metadata in a different application protocol or digital identity data format such as [@VerifiableCredentials].
+The `verification` element can be used independently of OpenID Connect and OpenID Connect for Identity Assurance where there is a need for representation of identity assurance metadata in a different application protocol or digital identity data format such as [@W3C_VCDM].
 
 The `verification` element consists of the following elements:
 
@@ -211,11 +211,11 @@ The `trust_framework` value determines what further data is provided to the clai
 
 * `assurance_level`: Optional. String determining the assurance level associated with the end-user claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. For information on predefined trust framework and assurance level values see [@!predefined_values_page].
 
-* `assurance_process`: Optional. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element, this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
+* `assurance_process`: Optional. JSON object representing the assurance process that was followed. This reflects how the evidence meets the requirements of the `trust_framework` and `assurance_level`. The factual record of the evidence and the procedures followed are recorded in the `evidence` element; this element is used to cross reference the `evidence` to the `assurance_process` followed. This has one or more of the following sub-elements:
   * `policy`: Optional. String representing the standard or policy that was followed.
   * `procedure`: Optional. String representing a specific procedure from the `policy` that was followed.
   * `assurance_details`: Optional. JSON array denoting the details about how the evidence complies with the `policy`. When present this array shall have at least one member. Each member can have the following sub-elements:
-     * `assurance_type`: Optional. String denoting which part of the `assurance_process` the evidence fulfils.
+     * `assurance_type`: Optional. String denoting which part of the `assurance_process` the evidence fulfills.
     * `assurance_classification`: Optional. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
     * `evidence_ref`: Optional. JSON array of the evidence being referred to. When present this array shall have at least one member.
       * `check_id`: Required. Identifier referring to the `check_id` key used in the `check_details` element of members of the `evidence` array. The claim provider shall ensure that `check_id` is present in the `check_details` when `evidence_ref` element is used.
@@ -245,8 +245,8 @@ Members of the `evidence` array are structured with the following elements:
 The following types of evidence are defined:
 
 * `document`: Verification based on the content of a physical or electronic document provided by the end-user, e.g. a passport, ID card, PDF signed by a recognized authority, etc.
-* `electronic_record`: Verification based on data or information obtained electronically from an approved, recognized, regulated or certified source, e.g. a Government organization, bank, utility provider, credit reference agency, etc.
-* `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the Claim(s) presented by the end-user are, to the best of their knowledge, genuine and true.
+* `electronic_record`: Verification based on data or information obtained electronically from an approved, recognized, regulated or certified source, e.g. a government organization, bank, utility provider, credit reference agency, etc.
+* `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the claim(s) presented by the end-user are, to the best of their knowledge, genuine and true.
 * `electronic_signature`: Verification based on the use of an electronic signature that can be uniquely linked to the end-user and is capable of identifying the signatory, e.g. an eIDAS Advanced Electronic Signature (AES) or Qualified Electronic Signature (QES).
 
 `attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
@@ -305,7 +305,7 @@ The following elements are contained in an evidence sub-element where type is `e
 * `created_at`: Optional. The time the record was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 * `date_of_expiry`: Optional. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `source`: Optional. JSON object containing information about the source of this record. This object consists of the following properties:
-    * `name`: Optional. Designation of the source of the electronic_record.
+    * `name`: Optional. Designation of the source of the `electronic_record`.
     * All elements of the OpenID Connect `address` claim (see [@!OpenID]): Optional.
     * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes may be used in some circumstances for compatibility reasons.
     * `jurisdiction`: Optional. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it is not common knowledge or derivable from the address).
@@ -349,7 +349,7 @@ The following elements are contained in an evidence sub-element where type is `v
 
 #### Evidence type `electronic_signature`
 
-The following elements are contained in a `electronic_signature` evidence sub-element.
+The following elements are contained in an `electronic_signature` evidence sub-element.
 
 * `type`: Required. Value shall be set to `electronic_signature`.
 * `signature_type`: Required. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
@@ -368,7 +368,7 @@ During the identity verification process, specific document artifacts could be c
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
 * scans or photocopies of the documents used to verify the identity of end-users,
-* video recordings of the verification process,
+* video recordings of the verification process, and
 * certificates of electronic signatures.
 
 When supported by the claim provider and requested by the claim recipient, these elements can be included in the verified claims response allowing the claims Recipient to store these artifacts along with the verified claims information.
@@ -404,7 +404,7 @@ An attachment is represented by a JSON element.  The definition of attachements 
 </front>
 </reference>
 
-<reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
@@ -426,32 +426,7 @@ An attachment is represented by a JSON element.  The definition of attachements 
   </front>
 </reference>
 
-<reference anchor="OpenID4IDA" target="http://openid.net/specs/openid-connect-4-identity-assurance-1_0.html">
-  <front>
-    <title>OpenID Connect for Identity Assurance 1.0</title>
-    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
-    </author>
-    <author initials="D." surname="Fett" fullname="Daniel Fett">
-      <organization>Authlete</organization>
-    </author>
-    <author initials="M." surname="Haine" fullname="Mark Haine">
-      <organization>Considrd.Consulting Ltd</organization>
-    </author>
-    <author initials="A." surname="Pulido" fullname="Alberto Pulido">
-      <organization>Santander</organization>
-    </author>
-    <author initials="K." surname="Lehmann" fullname="Kai Lehmann">
-      <organization>1&amp;1 Mail &amp; Media Development &amp; Technology GmbH</organization>
-    </author>
-        <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
-      <organization>KDDI Corporation</organization>
-    </author>
-   <date day="16" month="Jun" year="2023"/>
-  </front>
-</reference>
-
-<reference anchor="OpenID4IDAClaims" target="http://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
+<reference anchor="OpenID4IDAClaims" target="https://openid.net/specs/openid-connect-4-ida-claims-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
@@ -476,7 +451,7 @@ An attachment is represented by a JSON element.  The definition of attachements 
   </front>
 </reference>
 
-<reference anchor="Attachments" target="http://openid.net/specs/openid-connect-4-ida-attachments-1_0.html">
+<reference anchor="Attachments" target="https://openid.net/specs/openid-connect-4-ida-attachments-1_0.html">
   <front>
     <title>OpenID Connect for Identity Assurance Attachments 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
@@ -533,7 +508,7 @@ An attachment is represented by a JSON element.  The definition of attachements 
     </front>
 </reference>
 
-<reference anchor="ISO8601" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
+<reference anchor="ISO8601" target="https://www.iso.org/iso/catalogue_detail?csnumber=40874">
     <front>
       <title>ISO 8601. Data elements and interchange formats - Information interchange - Representation of dates and times</title>
       <author surname="International Organization for Standardization">
@@ -620,7 +595,7 @@ An attachment is represented by a JSON element.  The definition of attachements 
   </front>
 </reference>
 
-<reference anchor="VerifiableCredentials" target="https://www.w3.org/TR/vc-data-model/">
+<reference anchor="W3C_VCDM" target="https://www.w3.org/TR/vc-data-model/">
   <front>
     <title>Verifiable Credentials Data Model v1.1</title>
     <author initials="M" surname="Sporny" fullname="Manu Sporny">
