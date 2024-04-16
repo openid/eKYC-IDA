@@ -78,7 +78,7 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 .# Introduction {#Introduction}
 
-This specification defines a schema for describing assured identity claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimisation, which elements of the JSON schema described in this document will be needed for a specific transaction.
+This specification defines a schema for describing assured identity claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimization, which elements of the JSON schema described in this document will be needed for a specific transaction.
 
 .# Warning
 
@@ -219,7 +219,7 @@ The `trust_framework` value determines what further data is provided to the clai
     * `assurance_classification`: Optional. String reflecting how the `evidence` has been classified or measured as required by the `trust_framework`.
     * `evidence_ref`: Optional. JSON array of the evidence being referred to. When present this array shall have at least one member.
       * `check_id`: Required. Identifier referring to the `check_id` key used in the `check_details` element of members of the `evidence` array. The claim provider shall ensure that `check_id` is present in the `check_details` when `evidence_ref` element is used.
-      * `evidence_metadata`: Optional. Object indicating any meta data about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
+      * `evidence_metadata`: Optional. Object indicating any metadata about the `evidence` that is required by the `assurance_process` in order to demonstrate compliance with the `trust_framework`. It has the following sub-elements:
         * `evidence_classification`: Optional. String indicating how the process demonstrated by the `check_details` for the `evidence` is classified by the `assurance_process` in order to demonstrate compliance with the `trust_framework`.
 
 * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date and time when the identity verification process took place. This time might deviate from (a potentially also present) `document/time` element since the latter represents the time when a certain evidence was checked whereas this element represents the time when the process was completed. Moreover, the overall verification process and evidence verification can be conducted by different parties (see `document/verifier`). Presence of this element might be required for certain trust frameworks.
@@ -267,7 +267,7 @@ The following elements are contained in an evidence sub-element where type is `d
 
 `document_details`: Optional. JSON object representing the document used to perform the identity verification. It consists of the following properties:
 
-* `type`: Required. String denoting the type of the document. For information on predefined document values see [@!predefined_values_page]. The claim provider may use other predefined values in which case the  claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
+* `type`: Required. String denoting the type of the document. For information on predefined document values see [@!predefined_values_page]. The claim provider may use other predefined values in which case the claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
 * `document_number`: Optional. String representing an identifier/number that uniquely identifies a document that was issued to the end-user. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc.
 * `serial_number`: Optional. String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization).
 * `date_of_issuance`: Optional. The date the document was issued as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
