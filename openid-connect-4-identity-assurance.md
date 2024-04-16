@@ -146,7 +146,7 @@ This extension will be usable by OPs operating under a certain regulation relate
 
 It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID systems.
 
-Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, an RP shall use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
+Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, an RP might choose to use the identity attributes in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
 The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
@@ -339,7 +339,7 @@ In both cases, the OP shall not return an error to the RP.
 
 ### Omitting elements
 
-If an element is to be omitted according to the rules above, but is a requirement for a valid response, the OP shall omit its parent element as well. This OP shall repeate this process until the response is valid.
+If an element is to be omitted according to the rules above, but is a requirement for a valid response, the OP shall omit its parent element as well. This OP shall repeat this process until the response is valid.
 
 ### Error handling
 
