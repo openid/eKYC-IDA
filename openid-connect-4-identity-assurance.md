@@ -152,11 +152,11 @@ The concept of this specification is that the OP can provide identity data along
 
 From a technical perspective, this means this specification allows the OP to provide verified claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims.
+The representation defined in this specification can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the userinfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims.
 
 This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes.
 
-In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey claims about end-users.
+In order to give implementors as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or userinfo response) utilized to convey claims about end-users.
 
 For example, OpenID Connect [@!OpenID] defines claims for representing family name and given name of an end-user without a verification status. These claims can be used in the same OpenID Connect assertion beside verified claims represented according to this extension.
 
@@ -184,7 +184,7 @@ This specification requires that the schema defined in [@!IDA-verified-claims] s
 
 OPs can deliver `verified_claims` in various ways.
 
-A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
+A `verified_claims` element can be added to an OpenID Connect userinfo response or an ID Token.
 
 OAuth authorization servers can add `verified_claims` to access tokens in JWT format or token introspection responses, either in plain JSON or JWT-protected format.
 
@@ -349,7 +349,7 @@ If the OP encounters an error, standard OpenID Connect authentication error resp
 
 Verified claims about the end-user can be requested as part of a pre-defined set by utilizing the `scope` parameter as defined in section 5.4 of the OpenID Connect specification [@!OpenID].
 
-When using this approach the claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or UserInfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID].
+When using this approach the claims associated with a `scope` are administratively defined at the OP.  The OP configuration and RP request parameters will determine whether the claims are returned via the ID Token or userinfo endpoint as defined in section 5.3.2 of the OpenID Connect specification [@!OpenID].
 
 # Aggregated and distributed claims {#aggregated_distributed_claims}
 ## Aggregated and distributed claims assertions
@@ -902,7 +902,7 @@ sources into a ID Token.
 
 This section shows examples of pairs of requests and responses containing `verified_claims`.
 
-## verified claims in UserInfo response
+## verified claims in userinfo response
 
 ### Request
 
@@ -916,7 +916,7 @@ The value of the `claims` parameter is:
 
 ### Response
 
-The respective UserInfo response would be
+The respective userinfo response would be
 
 <{{examples/response/userinfo.json}}
 
