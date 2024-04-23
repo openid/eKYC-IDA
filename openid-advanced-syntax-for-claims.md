@@ -30,13 +30,13 @@ This specification defines an extension of OpenID Connect to enable new features
 
 # Introduction {#Introduction}
 
-When using OpenID Connect there are two existing mechanisms to limit the data returned.  These are through the use of the `scope` parameter (where a predefines set of claims may be described) or the `claims` parameter where individual claims can be requested explicitly. The OpenID Provider in these cases may return some or all of the requested claims dependent on availability, end-user approval or some other policy.
+When using OpenID Connect there are two existing mechanisms to limit the data returned.  These are through the use of the `scope` parameter (where a predefined set of claims may be described) or the `claims` parameter where individual claims can be requested explicitly. The OpenID Provider in these cases may return some or all of the requested claims dependent on availability, end-user approval or some other policy.
 
 With OpenID Connect Advanced Syntax for Claims (ASC) two further tools are made available to implementers.  The "Selective Abort and Omit" feature allows the Relying Party to express to the Identity Provider certain conditions when it might like some subset or perhaps all of the requested claims to be not returned. This is provided to allow for cases where when one or more key attributes are unavailable then the rest are insufficient to meet the business requirement and reduced return of data is better than incomplete data. With the "Transformed Claims" feature a general purpose way of taking an existing "base claim" and applying functions to it is provided.  This capability was inspired by the age verification use case where the full `birthdate` is not needed to satisfy the business requirement and would not meet the principle of data minimization. With Transformed Claims it is possible to transform claims in various ways either by applying one or more functions to the value of a claim.
 
-In the case of age verification `birthdate` is transformed to `age is greater than or equal to x` but it is also possible to express `postcode contains "EH1"`  or `end-user nationality includes "USA"` meeting the business and policy requirements of Relying Parties much more effectively.
+In the case of age verification, `birthdate` is transformed to `age is greater than or equal to x` but it is also possible to express `postcode contains "EH1"`  or `end-user nationality includes "USA"` meeting the business and policy requirements of Relying Parties much more effectively.
 
-With these two capabilities it is possible for the relying partyto be highly specific about what the claims returned should be, that some of those claims should be data minimised, and in which circumstances claims should or should nor be returned.
+With these two capabilities it is possible for the relying party to be highly specific about what the claims returned should be, that some of those claims should be data minimized, and in which circumstances claims should or should not be returned.
 
 # Warning
 
@@ -935,7 +935,7 @@ The technology described in this specification was made available from contribut
 
    -01
    *  Updated Syntax to resolve race condition that led to non-deterministic results
-   *  various editorisl updates
+   *  various editorial updates
 
    -00
 
