@@ -207,7 +207,7 @@ An example value is `eidas`, which denotes a notified eID system under eIDAS [@e
 
 Claim recipients should ignore `verified_claims` claims containing a trust framework identifier they do not understand.
 
-The `trust_framework` value determines what further data is provided to the claim recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas an claim provider not governed by eIDAS would need to provide verification evidence in order to allow the claim recipient to fulfill its legal obligations. An example of the latter is an claim provider acting under the German anti-money laundering law (`de_aml`).
+The `trust_framework` value determines what further data is provided to the claim recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas a claim provider not governed by eIDAS would need to provide verification evidence in order to allow the claim recipient to fulfill its legal obligations. An example of the latter is an claim provider acting under the German anti-money laundering law (`de_aml`).
 
 * `assurance_level`: Optional. String determining the assurance level associated with the end-user claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. For information on predefined trust framework and assurance level values see [@!predefined_values_page].
 
@@ -301,7 +301,7 @@ The following elements are contained in an evidence sub-element where type is `e
 
 `record`: Optional. JSON object representing the record used to perform the identity verification. It consists of the following properties:
 
-* `type`: Required. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values_page]. The claim provider may use other predefined values in which case the  claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
+* `type`: Required. String denoting the type of electronic record. For information on predefined identity evidence values see [@!predefined_values_page]. The claim provider may use other predefined values in which case the claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
 * `created_at`: Optional. The time the record was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 * `date_of_expiry`: Optional. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `source`: Optional. JSON object containing information about the source of this record. This object consists of the following properties:
@@ -371,9 +371,9 @@ During the identity verification process, specific document artifacts could be c
 * video recordings of the verification process, and
 * certificates of electronic signatures.
 
-When supported by the claim provider and requested by the claim recipient, these elements can be included in the verified claims response allowing the claims Recipient to store these artifacts along with the verified claims information.
+When supported by the claim provider and requested by the claim recipient, these elements can be included in the verified claims response allowing the claims recipient to store these artifacts along with the verified claims information.
 
-An attachment is represented by a JSON element.  The definition of attachements and the schema representing them are described in [@Attachments].
+An attachment is represented by a JSON element. The definition of attachements and the schema representing them are described in [@Attachments].
 
 ## Examples
 
