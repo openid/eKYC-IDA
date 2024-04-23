@@ -620,7 +620,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 <reference anchor="FAPI-1-SP" target="https://openid.net/specs/openid-financial-api-part-2-1_0.html">
   <front>
-    <title>Financial-grade API (FAPI) Security Profile 1.0 - Part 2: Advanced</title>
+    <title>FAPI Security Profile 1.0 - Part 2: Advanced</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
       <organization>Nat.Consulting</organization>
    </author>
@@ -636,7 +636,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 <reference anchor="FAPI-2-SP" target="https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html">
   <front>
-    <title>Financial-grade API (FAPI) 2.0 Security Profile - draft</title>
+    <title>FAPI 2.0 Security Profile - draft</title>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
     </author>
