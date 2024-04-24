@@ -207,7 +207,7 @@ An example value is `eidas`, which denotes a notified eID system under eIDAS [@e
 
 Claim recipients should ignore `verified_claims` claims containing a trust framework identifier they do not understand.
 
-The `trust_framework` value determines what further data is provided to the claim recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas a claim provider not governed by eIDAS would need to provide verification evidence in order to allow the claim recipient to fulfill its legal obligations. An example of the latter is an claim provider acting under the German anti-money laundering law (`de_aml`).
+The `trust_framework` value determines what further data is provided to the claim recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas a claim provider not governed by eIDAS would need to provide verification evidence in order to allow the claim recipient to fulfill its legal obligations. An example of the latter is a claim provider acting under the German anti-money laundering law (`de_aml`).
 
 * `assurance_level`: Optional. String determining the assurance level associated with the end-user claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. For information on predefined trust framework and assurance level values see [@!predefined_values_page].
 
