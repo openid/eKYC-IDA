@@ -178,7 +178,7 @@ The following example would assert to the RP that the OP has verified the claims
 
 <{{examples/response/verified_claims_simple.json}}
 
-This specification requires that RPs use the schema defined in [@!IDA-verified-claims].  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
+This specification requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
 
 ## verified_claims delivery {#verified_claims_delivery}
 
