@@ -548,9 +548,9 @@ their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
-Protocol parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
+Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
 
-Protocol parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
+Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
 
 # Implementation and interoperability {#Interoperability}
 

@@ -256,7 +256,7 @@ Depending on the evidence type additional elements are defined, as described in 
 
 The following elements are contained in an evidence sub-element where type is `document`.
 
-`type`: Required. Set value to `document`.
+`type`: Required with value set to `document`.
 
 `check_details`: Optional. JSON array representing the checks done in relation to the `evidence`. When present this array shall have at least one member.
 
@@ -290,7 +290,7 @@ The following elements are contained in an evidence sub-element where type is `d
 
 The following elements are contained in an evidence sub-element where type is `electronic_record`.
 
-`type`: Required. Set value to `electronic_record`.
+`type`: Required with value set to `electronic_record`.
 
 `check_details`: Optional. JSON array representing the checks done in relation to the `evidence`.
 
@@ -319,7 +319,7 @@ The following elements are contained in an evidence sub-element where type is `e
 
 The following elements are contained in an evidence sub-element where type is `vouch`.
 
-`type`: Required. Set value to `vouch`.
+`type`: Required with value set to `vouch`.
 
 `check_details`: Optional. JSON array representing the checks done in relation to the `vouch`.
 
@@ -351,7 +351,7 @@ The following elements are contained in an evidence sub-element where type is `v
 
 The following elements are contained in an `electronic_signature` evidence sub-element.
 
-* `type`: Required. Set value to `electronic_signature`.
+* `type`: Required with value set to `electronic_signature`.
 * `signature_type`: Required. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
 * `issuer`: Required. String denoting the certification authority that issued the signer's certificate.
 * `serial_number`: Required. String containing the serial number of the certificate used to sign.
