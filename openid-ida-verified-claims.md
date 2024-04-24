@@ -330,7 +330,7 @@ The following elements are contained in an evidence sub-element where type is `v
 
 `attestation`: Optional. JSON object representing the attestation that is the basis of the vouch. It consists of the following properties:
 
-* `type`: Required. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values_page]. The claim provider may use other than the predefined values in which case the  claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
+* `type`: Required. String denoting the type of vouch. For information on predefined vouch values see [@!predefined_values_page]. The claim provider may use other than the predefined values in which case the claim recipients will either be unable to process the assertion, just store this value for audit purposes, or apply bespoke business logic to it.
 * `reference_number`: Optional. String representing an identifier/number that uniquely identifies a vouch given about the end-user.
 * `date_of_issuance`: Optional. The date the vouch was made as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
 * `date_of_expiry`: Optional. The date the evidence will expire as ISO 8601 [@!ISO8601] `YYYY-MM-DD` format.
