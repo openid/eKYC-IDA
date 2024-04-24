@@ -146,7 +146,7 @@ This extension will be usable by OPs operating under a certain regulation relate
 
 It is assumed that OPs operating under a suitable regulation can assure identity data without the need to provide further evidence since they are approved to operate according to well-defined rules with clearly defined liability. For example in the case of eIDAS, the peer review ensures eIDAS compliance and the respective member state assumes the liability for the identities asserted by its notified eID system.
 
-Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, it shall be possible for an RP to use the respective identity in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
+Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, an RP might choose to use the identity attributes in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
 The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
@@ -178,7 +178,7 @@ The following example would assert to the RP that the OP has verified the claims
 
 <{{examples/response/verified_claims_simple.json}}
 
-This specification requires that the schema defined in [@!IDA-verified-claims] shall be used.  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
+This specification requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
 
 ## verified_claims delivery {#verified_claims_delivery}
 
@@ -323,25 +323,25 @@ Important: The behavior described below is independent from the use of `essentia
 
 ### Unavailable data
 
-If the OP does not have data about a certain claim, does not understand/support the respective claim, the respective claim shall be omitted from any corresponding ID Token or UserInfo response.
+If the OP does not have data about a certain claim, does not understand/support the respective claim, OPs shall omit the respective claim from any corresponding ID Token or UserInfo response.
 
 ### Non-consented data
 
-When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case data that has not had end-user consent for sharing shall be omitted from any corresponding ID Token or UserInfo response.
+When relying on end-user consent to determine the specific data to be shared the end-user may make a choice to release only a subset of the data requested. In this case the OP shall omit from any corresponding ID Token or UserInfo response data that has not had end-user consent for sharing.
 
 Alternatively, when relying on end-user consent to determine the specific data to be shared the end-user may choose to release none of the data requested.  In this case standard OpenID Connect authentication error response logic applies, as defined in section 3.1.2.6 of [@!OpenID].
 
 ### Data not matching requirements
 When the available data does not fulfill the requirements of the RP expressed through `value`, `values`, or `max_age`, the following logic applies:
 
- * If the respective requirement was expressed for a claim within `verified_claims/verification`, the whole `verified_claims` element shall be omitted.
- * Otherwise, the respective claim shall be omitted from the response.
+ * If the respective requirement was expressed for a claim within `verified_claims/verification`, the OP shall omit the whole `verified_claims` element.
+ * Otherwise, the OP shall omit the respective claim from the response.
 
 In both cases, the OP shall not return an error to the RP.
 
 ### Omitting elements
 
-If an element is to be omitted according to the rules above, but is a requirement for a valid response, its parent element shall be omitted as well. This process shall be repeated until the response is valid.
+If an element is to be omitted according to the rules above, but is a requirement for a valid response, the OP shall omit its parent element as well. This OP shall repeat this process until the response is valid.
 
 ### Error handling
 
@@ -550,9 +550,9 @@ their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP].
 
 Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
-The integrity and authenticity of the issued assertions shall be ensured in order to prevent identity spoofing.
+Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
 
-The confidentiality of all end-user data exchanged between the protocol parties shall be ensured using suitable methods at transport or application layer.
+Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
 
 # Implementation and interoperability {#Interoperability}
 
