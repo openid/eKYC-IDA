@@ -172,13 +172,13 @@ The basic idea is to use a container element, called `verified_claims`, to provi
 
 ## Verified claims schema
 
-This specification uses the [!@IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
+This specification uses the [@!IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
 
 The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
 <{{examples/response/verified_claims_simple.json}}
 
-This specification requires that RPs use the schema defined in [@!IDA-verified-claims].  There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
+This specification requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
 
 ## verified_claims delivery {#verified_claims_delivery}
 
@@ -548,9 +548,9 @@ their needs. Implementers might consider [@FAPI-1-RW] or [@FAPI-2-BL].
 
 Implementers should select a security profile that has a certification program or other resources that allow both OpenID providers and relying parties to ensure they have complied with the profile’s security and interoperability requirements, such as the OpenID Foundation Certification Program, https://openid.net/certification/.
 
-Protocol parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
+Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
 
-Protocol parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
+Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
 
 # Implementation and interoperability {#Interoperability}
 
