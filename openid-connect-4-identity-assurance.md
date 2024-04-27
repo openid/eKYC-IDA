@@ -152,7 +152,7 @@ The concept of this specification is that the OP can provide identity data along
 
 From a technical perspective, this means this specification allows the OP to provide verified claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the userinfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims.
+The representation defined in this specification can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims.
 
 This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes.
 
@@ -184,7 +184,7 @@ This specification requires that RPs use the schema defined in [@!IDA-verified-c
 
 OPs can deliver `verified_claims` in various ways.
 
-A `verified_claims` element can be added to an OpenID Connect userinfo response or an ID Token.
+A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
 
 OAuth authorization servers can add `verified_claims` to access tokens in JWT format or token introspection responses, either in plain JSON or JWT-protected format.
 
@@ -912,11 +912,11 @@ sources into an ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
-# Example requests and Responses
+# Example requests and responses
 
 This section shows examples of pairs of requests and responses containing `verified_claims`.
 
-## verified claims in userinfo response
+## verified claims in UserInfo response
 
 ### Request
 
@@ -930,7 +930,7 @@ The value of the `claims` parameter is:
 
 ### Response
 
-The respective userinfo response would be
+The respective UserInfo response would be
 
 <{{examples/response/userinfo.json}}
 
