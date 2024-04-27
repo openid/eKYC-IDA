@@ -64,7 +64,7 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect for providing relying parties with verified claims about end-users. This extension facilitates the verification of the identity of a natural person.
+This specification defines an extension of OpenID Connect protocol for providing relying parties with claims about end-users that have a certain level of verification and/or additional metadata about the claim or the process of verification for access control, entitlement decisions or input to further verification processes.
 
 .# Foreword
 
@@ -74,17 +74,15 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 .# Introduction {#Introduction}
 
-This specification defines an extension to OpenID Connect [@!OpenID] for providing relying parties with identity information, i.e., verified claims, along with an explicit statement about the verification status of these  claims (what, how, when, according to what rules, using what evidence). This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as anti-money laundering laws or access to health data, risk mitigation, or fraud prevention.
+This extension to OpenID Connect standardizes how relying parties request and receive identity information with additional assurance metadata. This specification is aimed at enabling use cases requiring strong assurance, for example, to comply with regulatory requirements such as anti-money laundering laws or access to health data, risk mitigation, or fraud prevention.
 
 In such use cases, the relying party (RP) needs to understand the trustworthiness or assurance level of the  claims about the end-user that the OpenID Connect provider (OP) is willing to communicate, along with process-related information and evidence used to verify the end-user claims.
 
-The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance is a property of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
+The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance and associated verification and validation details, is a property of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
-For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or “verified by opt-in or similar mechanism”. The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator.
+For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted”. The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator.
 
-Identity assurance therefore requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
-
-Note: This specifications fulfills the criteria for portability and interoperability mechanisms of Digital ID systems as defined in [@FATF-Digital-Identity].
+Identity assurance requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
 
 .# Warning
 
@@ -108,7 +106,7 @@ interpreted with their natural language meanings.
 
 # Scope
 
-This specification defines the technical mechanisms to allow relying parties to request verified claims and to enable OpenID providers to provide relying parties with verified claims ("the tools").
+This specification is a definition of the technical mechanism to allow a relying party to request one or more verified claim about the end-user and to enable an OpenID provider to provide a relying party with a verified claim ("the tools").
 
 Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
 
@@ -124,10 +122,8 @@ For the purposes of this document, the following terms and definitions apply.
 ## claim
 piece of information asserted about an entity
 
-[SOURCE: [@!OpenID], 1.2]
-
 ## identity proofing
-process in which an end-user provides evidence to an OP or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level
+process in which an end-user provides evidence to an OpenID Connect provider (OP) or claim provider reliably identifying themselves, thereby allowing the OP or claim provider to assert that identification at a useful assurance level
 
 ## identity verification
 process conducted by the OP or a claim provider to verify the end-user's identity
@@ -136,7 +132,10 @@ process conducted by the OP or a claim provider to verify the end-user's identit
 process in which the OP or a claim provider asserts identity data of a certain end-user with a certain assurance towards an RP, typically expressed by way of an assurance level. Depending on legal requirements, the OP can be required to provide evidence of the identity verification process to the RP
 
 ## verified claim
-claims about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process
+claim about an end-user, typically a natural person, whose binding to a particular end-user account was verified in the course of an identity verification process
+
+## claim provider
+server that can provide claim information about a entity; synonomous with "claims provider" in OpenID Connect core
 
 # Requirements
 
