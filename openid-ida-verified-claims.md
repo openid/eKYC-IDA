@@ -102,7 +102,7 @@ interpreted with their natural language meanings.
 
 # Scope
 
-This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there is also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by other spec authors and implementers where the verification metadata is needed independantly of the end-user verified claims.
+This specification defines the schema of JSON objects used to describe identity assurance relating to a natural person.  It consists of the definition of a new claim called `verified_claims` that will be registered with the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].  As part of the definition of the `verified_claims` claim there is also be an element defined called `verification` that provides a flexible container for identity assurance metadata. It is anticipated that the `verification` element may be used by other spec authors and implementers where the verification metadata is needed independently of the end-user verified claims.
 
 # Normative references
 
@@ -125,7 +125,7 @@ Note 1 to entry : A claim provider could be an OpenID Connect provider, a verifi
 [SOURCE: [@!OpenID], 1.2, modified - added requirement to return verified claims]
 
 ## claim recipient
-an application that receives claims from the claim provider
+application that receives claims from the claim provider
 
 ## identity proofing
 process in which an end-user provides evidence to a provider reliably identifying themselves, thereby allowing the provider to assert that identification at a useful assurance level.
@@ -323,7 +323,7 @@ The following elements are contained in an evidence sub-element where type is `v
 
 `check_details`: Optional. JSON array representing the checks done in relation to the `vouch`.
 
-  * `check_method`: Required. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifing the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values_page].
+  * `check_method`: Required. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifying the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values_page].
   * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claim provider did not perform the check itself.
   * `check_id`: Optional. Identifier referring to the event where a check (either verification or validation) was performed. The claim provider shall ensure that this is present when `evidence_ref` element is used. The claim provider shall ensure that the transaction identifier can be resolved into transaction details during an audit.
   * `time`: Optional. Time stamp in ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format representing the date when the check was completed.
@@ -373,7 +373,7 @@ During the identity verification process, specific document artifacts could be c
 
 When supported by the claim provider and requested by the claim recipient, these elements can be included in the verified claims response allowing the claims recipient to store these artifacts along with the verified claims information.
 
-An attachment is represented by a JSON element. The definition of attachements and the schema representing them are described in [@Attachments].
+An attachment is represented by a JSON element. The definition of attachments and the schema representing them are described in [@Attachments].
 
 ## Examples
 
