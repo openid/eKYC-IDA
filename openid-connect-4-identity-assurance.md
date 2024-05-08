@@ -912,7 +912,7 @@ sources into an ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
-# Example requests and Responses
+# Example requests and responses
 
 This section shows examples of pairs of requests and responses containing `verified_claims`.
 
