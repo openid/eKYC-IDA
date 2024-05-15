@@ -8,7 +8,7 @@ keyword = ["openid", "identity assurance", "ekyc", "asc", "data minimization"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-advanced-syntax-for-claims-1_0-00"
+value = "openid-connect-advanced-syntax-for-claims-1_0-01"
 
 status = "standard"
 
@@ -30,15 +30,23 @@ This specification defines an extension of OpenID Connect to enable new features
 
 # Introduction {#Introduction}
 
-When using OpenID Connect there are two existing mechanisms to limit the data returned.  These are through the use of the `scope` parameter (where a predefines set of claims may be described) or the `claims` parameter where individual claims can be requested explicitly. The OpenID Provider in these case may return some or all of the requested claims dependent on availability, end-user approval or some other policy.
+When using OpenID Connect there are two existing mechanisms to limit the data returned.  These are through the use of the `scope` parameter (where a predefined set of claims may be described) or the `claims` parameter where individual claims can be requested explicitly. The OpenID Provider in these cases may return some or all of the requested claims dependent on availability, end-user approval or some other policy.
 
-With OpenID Connect Advanced Syntax for Claims (ASC) two further tools are made available to implementers.  The "Selective Abort and Omit" feature allows the Relying Party to express to the Identity Provider certain conditions when it might like some subset or perhaps all of the requested claims to be not returned. This is provided to allow for cases where when one or more key attributes are unavailable then the rest are insufficient to meet the business requirement and reduced return of data is better than incomplete data. With the "Transformed Claims" feature a general purpose way of taking an existing "base claim" and applying functions to it is provided.  This capability was inspired by the age verification use case where the full `birthdate` is not needed to satisfy the business requirement and would not meet the principle of data minimization. With Transformed Claims it is possible to transform `birthdate` to `age is greater than or equal to x` but also express `postcode contains "EH1"`  or `end-user nationality includes "USA"` meeting the business and policy requirements of Relying Parties much more effectively.
+With OpenID Connect Advanced Syntax for Claims (ASC) two further tools are made available to implementers.  The "Selective Abort and Omit" feature allows the Relying Party to express to the Identity Provider certain conditions when it might like some subset or perhaps all of the requested claims to be not returned. This is provided to allow for cases where when one or more key attributes are unavailable then the rest are insufficient to meet the business requirement and reduced return of data is better than incomplete data. With the "Transformed Claims" feature a general purpose way of taking an existing "base claim" and applying functions to it is provided.  This capability was inspired by the age verification use case where the full `birthdate` is not needed to satisfy the business requirement and would not meet the principle of data minimization. With Transformed Claims it is possible to transform claims in various ways either by applying one or more functions to the value of a claim.
 
-- resolves ambiguity, e.g., applying value/values to compound claims.
+In the case of age verification, `birthdate` is transformed to `age is greater than or equal to x` but it is also possible to express `postcode contains "EH1"`  or `end-user nationality includes "USA"` meeting the business and policy requirements of Relying Parties much more effectively.
 
-## Terminology
+With these two capabilities it is possible for the relying party to be highly specific about what the claims returned should be, that some of those claims should be data minimized, and in which circumstances claims should or should not be returned.
 
-TBD
+# Warning
+
+This document is not an OIDF International Standard. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an International Standard.
+
+Recipients of this draft are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+
+# Notational conventions
+
+The keywords "shall", "shall not", "should", "should not", "may", and "can" in this document are to be interpreted as described in ISO Directive Part 2 [@!ISODIR2]. These keywords are not used as dictionary terms such that any occurrence of them shall be interpreted as keywords and are not to be interpreted with their natural language meanings.
 
 # Scope
 
@@ -49,6 +57,28 @@ implementers the choice to implement each feature in isolation or in conjunction
 depending on their requirements, provides options for restricted
 implementations, provides features for communication of these capabilities to
 Relying Parties and includes examples of how both features may be used.
+
+# Normative references
+
+See section 13 for normative references.
+
+# Terms and definitions
+For the purposes of this document, the following terms and definitions apply.
+
+## claim
+piece of information asserted about an entity
+
+[SOURCE: [@!OpenID], 1.2]
+
+## OpenID provider
+OAuth 2.0 Authorization Server that is capable of Authenticating the End-User and providing Claims to a Relying Party about the Authentication event and the End-User. Also referred to as OP or identity provider
+
+[SOURCE: [@!OpenID], 1.2]
+
+## relying party
+OAuth 2.0 Client application requiring End-User Authentication and Claims from an OpenID Provider. Also referred to as RP
+
+[SOURCE: [@!OpenID], 1.2]
 
 # Selective Abort/Omit
 
@@ -811,6 +841,15 @@ OPs SHOULD consider setting `transformed_claims_max_depth` and `transformed_clai
 
 {backmatter}
 
+<reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
+<front>
+<title>ISO/IEC Directives Part 2 - </title>
+    <author fullname="International Organization for Standardization">
+      <organization></organization>
+    </author>
+</front>
+</reference>
+
 <reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
@@ -876,17 +915,15 @@ OPs SHOULD consider setting `transformed_claims_max_depth` and `transformed_clai
   </front>
 </reference>
 
-# IANA Considerations
-
-TBD
-
 # Acknowledgements {#Acknowledgements}
 
-TBD
+The OpenID Foundation Working Group developed the the concept described in the initial contribution to this specification with including Daniel Fett, Mark Haine, Takahiko Kawasaki, Kai Lehmann who all committed to the early drafts.
+
+We would also like to thank Alberto Pulido, Torsten Lodderstedt, Kristina Yasuda, Kosuke Koiwai, Joseph Heenan, Mike Jones, Dima Postnikov, and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
 
 # Notices
 
-Copyright (c) 2020 The OpenID Foundation.
+Copyright (c) 2024 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
@@ -895,6 +932,10 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -01
+   *  Updated Syntax to resolve race condition that led to non-deterministic results
+   *  various editorial updates
 
    -00
 
