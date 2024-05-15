@@ -80,7 +80,7 @@ In such use cases, the relying party (RP) needs to understand the trustworthines
 
 The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!OpenID], is suited to assure information about the authentication performed in an OpenID Connect transaction. Identity assurance, however, requires a different representation. While authentication is an aspect of an OpenID Connect transaction, assurance and associated verification and validation details, is a property of a certain claim or a group of claims. Several of them will typically be conveyed to the RP as the result of an OpenID Connect transaction.
 
-For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted”. The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator.
+For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or "verified". The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator.
 
 Identity assurance requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This specification defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
 
