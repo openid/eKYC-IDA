@@ -570,9 +570,9 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 <reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
 <front>
-<title>ISO/IEC Directives Part 2 - </title>
-    <author fullname="International Organization for Standardization">
-      <organization></organization>
+<title>ISO/IEC Directives, Part 2 - Principles and rules for the structure and drafting of ISO and IEC documents</title>
+    <author fullname="ISO/IEC">
+      <organization>ISO/IEC</organization>
     </author>
 </front>
 </reference>

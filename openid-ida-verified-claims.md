@@ -397,9 +397,9 @@ An attachment is represented by a JSON element. The definition of attachements a
 
 <reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
 <front>
-<title>ISO/IEC Directives Part 2 - </title>
-    <author fullname="International Organization for Standardization">
-      <organization></organization>
+<title>ISO/IEC Directives, Part 2 - Principles and rules for the structure and drafting of ISO and IEC documents</title>
+    <author fullname="ISO/IEC">
+      <organization>ISO/IEC</organization>
     </author>
 </front>
 </reference>
@@ -479,10 +479,10 @@ An attachment is represented by a JSON element. The definition of attachements a
 <reference anchor="JSON" target="https://www.rfc-editor.org/rfc/rfc8259">
     <front>
       <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
-      <author>
+      <author initials="T." surname="Bray">
         <organization abbrev="IETF">Internet Engineering Task Force</organization>
       </author>
-      <date year="2017" />
+      <date month="December" year="2017"/>
     </front>
 </reference>
 
@@ -520,8 +520,8 @@ An attachment is represented by a JSON element. The definition of attachements a
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
     <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
-    <author surname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
-      <organization>INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
+    <author surname="International Civil Aviation Organization">
+      <organization>International Civil Aviation Organization</organization>
     </author>
    <date year="2015"/>
   </front>
