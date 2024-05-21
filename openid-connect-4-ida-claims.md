@@ -74,7 +74,7 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 .# Introduction {#Introduction}
 
-This specification defines additional JWT claims about the natural person.  The claims defined MAY be used in various contexts including an ID Token.
+This specification defines additional JWT claims about the natural person.  The claims defined can be used in various contexts including an ID Token.
 
 .# Warning
 This document is not an OIDF International Standard. It is distributed for
@@ -148,7 +148,7 @@ This specification defines the following claims for conveying end-user data in a
 
 This specification extends the `address` claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
 
-`country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] MAY be used for compatibility reasons. `country_code` MAY be used as alternative to the existing `country` field.
+`country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] may be used for compatibility reasons. `country_code` may be used as alternative to the existing `country` field.
 
 ## Examples
 
@@ -195,7 +195,7 @@ This section contains JSON snippets showing examples of end-user claims describe
 
 ```
 {
-"salutation": "Dr"
+"title": "Dr"
 }
 ```
 

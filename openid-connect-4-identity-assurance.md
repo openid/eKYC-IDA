@@ -108,9 +108,9 @@ interpreted with their natural language meanings.
 
 This specification is a definition of the technical mechanism to allow a relying party to request one or more verified claim about the end-user and to enable an OpenID provider to provide a relying party with a verified claim ("the tools").
 
-Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this specification with the respective definitions ("the rules").
+Additional facets needed to deploy a complete solution for identity assurance, such as legal aspects (including liability), trust frameworks, or commercial agreements are out of scope. It is up to the particular deployment to complement the technical solution based on this document with the respective definitions ("the rules").
 
-Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this specification as examples.
+Note: Although such aspects are out of scope, the aim of the specification is to enable implementations of the technical mechanism to be flexible enough to fulfill different legal and commercial requirements in jurisdictions around the world. Consequently, such requirements will be discussed in this document as examples.
 
 # Normative references
 
@@ -147,11 +147,11 @@ It is assumed that OPs operating under a suitable regulation can assure identity
 
 Every other OP not operating under such well-defined conditions could receive a request to provide the RP data about the identity verification process along with identity evidence to allow the RP to conduct their own risk assessment and to map the data obtained from the OP to other laws. For example, if an OP verifies and maintains identity data in accordance with an anti-money laundering law, an RP might choose to use the identity attributes in a different regulatory context, such as eHealth or the previously mentioned eIDAS.
 
-The concept of this specification is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
+The concept of this document is that the OP can provide identity data along with metadata about the identity assurance process. It is the responsibility of the RP to assess this data and map it into its own legal context.
 
-From a technical perspective, this means this specification allows the OP to provide verified claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
+From a technical perspective, this means this document allows the OP to provide verified claims along with information about the respective trust framework, but also supports the externalization of information about the identity verification process.
 
-The representation defined in this specification can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims.
+The representation defined in this document can be used to provide RPs with verified claims about the end-user via any appropriate channel. In the context of OpenID Connect, verified claims can be provided in ID Tokens or as part of the UserInfo response. It is also possible to utilize the format described here in OAuth access tokens or token introspection responses to provide resource servers with verified claims.
 
 This extension is intended to be truly international and support identity assurance across different jurisdictions. The extension is therefore extensible to support various trust frameworks, identity evidence and assurance processes.
 
@@ -171,23 +171,19 @@ The basic idea is to use a container element, called `verified_claims`, to provi
 
 ## Verified claims schema
 
-This specification uses the [@!IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
+This document uses the [@!IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
 
 The following example would assert to the RP that the OP has verified the claims provided (`given_name` and `family_name`) according to an example trust framework `trust_framework_example`:
 
 <{{examples/response/verified_claims_simple.json}}
 
-This specification requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this specification.
+This document requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this document.
 
-## verified_claims delivery {#verified_claims_delivery}
+## verified claims delivery {#verified_claims_delivery}
 
-OPs can deliver `verified_claims` in various ways.
+A `verified_claims` element can be added to an OpenID Connect UserInfo response and/or an ID Token.
 
-A `verified_claims` element can be added to an OpenID Connect UserInfo response or an ID Token.
-
-OAuth authorization servers can add `verified_claims` to access tokens in JWT format or token introspection responses, either in plain JSON or JWT-protected format.
-
-Here is an example of the payload of an access token in JWT format including verified claims:
+Here is an example of the payload of an ID token including verified claims:
 
 ```json
 {
@@ -214,7 +210,7 @@ An OP or Authorization Server (AS) can also include aggregated or distributed `v
 
 Verified claims can be requested on the level of individual claims about the end-user by utilizing the `claims` parameter as defined in section 5.5 of the OpenID Connect specification [@!OpenID].
 
-Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], which can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this specification and any discrepancies that exist are either implementation bugs or interpretations.
+Note: A machine-readable definition of the syntax to be used to request `verified_claims` is given as JSON schema in [@verified_claims_request.json], which can be used to automatically validate `claims` request parameters. The provided JSON schema files are a non-normative implementation of this document and any discrepancies that exist are either implementation bugs or interpretations.
 
 To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
 
@@ -224,7 +220,7 @@ Since `verified_claims` contains the effective claims about the end-user in a ne
 
 Use of the `claims` parameter allows the RP to request specified claims about the end-user needed for its use case. This allows RPs to fulfill the requirements for data minimization by requesting only claims needed for its use case.
 
-Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this specification.
+Note: it is not possible to request sub-claims (for example the `country` subclaim of the `address` claim) using mechanisms from OpenID Connect Core or this document.
 
 RPs can use the `essential` field as defined in section 5.5.1 of the OpenID Connect specification [@!OpenID]. The following example shows this for the family and given names.
 
@@ -280,7 +276,7 @@ The OP shall not ignore some or all of the query restrictions on possible values
 
 ### max_age
 
-The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This specification introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
+The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This document introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
 
 `max_age`: Optional. JSON number value only applicable to claims that contain dates or timestamps. It defines the maximum time (in seconds) to be allowed to elapse since the value of the date/timestamp up to the point in time of the request. The OP should make the calculation of elapsed time starting from the last valid second of the date value.
 
@@ -312,7 +308,7 @@ As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer c
 
 In some cases, OPs cannot deliver the requested data to an RP, for example, because the data is not available or does not match the RP's requirements. The rules for handling these cases are described in the following.
 
-Extensions of this specification can define additional rules or override these rules, for example
+Extensions of this document can define additional rules or override these rules, for example
 
 * to allow or disallow the use of claims depending on scheme-specific checks,
 * to enable a finer-grained control of the RP over the behavior of the OP when data is unavailable or does not match the criteria, or
@@ -532,10 +528,10 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security considerations {#Security}
 
-This specification focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
+This document focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
 
 * ensure end-users are authenticated using appropriately strong authentication methods, and
-* combine this specification with an appropriate security profile for OpenID Connect.
+* combine this document with an appropriate security profile for OpenID Connect.
 
 ## End-user authentication
 
@@ -543,7 +539,7 @@ Secure identification of end-users not only depends on the identity verification
 
 ## Security profile
 
-This specification does not define or require a particular security profile since there are several security
+This document does not define or require a particular security profile since there are several security
 profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
 their needs. Implementers might consider [@FAPI-1-SP] or [@FAPI-2-SP].
 
@@ -555,11 +551,11 @@ Receiving parties shall ensure the confidentiality of all end-user data exchange
 
 # Implementation and interoperability {#Interoperability}
 
-To achieve the full security and interoperability benefits, it is important the implementation of this specification, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
+To achieve the full security and interoperability benefits, it is important the implementation of this document, and the underlying OpenID Connect and OAuth specifications, and selected security profile, are complete and correct. The OpenID Foundation provides tools that should be used to confirm that deployments behave as described in the specifications, with information available at: https://openid.net/certification/.
 
 # Predefined values {#predefined_values}
 
-This specification focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
+This document focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, methods, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
 
 Each party defining such identifiers shall ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`.
 
@@ -788,7 +784,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 ## JSON Web Token Claims registration
 
-This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
+This document requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
 
 ### Registry contents
 
@@ -838,7 +834,7 @@ This section shows examples of requests for `verified_claims`.
 
 <{{examples/request/verification_deeper.json}}
 
-Note that, as shown in the above example, this specification requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
+Note that, as shown in the above example, this document requires that implementations receiving requests are able to distinguish between JSON objects where a key is not present versus where a key is present with a null value.
 
 Support for these null value requests is mandatory for identity providers, so implementers are encouraged to test this behaviour early in their development process. In some programming languages many JSON libraries or HTTP frameworks will, at least by default, ignore null values and omit the relevant key when parsing the JSON.
 
@@ -911,7 +907,7 @@ sources into an ID Token.
 
 <{{examples/response/siop_aggregated_and_distributed_claims.json}}
 
-# Example requests and Responses
+# Example requests and responses
 
 This section shows examples of pairs of requests and responses containing `verified_claims`.
 
@@ -951,9 +947,9 @@ The decoded body of the respective ID Token could be
 
 # Acknowledgements {#Acknowledgements}
 
-The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
+The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this document: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this document.
 
 # Notices
 
