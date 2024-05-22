@@ -16,7 +16,7 @@ status = "standard"
 initials="T."
 surname="Lodderstedt"
 fullname="Torsten Lodderstedt"
-organization="yes.com"
+organization="sprind.org"
     [author.address]
     email = "torsten@lodderstedt.net"
 
@@ -64,110 +64,138 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This specification defines an extension of OpenID Connect that defines new attachments relating to the identity of a natural person. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+This document defines an extension of OpenID Connect that defines new attachments relating to the identity of a natural person. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+
+.# Introduction {#Introduction}
+
+This document defines an attachment element as a JWT claim for use in various contexts.
+
+Attachment element was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an identity assurance process. However, it is anticipated that there are other cases where the ability to embed or refer to non-JSON structured data is useful.
+
+.# Warning
+
+This document is not an OIDF International Standard. It is distributed for
+review and comment. It is subject to change without notice and may not be
+referred to as an International Standard.
+Recipients of this draft are invited to submit, with their comments,
+notification of any relevant patent rights of which they are aware and to
+provide supporting documentation.
+
+.# Foreword
+
+The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
+
+Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.
+
+.# Notational conventions
+
+The keywords "shall", "shall not", "should", "should not", "may", and "can" in
+this document are to be interpreted as described in ISO Directive Part 2
+[@!ISODIR2]. These keywords are not used as dictionary terms such that any
+occurrence of them shall be interpreted as keywords and are not to be
+interpreted with their natural language meanings.
 
 {mainmatter}
 
-# Introduction {#Introduction}
-
-This specification defines an attachment element as a JWT claim that MAY be used in various contexts.
-
-Attachment element was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an identity assurance process, however, it is anticipated that there may be other cases where the ability to embed or refer to non-JSON structured data may be useful.
-
 # Scope
 
-This specification defines how embedded and external attachments can be used.
+This document defines how embedded and external attachments are used.
+
+# Normative references
+
+See section 9 for normative references.
+
+# Terms and definitions
+No terms and definitions are listed in this document.
 
 # Attachments {#attachments}
-
-This definition was inspired by the work done on [@OpenID4IDA] and in particular how to include images of various pieces of evidence used as part of an assurance process, however, it is anticipated that there may be other cases where the ability to embed or refer to non-JSON structured data may be useful.
 
 Where attachments are used in identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
-* scans or photocopies of the documents used to verify the identity of End-Users,
+* scans or photocopies of the documents used to verify the identity of end-users,
 * video recordings of the verification process,
 * certificates of electronic signatures.
 
-When requested by the RP, these artifacts can be attached to the Verified Claims response allowing the RP to store these artifacts along with the Verified Claims information.
+When requested by the RP, these artifacts can be attached to the verified claims response allowing the RP to store these artifacts along with the verified claims information.
 
-An attachment is represented by a JSON object. This specification allows two types of representations:
+An attachment is represented by a JSON object. This document allows two types of representations:
 
-## Embedded Attachments
+## Embedded attachments
 
 All the information of the document (including the content itself) is provided within a JSON object having the following elements:
 
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
+`desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
 
-`content_type`: REQUIRED. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
+`content_type`: Required. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
 
-`content`: REQUIRED. Base64 encoded representation of the document content.
+`content`: Required. Base64 encoded representation of the document content. See [@!RFC4648].
 
-`txn`: OPTIONAL. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response the OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
+`txn`: Optional. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response, the OP should ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
 The following example shows embedded attachments within a UserInfo endpoint response. The actual contents of the attached documents are truncated:
 
 <{{examples/response/embedded_attachments.json}}
 
-Note: Due to their size, embedded attachments may not be appropriate when embedding in objects such as Access Tokens or ID Tokens.
+Note: Due to their size, embedded attachments are not always appropriate when embedding in objects such as access tokens or ID Tokens.
 
-## External Attachments
+## External attachments
 
-External attachments are similar to distributed Claims as defined in [@OpenID]. The reference to the external document is provided in a JSON object with the following elements:
+External attachments are similar to distributed claims as defined in [@OpenID]. The reference to the external document is provided in a JSON object with the following elements:
 
-`desc`: OPTIONAL. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
+`desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
-`url`: REQUIRED. OAuth 2.0 resource endpoint from which the attachment can be retrieved. Providers MUST protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL MUST return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment MUST be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types SHALL NOT be used.
+`url`: Required. OAuth 2.0 resource endpoint from which the attachment can be retrieved. Providers shall protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL shall return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment shall be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types shall not be used.
 
-`access_token`: OPTIONAL. Access Token as type `string` enabling retrieval of the attachment from the given `url`. The attachment MUST be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP MUST support this method, unless another Token Type or method has been negotiated with the Client. Use of other Token Types is outside the scope of this specification. If the `access_token` element is not available, RPs MUST use the Access Token issued by the OP in the Token response and when requesting the attachment the RP MUST use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no Access Token is used to request the attachment and the RP MUST NOT use the Access Token issued by the Token response. In this case the OP MUST incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
+`access_token`: Optional. Access token as type `string` enabling retrieval of the attachment from the given `url`. The attachment shall be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP shall support this method, unless another token type or method has been negotiated with the client. Use of other token types is outside the scope of this document. If the `access_token` element is not available, RPs shall use the access token issued by the OP in the token response and when requesting the attachment the RP shall use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no access token is used to request the attachment and the RP shall not use the access token issued by the token response. In this case the OP shall incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
 
-`exp`: OPTIONAL. The "exp" (expiration time) claim identifies the expiration time on or after which the External Attachment will not be available from the resource endpoint defined in the `url` element (e.g. the `access_token` may expire or the document may be removed at that time). Implementers MAY provide for some small leeway, usually no more than a few minutes, to account for clock skew.  Its value MUST be a number containing a NumericDate value as per as per [@!RFC7519].
+`exp`: Optional. The "exp" (expiration time) claim identifies the expiration time on or after which the external attachment will not be available from the resource endpoint defined in the `url` element (e.g. the `access_token` will expire or the document will removed at that time). Implementers may provide for some small leeway, usually no more than a few minutes, to account for clock skew.  Its value shall be a number containing a NumericDate value as per as per [@!RFC7519].
 
-`digest`: REQUIRED. JSON object containing details of a cryptographic hash of the document content taken over the bytes of the payload (and not, e.g., the representation in the HTTP response). The JSON object has the following elements:
+`digest`: Required. JSON object containing details of a cryptographic hash of the document content taken over the bytes of the payload (and not, e.g., the representation in the HTTP response). The JSON object has the following elements:
 
-* `alg`: REQUIRED. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during Client Registration or Management.
-* `value`: REQUIRED. Base64-encoded [@RFC4648] bytes of the cryptographic hash.
+* `alg`: Required. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during client registration or management.
+* `value`: Required. Base64-encoded [@RFC4648] bytes of the cryptographic hash.
 
-`txn`: OPTIONAL. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response the OP SHOULD ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
+`txn`: Optional. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response, the OP should ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
-It is RECOMMENDED that access tokens for external attachments have a binding to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
+Access tokens for external attachments should be bound to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
 
 The following example shows external attachments:
 
 <{{examples/response/external_attachments.json}}
 
-## External Attachment Validation
+## External attachment validation
 
-Clients MUST validate each external attachment they wish to rely on in the following manner:
+Clients shall validate each external attachment they wish to rely on in the following manner:
 
 1. Ensure that the object includes the required elements: `url`, `digest`.
 2. Ensure that at the time of the request the time is before the time represented by the `exp` element.
 3. Ensure that the URL defined in the `url` element uses the `https` scheme.
 4. Retrieve the attachment from the `url` element in the object.
 5. Ensure that the content MIME type of the attachment is indicated in a content-type HTTP response header
-6. Ensure that the MIME type is not Multipart (see Section 5.1 of [@RFC2046])
+6. Ensure that the MIME type is not multipart (see Section 5.1 of [@RFC2046])
 7. Ensure that the MIME type is not a "message" media type (see [@RFC5322])
 8. Ensure the returned attachment has a cryptographic hash digest that matches the value given in the `digest` object's `value` key.
 
-If any of these requirements are not met the content of the attachment SHOULD NOT be used, SHOULD be discarded and MUST NOT be relied upon.
+If any of these requirements are not met, do not use the content of the attachment, discard it and do not rely upon it.
 
-# Privacy Considerations
+# Privacy considerations
 
-As attachments will most likely contain more personal information than was requested by the RP with specific Claim names, an OP MUST ensure that the End-User is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP SHOULD allow the End-User to review the content of these attachments before giving consent to the transaction.
+As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP shall ensure that the end-user is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP should allow the end-user to review the content of these attachments before giving consent to the transaction.
 
-# Client Registration and Management
+# Client registration and management
 
-During Client Registration (see [@!OpenID-Registration]) as well as during Client Management [@RFC7592] the following additional properties are available:
+During client registration (see [@!OpenID-Registration]) as well as during client management [@RFC7592] the following additional properties are available:
 
-`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value MUST be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
+`digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value shall be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
-# OP Metadata {#opmetadata}
+# OP metadata {#opmetadata}
 
-If attachments are used in [@OpenID] implementations an additional element of OP Metadata is required to advertise its capabilities with respect to supported attachments in its openid-configuration (see [@!OpenID-Discovery]):
+If attachments are used in [@OpenID] implementations, an additional element of OP Metadata is required to advertise its capabilities with respect to supported attachments in its openid-configuration (see [@!OpenID-Discovery]):
 
-`attachments_supported`: REQUIRED when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present this array MUST have at least one member. If omitted, the OP does not support attachments.
+`attachments_supported`: Required when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present, this array shall have at least one member. If omitted, the OP does not support attachments.
 
-`digest_algorithms_supported`: REQUIRED when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` MUST be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
+`digest_algorithms_supported`: Required when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` shall be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
 
 This is an example openid-configuration snippet:
 
@@ -189,22 +217,22 @@ This is an example openid-configuration snippet:
 
 This section contains JSON snippets showing examples of evidences and attachments described in this document.
 
-## Example Requests
+## Example requests
 This section shows examples of requests for `verified_claims`.
 
-### Verification of Claims by trust framework with a document and attachments
+### Verification of claims by trust framework with a document and attachments
 
 <{{examples/request/verification_aml_with_attachments.json}}
 
 #### Attachments
 
-RPs can explicitly request to receive attachments along with the Verified Claims:
+RPs can explicitly request to receive attachments along with the verified claims:
 
 <{{examples/request/verification_with_attachments.json}}
 
-As with other Claims, the attachment Claim can be marked as `essential` in the request as well.
+As with other claims, the attachment claim can be marked as `essential` in the request as well.
 
-## Example Responses
+## Example responses
 
 This section shows examples of responses containing `verified_claims`.
 
@@ -221,6 +249,15 @@ This section shows examples of responses containing `verified_claims`.
 <{{examples/response/vouch_with_attachments.json}}
 
 {backmatter}
+
+<reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
+<front>
+<title>ISO/IEC Directives, Part 2 - Principles and rules for the structure and drafting of ISO and IEC documents</title>
+    <author fullname="ISO/IEC">
+      <organization>ISO/IEC</organization>
+    </author>
+</front>
+</reference>
 
 <reference anchor="OpenID" target="http://openid.net/specs/openid-connect-core-1_0.html">
   <front>
@@ -248,7 +285,7 @@ This section shows examples of responses containing `verified_claims`.
   <front>
     <title>OpenID Connect for Identity Assurance 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -294,8 +331,8 @@ This section shows examples of responses containing `verified_claims`.
 <reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
   <front>
     <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
-      <author surname="INTERNATIONAL CIVIL AVIATION ORGANIZATION">
-        <organization>INTERNATIONAL CIVIL AVIATION ORGANIZATION</organization>
+      <author surname="International Civil Aviation Organization">
+        <organization>International Civil Aviation Organization</organization>
       </author>
    <date year="2015"/>
   </front>
@@ -368,9 +405,9 @@ This section shows examples of responses containing `verified_claims`.
 
 # Acknowledgements {#Acknowledgements}
 
-The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
+The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this document: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
 
-We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Nat Sakimura and Dima Postnikov for their valuable feedback and contributions that helped to evolve this specification.
+We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Nat Sakimura and Dima Postnikov for their valuable feedback and contributions that helped to evolve this document.
 
 # Notices
 
@@ -378,7 +415,7 @@ Copyright (c) 2023 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
-The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
+The technology described in this document was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this document make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this document, and the entire risk as to implementing this document is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this document.
 
 # Document History
 
