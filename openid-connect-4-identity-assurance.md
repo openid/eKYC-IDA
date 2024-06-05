@@ -695,34 +695,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="NIST-SP-800-63a" target="https://doi.org/10.6028/NIST.SP.800-63a">
-  <front>
-    <title>NIST Special Publication 800-63A, Digital Identity Guidelines, Enrollment and Identity Proofing Requirements</title>
-    <author initials="Paul. A." surname="Grassi" fullname="Paul A. Grassi">
-      <organization>NIST</organization>
-    </author>
-    <author initials="James L." surname="Fentony" fullname="James L. Fentony">
-      <organization>Altmode Networks</organization>
-    </author>
-    <author initials="Naomi B." surname="Lefkovitz" fullname="Naomi B. Lefkovitz">
-      <organization>NIST</organization>
-    </author>
-    <author initials="Jamie M." surname="Danker" fullname="Jamie M. Danker">
-      <organization>Department of Homeland Security</organization>
-    </author>
-    <author initials="Yee-Yin" surname="Choong" fullname="Yee-Yin Choong">
-      <organization>NIST</organization>
-    </author>
-    <author initials="Kristen K." surname="Greene" fullname="Kristen K. Greene">
-      <organization>NIST</organization>
-    </author>
-    <author initials="Mary F." surname="Theofanos" fullname="Mary F. Theofanos">
-      <organization>NIST</organization>
-    </author>
-   <date month="June" year="2017"/>
-  </front>
-</reference>
-
 <reference anchor="eIDAS" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
   <front>
     <title>REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</title>
