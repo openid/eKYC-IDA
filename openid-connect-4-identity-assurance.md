@@ -733,16 +733,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="FATF-Digital-Identity" target="https://www.fatf-gafi.org/media/fatf/documents/recommendations/Guidance-on-Digital-Identity.pdf">
-  <front>
-    <title>Guidance on Digital Identity</title>
-    <author initials="" surname="FATF">
-      <organization>Financial Action Task Force (FATF)</organization>
-    </author>
-   <date month="March" year="2020"/>
-  </front>
-</reference>
-
 <reference anchor="verified_claims.json" target="https://openid.net/wg/ekyc-ida/references/">
   <front>
     <title>JSON Schema for assertions using verified_claims</title>
