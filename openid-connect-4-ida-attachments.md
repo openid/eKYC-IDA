@@ -64,7 +64,7 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This document defines a ways of representing binary data in the context of a JSON payload. It can be used as an extension of OpenID Connect that defines new attachments relating to the identity of a natural person or in other JSON contexts that have binary data elements . The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+This document defines a way of representing binary data in the context of a JSON payload. It can be used as an extension of OpenID Connect that defines new attachments relating to the identity of a natural person or in other JSON contexts that have binary data elements . The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
 .# Introduction {#Introduction}
 
@@ -110,7 +110,7 @@ No terms and definitions are listed in this document.
 
 # Attachments {#attachments}
 
-Where evidence is used in identity verification process, specific document artifacts might need to be created and, depending on the trust framework, might need to be required to be stored by the recipient for a specific duration. These artifacts can then, for example, be reviewed during audits or quality control. These artifacts include, but are not limited to:
+Where evidence is used in identity verification process, specific document artifacts might need to be created and, depending on the trust framework, might need to be required to be stored by the recipient for a specific duration. These artifacts can then, for example, be reviewed during audit or quality control. These artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
 * scans or photocopies of the documents used to verify the identity of end-users,
@@ -145,7 +145,7 @@ External attachments are similar to distributed claims as defined in [@OpenID]. 
 
 `desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
-`url`: Required. OAuth 2.0 protected resource endpoint from which the attachment can be retrieved. Providers shall protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL shall return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment shall be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types shall not be used.
+`url`: Required. OAuth 2.0 [@RFC6749] protected resource endpoint from which the attachment can be retrieved. Providers shall protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL shall return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment shall be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types shall not be used.
 
 `access_token`: Optional. Access token as type `string` enabling retrieval of the attachment from the given `url`. The attachment shall be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP shall support this method, unless another token type or method has been negotiated with the client. Use of other token types is outside the scope of this document. If the `access_token` element is not available, RPs shall use the access token issued by the OP in the token response and when requesting the attachment the RP shall use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no access token is used to request the attachment and the RP shall not use the access token issued by the token response. In this case the OP shall incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
 
@@ -186,7 +186,7 @@ As attachments will most likely contain more personal information than was reque
 
 # Client registration and management
 
-If external attachments are used in the context of an OpenID Provider that uses either [@!OpenID-Registration] or [@RFC7592] the following additional properties are available as part of client registration or client management interactions:
+If external attachments are used in the context of an OpenID Provider that uses either [@!OpenID-Registration] or [@RFC7592] the following additional properties should be available as part of any client registration or client management interactions:
 
 `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value shall be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
@@ -393,6 +393,16 @@ Note: examples of embedded attachments contain truncated values.
       <organization>SJD</organization>
     </author>
    <date month="Oct" year="2006"/>
+  </front>
+</reference>
+
+<reference anchor="RFC6749" target="https://datatracker.ietf.org/doc/html/rfc6749">
+  <front>
+    <title>The OAuth 2.0 Authorization Framework</title>
+    <author initials="D." surname="Hardt" fullname="Dick Hardt">
+      <organization>Microsoft</organization>
+    </author>
+   <date month="Oct" year="2012"/>
   </front>
 </reference>
 
