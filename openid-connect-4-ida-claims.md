@@ -220,6 +220,7 @@ This section contains JSON snippets showing examples of end-user claims describe
   "country_code": "GBR"
 }
 ```
+
 # Security considerations {#Security}
 
 The working group has identified no security considerations that pertain to this specification.
