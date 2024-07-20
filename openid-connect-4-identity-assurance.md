@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-13"
+value = "openid-connect-4-identity-assurance-1_0-14"
 
 status = "standard"
 
@@ -925,10 +925,6 @@ The technology described in this document was made available from contributions 
 
    [[ To be removed from the final specification ]]
 
-   -15
-   * Reformatted to meet ISO Directive part 2
-   * Fixed typos
-
    -14
 
    * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
@@ -939,6 +935,8 @@ The technology described in this document was made available from contributions 
    * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
    * drop verified_claims_supported OP metadata as redundant
    * renamed the `txn` element to `check_id`
+   * Reformatted to meet ISO Directive part 2
+   * Fixed typos
 
    -13
 
