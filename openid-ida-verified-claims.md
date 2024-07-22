@@ -238,6 +238,8 @@ Based on the definition above and that there are a significant number of optiona
 
 ### evidence element {#evidence_element}
 
+#### Evidence element structure
+
 Members of the `evidence` array are structured with the following elements:
 
 `type`: Required. The value defines the type of the evidence.
