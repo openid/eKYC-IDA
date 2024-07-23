@@ -393,6 +393,10 @@ An attachment is represented by a JSON element. The definition of attachments an
 
 <{{examples/response/derived_claims_1.json}}
 
+# Security considerations {#Security}
+
+The working group has identified no security considerations that pertain to this specification.
+
 {backmatter}
 
 <reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">

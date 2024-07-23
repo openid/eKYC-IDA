@@ -221,6 +221,10 @@ This section contains JSON snippets showing examples of end-user claims describe
 }
 ```
 
+# Security considerations {#Security}
+
+The working group has identified no security considerations that pertain to this specification.
+
 {backmatter}
 
 <reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
