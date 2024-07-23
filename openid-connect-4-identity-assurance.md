@@ -744,24 +744,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 # IANA considerations
 
-## JSON Web Token Claims registration
-
-This document requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
-
-### Registry contents
-
-Claim Name:
-: `verified_claims`
-
-Claim Description:
-: This container claim is composed of the verification evidence related to a certain verification process and the corresponding claims about the end-user which were verified in this process.
-
-Change Controller:
-: eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
-
-Specification Document(s):
-: Section [verified claims](#verified_claims) of this document
-
 ## Media type registration
 
 This section registers the `application/provided-claims+jwt` media type [@RFC2046]
@@ -935,6 +917,7 @@ The technology described in this document was made available from contributions 
    * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
    * drop verified_claims_supported OP metadata as redundant
    * renamed the `txn` element to `check_id`
+   * removed duplicate JWT Claims registration from IANA Considerations
    * Reformatted to meet ISO Directive part 2
    * Fixed typos
 

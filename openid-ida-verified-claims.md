@@ -635,7 +635,7 @@ Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: Section [Claims](#claims) of this document
+: Section [verified claims](#verified_claims) of this document
 
 # Acknowledgements {#Acknowledgements}
 
