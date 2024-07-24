@@ -167,9 +167,9 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 # Verified claims {#verified_claims}
 
-The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims.
-
 ## Verified claims schema
+
+The basic idea is to use a container element, called `verified_claims`, to provide the RP with a set of claims along with the respective metadata and verification evidence related to the verification of these claims. This way, it is explicit which claims are verified, reducing the risk of RPs accidentally processing unverified claims as verified claims.
 
 This document uses the [@!IDA-verified-claims] document as the definition of the schema for representation of assured digital identity attributes and identity assurance metadata.
 
@@ -303,6 +303,8 @@ The RP can combine multiple `verified_claims` claims in the request with multipl
 In the above example, the RP asks for family and given name either under trust framework `gold` with an evidence of type `document` or under trust framework `silver` or `bronze` but with an evidence `electronic_record`.
 
 ## Returning less data than requested
+
+### General requirements
 
 As stated in section 3.3.3.6 of [@!OpenID], "the OP may choose to return fewer claims about the end-user from the authorization endpoint".  This document makes no change to that provision.  The OP may also choose to return a subset of the `verification` element of any `verified_claims` providing it remains compliant with the `verified_claims` JSON schema defined in [@!OpenID4IDAClaims].
 
@@ -528,16 +530,12 @@ Timestamps with a time zone component can potentially reveal the person’s loca
 
 # Security considerations {#Security}
 
+## Security profile
+
 This document focuses on mechanisms to carry end-user claims and accompanying metadata in JSON objects and JSON Web Tokens, typically as part of an OpenID Connect protocol exchange. Since such an exchange is supposed to take place in security sensitive use cases, implementers shall:
 
-* ensure end-users are authenticated using appropriately strong authentication methods, and
-* combine this document with an appropriate security profile for OpenID Connect.
-
-## End-user authentication
-
-Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter.
-
-## Security profile
+* combine this document with an appropriate security profile for OpenID Connect, and
+* ensure end-users are authenticated using appropriately strong authentication methods.
 
 This document does not define or require a particular security profile since there are several security
 profiles and new security profiles under development.  Implementers have the flexibility to select the security profile that best suits
@@ -548,6 +546,10 @@ Implementers should select a security profile that has a certification program o
 Receiving parties shall ensure the integrity and authenticity of the issued assertions in order to prevent identity spoofing.
 
 Receiving parties shall ensure the confidentiality of all end-user data exchanged between the protocol parties using suitable methods at transport or application layer.
+
+## End-user authentication
+
+Secure identification of end-users not only depends on the identity verification at the OP but also on the strength of the user authentication at the OP. Combining a strong identification with weak authentication creates a false impression of security while being open to attacks. For example if an OP uses a simple PIN login, an attacker could guess the PIN of another user and identify himself as the other user at an RP with a high identity assurance level. To prevent this kind of attack, RPs should request the OP to authenticate the user at a reasonable level, typically using multi-factor authentication, when requesting verified end-user claims. OpenID Connect supports this by way of the `acr_values` request parameter.
 
 # Implementation and interoperability {#Interoperability}
 
