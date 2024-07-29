@@ -238,6 +238,8 @@ Based on the definition above and that there are a significant number of optiona
 
 ### evidence element {#evidence_element}
 
+#### Evidence element structure
+
 Members of the `evidence` array are structured with the following elements:
 
 `type`: Required. The value defines the type of the evidence.
@@ -392,6 +394,10 @@ An attachment is represented by a JSON element. The definition of attachments an
 ### Derived claims
 
 <{{examples/response/derived_claims_1.json}}
+
+# Security considerations {#Security}
+
+The working group has identified no security considerations that pertain to this specification.
 
 {backmatter}
 
@@ -631,7 +637,7 @@ Change Controller:
 : eKYC and Identity Assurance Working Group - openid-specs-ekyc-ida@lists.openid.net
 
 Specification Document(s):
-: Section [Claims](#claims) of this document
+: Section [verified claims](#verified_claims) of this document
 
 # Acknowledgements {#Acknowledgements}
 
