@@ -131,8 +131,6 @@ All the information of the document (including the content itself) is provided w
 
 `content`: Required. Base64 encoded representation of the document content. See [@!RFC4648].
 
-`txn`: Optional. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response, the OP should ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
-
 The following example shows embedded attachments within a UserInfo endpoint response. The actual contents of the attached documents are truncated:
 
 <{{examples/response/embedded_attachments.json}}
@@ -155,8 +153,6 @@ External attachments are similar to distributed claims as defined in [@OpenID]. 
 
 * `alg`: Required. Specifies the algorithm used for the calculation of the cryptographic hash. The algorithm has been negotiated previously between RP and OP during client registration or management.
 * `value`: Required. Base64-encoded [@RFC4648] bytes of the cryptographic hash.
-
-`txn`: Optional. Identifier referring to the verification or validation transaction that generated a particular attachment. When used in the context of an [@OpenID4IDA] response, the OP should ensure this matches a `txn` contained within `check_method` when `check_method` needs to reference the embedded attachment.
 
 Access tokens for external attachments should be bound to the specific resource being requested so that the access token may not be used to retrieve additional external attachments or resources. For example, the value of `url` could be tied to the access token as audience. This enhances security by enabling the resource server to check whether the audience of a presented access token matches the accessed URL and reject the access when they do not match. The same idea is described in Resource Indicators for OAuth 2.0 [@RFC8707], which defines the `resource` request parameter whereby to specify one or more resources which should be tied to an access token being issued.
 
