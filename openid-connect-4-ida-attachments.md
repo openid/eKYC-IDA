@@ -64,7 +64,7 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This document defines an extension of OpenID Connect that defines new attachments relating to the identity of a natural person. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+This document defines a way of representing binary data in the context of a JSON payload. It can be used as an extension of OpenID Connect that defines new attachments relating to the identity of a natural person or in other JSON contexts that have binary data elements . The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
 .# Introduction {#Introduction}
 
@@ -110,16 +110,16 @@ No terms and definitions are listed in this document.
 
 # Attachments {#attachments}
 
-Where attachments are used in identity verification process, specific document artifacts will be created and depending on the trust framework, will be required to be stored for a specific duration. These artifacts can later be reviewed during audits or quality control for example. These artifacts include, but are not limited to:
+Where evidence is used in identity verification process, specific document artifacts (such as images of that evidence) might need to be presented and, depending on the trust framework, might need to to be stored by the recipient for a period. These artifacts can then, for example, be reviewed during audit or quality control. These artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
-* scans or photocopies of the documents used to verify the identity of end-users,
+* scans or photographs of the documents used to verify the identity of end-users,
 * video recordings of the verification process,
 * certificates of electronic signatures.
 
-When requested by the RP, these artifacts can be attached to the verified claims response allowing the RP to store these artifacts along with the verified claims information.
+When using OpenID Connect and requested by the RP, these artifacts can be included as part of an ID token, and in particular part of an [@OpenID4IDA] `verified_claims` element allowing the RP to store these artifacts along with the other `verified_claims` information.
 
-An attachment is represented by a JSON object. This document allows two types of representations:
+An attachment is represented by a JSON object. This document allows for two types of representation:
 
 ## Embedded attachments
 
@@ -143,7 +143,7 @@ External attachments are similar to distributed claims as defined in [@OpenID]. 
 
 `desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
-`url`: Required. OAuth 2.0 resource endpoint from which the attachment can be retrieved. Providers shall protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL shall return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment shall be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types shall not be used.
+`url`: Required. OAuth 2.0 [@RFC6749] protected resource endpoint from which the attachment can be retrieved. Providers shall protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL shall return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment shall be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types shall not be used.
 
 `access_token`: Optional. Access token as type `string` enabling retrieval of the attachment from the given `url`. The attachment shall be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP shall support this method, unless another token type or method has been negotiated with the client. Use of other token types is outside the scope of this document. If the `access_token` element is not available, RPs shall use the access token issued by the OP in the token response and when requesting the attachment the RP shall use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no access token is used to request the attachment and the RP shall not use the access token issued by the token response. In this case the OP shall incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
 
@@ -167,11 +167,12 @@ Clients shall validate each external attachment they wish to rely on in the foll
 1. Ensure that the object includes the required elements: `url`, `digest`.
 2. Ensure that at the time of the request the time is before the time represented by the `exp` element.
 3. Ensure that the URL defined in the `url` element uses the `https` scheme.
-4. Retrieve the attachment from the `url` element in the object.
-5. Ensure that the content MIME type of the attachment is indicated in a content-type HTTP response header
-6. Ensure that the MIME type is not multipart (see Section 5.1 of [@RFC2046])
-7. Ensure that the MIME type is not a "message" media type (see [@RFC5322])
-8. Ensure the returned attachment has a cryptographic hash digest that matches the value given in the `digest` object's `value` key.
+4. Ensure that the `digest` element contains both `alg` and `value` keys.
+5. Retrieve the attachment from the `url` element in the object.
+6. Ensure that the content MIME type of the attachment is indicated in a content-type HTTP response header
+7. Ensure that the MIME type is not multipart (see Section 5.1 of [@RFC2046])
+8. Ensure that the MIME type is not a "message" media type (see [@RFC5322])
+9. Ensure the returned attachment has a cryptographic hash digest that matches the value given in the `digest` object's `value` and algorithm defined in the value of the `alg` element.
 
 If any of these requirements are not met, do not use the content of the attachment, discard it and do not rely upon it.
 
@@ -181,7 +182,7 @@ As attachments will most likely contain more personal information than was reque
 
 # Client registration and management
 
-During client registration (see [@!OpenID-Registration]) as well as during client management [@RFC7592] the following additional properties are available:
+If external attachments are used in the context of an OpenID Provider that uses either [@!OpenID-Registration] or [@RFC7592] the following additional properties should be available as part of any client registration or client management interactions:
 
 `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value shall be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
@@ -231,6 +232,8 @@ As with other claims, the attachment claim can be marked as `essential` in the r
 ## Example responses
 
 This section shows examples of responses containing `verified_claims`.
+
+Note: examples of embedded attachments contain truncated values.
 
 ### Document with external attachments
 
@@ -389,6 +392,16 @@ This section shows examples of responses containing `verified_claims`.
   </front>
 </reference>
 
+<reference anchor="RFC6749" target="https://datatracker.ietf.org/doc/html/rfc6749">
+  <front>
+    <title>The OAuth 2.0 Authorization Framework</title>
+    <author initials="D." surname="Hardt" fullname="Dick Hardt">
+      <organization>Microsoft</organization>
+    </author>
+   <date month="Oct" year="2012"/>
+  </front>
+</reference>
+
 <reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
   <front>
     <title>Named Information Hash Algorithm Registry</title>
@@ -407,7 +420,7 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2023 The OpenID Foundation.
+Copyright (c) 2024 The OpenID Foundation.
 
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
