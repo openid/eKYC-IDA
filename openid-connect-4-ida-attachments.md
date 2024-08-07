@@ -110,10 +110,10 @@ No terms and definitions are listed in this document.
 
 # Attachments {#attachments}
 
-Where evidence is used in identity verification process, specific document artifacts might need to be created and, depending on the trust framework, might need to be required to be stored by the recipient for a specific duration. These artifacts can then, for example, be reviewed during audit or quality control. These artifacts include, but are not limited to:
+Where evidence is used in identity verification process, specific document artifacts (such as images of that evidence) might need to be presented and, depending on the trust framework, might need to to be stored by the recipient for a period. These artifacts can then, for example, be reviewed during audit or quality control. These artifacts include, but are not limited to:
 
 * scans of filled and signed forms documenting/certifying the verification process itself,
-* scans or photocopies of the documents used to verify the identity of end-users,
+* scans or photographs of the documents used to verify the identity of end-users,
 * video recordings of the verification process,
 * certificates of electronic signatures.
 
