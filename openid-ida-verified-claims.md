@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Identity Assurance schema definition 1.0 draft"
+title = "OpenID Identity Assurance Schema Definition 1.0"
 abbrev = "openid-ida-verified-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
