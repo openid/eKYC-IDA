@@ -223,7 +223,9 @@ This section contains JSON snippets showing examples of end-user claims describe
 
 # Security considerations {#Security}
 
-The working group has identified no security considerations that pertain to this specification.
+The working group has identified no security considerations that pertain directly to this specification.
+
+The data structures described in this specification will contain personal information. Standards referencing this specification and implementers using this specification should consider the secure transport of these structures and security and privacy implications that may arise from their use.
 
 {backmatter}
 
