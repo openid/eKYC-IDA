@@ -214,7 +214,7 @@ Note: A machine-readable definition of the syntax to be used to request `verifie
 
 To request verified claims, the `verified_claims` element is added to the `userinfo` or the `id_token` element of the `claims` parameter.
 
-Since `verified_claims` contains the effective claims about the end-user in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` or `purpose` keys as described below. An example is shown in the following:
+Since `verified_claims` contains the effective claims about the end-user in a nested `claims` element, the syntax is extended to include expressions on nested elements as follows. The `verified_claims` element includes a `claims` element, which in turn includes the desired claims as keys. For each claim, the value is either `null` (default), or an object. The object may contain restrictions using `value` or `values` as defined in [@!OpenID] and/or the `essential` key as described below. An example is shown in the following:
 
 <{{examples/request/claims.json}}
 
