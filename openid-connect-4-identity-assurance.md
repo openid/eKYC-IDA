@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect for Identity Assurance 1.0"
+title = "OpenID Connect for Identity Assurance 1.0 - draft 15"
 abbrev = "openid-connect-4-identity-assurance-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-14"
+value = "openid-connect-4-identity-assurance-1_0-15"
 
 status = "standard"
 
@@ -908,6 +908,11 @@ The technology described in this document was made available from contributions 
 # Document history
 
    [[ To be removed from the final specification ]]
+
+   -15
+
+   * added draft number to title
+   * removed vestigial mention of "purpose" claim
 
    -14
 

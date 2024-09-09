@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Identity Assurance Schema Definition 1.0"
+title = "OpenID Identity Assurance Schema Definition 1.0 - Draft 01"
 abbrev = "openid-ida-verified-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc", "claims"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-ida-verified-claims-1_0-00"
+value = "openid-ida-verified-claims-1_0-01"
 
 status = "standard"
 
@@ -659,6 +659,9 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
+   -01
+   fixed capitalization and added draft version number to title
+   editorial improvement to security considerations
 
    -00 (WG document)
 
