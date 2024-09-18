@@ -321,6 +321,13 @@ The OP has the discretion to decide whether the requested verification data is t
 
 ## Responses
 
+
+### Parent and Child
+
+In this example a parent with the parent/guardian responsibility is represented in the following JSON that would be returned in a UserInfo response.
+
+<{{examples/response/authority_parent_child.json}}
+
 ### Company director
 
 ### Power of Attorney
