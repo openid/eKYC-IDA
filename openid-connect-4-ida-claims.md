@@ -10,7 +10,7 @@ name = "Internet-Draft"
 
 value = "openid-connect-4-ida-claims-1_0-02"
 
-status = "final"
+status = "standard"
 
 [[author]]
 initials="T."

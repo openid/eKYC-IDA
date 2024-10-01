@@ -10,7 +10,7 @@ name = "Internet-Draft"
 
 value = "openid-connect-4-identity-assurance-1_0-16"
 
-status = "final"
+status = "standard"
 
 [[author]]
 initials="T."
