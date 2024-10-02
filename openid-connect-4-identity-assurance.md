@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect for Identity Assurance 1.0 - draft 15"
+title = "OpenID Connect for Identity Assurance 1.0"
 abbrev = "openid-connect-4-identity-assurance-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-identity-assurance-1_0-15"
+value = "openid-connect-4-identity-assurance-1_0-16"
 
 status = "standard"
 
@@ -179,7 +179,7 @@ The following example would assert to the RP that the OP has verified the claims
 
 This document requires that RPs use the schema defined in [@!IDA-verified-claims]. There are places in the JSON structure where that schema can be extended by implementers but deviation from the schema as defined would not be correct use of this document.
 
-## verified claims delivery {#verified_claims_delivery}
+## Verified claims delivery {#verified_claims_delivery}
 
 A `verified_claims` element can be added to an OpenID Connect UserInfo response and/or an ID Token.
 
@@ -258,7 +258,7 @@ The RP can also request certain data within the `document` element to be present
 
 ## Defining further constraints on verification data {#constraintedclaims}
 
-### value/values
+### Value/values
 
 The RP can limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/check_details`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
@@ -274,7 +274,7 @@ The following example shows that the RP wants to obtain an attestation based on 
 
 The OP shall not ignore some or all of the query restrictions on possible values and shall not deliver available verified/verification data that does not match these constraints.
 
-### max_age
+### Max_age
 
 The RP can also express a requirement regarding the age of certain data, like the time elapsed since the issuance/expiry of certain evidence types or since the verification process asserted in the `verification` element took place. Section 5.5.1 of the OpenID Connect specification [@!OpenID] defines a query syntax that allows for new special query members to be defined. This document introduces a new such member `max_age`, which is applicable to the possible values of any elements containing dates or timestamps (e.g., `time`, `date_of_issuance` and `date_of_expiry` elements of evidence of type `document`).
 
@@ -674,7 +674,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 <reference anchor="IDA-verified-claims" target="https://openid.net/specs/openid-ida-verified-claims-1_0.html">
   <front>
-    <title>OpenID Identity Assurance schema definition</title>
+    <title>OpenID Identity Assurance Schema Definition</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
       <organization>sprind.org</organization>
     </author>
@@ -904,170 +904,3 @@ Copyright (c) 2024 The OpenID Foundation.
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
 The technology described in this document was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this document make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this document to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this document.
-
-# Document history
-
-   [[ To be removed from the final specification ]]
-
-   -15
-
-   * added draft number to title
-   * removed vestigial mention of "purpose" claim
-
-   -14
-
-   * Added requirements on aggregated and distributed claims to reduce risk of confusion with other JWTs (incl. IANA media type registration)
-   * Removed deprecated elements `utility_bill` and `document`
-   * split out IANA claims registration into separate document "openid-connect-4-ida-claims"
-   * split out schema definition of `verified_claims` into separate document
-   * split attachments into separate document
-   * Removed "transaction specific purpose" from IDA spec with intent to create separate draft
-   * drop verified_claims_supported OP metadata as redundant
-   * renamed the `txn` element to `check_id`
-   * removed duplicate JWT Claims registration from IANA Considerations
-   * Reformatted to meet ISO Directive part 2
-   * Fixed typos
-
-   -13
-
-   * Preparation for Implementers Draft 4
-   * Checked and fixed referencing
-   * Added note about issues with JSON null
-   * Defined clearly that JSON schema is not normative
-   * Various editorial clarifications
-   * Added checking of defined end-user claims to JSON schema
-   * Clarified OP Metadata wording
-
-   -12
-
-   * introduced `document` evidence type, which is more universal than `id_document`
-   * deprecated `id_document`
-   * introduced `electronic_record` and `vouch` evidence types
-   * introduced `check_details` & `assurance_details` to provide more detail than `method`
-   * added lookahead capabilities for distributed claims
-   * added support to attach document artifacts
-   * added txn for attachments
-   * changed evidence type `qes` to `electronic_signature`
-   * added claim `also_known_as`
-   * added text regarding security profiles
-   * editorial improvements
-   * added further co-authors
-   * added `assurance_level` field
-   * added `assurance_process` type
-   * added text about dependency between identity assurance and authentication assurance
-   * added new field `country_code` to `address` claim
-   * relaxed requirements for showing purpose
-
-   -11
-
-   * Added support for requesting different sets of claims with different requirements regarding trust_framework and other verification elements (e.g., evidence)
-   * added `msisdn` claim
-   * clarified scope of this specification
-
-   -10
-
-   * Editorial improvements
-   * Improved JSON schema (alignment with spec and bug fix)
-
-   -09
-
-   * `verified_claims` element may contain one or more verified claims objects
-   * an individual assertion may contain `verified_claims` elements in the assertion itself and any aggregated or distributed claims sets it includes or refers to, respectively
-   * moved all definitions of pre-defined values for trust frameworks, id documents and verification methods to a wiki page as non-normative overview
-   * clarified and simplified request syntax
-   * reduced mandatory requirement `verified_claims` to bare minimum
-   * removed JSON schema from draft and added reference to JSON schema file instead
-   * added request JSON schema
-   * added IANA section with JSON Web Token claims Registration
-   * integrated source into single md file
-   * added privacy considerations regarding time zone data, enhanced syntax definition of time and date-time fields in spec and response schema
-   * fixed typos
-
-   -08
-
-   * added `uripp` verification method
-   * small fixes to examples
-
-   -07
-
-   * fixed typos
-   * changed `nationality` String claim to `nationalities` String array claim
-   * replaced `agent` in id_document verifier element by `txn` element
-   * qes method: fixed error in description of `issuer`
-   * qes method: changed `issued_at` to `created_at` since this field applies to the signature (that is created and not issued)
-   * Changed format of `nationalities` and issuing `country` to ICAO codes
-   * Changed `date` in verification element to `time`
-   * Added Japanese trust frameworks to pre-defined values
-   * Added Japanese id documents to pre-defined values
-   * adapted JSON schema and examples
-
-   -06
-
-   * Incorporated review feedback by Marcos Sanz and Adam Cooper
-   * Added text on integrity, authenticity, and confidentiality for data passed between OP and RP to Security Considerations section
-   * added `purpose` field to `claims` parameter
-   * added feature to let the RP explicitly requested certain `verification` data
-
-   -05
-
-   * incorporated review feedback by Mike Jones
-   * Added OIDF Copyright Notices
-   * Moved Acknowledgements to Appendix A
-   * Removed RFC 2119 keywords from scope & requirements section and rephrased section
-   * rephrased introduction
-   * replaced `birth_name` with `birth_family_name`, `birth_given_name`, and `birth_middle_name`
-   * replaced `transaction_id` with `txn` from RFC 8417
-   * added references to eIDAS, ISO 3166-1, ISO 3166-3, and ISO 8601-2004
-   * added note on `purpose` and locales
-   * changed file name and document title to include 1.0 version id
-   * corrected evidence plural
-   * lots of editorial fixes
-   * Alignment with OpenID Connect Core wording
-   * Renamed `id` to `verification_process`
-   * Renamed `verified_person_data` to `verified_claims`
-
-   -04
-
-   * incorporated review feedback by Marcos Sanz
-
-   -03
-
-   * enhanced draft to support multiple evidence
-   * added a JSON Schema for assertions containing the `verified_person_data` claim
-   * added more identity document definitions
-   * added `region` field to `place_of_birth` claim
-   * changed `eidas_loa_substantial/high` to `eidas_ial_substantial/high`
-   * fixed typos in examples
-   * uppercased all editorial occurences of the term `claims` to align with OpenID Connect Core
-
-   -02
-
-   * added new request parameter `purpose`
-   * simplified/reduced number of verification methods
-   * simplfied identifiers
-   * added `identity_documents_supported` to metadata section
-   * improved examples
-
-   -01
-
-   *  fixed some typos
-   *  remove organization element (redundant) (issue 1080)
-   *  allow other claims about the end-user in the `claims` sub element (issue 1079)
-   *  changed `legal_context` to `trust_framework`
-   *  added explanation how the content of the verification element is determined by the trust framework
-   *  added URI-based identifiers for `trust_framework`, `identity_document` and (verification) `method`
-   *  added example attestation for notified/regulated eID system
-   *  adopted OP metadata section accordingly
-   *  changed error behavior for `max_age` member to alig with OpenID Core
-   *  Added feature to let the RP express requirements for verification data (trust framework, identity documents, verification method)
-   *  Added privacy consideration section and added text on legal basis for data exchange
-   *  Added explanation about regulated and un-regulated eID systems
-
-   -00 (WG document)
-
-   *  turned the proposal into a WG document
-   *  changed name
-   *  added terminology section and reworked introduction
-   *  added several examples (ID Token vs UserInfo, unverified & verified claims, aggregated & distributed claims)
-   *  incorporated text proposal of Marcos Sanz regarding max_age
-   *  added IANA registration for new error code `unable_to_meet_requirement`
