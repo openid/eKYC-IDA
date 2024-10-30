@@ -1,0 +1,31 @@
+{
+  "sub": "aVXbEvWctR",
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "authority_claims_example_framework",
+      "time":"2020-04-23T18:25Z"
+    },
+    "claims": {
+      "given_name": "Kate",
+      "family_name": "McCallister",
+      "birthdate": "1954-03-04",
+      "authority": [ {
+          "applies_to": {
+            "given_name": "Kevin",
+            "family_name": "McCallister",
+            "birthdate": "1982-12-22",
+            "msisdn" : "+12012345678"
+          },
+          "permission": [ 
+            {
+              "role": "mobile_subscription_account_owner"
+            },
+            {
+              "role" : "guardian",
+              "function" : "release_personal_info"
+            }
+          ]
+      }]
+    }
+  }
+}
