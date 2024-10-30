@@ -212,6 +212,12 @@ While this use case is important it is not within the scope of this specificatio
 
 While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the end-user.
 
+### Affiliation to legal entity
+“As a relying party I want to know that a natural person X is an employee of a company Y or a student of a university Z”
+
+While this use case is important it is not within the scope of this specification as it does not convey any information regarding the “authority” of the natural person.
+For the avoidance of doubt, conveying that somebody is allowed to act for a company or academic institution is an in-scope use case.
+
 # Claims
 
 In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following claims for conveying data in addition to the claims defined in the OpenID Connect specification [@!OpenID]:
