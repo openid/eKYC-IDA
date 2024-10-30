@@ -340,6 +340,12 @@ In this example a parent with the parent/guardian responsibility is represented 
 
 ### Official Receiver
 
+### Owner and user of a mobile subscription
+
+Kate McCallister is a guardian of Kevin McCallister. She has contracted a mobile subscription on behalf of Kevin. In the transaction below, she approves(authorizes) him to disclose his own personal information (birthday and phone number) to apply for an online service.
+
+<{{examples/response/authority_claims_mobile_carrier_example.json}}
+
 
 ## Requests
 
