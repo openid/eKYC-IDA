@@ -267,7 +267,7 @@ The `applies_to` sub-element is intended to convey claims that allow unique iden
 
 In the case that the authority applies to a legal entity the `applies_to` element may contain one or more of the claims in the 'Claims about a legal entity' section above (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims.
 
-In the case that the authority applies to a natural person the `applies_to` element may contain one or more of the following claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
+In the case that the authority applies to a natural person the `applies_to` element may contain one or more of the following claims (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
 
 | Claim | Type | Description |
 |:------|:-----|:------------|
