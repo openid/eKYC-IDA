@@ -267,14 +267,20 @@ The `applies_to` sub-element is intended to convey claims that allow unique iden
 
 In the case that the authority applies to a legal entity the `applies_to` element may contain one or more of the claims in the 'Claims about a legal entity' section above (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims.
 
-In the case that the authority applies to a natural person the `applies_to` element may contain one or more of the following claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
+In the case that the authority applies to a natural person the `applies_to` element may contain one or more of the following claims (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
 
-* `name`
-* `given_name`
-* `middle_name`
-* `family_name`
-* `birthdate`
-* `address`
+| Claim | Type | Description |
+|:------|:-----|:------------|
+|`sub`|String|Subject Identifier as defined in Section 2 of the OpenID Connect specification [@!OpenID]. This can be used when the natural person can be identified by the same IdP providing the authority claim.|
+|`name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`given_name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`middle_name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`family_name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`birthdate`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`address`|JSON object|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`aka`|JSON object|as defined in Section 5 of the OpenID Connect Account Porting specification [@!OpenID-AccountPorting]. This can be used when the natural person can be identified by the sub value of other IdP.|
+
+Other attributes not in the list may also be used if they allow for unique identification.
 
 ## `permission` element
 
@@ -487,6 +493,22 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>Salesforce</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="OpenID-AccountPorting" target="https://openid.net/specs/openid-connect-account-porting-1_0.html">
+  <front>
+    <title>OpenID Connect Account Porting</title>
+    <author initials="J." surname="Manger" fullname="James Manger">
+      <organization>Telstra</organization>
+    </author>
+    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
+      <organization>YES Europe AG</organization>
+    </author>
+    <author initials="A." surname="Gleditsch" fullname="Arne Georg Gleditsch">
+      <organization>Telenor</organization>
+    </author>
+   <date day="6" month="Mar" year="2017"/>
   </front>
 </reference>
 
