@@ -196,7 +196,7 @@ If attachments are used in [@OpenID] implementations, an additional element of O
 
 `attachments_supported`: Required when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present, this array shall have at least one member. If omitted, the OP does not support attachments.
 
-`digest_algorithms_supported`: Required when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, the OP will support only hash algorithms that have a 'current' status. The list of possible digest/hash algorithm names and status is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
+`digest_algorithms_supported`: Required when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, the OP will support only 'approved' hash algorithms, as per NIST. The list of approved digest/hash function names and status is maintained by NIST CSRC in [@!approved_hash_algorithms] (established in [@FIPSSP180-4] and [@FIPSSP202]).
 
 This is an example openid-configuration snippet:
 
@@ -414,13 +414,33 @@ Note: examples of embedded attachments contain truncated values.
   </front>
 </reference>
 
-<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
+<reference anchor="approved_hash_algorithms" target="https://csrc.nist.gov/projects/hash-functions#approved-algorithms">
   <front>
-    <title>Named Information Hash Algorithm Registry</title>
+    <title>NIST CSRC Approved Hash Functions</title>
     <author>
-      <organization>IANA</organization>
+      <organization>NIST</organization>
     </author>
-    <date year="2016" month="09"/>
+    <date month="Sept" year="2024"/>
+  </front>
+</reference>
+
+<reference anchor="FIPSSP180-4" target="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">
+  <front>
+    <title>FIPS PUB 180-4, Secure Hash Standard</title>
+    <author>
+      <organization>National Institute of Standards and Technology</organization>
+    </author>
+   <date day="4" month="Aug" year="2015"/>
+  </front>
+</reference>
+
+<reference anchor="FIPSSP202" target="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf">
+  <front>
+    <title>FIPS PUB 202, SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions</title>
+    <author>
+      <organization>National Institute of Standards and Technology</organization>
+    </author>
+   <date day="4" month="Aug" year="2015"/>
   </front>
 </reference>
 
