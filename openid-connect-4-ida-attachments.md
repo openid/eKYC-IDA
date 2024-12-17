@@ -127,6 +127,8 @@ All the information of the document (including the content itself) is provided w
 
 `desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
 
+`type`: Optional. A type identifier that indicates the type of attachment contained in the `content` element.  Values for this element should be handled as described in the section below about Predefined Values.
+
 `content_type`: Required. Content (MIME) type of the document. See [@!RFC6838]. Multipart or message media types are not allowed. Example: "image/png"
 
 `content`: Required. Base64 encoded representation of the document content. See [@!RFC4648].
@@ -142,6 +144,8 @@ Note: Due to their size, embedded attachments are not always appropriate when em
 External attachments are similar to distributed claims as defined in [@OpenID]. The reference to the external document is provided in a JSON object with the following elements:
 
 `desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
+
+`type`: Optional. A type identifier that indicates the type of attachment linked via `url` element.  Values for this element should be handled as described in the section below about Predefined Values.
 
 `url`: Required. OAuth 2.0 [@RFC6749] protected resource endpoint from which the attachment can be retrieved. Providers shall protect this endpoint, ensuring that the attachment cannot be retrieved by unauthorized parties (typically by requiring an access token as described below). The endpoint URL shall return the attachment whose cryptographic hash matches the value given in the `digest` element. The content MIME type of the attachment shall be indicated in a content-type HTTP response header, as per [@!RFC6838]. Multipart or message media types shall not be used.
 
@@ -209,6 +213,14 @@ This is an example openid-configuration snippet:
 ...
 }
 ```
+
+# Predefined values {#predefined_values}
+
+This document focuses on the technical mechanisms to convey attachments and thus does not define any identifiers for the many attachment types. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
+
+Each party defining such identifiers shall ensure the collision resistance of these identifiers. This can be achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`.
+
+The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties and may reference any registry that emerges in the future.
 
 # Examples
 
@@ -409,6 +421,16 @@ Note: examples of embedded attachments contain truncated values.
       <organization>IANA</organization>
     </author>
     <date year="2016" month="09"/>
+  </front>
+</reference>
+
+<reference anchor="predefined_values_page" target="https://openid.net/wg/ekyc-ida/identifiers/">
+  <front>
+    <title>Overview page for predefined values</title>
+    <author>
+      <organization>OpenID Foundation</organization>
+    </author>
+    <date year="2021"/>
   </front>
 </reference>
 

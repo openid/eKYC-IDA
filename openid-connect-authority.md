@@ -212,6 +212,12 @@ While this use case is important it is not within the scope of this specificatio
 
 While this use case is important it is not within the scope of this specification as it is not a fit for OpenID Connect due to the fact that OpenID Connect is focussed on claims about the end-user.
 
+### Affiliation to legal entity
+“As a relying party I may want to know that a natural person X is an employee of a company Y or a student of a university Z”
+
+While this use case is important it is not within the scope of this specification as the role of a person within an organisation does not directly convey any information regarding the “authority” of the natural person to act for that organisation.
+For the avoidance of doubt, conveying that somebody is allowed to act for a company or academic institution is an in-scope use case.
+
 # Claims
 
 In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following claims for conveying data in addition to the claims defined in the OpenID Connect specification [@!OpenID]:
@@ -267,14 +273,20 @@ The `applies_to` sub-element is intended to convey claims that allow unique iden
 
 In the case that the authority applies to a legal entity the `applies_to` element may contain one or more of the claims in the 'Claims about a legal entity' section above (and others as required) providing it allows for sufficient confidence that the legal entity can be uniquely identified from that set of claims.
 
-In the case that the authority applies to a natural person the `applies_to` element may contain one or more of the following claims as defined in Section 5.1 of the OpenID Connect specification [@!OpenID] (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
+In the case that the authority applies to a natural person the `applies_to` element may contain one or more of the following claims (and others as required) providing it allows for sufficient confidence that the natural person can be uniquely identified from that set of claims:
 
-* `name`
-* `given_name`
-* `middle_name`
-* `family_name`
-* `birthdate`
-* `address`
+| Claim | Type | Description |
+|:------|:-----|:------------|
+|`sub`|String|Subject Identifier as defined in Section 2 of the OpenID Connect specification [@!OpenID]. This can be used when the natural person can be identified by the same IdP providing the authority claim.|
+|`name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`given_name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`middle_name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`family_name`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`birthdate`|String|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`address`|JSON object|as defined in Section 5.1 of the OpenID Connect specification [@!OpenID]|
+|`aka`|JSON object|as defined in Section 5 of the OpenID Connect Account Porting specification [@!OpenID-AccountPorting]. This can be used when the natural person can be identified by the sub value of other IdP.|
+
+Other attributes not in the list may also be used if they allow for unique identification.
 
 ## `permission` element
 
@@ -320,6 +332,13 @@ The OP has the discretion to decide whether the requested verification data is t
 
 
 ## Responses
+
+
+### Parent and Child
+
+In this example a parent with the parent/guardian responsibility is represented in the following JSON that would be returned in a UserInfo response.
+
+<{{examples/response/authority_parent_child.json}}
 
 ### Company director
 
@@ -480,6 +499,22 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
       <organization>Salesforce</organization>
     </author>
    <date day="8" month="Nov" year="2014"/>
+  </front>
+</reference>
+
+<reference anchor="OpenID-AccountPorting" target="https://openid.net/specs/openid-connect-account-porting-1_0.html">
+  <front>
+    <title>OpenID Connect Account Porting</title>
+    <author initials="J." surname="Manger" fullname="James Manger">
+      <organization>Telstra</organization>
+    </author>
+    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
+      <organization>YES Europe AG</organization>
+    </author>
+    <author initials="A." surname="Gleditsch" fullname="Arne Georg Gleditsch">
+      <organization>Telenor</organization>
+    </author>
+   <date day="6" month="Mar" year="2017"/>
   </front>
 </reference>
 

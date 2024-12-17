@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect for Identity Assurance Claims Registration 1.0 draft"
+title = "OpenID Connect for Identity Assurance Claims Registration 1.0"
 abbrev = "openid-connect-4-ida-claims-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc", "claims"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-ida-claims-1_0-00"
+value = "openid-connect-4-ida-claims-1_0-02"
 
 status = "standard"
 
@@ -223,7 +223,9 @@ This section contains JSON snippets showing examples of end-user claims describe
 
 # Security considerations {#Security}
 
-The working group has identified no security considerations that pertain to this specification.
+The working group has identified no security considerations that pertain directly to this specification.
+
+The data structures described in this specification will contain personal information. Standards referencing this specification and implementers using this specification should consider the secure transport of these structures and security and privacy implications that may arise from their use.
 
 {backmatter}
 
@@ -472,13 +474,3 @@ Copyright (c) 2024 The OpenID Foundation.
 The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
 The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
-
-# Document history
-
-   [[ To be removed from the final specification ]]
-
-
-   -00 (WG document)
-
-   *  Split this content from openid-connect-4-identity-assurance-1_0-13 WG document
-

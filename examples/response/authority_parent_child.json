@@ -1,0 +1,26 @@
+{
+    "sub": "KMcCallister",
+    "email": "kmcc@example.com",
+    "verified_claims": {
+      "verification": {
+        "trust_framework": "authority_claims_example_framework",
+        "time":"2020-04-23T18:25Z",
+        "verification_process":"f24c6f-6d3f-4ec5-973e-b0d8506f3bc7"
+      },
+      "claims": {
+        "given_name": "Kate",
+        "family_name": "McCallister",
+        "birthdate": "1992-01-26",
+        "authority": [ {
+            "applies_to": {
+                "given_name": "Kevin",
+                "family_name": "McCallister",
+                "birthdate": "2016-01-26"
+            },
+            "permission": [ {
+                "role": "Legal Guardian"
+            }]
+        }]
+      }
+    }
+}
