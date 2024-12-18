@@ -218,6 +218,11 @@ While this use case is important it is not within the scope of this specificatio
 While this use case is important it is not within the scope of this specification as the role of a person within an organisation does not directly convey any information regarding the “authority” of the natural person to act for that organisation.
 For the avoidance of doubt, conveying that somebody is allowed to act for a company or academic institution is an in-scope use case.
 
+### Delegation of authority
+"As a relying party I may want to know that a natural person X has been delegated authority by another person to perform certain actions"
+
+While this use case is important it is not within the scope of this specification as OpenID Connect does not address authorization or delegation, which are better handled by other protocols designed specifically for such purposes.
+
 # Claims
 
 In order to fulfill the requirements of some jurisdictions on identity assurance, this specification defines the following claims for conveying data in addition to the claims defined in the OpenID Connect specification [@!OpenID]:
