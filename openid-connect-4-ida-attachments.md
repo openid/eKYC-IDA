@@ -448,7 +448,7 @@ Note: examples of embedded attachments contain truncated values.
   </front>
 </reference>
 
-<reference anchor="@ISO10118-3" target="https://www.iso.org/obp/ui/en/#iso:std:iso-iec:10118:-3:ed-4:v1:en">
+<reference anchor="ISO10118-3" target="https://www.iso.org/obp/ui/en/#iso:std:iso-iec:10118:-3:ed-4:v1:en">
   <front>
     <title>ISO/IEC 10118-3:2018 IT Security techniques - Hash-functions - Part 3: Dedicated hash-functions</title>
     <author>
@@ -458,7 +458,7 @@ Note: examples of embedded attachments contain truncated values.
   </front>
 </reference>
 
-<reference anchor="@EPCCryptoAlgoUsage" target="https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2022-03/EPC342-08%20v11.0%20Guidelines%20on%20Cryptographic%20Algorithms%20Usage%20and%20Key%20Management.pdf">
+<reference anchor="EPCCryptoAlgoUsage" target="https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2022-03/EPC342-08%20v11.0%20Guidelines%20on%20Cryptographic%20Algorithms%20Usage%20and%20Key%20Management.pdf">
   <front>
     <title>Guidelines on cryptographic algorithms usage and key management</title>
     <author>
