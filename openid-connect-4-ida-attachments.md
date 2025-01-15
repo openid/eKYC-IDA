@@ -186,7 +186,7 @@ As attachments will most likely contain more personal information than was reque
 
 # Security considerations
 
-When using attachments containing personal information, implementors will need to choose a well-known, well-supported hashing function.  Cryptographic hash functions take as input a message of arbitrary length and produce a fixed length message digest and are employed as a data integrity mechanism for non-repudiation.  If possible, the OP shall ensure that current, approved hash functions and algorithms are used along with the recommended best practices of their appropriate standards body. The list of approved digest/hash function names and status is maintained by NIST CSRC in [@nist_approved_hash_algorithms] (established in [@FIPSSP180-4] and [@FIPSSP202]), by ISO as established in [@ISO10118-3], and by EPC as esablished in [@EPCCryptoAlgoUsage].
+When using attachments containing personal information, implementors should choose a well tested and well-supported hashing function. Cryptographic hash functions take as input a message of arbitrary length and produce a fixed length message digest and are employed as a data integrity mechanism for non-repudiation. If possible, the OP shall ensure that hash functions and algorithms are used along with the recommended best practices of an appropriate standards body. Lists of approved digest/hash function names and status are maintained by NIST CSRC in [@nist_approved_hash_algorithms] (established in [@FIPSSP180-4] and [@FIPSSP202]), by ISO as established in [@ISO10118-3], and by EPC as esablished in [@EPCCryptoAlgoUsage].
 
 # Client registration and management
 
@@ -200,7 +200,7 @@ If attachments are used in [@OpenID] implementations, an additional element of O
 
 `attachments_supported`: Required when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present, this array shall have at least one member. If omitted, the OP does not support attachments.
 
-`digest_algorithms_supported`: Required when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, the OP will support only 'approved' hash algorithms.
+`digest_algorithms_supported`: Required when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments.
 
 This is an example openid-configuration snippet:
 
