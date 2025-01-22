@@ -184,6 +184,10 @@ If any of these requirements are not met, do not use the content of the attachme
 
 As attachments will most likely contain more personal information than was requested by the RP with specific claim names, an OP shall ensure that the end-user is well aware of when and what kind of attachments are about to be transferred to the RP. If possible or applicable, the OP should allow the end-user to review the content of these attachments before giving consent to the transaction.
 
+# Security considerations
+
+When using attachments containing personal information, implementers should choose a well tested and well-supported hashing function. Cryptographic hash functions take as input a message of arbitrary length and produce a fixed length message digest and are employed as a data integrity mechanism for non-repudiation. The OP should ensure that hash functions and algorithms used follow the recommendedations of an appropriate standards body. Lists of approved digest/hash function names and status are maintained by NIST CSRC in [@nist_approved_hash_algorithms] (established in [@FIPSSP180-4] and [@FIPSSP202]), by ISO as established in [@ISO10118-3], and by EPC as esablished in [@EPCCryptoAlgoUsage].
+
 # Client registration and management
 
 If external attachments are used in the context of an OpenID Provider that uses either [@!OpenID-Registration] or [@RFC7592] the following additional properties should be available as part of any client registration or client management interactions:
@@ -196,7 +200,7 @@ If attachments are used in [@OpenID] implementations, an additional element of O
 
 `attachments_supported`: Required when OP supports attachments. JSON array containing all attachment types supported by the OP. Possible values are `external` and `embedded`. When present, this array shall have at least one member. If omitted, the OP does not support attachments.
 
-`digest_algorithms_supported`: Required when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments. If the OP supports external attachments, at least the algorithm `sha-256` shall be supported by the OP as well. The list of possible digest/hash algorithm names is maintained by IANA in [@!hash_name_registry] (established by [@RFC6920]).
+`digest_algorithms_supported`: Required when OP supports external attachments. JSON array containing all supported digest algorithms which can be used as `alg` property within the digest object of external attachments.
 
 This is an example openid-configuration snippet:
 
@@ -414,13 +418,53 @@ Note: examples of embedded attachments contain truncated values.
   </front>
 </reference>
 
-<reference anchor="hash_name_registry" target="https://www.iana.org/assignments/named-information/">
+<reference anchor="nist_approved_hash_algorithms" target="https://csrc.nist.gov/projects/hash-functions#approved-algorithms">
   <front>
-    <title>Named Information Hash Algorithm Registry</title>
+    <title>NIST CSRC Approved Hash Functions</title>
     <author>
-      <organization>IANA</organization>
+      <organization>NIST</organization>
     </author>
-    <date year="2016" month="09"/>
+    <date month="Sept" year="2024"/>
+  </front>
+</reference>
+
+<reference anchor="FIPSSP180-4" target="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">
+  <front>
+    <title>FIPS PUB 180-4, Secure Hash Standard</title>
+    <author>
+      <organization>National Institute of Standards and Technology</organization>
+    </author>
+   <date day="4" month="Aug" year="2015"/>
+  </front>
+</reference>
+
+<reference anchor="FIPSSP202" target="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf">
+  <front>
+    <title>FIPS PUB 202, SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions</title>
+    <author>
+      <organization>National Institute of Standards and Technology</organization>
+    </author>
+   <date day="4" month="Aug" year="2015"/>
+  </front>
+</reference>
+
+<reference anchor="ISO10118-3" target="https://www.iso.org/obp/ui/en/#iso:std:iso-iec:10118:-3:ed-4:v1:en">
+  <front>
+    <title>ISO/IEC 10118-3:2018 IT Security techniques - Hash-functions - Part 3: Dedicated hash-functions</title>
+    <author>
+      <organization>International Organization for Standardization</organization>
+    </author>
+   <date month="Oct" year="2018"/>
+  </front>
+</reference>
+
+<reference anchor="EPCCryptoAlgoUsage" target="https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2022-03/EPC342-08%20v11.0%20Guidelines%20on%20Cryptographic%20Algorithms%20Usage%20and%20Key%20Management.pdf">
+  <front>
+    <title>Guidelines on cryptographic algorithms usage and key management</title>
+    <author>
+      <organization>European Payments Council</organization>
+    </author>
+   <date day = "8" month="Mar" year="2022"/>
   </front>
 </reference>
 
