@@ -186,7 +186,7 @@ As attachments will most likely contain more personal information than was reque
 
 # Security considerations
 
-When using attachments containing personal information, implementors should choose a well tested and well-supported hashing function. Cryptographic hash functions take as input a message of arbitrary length and produce a fixed length message digest and are employed as a data integrity mechanism for non-repudiation. The OP should ensure that hash functions and algorithms used follow the recommendedations of an appropriate standards body. Lists of approved digest/hash function names and status are maintained by NIST CSRC in [@nist_approved_hash_algorithms] (established in [@FIPSSP180-4] and [@FIPSSP202]), by ISO as established in [@ISO10118-3], and by EPC as esablished in [@EPCCryptoAlgoUsage].
+When using attachments containing personal information, implementers should choose a well tested and well-supported hashing function. Cryptographic hash functions take as input a message of arbitrary length and produce a fixed length message digest and are employed as a data integrity mechanism for non-repudiation. The OP should ensure that hash functions and algorithms used follow the recommendedations of an appropriate standards body. Lists of approved digest/hash function names and status are maintained by NIST CSRC in [@nist_approved_hash_algorithms] (established in [@FIPSSP180-4] and [@FIPSSP202]), by ISO as established in [@ISO10118-3], and by EPC as esablished in [@EPCCryptoAlgoUsage].
 
 # Client registration and management
 
