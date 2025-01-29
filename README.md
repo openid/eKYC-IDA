@@ -5,6 +5,12 @@
 * This is the repository for OpenID Foundation's [eKYC and Identity Assurance WG](https://openid.net/wg/ekyc-ida/).
 * The document(s) are written in [markdown](https://bitbucket.org/tutorials/markdowndemo) and translated to html using [mmark](https://github.com/mmarkdown/mmark)
 
+### Current activity
+
+* Finalisation of the "OpenId Attachments 1.0" draft
+* Development of examples and further definition and clarification of the "OpenId Authority 1.0" spec
+* Maintenance and guidance for the FINAL specs produced by this Working Group (see below)
+
 ### Contribution guidelines ###
 
 * There are two ways to contribute, creating issues and pull requests
