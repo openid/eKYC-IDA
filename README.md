@@ -31,7 +31,8 @@
 
 [**OpenID Identity Assurance Schema Definition 1.0**](https://openid.net/specs/openid-ida-verified-claims-1_0-final.html) - **FINAL**
 
-- A schema definition for the vereified _claims element, written in such a way tyat it can be used in the context of various application protocols including OpenID Connect.
+- A schema definition for the vereified _claims element, written in such a way that it can be used in the context of various application protocols including OpenID Connect.
+- There is a corresponding non-normative JSON schema defined by the WG and hosted on the bitbucket at https://bitbucket.org/openid/ekyc-ida/src/master/schema/
 
 [**OpenID Connect for Identity Assurance Claims Registration 1.0**](https://openid.net/specs/openid-connect-4-ida-claims-1_0-final.html) - **FINAL**
 - Registration of a number of new end-user claims that are used in some identity assurance use cases
