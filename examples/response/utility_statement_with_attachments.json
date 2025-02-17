@@ -17,10 +17,10 @@
             "type": "utility_statement",
             "date_of_issuance": "2013-01-31",
             "issuer": {
-                "name": "Stadtwerke Musterstadt",
-                "country": "DE",
-                "region": "Niedersachsen",
-                "street_address": "Energiestrasse 33"
+              "name": "Stadtwerke Musterstadt",
+              "country": "DE",
+              "region": "Niedersachsen",
+              "street_address": "Energiestrasse 33"
             }
           },
           "attachments": [

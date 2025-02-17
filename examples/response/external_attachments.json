@@ -1,7 +1,7 @@
 {
   "verified_claims": {
     "verification": {
-      "trust_framework":"eidas",
+      "trust_framework": "eidas",
       "assurance_level": "substantial",
       "evidence": [
         {
@@ -43,7 +43,7 @@
                 "alg": "sha-256",
                 "value": "i3O7U79LiyKmmesIgULKT2Q8LAxNO0CpwJVcbepaYf8="
               },
-              "url": "https://example.com/attachments/4Ag8IpOf95",
+              "url": "https://example.com/attachments/E67563323915",
               "access_token": null,
               "exp": 1676552189
             }
