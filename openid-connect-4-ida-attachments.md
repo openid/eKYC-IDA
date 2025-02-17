@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Attachments 1.0 draft"
+title = "OpenID Attachments 1.0 - draft 01"
 abbrev = "openid-connect-4-ida-attachments-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -64,7 +64,7 @@ organization="KDDI Corporation"
 
 .# Abstract
 
-This document defines a way of representing binary data in the context of a JSON payload. It can be used as an extension of OpenID Connect that defines new attachments relating to the identity of a natural person or in other JSON contexts that have binary data elements . The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
+This document defines a way of representing binary data in the context of a JSON payload. It can be used as an extension of OpenID Connect that defines new attachments relating to the identity of a natural person or in other JSON contexts that have binary data elements. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
 
 .# Introduction {#Introduction}
 
@@ -83,7 +83,7 @@ provide supporting documentation.
 
 .# Foreword
 
-The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
+The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised of over 160 participating entities. The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
 
 Final drafts adopted by the Workgroup through consensus are circulated publicly for the public review for 60 days and for the OIDF members for voting. Publication as an OIDF Standard requires approval by at least 50% of the members casting a vote. There is a possibility that some of the elements of this document may be subject to patent rights. OIDF shall not be held responsible for identifying any or all such patent rights.
 
@@ -110,20 +110,22 @@ No terms and definitions are listed in this document.
 
 # Attachments {#attachments}
 
-Where evidence is used in identity verification process, specific document artifacts (such as images of that evidence) might need to be presented and, depending on the trust framework, might need to to be stored by the recipient for a period. These artifacts can then, for example, be reviewed during audit or quality control. These artifacts include, but are not limited to:
+There are potentially a wide range of use cases where representing binary data in the context of a JSON payload might be useful. One example is when evidence is used in identity verification process, specific document artifacts (such as images of that evidence) might need to be presented and, depending on the trust framework, might need to be stored by the recipient for a period. These artifacts can then, for example, be reviewed during audit or quality control. These artifacts include, but are not limited to:
 
-* scans of filled and signed forms documenting/certifying the verification process itself,
-* scans or photographs of the documents used to verify the identity of end-users,
-* video recordings of the verification process,
-* certificates of electronic signatures.
+* scans of filled and signed forms documenting/certifying the verification process itself
+* scans or photographs of the documents used to verify the identity of end-users
+* video recordings of the verification process
+* certificates of electronic signatures
 
-When using OpenID Connect and requested by the RP, these artifacts can be included as part of an ID token, and in particular part of an [@OpenID4IDA] `verified_claims` element allowing the RP to store these artifacts along with the other `verified_claims` information.
+The intent is that this document can be referenced by any implementer or specification author where the ability to convey binary artefacts that relate to a JSON structure is useful.
 
-An attachment is represented by a JSON object. This document allows for two types of representation:
+When using OpenID Connect and requested by the RP, these artifacts can be included as part of an ID token or UserInfo response, and in particular part of an [@OpenID4IDA] `verified_claims` element allowing the RP to store these artifacts along with the other `verified_claims` information.
+
+An attachment is part of JSON object. This document allows for two types, "Embedded" or "External".
 
 ## Embedded attachments
 
-All the information of the document (including the content itself) is provided within a JSON object having the following elements:
+All the information of the attached artefact (including the content itself) is provided within a JSON object having the following elements:
 
 `desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
 
@@ -133,7 +135,7 @@ All the information of the document (including the content itself) is provided w
 
 `content`: Required. Base64 encoded representation of the document content. See [@!RFC4648].
 
-The following example shows embedded attachments within a UserInfo endpoint response. The actual contents of the attached documents are truncated:
+The following example shows embedded attachments within an OpenID Connect UserInfo endpoint response. The actual contents of the attached documents are truncated:
 
 <{{examples/response/embedded_attachments.json}}
 
@@ -141,7 +143,7 @@ Note: Due to their size, embedded attachments are not always appropriate when em
 
 ## External attachments
 
-External attachments are similar to distributed claims as defined in [@OpenID]. The reference to the external document is provided in a JSON object with the following elements:
+External attachments are similar to distributed claims as defined in [@OpenID] in that the binary content is accessible as a referenced resource that is separate from the JSON object. The difference is that there are additional elements that provide more certainty that the binary object returned is the one intended when the assertion containing the attachment was created. The reference to the external attachment is provided in a JSON object with the following elements:
 
 `desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework or the OP.
 
@@ -151,7 +153,7 @@ External attachments are similar to distributed claims as defined in [@OpenID]. 
 
 `access_token`: Optional. Access token as type `string` enabling retrieval of the attachment from the given `url`. The attachment shall be requested using the OAuth 2.0 Bearer Token Usage [@!RFC6750] protocol and the OP shall support this method, unless another token type or method has been negotiated with the client. Use of other token types is outside the scope of this document. If the `access_token` element is not available, RPs shall use the access token issued by the OP in the token response and when requesting the attachment the RP shall use the same method as when accessing the UserInfo endpoint. If the value of this element is `null`, no access token is used to request the attachment and the RP shall not use the access token issued by the token response. In this case the OP shall incorporate other effective methods to protect the attachment and inform/instruct the RP accordingly.
 
-`exp`: Optional. The "exp" (expiration time) claim identifies the expiration time on or after which the external attachment will not be available from the resource endpoint defined in the `url` element (e.g. the `access_token` will expire or the document will removed at that time). Implementers may provide for some small leeway, usually no more than a few minutes, to account for clock skew.  Its value shall be a number containing a NumericDate value as per as per [@!RFC7519].
+`exp`: Optional. The "exp" (expiration time) claim identifies the expiration time on or after which the external attachment will not be available from the resource endpoint defined in the `url` element (e.g. the `access_token` will expire or the document will be removed at that time). Implementers may provide for some small leeway, usually no more than a few minutes, to account for clock skew.  Its value shall be a number containing a NumericDate value as per [@!RFC7519].
 
 `digest`: Required. JSON object containing details of a cryptographic hash of the document content taken over the bytes of the payload (and not, e.g., the representation in the HTTP response). The JSON object has the following elements:
 
@@ -169,7 +171,7 @@ The following example shows external attachments:
 Clients shall validate each external attachment they wish to rely on in the following manner:
 
 1. Ensure that the object includes the required elements: `url`, `digest`.
-2. Ensure that at the time of the request the time is before the time represented by the `exp` element.
+2. Ensure that, when a `exp` element is present, the request to the value in `url` is made before the time represented by the `exp` element.
 3. Ensure that the URL defined in the `url` element uses the `https` scheme.
 4. Ensure that the `digest` element contains both `alg` and `value` keys.
 5. Retrieve the attachment from the `url` element in the object.
@@ -211,7 +213,7 @@ This is an example openid-configuration snippet:
     "external",
     "embedded"
   ],
-    "digest_algorithms_supported": [
+  "digest_algorithms_supported": [
     "sha-256"
   ],
 ...
@@ -486,16 +488,43 @@ We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Alberto Pulido,
 
 # Notices
 
-Copyright (c) 2024 The OpenID Foundation.
+Copyright (c) 2025 The OpenID Foundation.
 
-The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
+The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer,
+or other interested party a non-exclusive, royalty free, worldwide copyright license to
+reproduce, prepare derivative works from, distribute, perform and display, this
+Implementers Draft, Final Specification, or Final Specification Incorporating Errata
+Corrections solely for the purposes of (i) developing specifications, and (ii)
+implementing Implementers Drafts, Final Specifications, and Final Specification
+Incorporating Errata Corrections based on such documents, provided that attribution
+be made to the OIDF as the source of the material, but that such attribution does not
+indicate an endorsement by the OIDF.
 
-The technology described in this document was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this document make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this document, and the entire risk as to implementing this document is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this document.
+The technology described in this specification was made available from contributions
+from various sources, including members of the OpenID Foundation and others.
+Although the OpenID Foundation has taken steps to help ensure that the technology
+is available for distribution, it takes no position regarding the validity or scope of any
+intellectual property or other rights that might be claimed to pertain to the
+implementation or use of the technology described in this specification or the extent
+to which any license under such rights might or might not be available; neither does it
+represent that it has made any independent effort to identify any such rights. The
+OpenID Foundation and the contributors to this specification make no (and hereby
+expressly disclaim any) warranties (express, implied, or otherwise), including implied
+warranties of merchantability, non-infringement, fitness for a particular purpose, or
+title, related to this specification, and the entire risk as to implementing this
+specification is assumed by the implementer. The OpenID Intellectual Property
+Rights policy (found at openid.net) requires contributors to offer a patent promise not
+to assert certain patent claims against other contributors and against implementers.
+OpenID invites any interested party to bring to its attention any copyrights, patents,
+patent applications, or other proprietary rights that may cover technology that may be
+required to practice this specification.
 
 # Document History
 
    [[ To be removed from the final specification ]]
 
+   -01
+   * Various editorial updates
 
    -00 (WG document)
 
