@@ -219,9 +219,10 @@ While this use case is important it is not within the scope of this specificatio
 For the avoidance of doubt, conveying that somebody is allowed to act for a company or academic institution is an in-scope use case.
 
 ### Delegation of authority
-"As a relying party I may want to know that a natural person X has been delegated authority by another person to perform certain actions"
+"As a relying party I may want to get an ID token of a natural person X, who has authorized another person Y to perform certain actions"
 
 While this use case is important it is not within the scope of this specification as OpenID Connect does not address authorization or delegation, which are better handled by other protocols designed specifically for such purposes.
+However, please note that conveying "a natural person X has been authorized (by Y) to do something (on behalf of Z)" is within the scope of this spec.
 
 # Claims
 
