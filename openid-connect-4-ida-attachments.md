@@ -125,7 +125,7 @@ An attachment is part of JSON object. This document allows for two types, "Embed
 
 ## Embedded attachments
 
-All the information of the attached artefact (including the content itself) is provided within a JSON object having the following elements:
+All the information of the attached artifact (including the content itself) is provided within a JSON object having the following elements:
 
 `desc`: Optional. Description of the document. This can be the filename or just an explanation of the content. The used language is not specified, but is usually bound to the jurisdiction of the underlying trust framework of the OP.
 
@@ -171,7 +171,7 @@ The following example shows external attachments:
 Clients shall validate each external attachment they wish to rely on in the following manner:
 
 1. Ensure that the object includes the required elements: `url`, `digest`.
-2. Ensure that, when a `exp` element is present, the request to the value in `url` is made before the time represented by the `exp` element.
+2. Ensure that, when an `exp` element is present, the request to the value in `url` is made before the time represented by the `exp` element.
 3. Ensure that the URL defined in the `url` element uses the `https` scheme.
 4. Ensure that the `digest` element contains both `alg` and `value` keys.
 5. Retrieve the attachment from the `url` element in the object.
@@ -400,7 +400,7 @@ Note: examples of embedded attachments contain truncated values.
   </front>
 </reference>
 
-<reference anchor="RFC4648" target="https://datatracker.ietf.org/doc/html/rfc4648">
+<reference anchor="RFC4648" target="https://www.rfc-editor.org/info/rfc4648">
   <front>
     <title>The Base16, Base32, and Base64 Data Encodings</title>
     <author initials="S." surname="Josefsson" fullname="S. Josefsson">
@@ -410,7 +410,7 @@ Note: examples of embedded attachments contain truncated values.
   </front>
 </reference>
 
-<reference anchor="RFC6749" target="https://datatracker.ietf.org/doc/html/rfc6749">
+<reference anchor="RFC6749" target="https://www.rfc-editor.org/info/rfc6749">
   <front>
     <title>The OAuth 2.0 Authorization Framework</title>
     <author initials="D." surname="Hardt" fullname="Dick Hardt">
