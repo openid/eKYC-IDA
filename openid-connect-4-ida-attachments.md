@@ -117,7 +117,7 @@ There are potentially a wide range of use cases where representing binary data i
 * video recordings of the verification process
 * certificates of electronic signatures
 
-The intent is that this document can be referenced by any implementer or specification author where the ability to convey binary artefacts that relate to a JSON structure is useful.
+The intent is that this document can be referenced by any implementer or specification author where the ability to convey binary artifacts that relate to a JSON structure is useful.
 
 When using OpenID Connect and requested by the RP, these artifacts can be included as part of an ID token or UserInfo response, and in particular part of an [@OpenID4IDA] `verified_claims` element allowing the RP to store these artifacts along with the other `verified_claims` information.
 
