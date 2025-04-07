@@ -1,0 +1,26 @@
+{
+    "verified_claims": {
+        "verification": {
+            "trust_framework": " jp_gbizid_v1",
+            "assurance_level": "ial2",
+            "time": "2021-06-06T05:32+09:00",
+            "assurance_process": {
+                "procedure ": "jp_gbizid_online_sole_proprietorship"
+            }
+        },
+        "claims": {
+            "family_name": "田中",
+            "given_name": "太郎",
+            "birthdate": "1991-11-06",
+            "address": {
+                "street_address_part1": "紀尾井町１－３",
+                "street_address_part2": "東京ガーデンテラス紀尾井町",
+                "street_address": "紀尾井町１－３ 東京ガーデンテラス紀尾井町",
+                "locality": "千代田区 ",
+                "region": "東京都 ",
+                "postal_code": "1020094 ",
+                "country": "JP "
+            }
+        }
+    }
+}

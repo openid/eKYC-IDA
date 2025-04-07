@@ -1,0 +1,20 @@
+{
+    "verified_claims": {
+        "verification": {
+            "trust_framework": " jp_gbizid_v1",
+            "assurance_level": "ial2",
+            "time": "2021-06-06T05:32+09:00",
+            "assurance_process": {
+                "procedure ": "jp_gbizid_member"
+            }
+        },
+        "claims": {
+            "authority": {
+                "applies_to": {
+                   "registration_number": "XXXXXXXXXX"
+                },
+                "permission": [{"role": "member"}]
+            }
+        }
+    }
+}
