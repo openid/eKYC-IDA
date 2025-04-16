@@ -279,7 +279,7 @@
                                     },
                                     "created_at": {
                                         "type": "string",
-                                        "format": "date"
+                                        "format": "date-time"
                                     },
                                     "date_of_expiry": {
                                         "type": "string",
