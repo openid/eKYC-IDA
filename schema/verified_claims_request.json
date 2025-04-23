@@ -227,9 +227,6 @@
                             "document_details": {
                                 "$ref": "#/$defs/document_details"
                             },
-                            "method": {
-                                "$ref": "#/$defs/constrainable_element"
-                            },
                             "time": {
                                 "$ref": "#/$defs/datetime_element"
                             }
