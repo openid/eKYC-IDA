@@ -153,9 +153,6 @@
                         }
                     }
                 },
-                "personal_number": {
-                    "$ref": "#/$defs/simple_element"
-                },
                 "serial_number": {
                     "$ref": "#/$defs/simple_element"
                 }
