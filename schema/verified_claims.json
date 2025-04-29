@@ -24,16 +24,6 @@
         },
         "attachments": {
             "type": "array",
-            "items": {
-                "oneOf": [
-                    {
-                        "$ref": "#/$defs/external_attachment"
-                    },
-                    {
-                        "$ref": "#/$defs/embedded_attachment"
-                    }
-                ]
-            },
             "minItems": 1
         },
         "check_details": {
@@ -55,22 +45,6 @@
                     }
                 }
             ]
-        },
-        "digest": {
-            "type": "object",
-            "required": [
-                "alg",
-                "value"
-            ],
-            "properties": {
-                "alg": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string",
-                    "contentEncoding": "base64"
-                }
-            }
         },
         "distributed_claims": {
             "required": [
@@ -149,28 +123,6 @@
         },
         "document_number": {
             "type": "string"
-        },
-        "embedded_attachment": {
-            "type": "object",
-            "required": [
-                "content_type",
-                "content"
-            ],
-            "properties": {
-                "content": {
-                    "type": "string",
-                    "contentEncoding": "base64"
-                },
-                "content_type": {
-                    "type": "string"
-                },
-                "desc": {
-                    "type": "string"
-                },
-                "txn": {
-                    "type": "string"
-                }
-            }
         },
         "evidence": {
             "type": "object",
@@ -401,38 +353,6 @@
                     "else": true
                 }
             ]
-        },
-        "external_attachment": {
-            "type": "object",
-            "required": [
-                "digest",
-                "url"
-            ],
-            "properties": {
-                "access_token": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "desc": {
-                    "type": "string"
-                },
-                "digest": {
-                    "$ref": "#/$defs/digest"
-                },
-                "expires_in": {
-                    "type": "integer",
-                    "minimum": 1
-                },
-                "txn": {
-                    "type": "string"
-                },
-                "url": {
-                    "type": "string",
-                    "format": "uri"
-                }
-            }
         },
         "verified_claims_def": {
             "type": "object",
