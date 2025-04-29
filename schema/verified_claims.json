@@ -240,10 +240,6 @@
                             },
                             "document_details": {
                                 "$ref": "#/$defs/document_details"
-                            },
-                            "time": {
-                                "type": "string",
-                                "format": "date-time"
                             }
                         }
                     },
@@ -312,10 +308,6 @@
                                         }
                                     }
                                 }
-                            },
-                            "time": {
-                                "type": "string",
-                                "format": "date-time"
                             }
                         }
                     },
@@ -391,10 +383,6 @@
                             },
                             "derived_claims": {
                                 "$ref": "https://bitbucket.org/openid/ekyc-ida/raw/master/schema/claims_schema.json#/$defs/claims_type"
-                            },
-                            "time": {
-                                "type": "string",
-                                "format": "date-time"
                             }
                         }
                     },
