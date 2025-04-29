@@ -334,6 +334,9 @@
                                             "birthdate": {
                                                 "$ref": "#/$defs/datetime_element"
                                             },
+                                            "country_code": {
+                                                "$ref": "#/$defs/simple_element"
+                                            },
                                             "country": {
                                                 "$ref": "#/$defs/simple_element"
                                             },
