@@ -211,9 +211,6 @@
                             },
                             "document_details": {
                                 "$ref": "#/$defs/document_details"
-                            },
-                            "time": {
-                                "$ref": "#/$defs/datetime_element"
                             }
                         }
                     },
@@ -280,9 +277,6 @@
                                         }
                                     }
                                 }
-                            },
-                            "time": {
-                                "$ref": "#/$defs/datetime_element"
                             }
                         }
                     },
@@ -358,9 +352,6 @@
                             },
                             "check_details": {
                                 "$ref": "#/$defs/check_details"
-                            },
-                            "time": {
-                                "$ref": "#/$defs/datetime_element"
                             }
                         }
                     },
