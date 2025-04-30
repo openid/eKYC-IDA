@@ -480,6 +480,16 @@ Note: examples of embedded attachments contain truncated values.
   </front>
 </reference>
 
+<reference anchor="IANA.OAuth.Parameters" target="https://www.iana.org/assignments/oauth-parameters">
+  <front>
+    <title>OAuth Parameters</title>
+    <author>
+      <organization>IANA</organization>
+    </author>
+    <date/>
+  </front>
+</reference>
+
 # IANA Considerations
 
 ## OAuth Authorization Server Metadata Registry
