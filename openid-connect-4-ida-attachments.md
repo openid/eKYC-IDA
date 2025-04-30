@@ -192,7 +192,7 @@ When using attachments containing personal information, implementers should choo
 
 # Client registration and management
 
-If external attachments are used in the context of an OpenID Provider that uses either [@!OpenID-Registration] or [@RFC7592] the following additional properties should be available as part of any client registration or client management interactions:
+If external attachments are used in the context of an OpenID Provider that uses mechanisms such as [@!OpenID-Registration] or [@RFC7592] to gather client details the following additional properties should be available as part of any client registration or client management interactions:
 
 `digest_algorithm`: String value representing the chosen digest algorithm (for external attachments). The value shall be one of the digest algorithms supported by the OP as advertised in the [OP metadata](#opmetadata). If this property is not set, `sha-256` will be used by default.
 
