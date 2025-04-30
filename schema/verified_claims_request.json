@@ -259,6 +259,9 @@
                                             "formatted": {
                                                 "$ref": "#/$defs/simple_element"
                                             },
+                                            "jurisdiction": {
+                                                "$ref": "#/$defs/simple_element"
+                                            },
                                             "locality": {
                                                 "$ref": "#/$defs/simple_element"
                                             },
