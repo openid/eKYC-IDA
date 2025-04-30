@@ -307,6 +307,9 @@
                                                 "type": "string",
                                                 "format": "date"
                                             },
+                                            "country_code": {
+                                                "type": "string"
+                                            },
                                             "country": {
                                                 "type": "string"
                                             },
