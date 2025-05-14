@@ -190,7 +190,7 @@ As attachments will most likely contain more personal information than was reque
 
 When using attachments containing personal information, implementers should choose a well tested and well-supported hashing function. Cryptographic hash functions take as input a message of arbitrary length and produce a fixed length message digest and are employed as a data integrity mechanism for non-repudiation. The OP should ensure that hash functions and algorithms used follow the recommendedations of an appropriate standards body. Lists of approved digest/hash function names and status are maintained by NIST CSRC in [@nist_approved_hash_algorithms] (established in [@FIPSSP180-4] and [@FIPSSP202]), by ISO as established in [@ISO10118-3], and by EPC as esablished in [@EPCCryptoAlgoUsage].
 
-# Client registration and management
+# Client registration and management {#client_metadata_parameters}
 
 If external attachments are used in the context of an OpenID Provider that uses mechanisms such as [@!OpenID-Registration] or [@RFC7592] to gather client details the following additional properties should be available as part of any client registration or client management interactions:
 
@@ -479,6 +479,51 @@ Note: examples of embedded attachments contain truncated values.
     <date year="2021"/>
   </front>
 </reference>
+
+<reference anchor="IANA.OAuth.Parameters" target="https://www.iana.org/assignments/oauth-parameters">
+  <front>
+    <title>OAuth Parameters</title>
+    <author>
+      <organization>IANA</organization>
+    </author>
+    <date/>
+  </front>
+</reference>
+
+# IANA Considerations
+
+## OAuth Authorization Server Metadata Registry
+
+This specification registers the following authorization server metadata parameters
+in the IANA "OAuth Authorization Server Metadata" registry [@IANA.OAuth.Parameters]
+established by [@!RFC8414].
+
+### attachments_supported
+
+* Metadata Name: `attachments_supported`
+* Metadata Description: An array containing a list attachment types supported by the OP
+* Change Controller: OpenID Foundation eKYC & IDA Working Group - openid-specs-ekyc-ida@lists.openid.net
+* Reference: (#opmetadata) of this specification
+
+### digest_algorithms_supported
+
+* Metadata Name: `digest_algorithms_supported`
+* Metadata Description: An array containing a list of values, where each value is a string identifying a digest algorithm supported by the OP in the context of an external attachment.
+* Change Controller: OpenID Foundation eKYC & IDA Working Group - openid-specs-ekyc-ida@lists.openid.net
+* Reference: (#opmetadata) of this specification
+
+## OAuth Dynamic Client Registration Metadata Registry
+
+This specification registers the following client metadata parameters
+in the IANA "OAuth Dynamic Client Registration Metadata" registry [@IANA.OAuth.Parameters]
+established by [@!RFC7591].
+
+### digest_algorithm
+
+* Client Metadata Name: `digest_algorithm`
+* Client Metadata Description: An element containing a single value, where the value of the string identifies the digest algorithm chosen the client to used by the OP when presenting any external attachments
+* Change Controller: OpenID Foundation eKYC & IDA Working Group - openid-specs-ekyc-ida@lists.openid.net
+* Reference: (#client_metadata_parameters) of this specification
 
 # Acknowledgements {#Acknowledgements}
 
