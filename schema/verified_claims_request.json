@@ -424,22 +424,25 @@
                                                     "$ref": "#/$defs/constrainable_element"
                                                 },
                                                 "evidence_ref": {
-                                                    "type": "object",
-                                                    "required": [
-                                                        "txn"
-                                                    ],
-                                                    "additionalProperties": true,
-                                                    "properties": {
-                                                        "evidence_classification": {
-                                                            "$ref": "#/$defs/constrainable_element"
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "check_id" : {
+                                                                "$ref": "#/$defs/constrainable_element"
+                                                            },
+                                                            "evidence_metadata": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "evidence_classification": {
+                                                                        "$ref": "#/$defs/constrainable_element"
+                                                                    }
+                                                                }
+                                                            }
                                                         },
-                                                        "evidence_metadata": {
-                                                            "$ref": "#/$defs/constrainable_element"
-                                                        },
-                                                        "txn": {
-                                                            "$ref": "#/$defs/constrainable_element"
-                                                        }
-                                                    }
+                                                        "required": ["check_id"]
+                                                    },
+                                                    "minItems": 1
                                                 }
                                             }
                                         ]
