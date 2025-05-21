@@ -374,8 +374,9 @@
                             "properties": {
                                 "assurance_details": {
                                     "type": "array",
-                                    "prefixItems": [
-                                        {
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
                                             "assurance_classification": {
                                                 "type": "string"
                                             },
@@ -403,7 +404,8 @@
                                                 }
                                             }
                                         }
-                                    ]
+                                    },
+                                    "minItems": 1
                                 },
                                 "policy": {
                                     "type": "string"
