@@ -4,22 +4,25 @@
     "$defs": {
         "check_details": {
             "type": "array",
-            "prefixItems": [
-                {
+            "items": {
+                "type": "object",
+                "properties": {
                     "check_id": {
-                        "type": "string"
+                        "$ref": "#/$defs/constrainable_element"
                     },
                     "check_method": {
-                        "type": "string"
+                        "$ref": "#/$defs/constrainable_element"
                     },
                     "organization": {
-                        "type": "string"
+                        "$ref": "#/$defs/constrainable_element"
                     },
                     "time": {
                         "$ref": "#/$defs/datetime_element"
                     }
-                }
-            ]
+                },
+                "required": ["check_method"]
+            },
+            "minItems": 1
         },
         "claims_element": {
             "oneOf": [

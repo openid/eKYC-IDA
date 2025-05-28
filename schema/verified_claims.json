@@ -28,8 +28,9 @@
         },
         "check_details": {
             "type": "array",
-            "prefixItems": [
-                {
+            "items": {
+                "type": "object",
+                "properties": {
                     "check_id": {
                         "type": "string"
                     },
@@ -43,8 +44,10 @@
                         "type": "string",
                         "format": "date-time"
                     }
-                }
-            ]
+                },
+                "required": ["check_method"]
+            },
+            "minItems": 1
         },
         "distributed_claims": {
             "required": [
