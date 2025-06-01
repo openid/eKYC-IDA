@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Attachments 1.0 - draft 01"
+title = "OpenID Attachments 1.0 - draft 02"
 abbrev = "openid-connect-4-ida-attachments-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
@@ -8,7 +8,7 @@ keyword = ["security", "openid", "identity assurance", "ekyc", "claims"]
 [seriesInfo]
 name = "Internet-Draft"
 
-value = "openid-connect-4-ida-attachments-1_0-00"
+value = "openid-connect-4-ida-attachments-1_0-02"
 
 status = "standard"
 
@@ -567,6 +567,10 @@ required to practice this specification.
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -02
+   * Added IANA Registration
+   * Editorial change to Client Registration and Management
 
    -01
    * Various editorial updates
