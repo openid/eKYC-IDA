@@ -747,7 +747,7 @@ which is used to indicate that the content is a JWT describing aggregated claims
   * Required parameters: n/a
   * Optional parameters: n/a
   * Encoding considerations: binary; An external claims JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.
-  * Security considerations: See https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-representing-verified-claim
+  * Security considerations: See https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-security-considerations
   * Interoperability considerations: n/a
   * Published specification: (#verified_claims_delivery) of [[ this specification ]]
   * Applications that use this media type: When using [[ this specification ]], this media type is used in the `typ` header of assertions provided as aggregated or distributed claims (see section 5.6.2 of the OpenID Connect specification [@!OpenID]).
