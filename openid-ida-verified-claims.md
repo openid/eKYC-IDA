@@ -80,16 +80,6 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 This specification defines a schema for describing assured identity claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimization, which elements of the JSON schema described in this document will be needed for a specific transaction.
 
-.# Warning
-
-This document is not an OIDF International Standard. It is distributed for
-review and comment. It is subject to change without notice and may not be
-referred to as an International Standard.
-
-Recipients of this draft are invited to submit, with their comments,
-notification of any relevant patent rights of which they are aware and to
-provide supporting documentation.
-
 .# Notational conventions
 
 The keywords "shall", "shall not", "should", "should not", "may", and "can" in

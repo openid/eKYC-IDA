@@ -76,14 +76,6 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 This specification defines additional JWT claims about the natural person.  The claims defined can be used in various contexts including an ID Token.
 
-.# Warning
-This document is not an OIDF International Standard. It is distributed for
-review and comment. It is subject to change without notice and may not be
-referred to as an International Standard.
-Recipients of this draft are invited to submit, with their comments,
-notification of any relevant patent rights of which they are aware and to
-provide supporting documentation.
-
 .# Notational conventions
 
 The keywords "shall", "shall not", "should", "should not", "may", and "can" in

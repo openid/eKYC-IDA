@@ -84,16 +84,6 @@ For example, the assurance an OP typically will be able to give for an e-mail ad
 
 Identity assurance requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This document defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
 
-.# Warning
-
-This document is not an OIDF International Standard. It is distributed for
-review and comment. It is subject to change without notice and may not be
-referred to as an International Standard.
-
-Recipients of this draft are invited to submit, with their comments,
-notification of any relevant patent rights of which they are aware and to
-provide supporting documentation.
-
 .# Notational conventions
 
 The keywords "shall", "shall not", "should", "should not", "may", and "can" in
