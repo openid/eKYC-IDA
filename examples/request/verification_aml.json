@@ -10,8 +10,8 @@
             "type": {
               "value": "document"
             },
-            "method": {
-              "value": "pipp"
+            "check_details": {
+              "check_method": "pipp"
             },
             "document": {
               "type": {
