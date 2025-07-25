@@ -240,7 +240,7 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 
 `check_details` is an array of the processes that have been applied to the `evidence`. An RP can filter `check_details` by requesting a particular value for one or more of its sub-elements. If multiple entries for the same sub-element are present this acts as a logical OR between them.
 
-`assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_details` they shall specify those to do so, e.g. requesting an `assurance_type` should have no filtering effect.
+`assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_details` they shall specify those to do so.
 
 The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above:
 
@@ -250,7 +250,7 @@ The RP can also request certain data within the `document` element to be present
 
 ### Value/values
 
-The RP can limit the possible values of the elements `trust_framework`, `evidence/method`, `evidence/check_details`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
+The RP can limit the possible values of the elements `trust_framework`, `evidence/check_details`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section.
 
@@ -258,7 +258,7 @@ The following example shows how an RP requests claims either complying with trus
 
 <{{examples/request/verification_claims_different_trust_frameworks.json}}
 
-The following example shows that the RP wants to obtain an attestation based on the German anti-money laundering law (trust framework `de_aml`) and limited to end-users who were identified in a bank branch in person (physical in person proofing - `"check_method": "pipp"`) using either an `idcard` or a `passport`.
+The following example shows that the RP wants to obtain an attestation based on the German anti-money laundering law (trust framework `de_aml`) and limited to end-users who were identified in person (physical in person proofing - `"check_method": "pipp"`) using either an `idcard` or a `passport`.
 
 <{{examples/request/verification_aml.json}}
 
@@ -278,7 +278,7 @@ The OP should try to fulfill this requirement. If the verification data of the e
 
 ## Requesting claims sets with different verification requirements
 
-It is also possible to request different trust frameworks, assurance levels, and deeper elements of the structure for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object.
+It is also possible to request different trust frameworks, assurance levels, and other elements of the structure for different claim sets. This requires the RP to send an array of `verified_claims` objects instead of passing a single object.
 
 The following example illustrates this functionality.
 
@@ -463,8 +463,6 @@ The OP advertises its capabilities with respect to verified claims in its openid
 
 `documents_supported`: Required when `evidence_supported` contains "document". JSON array containing all identity document types utilized by the OP for identity verification. This array shall have at least one member.
 
-`documents_methods_supported`: Optional. JSON array containing the verification methods the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
-
 `documents_check_methods_supported`: Optional. JSON array containing the "check methods" the OP supports for evidences of type "document" (see [@!predefined_values_page]). When present this array shall have at least one member.
 
 `electronic_records_supported`: Required when `evidence_supported` contains "electronic\_record". JSON array containing all electronic record types the OP supports (see [@!predefined_values_page]). When present this array shall have at least one member.
@@ -547,7 +545,7 @@ To achieve the full security and interoperability benefits, it is important the 
 
 # Predefined values {#predefined_values}
 
-This document focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for trust frameworks, documents, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
+This document focuses on the technical mechanisms to convey verified claims and thus does not define any identifiers for elements such as trust frameworks, documents, check methods. This is left to adopters of the technical specification, e.g., implementers, identity schemes, or jurisdictions.
 
 Each party defining such identifiers shall ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`.
 
