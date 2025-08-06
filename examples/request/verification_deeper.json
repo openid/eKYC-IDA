@@ -9,9 +9,13 @@
             "type": {
               "value": "document"
             },
-            "check_details": {
-              "check_method": null
-            },
+            "check_details": [
+              {
+                "check_method": {
+                  "value": "pipp"
+                }
+              }
+            ],
             "document_details": {
               "type": null
             }
