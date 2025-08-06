@@ -13,7 +13,11 @@
             "type": {
               "value": "document"
             },
-            "method": null,
+            "check_details": [
+              {
+                "check_method": null
+              }
+            ],
             "time": null,
             "document_details": {
               "type": null,
