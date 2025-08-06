@@ -7,7 +7,11 @@
       "evidence": [
         {
           "type": "document",
-          "method": "pipp",
+          "check_details": [
+            {
+              "check_method": "pipp"
+            }
+          ],
           "organization": "Deutsche Post",
           "check_id": "1aa05779-0775-470f-a5c4-9f1f5e56cf06",
           "time": "2012-04-22T11:30Z",

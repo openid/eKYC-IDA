@@ -7,7 +7,11 @@
       "evidence": [
         {
           "type": "document",
-          "method": "pipp",
+          "check_details": [
+            {
+              "check_method": "pipp"
+            }
+          ],
           "time": "2012-04-22T11:30Z",
           "document": {
             "type": "idcard",
