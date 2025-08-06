@@ -10,7 +10,13 @@
             "type": {
               "value": "document"
             },
-
+            "check_details": [
+              {
+                "check_method": {
+                  "value": "pipp"
+                }
+              }
+            ],
             "document": {
               "type": {
                 "values": [
