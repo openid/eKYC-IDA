@@ -11,7 +11,9 @@
               "value": "document"
             },
             "check_details": {
-              "check_method": "pipp"
+              "check_method": {
+                "value": "pipp"
+              }
             },
             "document": {
               "type": {
