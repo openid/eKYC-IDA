@@ -566,21 +566,21 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
+      <organization>NAT.Consulting (was at NRI)</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
+      <organization>Yubico (was at Ping Identity)</organization>
     </author>
     <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
+      <organization>Self-Issued Consulting (was at Microsoft)</organization>
     </author>
     <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros">
       <organization>Google</organization>
     </author>
     <author initials="C." surname="Mortimore" fullname="Chuck Mortimore">
-      <organization>Salesforce</organization>
+      <organization>Disney (was at Salesforce)</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date day="15" month="Dec" year="2023"/>
   </front>
 </reference>
 
@@ -588,18 +588,18 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   <front>
     <title>OpenID Connect Discovery 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
+      <organization>NAT.Consulting (was at NRI)</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
+      <organization>Yubico (was at Ping Identity)</organization>
     </author>
     <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
+      <organization>Self-Issued Consulting (was at Microsoft)</organization>
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization>Illumila</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date day="15" month="Dec" year="2023"/>
   </front>
 </reference>
 
@@ -619,9 +619,9 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="FAPI-2-SP" target="https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html">
+<reference anchor="FAPI-2-SP" target="https://openid.net/specs/fapi-security-profile-2_0-final.html">
   <front>
-    <title>FAPI 2.0 Security Profile - draft</title>
+    <title>FAPI 2.0 Security Profile</title>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
     </author>
@@ -631,7 +631,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="J." surname="Heenan" fullname="Joseph Heenan">
       <organization>Authlete</organization>
     </author>
-   <date day="3" month="Apr" year="2024"/>
+   <date day="22" month="Feb" year="2025"/>
   </front>
 </reference>
 
@@ -656,13 +656,13 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="16" month="Jun" year="2023"/>
+   <date day="1" month="Oct" year="2024"/>
   </front>
 </reference>
 
 <reference anchor="IDA-verified-claims" target="https://openid.net/specs/openid-ida-verified-claims-1_0.html">
   <front>
-    <title>OpenID Identity Assurance Schema Definition</title>
+    <title>OpenID Identity Assurance Schema Definition 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
       <organization>sprind.org</organization>
     </author>
@@ -681,7 +681,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="9" month="Aug" year="2023"/>
+   <date day="1" month="Oct" year="2024"/>
   </front>
 </reference>
 
