@@ -506,12 +506,13 @@ The data structures described in this specification will contain personal inform
     </front>
 </reference>
 
-<reference anchor="ISO8601" target="https://www.iso.org/iso/catalogue_detail?csnumber=40874">
+<reference anchor="ISO8601" target="https://www.iso.org/standard/70907.html">
     <front>
-      <title>ISO 8601. Data elements and interchange formats - Information interchange - Representation of dates and times</title>
+      <title>ISO 8601-1:2019. Date and time — Representations for information interchange Part 1: Basic rules</title>
       <author surname="International Organization for Standardization">
         <organization abbrev="ISO">International Organization for Standardization</organization>
       </author>
+      <date year="2019" />
     </front>
 </reference>
 
