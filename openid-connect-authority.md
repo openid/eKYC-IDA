@@ -224,8 +224,6 @@ In order to fulfill the requirements of some jurisdictions on identity assurance
 
 ## Claims about a legal entity
 
-The use of each of these claims is optional but when used to identify a legal entity they should be used in such a way as enable unique identification of that legal entity.
-
 | Claim | Type | Description |
 |:------|:-----|:------------|
 |`organization_name`|String|Legal entity name|
@@ -782,8 +780,6 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 ## JSON Web Token Claims Registration
 
 This specification requests registration of the following value in the IANA "JSON Web Token Claims Registry" established by [@!RFC7519].
-
-**This section is incomplete and will include a number of claims previously mentioned in this document**
 
 ### Registry Contents
 
