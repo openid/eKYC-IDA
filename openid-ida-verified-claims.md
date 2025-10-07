@@ -250,7 +250,7 @@ The following elements are contained in an evidence sub-element where type is `d
 
 `type`: Required with value set to `document`.
 
-`check_details`: Optional. JSON array representing the checks done in relation to the `evidence`. When present this array shall have at least one member.
+`check_details`: Optional. JSON array representing the checks done in relation to the `evidence`. When present this array shall have at least one member. Each member of the `check_details` array has the following requirements:
 
   * `check_method`: Required. String representing the check done, this includes processes such as checking the authenticity of the document, or verifying the user's biometric against an identity document. For information on predefined `check_details` values see [@!predefined_values_page].
   * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claim provider did not perform the check itself.
@@ -284,7 +284,7 @@ The following elements are contained in an evidence sub-element where type is `e
 
 `type`: Required with value set to `electronic_record`.
 
-`check_details`: Optional. JSON array representing the checks done in relation to the `evidence`.
+`check_details`: Optional. JSON array representing the checks done in relation to the `evidence`. Each member of the `check_details` array has the following requirements:
 
   * `check_method`: Required. String representing the check done. For information on predefined `check_method` values see [@!predefined_values_page].
   * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claim provider did not perform the check itself.
@@ -313,7 +313,7 @@ The following elements are contained in an evidence sub-element where type is `v
 
 `type`: Required with value set to `vouch`.
 
-`check_details`: Optional. JSON array representing the checks done in relation to the `vouch`.
+`check_details`: Optional. JSON array representing the checks done in relation to the `vouch`. Each member of the `check_details` array has the following requirements:
 
   * `check_method`: Required. String representing the check done, this includes processes such as checking the authenticity of the vouch, or verifying the user as the person referenced in the vouch. For information on predefined `check_method` values see [@!predefined_values_page].
   * `organization`: Optional. String denoting the legal entity that performed the check. This should be included if the claim provider did not perform the check itself.
