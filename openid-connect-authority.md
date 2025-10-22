@@ -785,7 +785,6 @@ This specification requests registration of the following value in the IANA "JSO
 
 **This section is incomplete and will include a number of claims previously mentioned in this document**
 
-
 ### Registry Contents
 
 > Incomplete
