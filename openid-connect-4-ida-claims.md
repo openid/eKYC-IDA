@@ -124,10 +124,11 @@ This specification defines the following claims for conveying end-user data in a
 | Claim | Type | Description |
 |:------|:-----|:------------|
 |`place_of_birth`| JSON object | End-user’s place of birth. The value of this member is a JSON structure containing some or all of the following members:|
-| | |`country`: String representing country in [@!ISO3166-1] Alpha-2  or [@!ISO3166-3] syntax.|
+| | |`country`: String representing country in [@!ISO3166-1] Alpha-2 or  Alpha-3 codes.|
 | | |`region`: String representing state, province, prefecture, or region component. This field might be required in some jurisdictions.|
 | | |`locality`: String representing city or locality component.|
-|`nationalities`| array | End-user’s nationalities using ICAO 3-letter codes [@!ICAO-Doc9303], 2-letter ICAO codes may be used in some circumstances for compatibility reasons. |
+|`nationalities`| array | End-user’s nationalities using [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes. ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons. 
+Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc. |
 |`birth_family_name`| string | End-user’s family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.|
 |`birth_given_name`| string | End-user’s given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.|
 |`birth_middle_name`| string | End-user’s middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.|
@@ -140,7 +141,7 @@ This specification defines the following claims for conveying end-user data in a
 
 This specification extends the `address` claim as defined in [@!OpenID] by another sub field containing the country as ISO code.
 
-`country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [@!ISO3166-1] may be used for compatibility reasons. `country_code` may be used as alternative to the existing `country` field.
+`country_code`: Optional. country part of an address represented using an ISO 3-letter code [@!ISO3166-1], e.g., "USA" or "JPN". 2-letter ISO codes may be used for compatibility reasons. `country_code` may be used as alternative to the existing `country` field.
 
 ## Examples
 
@@ -288,24 +289,14 @@ The data structures described in this specification will contain personal inform
     </front>
 </reference>
 
-<reference anchor="ISO3166-3" target="https://www.iso.org/standard/72484.html">
-    <front>
-      <title>ISO 3166-3:2020. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
-      <author surname="International Organization for Standardization">
-        <organization abbrev="ISO">International Organization for
-        Standardization</organization>
-      </author>
-      <date year="2020" />
-    </front>
-</reference>
 
-<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
+<reference anchor="ICAO-Doc9303" target="https://www.icao.int/sites/default/files/publications/DocSeries/9303_p3_cons_en.pdf">
   <front>
-    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
+    <title>Machine Readable Travel Documents, Eighth Edition, 2021, Part 3: Specifications Common to all MRTDs</title>
     <author surname="International Civil Aviation Organization">
       <organization>International Civil Aviation Organization</organization>
     </author>
-   <date year="2015"/>
+   <date year="2021"/>
   </front>
 </reference>
 
