@@ -580,7 +580,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="C." surname="Mortimore" fullname="Chuck Mortimore">
       <organization>Salesforce</organization>
     </author>
-   <date month=Oct" year="2024"/>
+   <date month="Oct" year="2024"/>
   </front>
 </reference>
 
