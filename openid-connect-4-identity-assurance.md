@@ -562,7 +562,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 </front>
 </reference>
 
-<reference anchor="ISO/IEC 26131" target="https://www.iso.org/standard/89056.html">
+<reference anchor="ISO/IEC_26131" target="https://www.iso.org/standard/89056.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
