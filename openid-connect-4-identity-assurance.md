@@ -562,11 +562,11 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 </front>
 </reference>
 
-<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
+<reference anchor="ISO/IEC 26131" target="https://www.iso.org/standard/89056.html">
   <front>
     <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
+      <organization>ISO/IEC</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
       <organization>Ping Identity</organization>
@@ -580,7 +580,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="C." surname="Mortimore" fullname="Chuck Mortimore">
       <organization>Salesforce</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date month=Oct" year="2024"/>
   </front>
 </reference>
 
