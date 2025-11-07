@@ -147,7 +147,7 @@ This extension is intended to be truly international and support identity assura
 
 In order to give implementers as much flexibility as possible, this extension can be used in conjunction with existing OpenID Connect claims and other extensions within the same OpenID Connect assertion (e.g., ID Token or UserInfo response) utilized to convey claims about end-users.
 
-For example, OpenID Connect [@!ISO/IEC 26131] defines claims for representing family name and given name of an end-user without a verification status. These claims can be used in the same OpenID Connect assertion beside verified claims represented according to this extension.
+For example, OpenID Connect [@!ISO/IEC_26131] defines claims for representing family name and given name of an end-user without a verification status. These claims can be used in the same OpenID Connect assertion beside verified claims represented according to this extension.
 
 In the same way, existing claims to inform the RP of the verification status of the `phone_number` and `email` claims can be used together with this extension.
 
