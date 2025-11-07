@@ -748,7 +748,7 @@ which is used to indicate that the content is a JWT describing aggregated claims
   * Security considerations: See https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-security-considerations
   * Interoperability considerations: n/a
   * Published specification: (#verified_claims_delivery) of [[ this specification ]]
-  * Applications that use this media type: When using [[ this specification ]], this media type is used in the `typ` header of assertions provided as aggregated or distributed claims (see section 5.6.2 of the OpenID Connect specification [@!ISOIECOpenIDConnect]).
+  * Applications that use this media type: When using [[ this specification ]], this media type is used in the `typ` header of assertions provided as aggregated or distributed claims (see section 5.6.2 of the OpenID Connect specification [@!OpenIDConnect]).
   * Fragment identifier considerations: n/a
   * Additional information:
     * File extension(s): n/a
