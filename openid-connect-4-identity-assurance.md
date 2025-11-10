@@ -84,6 +84,8 @@ For example, the assurance an OP typically will be able to give for an e-mail ad
 
 Identity assurance requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This document defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
 
+{mainmatter}
+
 # Scope
 
 This document is a definition of the technical mechanism to allow a relying party to request one or more verified claim about the end-user and to enable an OpenID provider to provide a relying party with a verified claim ("the tools").
@@ -540,6 +542,17 @@ This document focuses on the technical mechanisms to convey verified claims and 
 Each party defining such identifiers shall ensure the collision resistance of these identifiers. This is achieved by including a domain name under the control of this party into the identifier name, e.g., `https://mycompany.com/identifiers/cool_check_method`.
 
 The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefined_values_page] that can be utilized to share predefined values with other parties.
+
+{backmatter}
+
+<reference anchor="ISODIR2" target="https://www.iso.org/sites/directives/current/part2/index.xhtml">
+<front>
+<title>ISO/IEC Directives, Part 2 - Principles and rules for the structure and drafting of ISO and IEC documents</title>
+    <author fullname="ISO/IEC">
+      <organization>ISO/IEC</organization>
+    </author>
+</front>
+</reference>
 
 <reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
