@@ -62,14 +62,6 @@ organization="KDDI Corporation"
 
 %%%
 
-.# Abstract
-
-This specification defines a payload schema that can be used to describe a wide variety of identity assurance metadata about a number of claims that have been assessed as meeting a given assurance level.
-
-It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@W3C_VCDM].
-
-This document defines a new claim relating to the identity assurance of a natural person called "verified_claims".  This was originally developed within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
-
 .# Foreword
 
 The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
