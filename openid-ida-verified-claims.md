@@ -267,7 +267,8 @@ The following elements are contained in an evidence sub-element where type is `d
 * `issuer`: Optional. JSON object containing information about the issuer of this document. This object consists of the following properties:
     * `name`: Optional. Designation of the issuer of the document.
     * All elements of the OpenID Connect `address` claim (see [@!OpenID])
-    * `country_code`: Optional. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes may be used in some circumstances for compatibility reasons.
+    * `country_code`: Optional. String denoting the country or supranational organization that issued the document as [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes, e.g., "USA" or "JPN". ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons.
+    Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `jurisdiction`: Optional. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
 
 * `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the document described in the evidence array member it is part of. When used the `derived_claims` element has the following conditions:
@@ -299,7 +300,8 @@ The following elements are contained in an evidence sub-element where type is `e
 * `source`: Optional. JSON object containing information about the source of this record. This object consists of the following properties:
     * `name`: Optional. Designation of the source of the `electronic_record`.
     * All elements of the OpenID Connect `address` claim (see [@!OpenID]): Optional.
-    * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes may be used in some circumstances for compatibility reasons.
+    * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes, e.g., "USA" or "JPN". ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons.
+    Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `jurisdiction`: Optional. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it is not common knowledge or derivable from the address).
 * `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic record described in the evidence array member it is part of.
     * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
@@ -330,7 +332,8 @@ The following elements are contained in an evidence sub-element where type is `v
     * `name`: Optional. String containing the name of the person giving the vouch/reference in the same format as defined in section 5.1 (Standard Claims) of the OpenID Connect Core specification.
     * `birthdate`: Optional. String containing the birthdate of the person giving the vouch/reference in the same format as defined in section 5.1 (Standard Claims) of the OpenID Connect Core specification.
     * All elements of the OpenID Connect `address` claim (see [@!OpenID]): Optional.
-    * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes may be used in some circumstances for compatibility reasons.
+    * `country_code`: Optional. String denoting the entity giving the vouch as [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes, e.g., "USA" or "JPN". ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons.
+    Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `occupation`: Optional. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: Optional. String containing the name of the organization the voucher is representing.
 * `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the vouch described in the evidence array member it is part of (an example is presented later in this document)
@@ -404,23 +407,23 @@ The data structures described in this specification will contain personal inform
 
 <reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
-    <title>OpenID Connect Core 1.0 incorporating errata set 1</title>
+    <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
+      <organization>NAT.Consulting (was at NRI)</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
+      <organization>Yubico (was at Ping Identity)</organization>
     </author>
     <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
+      <organization>Self-Issued Consulting (was at Microsoft)</organization>
     </author>
     <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros">
       <organization>Google</organization>
     </author>
     <author initials="C." surname="Mortimore" fullname="Chuck Mortimore">
-      <organization>Salesforce</organization>
+      <organization>Disney (was at Salesforce)</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date day="15" month="Dec" year="2023"/>
   </front>
 </reference>
 
@@ -428,7 +431,7 @@ The data structures described in this specification will contain personal inform
   <front>
     <title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -445,15 +448,15 @@ The data structures described in this specification will contain personal inform
     <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="16" month="Jun" year="2023"/>
+   <date day="1" month="Oct" year="2024"/>
   </front>
 </reference>
 
 <reference anchor="Attachments" target="https://openid.net/specs/openid-connect-4-ida-attachments-1_0.html">
   <front>
-    <title>OpenID Connect for Identity Assurance Attachments 1.0</title>
+    <title>OpenID Attachments 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -470,7 +473,7 @@ The data structures described in this specification will contain personal inform
         <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="19" month="July" year="2023"/>
+   <date day="23" month="June" year="2025"/>
   </front>
 </reference>
 
@@ -495,33 +498,23 @@ The data structures described in this specification will contain personal inform
     </front>
 </reference>
 
-<reference anchor="ISO3166-3" target="https://www.iso.org/standard/72482.html">
+<reference anchor="ISO8601" target="https://www.iso.org/standard/70907.html">
     <front>
-      <title>ISO 3166-3:2020. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
-      <author surname="International Organization for Standardization">
-        <organization abbrev="ISO">International Organization for
-        Standardization</organization>
-      </author>
-      <date year="2020" />
-    </front>
-</reference>
-
-<reference anchor="ISO8601" target="https://www.iso.org/iso/catalogue_detail?csnumber=40874">
-    <front>
-      <title>ISO 8601. Data elements and interchange formats - Information interchange - Representation of dates and times</title>
+      <title>ISO 8601-1:2019. Date and time — Representations for information interchange Part 1: Basic rules</title>
       <author surname="International Organization for Standardization">
         <organization abbrev="ISO">International Organization for Standardization</organization>
       </author>
+      <date year="2019" />
     </front>
 </reference>
 
-<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
+<reference anchor="ICAO-Doc9303" target="https://www.icao.int/sites/default/files/publications/DocSeries/9303_p3_cons_en.pdf">
   <front>
-    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
+    <title>Machine Readable Travel Documents, Eighth Edition, 2021, Part 3: Specifications Common to all MRTDs</title>
     <author surname="International Civil Aviation Organization">
       <organization>International Civil Aviation Organization</organization>
     </author>
-   <date year="2015"/>
+   <date year="2021"/>
   </front>
 </reference>
 
@@ -603,9 +596,9 @@ The data structures described in this specification will contain personal inform
       <organization>Digital Bazaar</organization>
     </author>
     <author initials="D" surname="Chadwick" fullname="David Chadwick">
-      <organization>Digital Bazaar</organization>
+      <organization>University of Kent</organization>
     </author>
-   <date month="March" year="2022"/>
+   <date day="3" month="March" year="2022"/>
   </front>
 </reference>
 
