@@ -230,9 +230,7 @@ Based on the definition above and that there are a significant number of optiona
 
 #### Evidence element structure
 
-Members of the `evidence` array are structured with the following elements:
-
-`type`: Required. The value defines the type of the evidence.
+Members of the `evidence` array are JSON objects.
 
 The following types of evidence are defined:
 
@@ -241,9 +239,8 @@ The following types of evidence are defined:
 * `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the claim(s) presented by the end-user are, to the best of their knowledge, genuine and true.
 * `electronic_signature`: Verification based on the use of an electronic signature that can be uniquely linked to the end-user and is capable of identifying the signatory, e.g. an eIDAS Advanced Electronic Signature (AES) or Qualified Electronic Signature (QES).
 
-`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
-
 Depending on the evidence type additional elements are defined, as described in the following.
+
 #### Evidence type `document`
 
 The following elements are contained in an evidence sub-element where type is `document`.
@@ -271,13 +268,16 @@ The following elements are contained in an evidence sub-element where type is `d
     Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `jurisdiction`: Optional. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
 
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the document described in the evidence array member it is part of. When used the `derived_claims` element has the following conditions:
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the document described in the evidence array member it is part of.
-    * End-User claims contained in a `derived_claims` element shall have corresponding claims in the `claims` element of `verified_claims`.
-    * When the `derived_claims` element is used it should be present in all members of the `evidence` array and all claims under the `claims` element of `verified_claims` should have a corresponding claim in at least one `derived_claims` element.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the document described in the evidence array member it is part of. When used the `derived_claims` element has the following conditions:
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the document described in the evidence array member it is part of.
+  * End-User claims contained in a `derived_claims` element shall have corresponding claims in the `claims` element of `verified_claims`.
+  * When the `derived_claims` element is used it should be present in all members of the `evidence` array and all claims under the `claims` element of `verified_claims` should have a corresponding claim in at least one `derived_claims` element.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 #### Evidence type `electronic_record`
 
@@ -303,11 +303,15 @@ The following elements are contained in an evidence sub-element where type is `e
     * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes, e.g., "USA" or "JPN". ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons.
     Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `jurisdiction`: Optional. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it is not common knowledge or derivable from the address).
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic record described in the evidence array member it is part of.
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the electronic record described in the evidence array member it is part of.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic record described in the evidence array member it is part of.
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the electronic record described in the evidence array member it is part of.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 #### Evidence type `vouch`
 
@@ -336,26 +340,34 @@ The following elements are contained in an evidence sub-element where type is `v
     Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `occupation`: Optional. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: Optional. String containing the name of the organization the voucher is representing.
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the vouch described in the evidence array member it is part of (an example is presented later in this document)
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the vouch described in the evidence array member it is part of.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the   OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the vouch described in the evidence array member it is part of (an example is presented later in this document).
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the vouch described in the evidence array member it is part of.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the   OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 #### Evidence type `electronic_signature`
 
 The following elements are contained in an `electronic_signature` evidence sub-element.
 
-* `type`: Required with value set to `electronic_signature`.
-* `signature_type`: Required. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
-* `issuer`: Required. String denoting the certification authority that issued the signer's certificate.
-* `serial_number`: Required. String containing the serial number of the certificate used to sign.
-* `created_at`: Optional. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic signature described in the evidence array member it is part of.
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims derived from the electronically signed object described in the evidence array member it is part of, such as elements of an advanced electronic signature described under eIDAS used to uniquely link the signed object to the signatory.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+`type`: Required with value set to `electronic_signature`.
+`signature_type`: Required. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
+`issuer`: Required. String denoting the certification authority that issued the signer's certificate.
+`serial_number`: Required. String containing the serial number of the certificate used to sign.
+`created_at`: Optional. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic signature described in the evidence array member it is part of.
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims derived from the electronically signed object described in the evidence array member it is part of, such as elements of an advanced electronic signature described under eIDAS used to uniquely link the signed object to the signatory.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 ### Attachments {#attachments}
 
