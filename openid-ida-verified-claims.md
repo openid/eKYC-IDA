@@ -402,9 +402,9 @@ The data structures described in this specification will contain personal inform
 </front>
 </reference>
 
-<reference anchor="OpenID" target="https://www.iso.org/standard/89056.html">
+<reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
-    <title>ISO/IEC 26133 Information Technology -- OpenID connect core 1.0 incorporating errata set 2</title>
+    <title>OpenID connect core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
       <organization>ISO/IEC</organization>
     </author>
@@ -420,7 +420,7 @@ The data structures described in this specification will contain personal inform
     <author initials="C." surname="Mortimore" fullname="Chuck Mortimore">
       <organization>Salesforce</organization>
     </author>
-   <date month="Oct" year="2024"/>
+   <date day="8" month="Nov" year="2014"/>
   </front>
 </reference>
 
