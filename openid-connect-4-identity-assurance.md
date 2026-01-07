@@ -80,14 +80,6 @@ For example, the assurance an OP typically will be able to give for an e-mail ad
 
 Identity assurance requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This document defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
 
-.# Notational conventions
-
-The keywords "shall", "shall not", "should", "should not", "may", and "can" in
-this document are to be interpreted as described in ISO Directive Part 2
-[@!ISODIR2]. These keywords are not used as dictionary terms such that any
-occurrence of them shall be interpreted as keywords and are not to be
-interpreted with their natural language meanings.
-
 {mainmatter}
 
 # Scope
