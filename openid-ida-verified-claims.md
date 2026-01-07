@@ -72,14 +72,6 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 
 This specification defines a schema for describing assured identity claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimization, which elements of the JSON schema described in this document will be needed for a specific transaction.
 
-.# Notational conventions
-
-The keywords "shall", "shall not", "should", "should not", "may", and "can" in
-this document are to be interpreted as described in ISO Directive Part 2
-[@!ISODIR2]. These keywords are not used as dictionary terms such that any
-occurrence of them shall be interpreted as keywords and are not to be
-interpreted with their natural language meanings.
-
 {mainmatter}
 
 # Scope
