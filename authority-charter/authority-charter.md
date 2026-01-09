@@ -3,7 +3,7 @@
 ## Scope ##
 This technical standard defines frameworks, requirements, and best practices for verifying, assigning, managing, and revoking delegated authority within digital systems. It applies to all actors, humans and AI agents, who seek or are granted authority to act on behalf of others, whether the represented parties are individuals (children, adults), organisations, or automated systems, across domains including online services, SaaS platforms, healthcare and business process automation.
 The aim is to ensure that this standard is designed to be modular and extendable, supporting both human-centered and fully automated use cases, and aligns with OpenID Foundation, Kantara UMA and ISO approaches for delegated authority and trust management in federated digital environments.
-
+__test__
 ## The standard supports: ##
 - **Verification of delegated authority chains**, including for complex relationships (legal guardianship, organisational structures, agency assignments, AI agent enablement).
 - **Secure provisioning and deprovisioning of rights**, conditional and time-bound delegation, and interoperable logging/audit mechanisms for compliance and transparency.
