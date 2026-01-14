@@ -62,14 +62,6 @@ organization="KDDI Corporation"
 
 %%%
 
-.# Abstract
-
-This specification defines a payload schema that can be used to describe a wide variety of identity assurance metadata about a number of claims that have been assessed as meeting a given assurance level.
-
-It is intended that this payload schema is re-usable across many different contexts and application layer protocols including but not limited to [@!OpenID] and [@W3C_VCDM].
-
-This document defines a new claim relating to the identity assurance of a natural person called "verified_claims".  This was originally developed within earlier drafts of OpenID Connect for Identity Assurance. The work and the preceding drafts are the work of the eKYC and Identity Assurance working group of the OpenID Foundation.
-
 .# Foreword
 
 The OpenID Foundation (OIDF) promotes, protects and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
@@ -79,14 +71,6 @@ Final drafts adopted by the Workgroup through consensus are circulated publicly 
 .# Introduction {#Introduction}
 
 This specification defines a schema for describing assured identity claims and a range of associated identity assurance metadata. Much of this definition will be optional as it depends on which processes were run, and the operational requirements for data-minimization, which elements of the JSON schema described in this document will be needed for a specific transaction.
-
-.# Notational conventions
-
-The keywords "shall", "shall not", "should", "should not", "may", and "can" in
-this document are to be interpreted as described in ISO Directive Part 2
-[@!ISODIR2]. These keywords are not used as dictionary terms such that any
-occurrence of them shall be interpreted as keywords and are not to be
-interpreted with their natural language meanings.
 
 {mainmatter}
 
@@ -230,9 +214,7 @@ Based on the definition above and that there are a significant number of optiona
 
 #### Evidence element structure
 
-Members of the `evidence` array are structured with the following elements:
-
-`type`: Required. The value defines the type of the evidence.
+Members of the `evidence` array are JSON objects.
 
 The following types of evidence are defined:
 
@@ -241,9 +223,8 @@ The following types of evidence are defined:
 * `vouch`: Verification based on an attestation given by an approved or recognized natural person declaring they believe that the claim(s) presented by the end-user are, to the best of their knowledge, genuine and true.
 * `electronic_signature`: Verification based on the use of an electronic signature that can be uniquely linked to the end-user and is capable of identifying the signatory, e.g. an eIDAS Advanced Electronic Signature (AES) or Qualified Electronic Signature (QES).
 
-`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
-
 Depending on the evidence type additional elements are defined, as described in the following.
+
 #### Evidence type `document`
 
 The following elements are contained in an evidence sub-element where type is `document`.
@@ -267,16 +248,20 @@ The following elements are contained in an evidence sub-element where type is `d
 * `issuer`: Optional. JSON object containing information about the issuer of this document. This object consists of the following properties:
     * `name`: Optional. Designation of the issuer of the document.
     * All elements of the OpenID Connect `address` claim (see [@!OpenID])
-    * `country_code`: Optional. String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes may be used in some circumstances for compatibility reasons.
+    * `country_code`: Optional. String denoting the country or supranational organization that issued the document as [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes, e.g., "USA" or "JPN". ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons.
+    Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `jurisdiction`: Optional. String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
 
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the document described in the evidence array member it is part of. When used the `derived_claims` element has the following conditions:
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the document described in the evidence array member it is part of.
-    * End-User claims contained in a `derived_claims` element shall have corresponding claims in the `claims` element of `verified_claims`.
-    * When the `derived_claims` element is used it should be present in all members of the `evidence` array and all claims under the `claims` element of `verified_claims` should have a corresponding claim in at least one `derived_claims` element.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the document described in the evidence array member it is part of. When used the `derived_claims` element has the following conditions:
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the document described in the evidence array member it is part of.
+  * End-User claims contained in a `derived_claims` element shall have corresponding claims in the `claims` element of `verified_claims`.
+  * When the `derived_claims` element is used it should be present in all members of the `evidence` array and all claims under the `claims` element of `verified_claims` should have a corresponding claim in at least one `derived_claims` element.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 #### Evidence type `electronic_record`
 
@@ -299,13 +284,18 @@ The following elements are contained in an evidence sub-element where type is `e
 * `source`: Optional. JSON object containing information about the source of this record. This object consists of the following properties:
     * `name`: Optional. Designation of the source of the `electronic_record`.
     * All elements of the OpenID Connect `address` claim (see [@!OpenID]): Optional.
-    * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes may be used in some circumstances for compatibility reasons.
+    * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes, e.g., "USA" or "JPN". ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons.
+    Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `jurisdiction`: Optional. String containing the name of the region(s) / state(s) / province(s) / municipality(ies) that source has jurisdiction over (if it is not common knowledge or derivable from the address).
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic record described in the evidence array member it is part of.
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the electronic record described in the evidence array member it is part of.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic record described in the evidence array member it is part of.
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the electronic record described in the evidence array member it is part of.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 #### Evidence type `vouch`
 
@@ -330,29 +320,38 @@ The following elements are contained in an evidence sub-element where type is `v
     * `name`: Optional. String containing the name of the person giving the vouch/reference in the same format as defined in section 5.1 (Standard Claims) of the OpenID Connect Core specification.
     * `birthdate`: Optional. String containing the birthdate of the person giving the vouch/reference in the same format as defined in section 5.1 (Standard Claims) of the OpenID Connect Core specification.
     * All elements of the OpenID Connect `address` claim (see [@!OpenID]): Optional.
-    * `country_code`: Optional. String denoting the country or supranational organization that issued the evidence as ISO 3166/ICAO 3-letter codes [@!ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes may be used in some circumstances for compatibility reasons.
+    * `country_code`: Optional. String denoting the entity giving the vouch as [@!ISO3166-1] Alpha-3 codes or [@!ICAO-Doc9303] 3-letter codes, e.g., "USA" or "JPN". ISO Alpha-2 codes or ICAO 2-letter codes may be used in some circumstances for compatibility reasons.
+    Note: [@!ICAO-Doc9303] refers to [@!ISO3166-1] and only the codes not in ISO3166 are defined in the ICAO doc.
     * `occupation`: Optional. String containing the occupation or other authority of the person giving the vouch/reference.
     * `organization`: Optional. String containing the name of the organization the voucher is representing.
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the vouch described in the evidence array member it is part of (an example is presented later in this document)
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the vouch described in the evidence array member it is part of.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the   OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the vouch described in the evidence array member it is part of (an example is presented later in this document).
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims (not defined in the OpenID Connect specification [@!OpenID] nor in [@OpenID4IDAClaims]) derived from the vouch described in the evidence array member it is part of.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the   OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 #### Evidence type `electronic_signature`
 
 The following elements are contained in an `electronic_signature` evidence sub-element.
 
-* `type`: Required with value set to `electronic_signature`.
-* `signature_type`: Required. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
-* `issuer`: Required. String denoting the certification authority that issued the signer's certificate.
-* `serial_number`: Required. String containing the serial number of the certificate used to sign.
-* `created_at`: Optional. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
-* `derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic signature described in the evidence array member it is part of.
-    * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
-    * The `derived_claims` element may also contain other end-user claims derived from the electronically signed object described in the evidence array member it is part of, such as elements of an advanced electronic signature described under eIDAS used to uniquely link the signed object to the signatory.
-    * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
-    * When it is present the `derived_claims` element shall not be empty.
+`type`: Required with value set to `electronic_signature`.
+`signature_type`: Required. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
+`issuer`: Required. String denoting the certification authority that issued the signer's certificate.
+`serial_number`: Required. String containing the serial number of the certificate used to sign.
+`created_at`: Optional. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
+
+`attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].
+
+`derived_claims`: Optional. JSON object containing claims about the end-user which were derived from the electronic signature described in the evidence array member it is part of.
+
+  * The `derived_claims` element may contain any of the claims defined in section 5.1 of the OpenID Connect specification [@!OpenID] and the claims defined in [@OpenID4IDAClaims].
+  * The `derived_claims` element may also contain other end-user claims derived from the electronically signed object described in the evidence array member it is part of, such as elements of an advanced electronic signature described under eIDAS used to uniquely link the signed object to the signatory.
+  * Claim names may be annotated with language tags as specified in section 5.2 of the OpenID Connect specification [@!OpenID].
+  * When it is present the `derived_claims` element shall not be empty.
 
 ### Attachments {#attachments}
 
@@ -406,21 +405,21 @@ The data structures described in this specification will contain personal inform
   <front>
     <title>OpenID connect core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
+      <organization>NAT.Consulting (was at NRI)</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
+      <organization>Yubico (was at Ping Identity)</organization>
     </author>
     <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
+      <organization>Self-Issued Consulting (was at Microsoft)</organization>
     </author>
     <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros">
       <organization>Google</organization>
     </author>
     <author initials="C." surname="Mortimore" fullname="Chuck Mortimore">
-      <organization>Salesforce</organization>
+      <organization>Disney (was at Salesforce)</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date day="15" month="Dec" year="2023"/>
   </front>
 </reference>
 
@@ -428,7 +427,7 @@ The data structures described in this specification will contain personal inform
   <front>
     <title>OpenID Connect for Identity Assurance Claims Registration 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -445,15 +444,15 @@ The data structures described in this specification will contain personal inform
     <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="16" month="Jun" year="2023"/>
+   <date day="1" month="Oct" year="2024"/>
   </front>
 </reference>
 
 <reference anchor="Attachments" target="https://openid.net/specs/openid-connect-4-ida-attachments-1_0.html">
   <front>
-    <title>OpenID Connect for Identity Assurance Attachments 1.0</title>
+    <title>OpenID Attachments 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
+      <organization>sprind.org</organization>
     </author>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
@@ -470,7 +469,7 @@ The data structures described in this specification will contain personal inform
         <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="19" month="July" year="2023"/>
+   <date day="23" month="June" year="2025"/>
   </front>
 </reference>
 
@@ -495,33 +494,23 @@ The data structures described in this specification will contain personal inform
     </front>
 </reference>
 
-<reference anchor="ISO3166-3" target="https://www.iso.org/standard/72482.html">
+<reference anchor="ISO8601" target="https://www.iso.org/standard/70907.html">
     <front>
-      <title>ISO 3166-3:2020. Codes for the representation of names of countries and their subdivisions -- Part 3: Code for formerly used names of countries</title>
-      <author surname="International Organization for Standardization">
-        <organization abbrev="ISO">International Organization for
-        Standardization</organization>
-      </author>
-      <date year="2020" />
-    </front>
-</reference>
-
-<reference anchor="ISO8601" target="https://www.iso.org/iso/catalogue_detail?csnumber=40874">
-    <front>
-      <title>ISO 8601. Data elements and interchange formats - Information interchange - Representation of dates and times</title>
+      <title>ISO 8601-1:2019. Date and time — Representations for information interchange Part 1: Basic rules</title>
       <author surname="International Organization for Standardization">
         <organization abbrev="ISO">International Organization for Standardization</organization>
       </author>
+      <date year="2019" />
     </front>
 </reference>
 
-<reference anchor="ICAO-Doc9303" target="https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf">
+<reference anchor="ICAO-Doc9303" target="https://www.icao.int/sites/default/files/publications/DocSeries/9303_p3_cons_en.pdf">
   <front>
-    <title>Machine Readable Travel Documents, Seventh Edition, 2015, Part 3: Specifications Common to all MRTDs</title>
+    <title>Machine Readable Travel Documents, Eighth Edition, 2021, Part 3: Specifications Common to all MRTDs</title>
     <author surname="International Civil Aviation Organization">
       <organization>International Civil Aviation Organization</organization>
     </author>
-   <date year="2015"/>
+   <date year="2021"/>
   </front>
 </reference>
 
@@ -603,9 +592,9 @@ The data structures described in this specification will contain personal inform
       <organization>Digital Bazaar</organization>
     </author>
     <author initials="D" surname="Chadwick" fullname="David Chadwick">
-      <organization>Digital Bazaar</organization>
+      <organization>University of Kent</organization>
     </author>
-   <date month="March" year="2022"/>
+   <date day="3" month="March" year="2022"/>
   </front>
 </reference>
 
@@ -631,11 +620,50 @@ Change Controller:
 Specification Document(s):
 : Section [verified claims](#verified_claims) of this document
 
-# Acknowledgements {#Acknowledgements}
+# Annex A  (Informative) Acknowledgement
 
-The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
+The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification:
 
-We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
+* Karsten Buch
+* Lukas Stiebig
+* Sven Manz
+* Waldemar Zimpfer
+* Willi Wiedergold
+* Fabian Hoffman
+* Daniel Keijsers
+* Ralf Wagner
+* Sebastian Ebling
+* Peter Eisenhofer
+
+We would like to thank the following people for their valuable feedback and contributions that helped to evolve this document:
+
+* Julian White
+* Bjorn Hjelm
+* Stephane Mouy
+* Alberto Pulido
+* Joseph Heenan
+* Vladimir Dzhuvinov
+* Azusa Kikuchi
+* Naohiro Fujie
+* Takahiko Kawasaki
+* Sebastian Ebling
+* Marcos Sanz
+* Tom Jones
+* Mike Pegman
+* Michael B. Jones
+* Jeff Lombardo
+* Taylor Ongaro
+* Peter Bainbridge-Clayton
+* Adrian Field
+* George Fletcher
+* Tim Cappalli
+* Michael Palage
+* Sascha Preibisch
+* Giuseppe De Marco
+* Nick Mothershaw
+* Hodari McClain
+* Dima Postnikov
+* Nat Sakimura
 
 # Notices
 

@@ -62,10 +62,6 @@ organization="KDDI Corporation"
 
 %%%
 
-.# Abstract
-
-This document defines an extension of OpenID Connect protocol for providing relying parties with claims about end-users that have a certain level of verification and/or additional metadata about the claim or the process of verification for access control, entitlement decisions or input to further verification processes.
-
 .# Foreword
 
 The OpenID Foundation (OIDF) promotes, protects, and nurtures the OpenID community and technologies. As a non-profit international standardizing body, it is comprised by over 160 participating entities (workgroup participant). The work of preparing implementer drafts and final international standards is carried out through OIDF workgroups in accordance with the OpenID Process. Participants interested in a subject for which a workgroup has been established have the right to be represented in that workgroup. International organizations, governmental and non-governmental, in liaison with OIDF, also take part in the work. OIDF collaborates closely with other standardizing bodies in the related fields.
@@ -83,14 +79,6 @@ The `acr` claim, as defined in section 2 of the OpenID Connect specification [@!
 For example, the assurance an OP typically will be able to give for an e-mail address will be “self-asserted” or "verified". The family name of an end-user, in contrast, might have been verified in accordance with the respective anti-money laundering law by showing an ID card to a trained employee of the OP operator.
 
 Identity assurance requires a way to convey assurance data along with and coupled to the respective claims about the end-user. This document defines a suitable representation and mechanisms the RP will utilize to request verified claims about an end-user along with assurance data and for the OP to represent these verified claims and accompanying assurance data.
-
-.# Notational conventions
-
-The keywords "shall", "shall not", "should", "should not", "may", and "can" in
-this document are to be interpreted as described in ISO Directive Part 2
-[@!ISODIR2]. These keywords are not used as dictionary terms such that any
-occurrence of them shall be interpreted as keywords and are not to be
-interpreted with their natural language meanings.
 
 {mainmatter}
 
@@ -564,23 +552,23 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
 
 <reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
-    <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
+    <title>OpenID connect core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
+      <organization>NAT.Consulting (was at NRI)</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
+      <organization>Yubico (was at Ping Identity)</organization>
     </author>
     <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
+      <organization>Self-Issued Consulting (was at Microsoft)</organization>
     </author>
     <author initials="B." surname="de Medeiros" fullname="Breno de Medeiros">
       <organization>Google</organization>
     </author>
     <author initials="C." surname="Mortimore" fullname="Chuck Mortimore">
-      <organization>Salesforce</organization>
+      <organization>Disney (was at Salesforce)</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date day="15" month="Dec" year="2023"/>
   </front>
 </reference>
 
@@ -588,18 +576,18 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   <front>
     <title>OpenID Connect Discovery 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>NRI</organization>
+      <organization>NAT.Consulting (was at NRI)</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
-      <organization>Ping Identity</organization>
+      <organization>Yubico (was at Ping Identity)</organization>
     </author>
     <author initials="M." surname="Jones" fullname="Mike Jones">
-      <organization>Microsoft</organization>
+      <organization>Self-Issued Consulting (was at Microsoft)</organization>
     </author>
     <author initials="E." surname="Jay" fullname="Edmund Jay">
       <organization>Illumila</organization>
     </author>
-   <date day="8" month="Nov" year="2014"/>
+   <date day="15" month="Dec" year="2023"/>
   </front>
 </reference>
 
@@ -619,9 +607,9 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
   </front>
 </reference>
 
-<reference anchor="FAPI-2-SP" target="https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html">
+<reference anchor="FAPI-2-SP" target="https://openid.net/specs/fapi-security-profile-2_0-final.html">
   <front>
-    <title>FAPI 2.0 Security Profile - draft</title>
+    <title>FAPI 2.0 Security Profile</title>
     <author initials="D." surname="Fett" fullname="Daniel Fett">
       <organization>Authlete</organization>
     </author>
@@ -631,7 +619,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="J." surname="Heenan" fullname="Joseph Heenan">
       <organization>Authlete</organization>
     </author>
-   <date day="3" month="Apr" year="2024"/>
+   <date day="22" month="Feb" year="2025"/>
   </front>
 </reference>
 
@@ -656,13 +644,13 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="16" month="Jun" year="2023"/>
+   <date day="1" month="Oct" year="2024"/>
   </front>
 </reference>
 
 <reference anchor="IDA-verified-claims" target="https://openid.net/specs/openid-ida-verified-claims-1_0.html">
   <front>
-    <title>OpenID Identity Assurance Schema Definition</title>
+    <title>OpenID Identity Assurance Schema Definition 1.0</title>
     <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
       <organization>sprind.org</organization>
     </author>
@@ -681,7 +669,7 @@ The eKYC and Identity Assurance Working Group maintains a wiki page [@!predefine
     <author initials="K." surname="Koiwai" fullname="Kosuke Koiwai">
       <organization>KDDI Corporation</organization>
     </author>
-   <date day="9" month="Aug" year="2023"/>
+   <date day="1" month="Oct" year="2024"/>
   </front>
 </reference>
 
@@ -760,6 +748,50 @@ which is used to indicate that the content is a JWT describing aggregated claims
   * Change controller: IETF
   * Provisional registration? No
 
+# Annex A (Informative) Acknowledgement
+
+The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this document:
+
+* Karsten Buch
+* Lukas Stiebig
+* Sven Manz
+* Waldemar Zimpfer
+* Willi Wiedergold
+* Fabian Hoffman
+* Daniel Keijsers
+* Ralf Wagner
+* Sebastian Ebling
+* Peter Eisenhofer
+
+We would like to thank the following people for their valuable feedback and contributions that helped to evolve this document:
+
+* Julian White
+* Bjorn Hjelm
+* Stephane Mouy
+* Alberto Pulido
+* Joseph Heenan
+* Vladimir Dzhuvinov
+* Azusa Kikuchi
+* Naohiro Fujie
+* Takahiko Kawasaki
+* Sebastian Ebling
+* Marcos Sanz
+* Tom Jones
+* Mike Pegman
+* Michael B. Jones
+* Jeff Lombardo
+* Taylor Ongaro
+* Peter Bainbridge-Clayton
+* Adrian Field
+* George Fletcher
+* Tim Cappalli
+* Michael Palage
+* Sascha Preibisch
+* Giuseppe De Marco
+* Nick Mothershaw
+* Hodari McClain
+* Dima Postnikov
+* Nat Sakimura
 
 # Example requests
 This section shows examples of requests for `verified_claims`.
