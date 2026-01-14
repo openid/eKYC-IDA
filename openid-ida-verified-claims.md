@@ -620,11 +620,50 @@ Change Controller:
 Specification Document(s):
 : Section [verified claims](#verified_claims) of this document
 
-# Acknowledgements {#Acknowledgements}
+# Annex A  (Informative) Acknowledgement
 
-The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification: Karsten Buch, Lukas Stiebig, Sven Manz, Waldemar Zimpfer, Willi Wiedergold, Fabian Hoffmann, Daniel Keijsers, Ralf Wagner, Sebastian Ebling, Peter Eisenhofer.
+The following people at yes.com and partner companies contributed to the concept described in the initial contribution to this specification:
 
-We would like to thank Julian White, Bjorn Hjelm, Stephane Mouy, Joseph Heenan, Vladimir Dzhuvinov, Azusa Kikuchi, Naohiro Fujie, Takahiko Kawasaki, Sebastian Ebling, Marcos Sanz, Tom Jones, Mike Pegman, Michael B. Jones, Jeff Lombardo, Taylor Ongaro, Peter Bainbridge-Clayton, Adrian Field, George Fletcher, Tim Cappalli, Michael Palage, Sascha Preibisch, Giuseppe De Marco, Nick Mothershaw, Hodari McClain, Dima Postnikov and Nat Sakimura for their valuable feedback and contributions that helped to evolve this specification.
+* Karsten Buch
+* Lukas Stiebig
+* Sven Manz
+* Waldemar Zimpfer
+* Willi Wiedergold
+* Fabian Hoffman
+* Daniel Keijsers
+* Ralf Wagner
+* Sebastian Ebling
+* Peter Eisenhofer
+
+We would like to thank the following people for their valuable feedback and contributions that helped to evolve this document:
+
+* Julian White
+* Bjorn Hjelm
+* Stephane Mouy
+* Alberto Pulido
+* Joseph Heenan
+* Vladimir Dzhuvinov
+* Azusa Kikuchi
+* Naohiro Fujie
+* Takahiko Kawasaki
+* Sebastian Ebling
+* Marcos Sanz
+* Tom Jones
+* Mike Pegman
+* Michael B. Jones
+* Jeff Lombardo
+* Taylor Ongaro
+* Peter Bainbridge-Clayton
+* Adrian Field
+* George Fletcher
+* Tim Cappalli
+* Michael Palage
+* Sascha Preibisch
+* Giuseppe De Marco
+* Nick Mothershaw
+* Hodari McClain
+* Dima Postnikov
+* Nat Sakimura
 
 # Notices
 
