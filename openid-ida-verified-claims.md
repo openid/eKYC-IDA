@@ -406,7 +406,7 @@ The data structures described in this specification will contain personal inform
   <front>
     <title>OpenID connect core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
-      <organization>ISO/IEC</organization>
+      <organization>NRI</organization>
     </author>
     <author initials="J." surname="Bradley" fullname="John Bradley">
       <organization>Ping Identity</organization>
