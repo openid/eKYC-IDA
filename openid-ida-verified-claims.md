@@ -403,7 +403,7 @@ The data structures described in this specification will contain personal inform
 
 <reference anchor="OpenID" target="https://openid.net/specs/openid-connect-core-1_0.html">
   <front>
-    <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
+    <title>OpenID connect core 1.0 incorporating errata set 2</title>
     <author initials="N." surname="Sakimura" fullname="Nat Sakimura">
       <organization>NAT.Consulting (was at NRI)</organization>
     </author>
