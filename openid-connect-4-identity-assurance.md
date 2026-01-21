@@ -768,7 +768,6 @@ We would like to thank the following people for their valuable feedback and cont
 * Julian White
 * Bjorn Hjelm
 * Stephane Mouy
-* Alberto Pulido
 * Joseph Heenan
 * Vladimir Dzhuvinov
 * Azusa Kikuchi
