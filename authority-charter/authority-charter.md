@@ -16,6 +16,12 @@ The aim is to ensure that this standard is designed to be modular and extendable
 - Children in alternative care where legal guardianship may transfer due to changes in care pathways over time.​
 - Teens or older minors participating in progressive assent scenarios (e.g., medical research or data consent), where consent may come from both legal guardian and mature minor, jointly or conditionally. (factor in Rune’s requirements)
 
+**Delegated authority for adults who are unable to take care of their own interests:**
+For example elderly people who struggle to use computers or mobile phones properly, or other adults who are unable to care for themselves due to mental health issues or other challenges. Use cases may for instance be access to financial services or health services.
+
+**Delegated authority on behalf of an organization:**
+An employee or other person who can represent an organization towards online services. The organization might be authorized to represent another organization so here a delegation chain may be interesting.
+
 **Delegated authority for AI agents:**
 - AI systems acting for individuals or entities in online transactions, customer support, or data processing, bounded by explicit credentials, purpose limitations, and transparency requirements. Take into account https://openid.net/new-whitepaper-tackles-ai-agent-identity-challenges/
 - SaaS platforms or B2B ecosystems where an organisation delegates an AI agent to act under contractual or policy-based rules, with secure, auditable flows and instant revocation.
@@ -53,7 +59,7 @@ We need to consider / include these caveats to ensure we map the desired archite
     - Problem Management: Delegating investigation and root cause analysis responsibilities.
     - Service Level Management: Ensuring delegated responsibilities align with negotiated service levels.
   - Delegation Contribution: ISO 20000 ensures that any delegated authority is integrated into established service processes, documented, and contributes to the overall quality and reliability of IT services. It promotes accountability within the service delivery chain, where delegated tasks must still meet service objectives. (currently exploring the scope to extrapolate from these IT systems requirements to legal guardianship contexts in the supporting policy framework)
-- Constraint Propagation: UMA and OpenID Federation standards support the persistent enforcement of scope and constraints set by the original delegator throughout all delegation chains, as part of the core claims and policy framework.​ 
+- Constraint Propagation: UMA and OpenID Federation standards support the persistent enforcement of scope and constraints set by the original delegator throughout all delegation chains, as part of the core claims and policy framework.​
   - Constraint propagation is handled within UMA through policy enforcement by the authorization server. Section 3.1 and 3.4 of the core spec detail how access scopes and authorization data are associated with tokens, and Section 2.3.3 of the trust obligations document specifies that the Resource Server Operator is obligated to respect and enforce the permissions set by the Authorization Server, thereby propagating constraints through every access and delegation.
     - Map current paper based and IT based operations in the absence of UMA in a children in alternative care contexts
 - Revocation Mechanisms: Kantara UMA protocol details how authorization grants and permissions can be revoked at any time, with policy-driven enforcement and immediate effect.​
@@ -69,8 +75,21 @@ This section lists the standards and specifications referenced in this document,
 - ISO/IEC 29115 (Entity authentication assurance) - currently being updated - The standard was published in April 2013 and is currently under systematic review, with the status "International Standard to be revised" as of May 2024. A new working draft, ISO/IEC WD 29115.3, is under development and is intended to replace ISO/IEC 29115:2013. The standard is recognized internationally, with identical versions published by various national standards bodies, including NEN, BSI, CEI UNI, UNI CEI, INCITS, and PN. It is also referenced by other standards such as ISO/IEC 27001:2013, ISO/IEC 19792:2009, and ISO/IEC 29100:2011.
 - AI Act, Digital Operational Resilience Act, GDPR, DSA, AML, COPPA (as applicable)
 
-## Architecture and Roles ##
-To be added - a description of the standard’s core architecture, including actors (delegators, delegates, authorization server, resource server, custodians, AI agents, etc.), their responsibilities, and how they interact in delegated authority workflows.
+## Architecture ##
+We intend to deliver an architecture that describe the following:
+- How a delegated authority is created?
+  - Here we must describe an overall process, not the details.
+  - Which requirements must be fulfulled to establish trust to the delegated authority?
+- A data model that describe a delegated authority
+- (Probably several) models to communicate delegated authority
+  - How they can be included in ID Tokens and Access Tokens
+  - Inclusion in the OIDC User Info endpoint
+  - Should we describe an attestation that verifies a delegated autority? How would that work?
+- Revocation of delegated authority
+  - We probably must describe both a manual process and some sort of expiration
+
+## Roles ##
+To be added - a description of actors (delegators, delegates, authorization server, resource server, custodians, AI agents, etc.), their responsibilities, and how they interact in delegated authority workflows.
 
 ## Functional and Security Requirements ##
 Detailed requirements for:
@@ -82,7 +101,7 @@ Detailed requirements for:
 - Lifecycle events: provisioning, usage, revocation, re-provisioning, logging.
 
 ## Protocol Flows and Interactions ##
-Step-by-step interaction models covering core use cases (delegation setup, delegated transaction, revocation, consent updates, audit events, and error handling). 
+Step-by-step interaction models covering core use cases (delegation setup, delegated transaction, revocation, consent updates, audit events, and error handling).
 Presents step-by-step message flows and sequences for:
 - Granting delegated authority.
 - Exercising delegated rights (e.g., acting for a child on a fintech /health tech platform, AI processing, or organisational authorisation).
@@ -103,7 +122,7 @@ Defines how implementers demonstrate compliance, including:
 - Optional features (“may”/“should” vs. “must” normative language).
 - Mappings to regulatory requirements (such as Article 8 GDPR, COPPA, AMLD, AI act, DSA transparency etc).
 - Certification or attestation procedures.
-  - Required tests and outcomes for implementers to claim conformance to the standard - Will OIDF develop /adapt 
+  - Required tests and outcomes for implementers to claim conformance to the standard - Will OIDF develop /adapt
 
 ## Use Cases and Implementation Guidance ##
 Elaborated user journeys and domain-specific guidance showing how the standard is adapted across sectors (health, child protection, SaaS, B2B, IoT, etc.).
@@ -114,8 +133,8 @@ Expands on practical examples:
 - Cross-jurisdiction scenarios (federation and interoperability).
 
 ## Annexes ##
-Glossary, 
-threat model, 
-implementation patterns, 
+Glossary,
+threat model,
+implementation patterns,
 and possibly sample policies, configurations, or open-source reference implementations.
 Each section will methodically build on the scope and definitions to ensure clarity, completeness, and actionable guidance for implementers and auditors.
