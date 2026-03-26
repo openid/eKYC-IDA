@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect for Identity Assurance 1.0 - draft 17 incorporating errata set 1"
+title = "OpenID Connect for Identity Assurance 1.0 - draft 17"
 abbrev = "openid-connect-4-identity-assurance-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
