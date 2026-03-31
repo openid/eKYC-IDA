@@ -21,12 +21,12 @@
                 "name": null
               },
               "document_number": null,
-              "date_of_issuance": null,
-              "derived_claims": {
-                "given_name": null,
-                "family_name": null,
-                "birthdate": null
-              }
+              "date_of_issuance": null
+            },
+            "derived_claims": {
+              "given_name": null,
+              "family_name": null,
+              "birthdate": null
             }
           }
         ]

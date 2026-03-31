@@ -24,8 +24,12 @@
                 "country": "Sverige",
                 "country_code": "SWE"
             },
-            "personal_number": "4901224131",
             "created_at": "1979-01-22"
+          },
+          "derived_claims": {
+            "given_name": "Fredrik",
+            "family_name": "Strömberg",
+            "birthdate": "1979-01-22"
           }
         }
       ]
