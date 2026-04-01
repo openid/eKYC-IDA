@@ -77,9 +77,13 @@
             }
           ],
           "time": "2021-04-09T14:12Z",
+          "derived_claims": {
+            "given_name": "Sarah",
+            "family_name": "Meredyth",
+            "birthdate": "1976-03-11"
+          },
           "document_details": {
             "type": "driving_permit",
-            "personal_number": "MORGA753116SM9IJ",
             "document_number": "MORGA753116SM9IJ35",
             "serial_number": "ZG21000001",
             "date_of_issuance": "2021-01-01",

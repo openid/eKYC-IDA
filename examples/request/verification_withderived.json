@@ -21,9 +21,9 @@
                 "name": null
               },
               "document_number": null,
-              "date_of_issuance": null,
-              "derived_claims": null
-            }
+              "date_of_issuance": null
+            },
+            "derived_claims": null
           }
         ]
       },
