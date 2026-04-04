@@ -10,7 +10,12 @@
                "signature_type": "qes_eidas",
                 "issuer": "Example QTSP",
                 "serial_number": "10978342379280287615",
-                "created_at": "2012-04-23T18:25Z"
+                "created_at": "2012-04-23T18:25Z",
+                "derived_claims": {
+                    "given_name": "Max",
+                    "family_name": "Meier",
+                    "birthdate": "1956-01-28"
+                }
             }
          ]
       },

@@ -27,6 +27,8 @@
             "date_of_issuance": "2020-02-13",
             "voucher": {
               "name": "Peter Crowe",
+              "birthdate": "1972-05-18",
+              "country_code": "NZL",
               "occupation": "Executive Principal",
               "organization": "Kristin School"
             }

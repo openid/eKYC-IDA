@@ -21,9 +21,15 @@
             "type": "digital_attestation",
             "reference_number": "6485-1619-3976-6671",
             "date_of_issuance": "2021-06-04",
+            "date_of_expiry": "2022-06-04",
             "voucher": {
               "organization": "HMP Dartmoor"
             }
+          },
+          "derived_claims": {
+            "given_name": "Sam",
+            "family_name": "Lawler",
+            "birthdate": "1981-04-13"
           }
         }
       ]
