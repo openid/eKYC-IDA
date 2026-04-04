@@ -14,13 +14,13 @@
           "type": "vouch",
           "check_details": [
             {
-              "check_method": "vpip"
+              "check_method": "vpip",
+              "time": "2020-02-23T07:52Z"
             },
             {
               "check_method": "pvr"
             }
           ],
-          "time": "2020-02-23T07:52Z",
           "attestation": {
             "type": "written_attestation",
             "reference_number": "6485-1619-3976-6671",

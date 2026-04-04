@@ -28,11 +28,11 @@
             "type": "document",
             "check_details": [
               {
-                "check_method": "pipp"
+                "check_method": "pipp",
+                "time": "2012-04-22T11:30Z"
               }
             ],
-            "time": "2012-04-22T11:30Z",
-            "document": {
+            "document_details": {
               "type": "idcard"
             }
           }

@@ -10,19 +10,19 @@
           "type": "vouch",
           "check_details": [
             {
-              "check_method": "vcrypt"
+              "check_method": "vcrypt",
+              "time": "2020-03-19T12:42Z"
             },
             {
               "check_method": "bvr"
             }
           ],
-          "time": "2020-03-19T12:42Z",
           "attestation": {
             "type": "digital_attestation",
             "reference_number": "6485-1619-3976-6671",
             "date_of_issuance": "2021-06-04",
             "voucher": {
-                "organization": "HMP Dartmoor"
+              "organization": "HMP Dartmoor"
             }
           }
         }

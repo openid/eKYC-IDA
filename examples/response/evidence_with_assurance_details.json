@@ -72,11 +72,10 @@
             {
               "check_method": "data",
               "organization": "DVLA",
-              "time": "2021-04-09T14:15Z",
+              "time": "2021-04-09T14:12Z",
               "check_id": "DL1-85762937582385820"
             }
           ],
-          "time": "2021-04-09T14:12Z",
           "derived_claims": {
             "given_name": "Sarah",
             "family_name": "Meredyth",
@@ -102,10 +101,10 @@
             {
               "check_method": "kbv",
               "organization": "TheCreditBureau",
-              "check_id": "kbv1-hf934hn09234ng03jj3"
+              "check_id": "kbv1-hf934hn09234ng03jj3",
+              "time": "2021-04-09T14:12Z"
             }
           ],
-          "time": "2021-04-09T14:12Z",
           "record": {
             "type": "mortgage_account",
             "source": {
@@ -119,10 +118,10 @@
             {
               "check_method": "kbv",
               "organization": "OpenBankingTPP",
-              "check_id": "kbv2-nm0f23u9459fj38u5j6"
+              "check_id": "kbv2-nm0f23u9459fj38u5j6",
+              "time": "2021-04-09T14:12Z"
             }
           ],
-          "time": "2021-04-09T14:12Z",
           "record": {
             "type": "bank_account",
             "source": {
@@ -136,10 +135,10 @@
             {
               "check_method": "kbv",
               "organization": "GSMA",
-              "check_id": "kbv3-jf9028h023hj0f9jh23"
+              "check_id": "kbv3-jf9028h023hj0f9jh23",
+              "time": "2021-04-09T15:42Z"
             }
           ],
-          "time": "2021-04-09T15:42Z",
           "record": {
             "type": "mno",
             "source": {
@@ -153,10 +152,10 @@
             {
               "check_method": "data",
               "organization": "GRO",
-              "check_id": "GRO-9824hngvp9278hf5tmp924y5h"
+              "check_id": "GRO-9824hngvp9278hf5tmp924y5h",
+              "time": "2021-04-09T16:12Z"
             }
           ],
-          "time": "2021-04-09T16:12Z",
           "record": {
             "type": "death_register",
             "source": {
@@ -176,10 +175,10 @@
             {
               "check_method": "data",
               "organization": "NextLex",
-              "check_id": "fi-2nbf02hfn384ufn"
+              "check_id": "fi-2nbf02hfn384ufn",
+              "time": "2021-04-09T16:51Z"
             }
           ],
-          "time": "2021-04-09T16:51Z",
           "record": {
             "type": "fraud_register",
             "source": {

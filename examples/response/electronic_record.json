@@ -10,19 +10,19 @@
           "type": "electronic_record",
           "check_details": [
             {
-              "check_method": "data"
+              "check_method": "data",
+              "time": "2021-02-15T16:51Z"
             },
             {
               "check_method": "token"
             }
-          ],         
-          "time": "2021-02-15T16:51Z",
+          ],
           "record": {
             "type": "population_register",
             "source": {
-                "name": "Skatteverket",
-                "country": "Sverige",
-                "country_code": "SWE"
+              "name": "Skatteverket",
+              "country": "Sverige",
+              "country_code": "SWE"
             },
             "created_at": "1979-01-22"
           },

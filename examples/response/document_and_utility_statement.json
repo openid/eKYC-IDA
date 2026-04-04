@@ -9,13 +9,13 @@
           "type": "document",
           "check_details": [
             {
-              "check_method": "pvp"
+              "check_method": "pvp",
+              "time": "2012-04-22T11:30Z"
             },
             {
               "check_method": "vpip"
             }
           ],
-          "time": "2012-04-22T11:30Z",
           "document_details": {
             "type": "de_erp_replacement_idcard",
             "issuer": {
@@ -31,17 +31,17 @@
           "type": "document",
           "check_details": [
             {
-              "check_method": "vpip"
+              "check_method": "vpip",
+              "time": "2012-04-22T11:30Z"
             }
           ],
-          "time": "2012-04-22T11:30Z",
           "document_details": {
             "type": "utility_statement",
             "issuer": {
-                "name": "Stadtwerke Musterstadt",
-                "country": "DE",
-                "region": "Niedersachsen",
-                "street_address": "Energiestrasse 33"
+              "name": "Stadtwerke Musterstadt",
+              "country": "DE",
+              "region": "Niedersachsen",
+              "street_address": "Energiestrasse 33"
             },
             "date_of_issuance": "2013-01-31"
           }
