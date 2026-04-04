@@ -24,7 +24,74 @@
         },
         "attachments": {
             "type": "array",
-            "minItems": 1
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "oneOf": [
+                    {
+                        "required": [
+                            "content_type",
+                            "content"
+                        ],
+                        "properties": {
+                            "desc": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "content_type": {
+                                "type": "string"
+                            },
+                            "content": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "required": [
+                            "url",
+                            "digest"
+                        ],
+                        "properties": {
+                            "desc": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "url": {
+                                "type": "string",
+                                "format": "uri"
+                            },
+                            "access_token": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "exp": {
+                                "type": "number"
+                            },
+                            "digest": {
+                                "type": "object",
+                                "required": [
+                                    "alg",
+                                    "value"
+                                ],
+                                "properties": {
+                                    "alg": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
         },
         "check_details": {
             "type": "array",
@@ -45,7 +112,9 @@
                         "format": "date-time"
                     }
                 },
-                "required": ["check_method"]
+                "required": [
+                    "check_method"
+                ]
             },
             "minItems": 1
         },
@@ -72,6 +141,9 @@
         },
         "document_details": {
             "type": "object",
+            "required": [
+                "type"
+            ],
             "properties": {
                 "type": {
                     "type": "string"
@@ -156,6 +228,11 @@
                         }
                     },
                     "then": {
+                        "required": [
+                            "signature_type",
+                            "issuer",
+                            "serial_number"
+                        ],
                         "properties": {
                             "created_at": {
                                 "type": "string",
@@ -218,6 +295,9 @@
                             },
                             "record": {
                                 "type": "object",
+                                "required": [
+                                    "type"
+                                ],
                                 "properties": {
                                     "type": {
                                         "type": "string"
@@ -280,6 +360,9 @@
                         "properties": {
                             "attestation": {
                                 "type": "object",
+                                "required": [
+                                    "type"
+                                ],
                                 "properties": {
                                     "type": {
                                         "type": "string"
@@ -400,7 +483,9 @@
                                                             }
                                                         }
                                                     },
-                                                    "required": ["check_id"]
+                                                    "required": [
+                                                        "check_id"
+                                                    ]
                                                 }
                                             }
                                         }
@@ -418,11 +503,7 @@
                         "evidence": {
                             "type": "array",
                             "items": {
-                                "oneOf": [
-                                    {
-                                        "$ref": "#/$defs/evidence"
-                                    }
-                                ]
+                                "$ref": "#/$defs/evidence"
                             },
                             "minItems": 1
                         },
