@@ -24,7 +24,7 @@
               "country": "Sverige",
               "country_code": "SWE"
             },
-            "created_at": "1979-01-22",
+            "created_at": "1979-01-22T00:00Z",
             "date_of_expiry": "2025-12-31"
           },
           "derived_claims": {
