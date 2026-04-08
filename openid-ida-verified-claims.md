@@ -179,9 +179,9 @@ The `verification` element consists of the following elements:
 * `trust_framework`: Required. String determining the trust framework governing the identity verification process of the claim provider.
 An example value is `eidas`, which denotes a notified eID system under eIDAS [@eIDAS].
 
-Claim recipients should ignore `verified_claims` claims containing a trust framework identifier they do not understand.
+    Claim recipients should ignore `verified_claims` claims containing a trust framework identifier they do not understand.
 
-The `trust_framework` value determines what further data is provided to the claim recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas a claim provider not governed by eIDAS would need to provide verification evidence in order to allow the claim recipient to fulfill its legal obligations. An example of the latter is a claim provider acting under the German anti-money laundering law (`de_aml`).
+    The `trust_framework` value determines what further data is provided to the claim recipient in the `verification` element. A notified eID system under eIDAS, for example, would not need to provide any further data whereas a claim provider not governed by eIDAS would need to provide verification evidence in order to allow the claim recipient to fulfill its legal obligations. An example of the latter is a claim provider acting under the German anti-money laundering law (`de_aml`).
 
 * `assurance_level`: Optional. String determining the assurance level associated with the end-user claims in the respective `verified_claims`. The value range depends on the respective `trust_framework` value. For example, the trust framework `eidas` can have the identity assurance levels `low`, `substantial` and `high`. For information on predefined trust framework and assurance level values see [@!predefined_values_page].
 
@@ -339,9 +339,13 @@ The following elements are contained in an evidence sub-element where type is `v
 The following elements are contained in an `electronic_signature` evidence sub-element.
 
 `type`: Required with value set to `electronic_signature`.
+
 `signature_type`: Required. String denoting the type of signature used as evidence. The value range might be restricted by the respective trust framework.
+
 `issuer`: Required. String denoting the certification authority that issued the signer's certificate.
+
 `serial_number`: Required. String containing the serial number of the certificate used to sign.
+
 `created_at`: Optional. The time the signature was created as ISO 8601 [@!ISO8601] `YYYY-MM-DDThh:mm[:ss]TZD` format.
 
 `attachments`: Optional. Array of JSON objects representing attachments like photocopies of documents or certificates. Structure of members of the `attachments` array is described in [@!Attachments].

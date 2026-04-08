@@ -63,6 +63,7 @@ Note: the term "legal entity" is used in this specification to mean an organisat
 Note: the "someone" for the purposes of this specification is a "natural person", and the "something" is a "legal entity".
 
 This specification uses the terms:
+
 * "Access Token",
 * "Authorization Code",
 * "Authorization Endpoint",
@@ -81,12 +82,14 @@ This specification uses the terms:
 defined by [@!RFC6749]
 
 the terms:
+
 * "Claim Name",
 * "Claim Value"
 * and "JSON Web Token (JWT)"
 defined by [@!RFC7519]
 
 the terms:
+
 * "Header Parameter",
 * "JOSE Header"
 * and "JSON Web Signature (JWS)"
@@ -95,6 +98,7 @@ defined by [@!RFC7519]
 the term "User Agent" defined by [@!RFC2616]
 
 the terms:
+
 * "Authentication",
 * "Authentication Request",
 * "Authorization Request",
