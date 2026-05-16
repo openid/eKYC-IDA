@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Connect Advanced Syntax for Claims (ASC) 1.0"
+title = "OpenID Connect Advanced Syntax for Claims (ASC) 1.0 - draft 02"
 abbrev = "openid-connect-asc-1_0"
 ipr = "none"
 workgroup = "eKYC-IDA"
