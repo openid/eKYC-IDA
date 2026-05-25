@@ -220,7 +220,7 @@ Therefore, the RP shall set fields one step deeper into the structure if it want
 
 <{{examples/request/verification_deeper.json}}
 
-The example also requests the OP to add the respective `check_method` and the `document` elements (including data about the document type), for every evidence array member, to the resulting `verified_claims` claim.
+The example also requests the OP to add the respective `check_method` and the `document_details` elements (including data about the document type), for every evidence array member, to the resulting `verified_claims` claim.
 
 A single entry in the `evidence` array represents a filter over elements of a certain evidence type. The RP therefore shall specify this type by including the `type` field including a suitable `value` sub-element value. The `values` sub-element shall not be used for the `evidence/type` field.
 
@@ -230,7 +230,7 @@ If multiple entries are present in `evidence`, these filters are linked by a log
 
 `assurance_details` is an array representing how the `evidence` and `check_details` fulfill the requirements of the `trust_framework`. RP should only request this where they need to know this information. Where `assurance_details` has been requested by an RP the OP shall return the `assurance_details` element along with all sub-elements that it has. If an RP wants to filter what types of `evidence` and `check_details` they shall specify those to do so.
 
-The RP can also request certain data within the `document` element to be present. This again follows the syntax rules used above:
+The RP can also request certain data within the `document_details` element to be present. This again follows the syntax rules used above:
 
 <{{examples/request/verification_document.json}}
 
@@ -238,7 +238,7 @@ The RP can also request certain data within the `document` element to be present
 
 ### Value/values
 
-The RP can limit the possible values of the elements `trust_framework`, `evidence/check_details`, and `evidence/document/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
+The RP can limit the possible values of the elements `trust_framework`, `evidence/check_details`, and `evidence/document_details/type` by utilizing the `value` or `values` fields and the element `evidence/type` by utilizing the `value` field.
 
 Note: Examples on the usage of a restriction on `evidence/type` were given in the previous section.
 
