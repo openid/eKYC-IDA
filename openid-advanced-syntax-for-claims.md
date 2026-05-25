@@ -952,7 +952,7 @@ required to practice this specification.
    -02
 
    * Various editorial changes
-   * rename 'match'
+   * rename 'match' (previously missed from -01 history)
 
    -01
 
