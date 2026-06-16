@@ -15,10 +15,10 @@
             },
             "check_details": [
               {
-                "check_method": null
+                "check_method": null,
+                "time": null
               }
             ],
-            "time": null,
             "document_details": {
               "type": null,
               "issuer": {

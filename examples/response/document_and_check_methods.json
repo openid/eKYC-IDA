@@ -30,14 +30,14 @@
           "check_details": [
             {
               "check_method": "vcrypt",
-              "check_id": "LD-95912059850982"
+              "check_id": "LD-95912059850982",
+              "time": "2019-04-20T20:11Z"
             },
             {
               "check_method": "bvr",
               "check_id": "V-ng034hng2945nqw"
             }
           ],
-          "time": "2019-04-20T20:11Z",
           "document_details": {
             "type": "passport",
             "issuer": {

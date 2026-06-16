@@ -40,7 +40,7 @@
               "check_method": "vpiruv",
               "organization": "doc_checker",
               "check_id": "DL1-93h506th2f45hf",
-              "time": "2021-06-08T11:41Z"
+              "time": "2021-06-06T05:33Z"
             },
             {
               "check_method": "pvp",
@@ -49,17 +49,16 @@
               "time": "2021-06-08T11:42Z"
             }
           ],
-          "time": "2021-06-06T05:33Z",
           "document_details": {
             "type": "driving_permit",
             "document_number": "I1234568",
             "date_of_issuance": "2019-09-05",
             "date_of_expiry": "2024-08-01",
             "issuer": {
-                "name": "CA DMV",
-                "country": "US",
-                "country_code": "USA",
-                "jurisdiction": "CA"
+              "name": "CA DMV",
+              "country": "US",
+              "country_code": "USA",
+              "jurisdiction": "CA"
             }
           }
         }

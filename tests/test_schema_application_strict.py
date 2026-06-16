@@ -22,27 +22,58 @@ for schema in SCHEMA_PATH.glob('*.json'):
 registry = Registry().with_contents(pairs=schema_store)
 
 
-def add_additional_properties(schema):
+def add_strict_object_validation(schema, _in_conditional=False):
     """
-    Add "additionalProperties": False to wherever "properties" is defined in the schema
+    Add "unevaluatedProperties": False to object schemas that define "properties".
+
+    Unlike additionalProperties, unevaluatedProperties works correctly with
+    allOf/if/then, so evidence-type-specific properties remain scoped to the
+    matching branch and wrong-variant properties are still rejected.
+
+    if/then/else subschemas are conditional modifiers for the parent instance,
+    so strictness must not be added to them directly. We still recurse into
+    objects nested within their "properties" (e.g. then.properties.record is a
+    real object schema).
     """
-    if "properties" in schema and "additionalProperties" not in schema:
-        schema["additionalProperties"] = False
-        for _, value in schema["properties"].items():
-            add_additional_properties(value)
-    elif "items" in schema:
-        add_additional_properties(schema["items"])
+    if not isinstance(schema, dict):
+        return
+
+    if (
+        not _in_conditional
+        and "properties" in schema
+        and "additionalProperties" not in schema
+        and "unevaluatedProperties" not in schema
+    ):
+        schema["unevaluatedProperties"] = False
+
+    # Recurse into all subschema locations
+    for key in ("properties", "$defs"):
+        if key in schema:
+            for _, value in schema[key].items():
+                add_strict_object_validation(value)
+    if "items" in schema:
+        add_strict_object_validation(schema["items"])
+    # if/then/else are conditional modifiers — don't add additionalProperties
+    # to them, but do recurse into nested objects within their properties.
+    for key in ("if", "then", "else"):
+        if key in schema:
+            add_strict_object_validation(schema[key], _in_conditional=True)
+    for key in ("oneOf", "anyOf", "allOf", "not"):
+        if key in schema:
+            items = schema[key] if isinstance(schema[key], list) else [schema[key]]
+            for item in items:
+                add_strict_object_validation(item)
 
 
 def test_request_schema(request_example):
     data = loads(request_example.read_text().replace("\n", ""))
     schema = loads(REQUEST_SCHEMA.read_text())
-    add_additional_properties(schema)
+    add_strict_object_validation(schema)
     assert validate(schema=schema, instance=data, registry=registry) is None
 
 
 def test_response_schema(response_example):
     data = loads(response_example.read_text().replace("\n", ""))
     schema = loads(RESPONSE_SCHEMA.read_text())
-    add_additional_properties(schema)
+    add_strict_object_validation(schema)
     assert validate(schema=schema, instance=data, registry=registry) is None

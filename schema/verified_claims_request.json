@@ -20,7 +20,9 @@
                         "$ref": "#/$defs/datetime_element"
                     }
                 },
-                "required": ["check_method"]
+                "required": [
+                    "check_method"
+                ]
             },
             "minItems": 1
         },
@@ -180,7 +182,9 @@
                                         "const": "electronic_signature"
                                     }
                                 },
-                                "required": ["value"]
+                                "required": [
+                                    "value"
+                                ]
                             }
                         }
                     },
@@ -197,6 +201,9 @@
                             },
                             "signature_type": {
                                 "$ref": "#/$defs/simple_element"
+                            },
+                            "derived_claims": {
+                                "$ref": "#/$defs/claims_element"
                             }
                         }
                     },
@@ -212,7 +219,9 @@
                                         "const": "document"
                                     }
                                 },
-                                "required": ["value"]
+                                "required": [
+                                    "value"
+                                ]
                             }
                         }
                     },
@@ -223,6 +232,9 @@
                             },
                             "document_details": {
                                 "$ref": "#/$defs/document_details"
+                            },
+                            "derived_claims": {
+                                "$ref": "#/$defs/claims_element"
                             }
                         }
                     },
@@ -238,7 +250,9 @@
                                         "const": "electronic_record"
                                     }
                                 },
-                                "required": ["value"]
+                                "required": [
+                                    "value"
+                                ]
                             }
                         }
                     },
@@ -258,9 +272,6 @@
                                     },
                                     "date_of_expiry": {
                                         "$ref": "#/$defs/datetime_element"
-                                    },
-                                    "derived_claims": {
-                                        "$ref": "#/$defs/claims_element"
                                     },
                                     "source": {
                                         "type": "object",
@@ -295,6 +306,9 @@
                                         }
                                     }
                                 }
+                            },
+                            "derived_claims": {
+                                "$ref": "#/$defs/claims_element"
                             }
                         }
                     },
@@ -310,7 +324,9 @@
                                         "const": "vouch"
                                     }
                                 },
-                                "required": ["value"]
+                                "required": [
+                                    "value"
+                                ]
                             }
                         }
                     },
@@ -327,9 +343,6 @@
                                     },
                                     "date_of_issuance": {
                                         "$ref": "#/$defs/datetime_element"
-                                    },
-                                    "derived_claims": {
-                                        "$ref": "#/$defs/claims_element"
                                     },
                                     "reference_number": {
                                         "$ref": "#/$defs/simple_element"
@@ -376,6 +389,9 @@
                             },
                             "check_details": {
                                 "$ref": "#/$defs/check_details"
+                            },
+                            "derived_claims": {
+                                "$ref": "#/$defs/claims_element"
                             }
                         }
                     },
@@ -455,7 +471,7 @@
                                                 "items": {
                                                     "type": "object",
                                                     "properties": {
-                                                        "check_id" : {
+                                                        "check_id": {
                                                             "$ref": "#/$defs/constrainable_element"
                                                         },
                                                         "evidence_metadata": {
@@ -467,7 +483,9 @@
                                                             }
                                                         }
                                                     },
-                                                    "required": ["check_id"]
+                                                    "required": [
+                                                        "check_id"
+                                                    ]
                                                 },
                                                 "minItems": 1
                                             }
@@ -486,11 +504,7 @@
                         "evidence": {
                             "type": "array",
                             "items": {
-                                "oneOf": [
-                                    {
-                                        "$ref": "#/$defs/evidence"
-                                    }
-                                ]
+                                "$ref": "#/$defs/evidence"
                             },
                             "minItems": 1
                         },

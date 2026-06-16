@@ -9,10 +9,10 @@
           "type": "document",
           "check_details": [
             {
-              "check_method": "vpip"
+              "check_method": "vpip",
+              "time": "2021-04-09T14:12Z"
             }
           ],
-          "time": "2021-04-09T14:12Z",
           "document_details": {
             "type": "utility_statement",
             "date_of_issuance": "2013-01-31",
@@ -27,7 +27,7 @@
             {
               "desc": "scan of bill",
               "content_type": "application/pdf",
-              "content": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAADSFsjdkhjwhAABJRU5ErkJggg=="
+              "content": "JVBERi0xLjcKJUVPRgo="
             }
           ]
         }

@@ -14,19 +14,21 @@
           "type": "vouch",
           "check_details": [
             {
-              "check_method": "vpip"
+              "check_method": "vpip",
+              "time": "2020-02-23T07:52Z"
             },
             {
               "check_method": "pvr"
             }
           ],
-          "time": "2020-02-23T07:52Z",
           "attestation": {
             "type": "written_attestation",
             "reference_number": "6485-1619-3976-6671",
             "date_of_issuance": "2020-02-13",
             "voucher": {
               "name": "Peter Crowe",
+              "birthdate": "1972-05-18",
+              "country_code": "NZL",
               "occupation": "Executive Principal",
               "organization": "Kristin School"
             }
@@ -35,7 +37,7 @@
             {
               "desc": "scan of vouch",
               "content_type": "application/pdf",
-              "content": "d16d2552e35582810e5a40e523716504525b6016ae96844ddc533163059b3067=="
+              "content": "JVBERi0xLjcKJUVPRgo="
             }
           ]
         }
