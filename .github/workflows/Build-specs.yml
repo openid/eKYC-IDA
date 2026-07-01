@@ -17,7 +17,7 @@ jobs:
           - name: Run the ASC build process with Docker
             run: |
                 docker run \
-                -v /${{ github.workspace }}/ASC/data danielfett/markdown2rfc \
+                -v /${{ github.workspace }}/data danielfett/markdown2rfc \
                 openid-advanced-syntax-for-claims.md
           - name:  Run the Attachments build process with Docker
             run: |
