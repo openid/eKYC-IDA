@@ -9,11 +9,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v4
-          - name: Run the ASC build process with Docker
+          - name: Run Diagnostics
             run: |
                 echo "diagnostics"
                 pwd
                 ls -l
+          - name: Run the ASC build process with Docker
             run: |
                 docker run \
                 -v /${{ github.workspace }}/ASC/data danielfett/markdown2rfc \
