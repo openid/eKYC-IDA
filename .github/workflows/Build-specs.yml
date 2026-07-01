@@ -1,0 +1,83 @@
+name: OpenID eKYC WG document build and publish
+on:
+  push:
+  pull_request:
+
+jobs:
+    build-ekyc-docs:
+        name: build specs
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - name: Run the ASC build process with Docker
+            run: |
+                pwd
+                ls -l
+                docker run \
+                -v /${{ github.workspace }}:/data danielfett/markdown2rfc \
+                openid-advanced-syntax-for-claims.md
+          - name:  Run the Attachments build process with Docker
+            run: |
+                docker run \
+                -v /${{ github.workspace }}:/data danielfett/markdown2rfc \
+                openid-connect-4-ida-attachments.md
+          - name:  Run the IDAClaims build process with Docker
+            run: |
+                docker run \
+                -v /${{ github.workspace }}:/data danielfett/markdown2rfc \
+                openid-connect-4-ida-claims.md
+          - name:  Run the IDAClaims build process with Docker
+            run: |
+                docker run \
+                -v /${{ github.workspace }}:/data danielfett/markdown2rfc \
+                openid-connect-4-identity-assurance.md
+          - name:  Run the TXNclaim build process with Docker
+            run: |
+                docker run \
+                -v /${{ github.workspace }}:/data danielfett/markdown2rfc \
+                openid-connect-txn-claim.md
+          - name:  Run the TXNclaim build process with Docker
+            run: |
+                docker run \
+                -v /${{ github.workspace }}:/data danielfett/markdown2rfc \
+                openid-ida-verified-claims.md
+          - name: rename
+            run: |
+                pwd
+                ls -l
+                mv ./openid-connect-advanced-syntax-for-claims*.html ./openid-advanced-syntax-for-claims-1_0-wg-draft.html && \
+                mv ./openid-connect-4-ida-attachments*.html ./openid-connect-4-ida-attachments-1_0-wg-draft.html && \
+                mv ./openid-connect-4-ida-claims*.html ./openid-connect-4-ida-claims-1_0-wg-draft.html && \
+                mv ./openid-connect-4-identity-assurance*.html ./openid-connect-4-identity-assurance-1_0-wg-draft.html && \
+                mv ./openid-connect-txn-claim*.html ./openid-connect-txn-claim-1_0-wg-draft.html && \
+                mv ./openid-ida-verified-claims*.html ./openid-ida-verified-claims-1_0-wg-draft.html
+          - uses: actions/upload-artifact@v4
+            with:
+                # Artifact name
+                name: output # optional
+                # Destination path
+                path: ./openid-*.html # optional
+
+    publish-to-pages:
+      name: Publish to GitHub Pages
+      if: github.ref == 'refs/heads/master'
+      needs: [ build-ekyc-docs ]
+      runs-on: ubuntu-latest
+      permissions:
+        pages: write
+        id-token: write
+      environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
+      steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: output
+        - name: Upload pages artifact
+          uses: actions/upload-pages-artifact@v3
+          with:
+            path: .
+        - name: Deploy to GitHub Pages
+          id: deployment
+          uses: actions/deploy-pages@v4
