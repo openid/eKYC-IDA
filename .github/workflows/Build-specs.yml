@@ -45,7 +45,7 @@ jobs:
             run: |
                 pwd
                 ls -l
-                mv ./openid-advanced-syntax-for-claims*.html ./openid-advanced-syntax-for-claims-1_0-wg-draft.html && \
+                mv ./openid-connect-advanced-syntax-for-claims*.html ./openid-advanced-syntax-for-claims-1_0-wg-draft.html && \
                 mv ./openid-connect-4-ida-attachments*.html ./openid-connect-4-ida-attachments-1_0-wg-draft.html && \
                 mv ./openid-connect-4-ida-claims*.html ./openid-connect-4-ida-claims-1_0-wg-draft.html && \
                 mv ./openid-connect-4-identity-assurance*.html ./openid-connect-4-identity-assurance-1_0-wg-draft.html && \
