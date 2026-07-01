@@ -11,6 +11,10 @@ jobs:
           - uses: actions/checkout@v4
           - name: Run the ASC build process with Docker
             run: |
+                echo "diagnostics"
+                pwd
+                ls -l
+            run: |
                 docker run \
                 -v /${{ github.workspace }}/ASC/data danielfett/markdown2rfc \
                 openid-advanced-syntax-for-claims.md
