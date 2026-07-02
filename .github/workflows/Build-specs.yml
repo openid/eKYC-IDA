@@ -43,21 +43,29 @@ jobs:
                 openid-ida-verified-claims.md
           - name: rename
             run: |
+                mdir ./artifact
                 pwd
                 ls -l
-                mv ./openid-connect-advanced-syntax-for-claims*.html ./openid-advanced-syntax-for-claims-1_0-wg-draft.html && \
-                mv ./openid-connect-4-ida-attachments*.html ./openid-connect-4-ida-attachments-1_0-wg-draft.html && \
-                mv ./openid-connect-4-ida-claims*.html ./openid-connect-4-ida-claims-1_0-wg-draft.html && \
-                mv ./openid-connect-4-identity-assurance*.html ./openid-connect-4-identity-assurance-1_0-wg-draft.html && \
-                mv ./openid-connect-txn-claim*.html ./openid-connect-txn-claim-1_0-wg-draft.html && \
-                mv ./openid-ida-verified-claims*.html ./openid-ida-verified-claims-1_0-wg-draft.html
+                mv ./openid-connect-advanced-syntax-for-claims*.html ./artifact/openid-advanced-syntax-for-claims-1_0-wg-draft.html && \
+                mv ./openid-connect-4-ida-attachments*.html ./artifact/openid-connect-4-ida-attachments-1_0-wg-draft.html && \
+                mv ./openid-connect-4-ida-claims*.html ./artifact/openid-connect-4-ida-claims-1_0-wg-draft.html && \
+                mv ./openid-connect-4-identity-assurance*.html ./artifact/openid-connect-4-identity-assurance-1_0-wg-draft.html && \
+                mv ./openid-connect-txn-claim*.html ./artifact/openid-connect-txn-claim-1_0-wg-draft.html && \
+                mv ./openid-ida-verified-claims*.html ./artifact/openid-ida-verified-claims-1_0-wg-draft.html
+
+                mv ./openid-connect-advanced-syntax-for-claims*.xml ./artifact/openid-advanced-syntax-for-claims-1_0-wg-draft.xml && \
+                mv ./openid-connect-4-ida-attachments*.xml ./artifact/openid-connect-4-ida-attachments-1_0-wg-draft.xml && \
+                mv ./openid-connect-4-ida-claims*.xml ./artifact/openid-connect-4-ida-claims-1_0-wg-draft.xml && \
+                mv ./openid-connect-4-identity-assurance*.xml ./artifact/openid-connect-4-identity-assurance-1_0-wg-draft.xml && \
+                mv ./openid-connect-txn-claim*.xml ./artifact/openid-connect-txn-claim-1_0-wg-draft.xml && \
+                mv ./openid-ida-verified-claims*.xml ./artifact/openid-ida-verified-claims-1_0-wg-draft.xml
+                ls -lt ./artifact/*
           - uses: actions/upload-artifact@v4
             with:
                 # Artifact name
                 name: output # optional
                 # Destination path
-                path: ./openid-*.html # optional
-
+                path: . # optional
     publish-to-pages:
       name: Publish to GitHub Pages
       if: github.ref == 'refs/heads/master'
