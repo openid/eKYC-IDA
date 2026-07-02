@@ -67,6 +67,13 @@ jobs:
                 path: |
                   ./openid*.html
                   ./openid*.xml
+                  ./openid-advanced-syntax-for-claims.md
+                  ./openid-connect-4-ida-attachments.md
+                  ./openid-connect-4-ida-claims.md
+                  ./openid-connect-4-identity-assurance.md
+                  ./openid-connect-authority.md
+                  ./openid-connect-txn-claim.md
+                  ./openid-ida-verified-claims.md
     publish-to-pages:
       name: Publish to GitHub Pages
       if: github.ref == 'refs/heads/master'
