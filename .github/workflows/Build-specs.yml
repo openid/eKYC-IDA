@@ -43,7 +43,7 @@ jobs:
                 openid-ida-verified-claims.md
           - name: rename
             run: |
-                mdir ./artifact
+                mkdir ./artifact
                 pwd
                 ls -l
                 mv ./openid-connect-advanced-syntax-for-claims*.html ./artifact/openid-advanced-syntax-for-claims-1_0-wg-draft.html && \
