@@ -126,8 +126,7 @@
         },
         "distributed_claims": {
             "required": [
-                "endpoint",
-                "access_token"
+                "endpoint"
             ],
             "properties": {
                 "access_token": {
