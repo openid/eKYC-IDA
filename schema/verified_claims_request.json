@@ -164,7 +164,11 @@
                                 "vouch",
                                 "electronic_signature"
                             ]
-                        }
+                        },
+                        "essential": {
+                            "type": "boolean"
+                        },
+                        "values": false
                     }
                 },
                 "attachments": {
