@@ -42,9 +42,9 @@
                             },
                             "content_type": {
                                 "type": "string",
-                                "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$",
+                                "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+( *; *[-!#$%&'*+.^_`{|}~A-Za-z0-9]+=(\"(?:[^\"\\\\]|\\\\.)*\"|[-!#$%&'*+.^_`{|}~A-Za-z0-9]+))*$",
                                 "not": {
-                                    "pattern": "^(multipart|message)/"
+                                    "pattern": "^([Mm][Uu][Ll][Tt][Ii][Pp][Aa][Rr][Tt]|[Mm][Ee][Ss][Ss][Aa][Gg][Ee])/"
                                 }
                             },
                             "content": {
@@ -126,8 +126,7 @@
         },
         "distributed_claims": {
             "required": [
-                "endpoint",
-                "access_token"
+                "endpoint"
             ],
             "properties": {
                 "access_token": {
