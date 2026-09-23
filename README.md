@@ -29,8 +29,7 @@
  - An extension of OpenID Connect to be explicit about (verified) claims that have been through an identity assurance process and to represent details fo the assurance processes used when assuring those claims
  - This document depends upon "openid-ida-verified-claims.md" for the schema definition of the verified_claims element
 
-[**OpenID Identity Assurance Schema Definition 1.0**](https://openid.net/specs/openid-ida-verified-claims-1_0-errata1.html)) - **FINAL - Errata 1**
-https://openid.net/specs/openid-ida-verified-claims-1_0-errata1.html
+[**OpenID Identity Assurance Schema Definition 1.0**](https://openid.net/specs/openid-ida-verified-claims-1_0-errata1.html) - **FINAL - Errata 1**
 
 - A schema definition for the vereified _claims element, written in such a way that it can be used in the context of various application protocols including OpenID Connect.
 - There is a corresponding non-normative JSON schema defined by the WG and hosted on the bitbucket at https://bitbucket.org/openid/ekyc-ida/src/master/schema/
@@ -57,15 +56,15 @@ https://openid.net/specs/openid-ida-verified-claims-1_0-errata1.html
 
 The current SNAPSHOT versions from the master branch and can be accessed at:
 
-* [https://openid.bitbucket.io/ekyc/openid-ida-verified-claims.html](https://github.com/openid/eKYC-IDA/blob/master/openid-ida-verified-claims.md)
-* [https://openid.bitbucket.io/ekyc/openid-connect-4-identity-assurance.html](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-identity-assurance.md)
-* [https://openid.bitbucket.io/ekyc/openid-connect-4-ida-claims.html](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-claims.md)
+* [https://github.com/openid/eKYC-IDA/blob/master/openid-ida-verified-claims.md](https://github.com/openid/eKYC-IDA/blob/master/openid-ida-verified-claims.md)
+* [https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-identity-assurance.md](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-identity-assurance.md)
+* [https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-claims.md](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-claims.md)
 
 * [https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-attachments.md](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-attachments.md)
 
 * [https://github.com/openid/eKYC-IDA-Authority/blob/main/openid-connect-authority.md](https://github.com/openid/eKYC-IDA-Authority/blob/main/openid-connect-authority.md)
 
-* [https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html](https://github.com/openid/eKYC-IDA/blob/master/openid-advanced-syntax-for-claims.md)
+* [https://github.com/openid/eKYC-IDA/blob/master/openid-advanced-syntax-for-claims.md](https://github.com/openid/eKYC-IDA/blob/master/openid-advanced-syntax-for-claims.md)
 
 ### How do I get set up? ###
 
