@@ -24,12 +24,13 @@
 
 ### What are each of the documents about? ###
 
-[**OpenID Connect for Identity Assurance 1.0**](https://openid.net/specs/openid-connect-4-identity-assurance-1_0-final.html) - **FINAL**
+[**OpenID Connect for Identity Assurance 1.0**](https://openid.net/specs/openid-connect-4-identity-assurance-1_0-errata1.html) - **FINAL - Errata 1**
 
  - An extension of OpenID Connect to be explicit about (verified) claims that have been through an identity assurance process and to represent details fo the assurance processes used when assuring those claims
  - This document depends upon "openid-ida-verified-claims.md" for the schema definition of the verified_claims element
 
-[**OpenID Identity Assurance Schema Definition 1.0**](https://openid.net/specs/openid-ida-verified-claims-1_0-final.html) - **FINAL**
+[**OpenID Identity Assurance Schema Definition 1.0**](https://openid.net/specs/openid-ida-verified-claims-1_0-errata1.html)) - **FINAL - Errata 1**
+https://openid.net/specs/openid-ida-verified-claims-1_0-errata1.html
 
 - A schema definition for the vereified _claims element, written in such a way that it can be used in the context of various application protocols including OpenID Connect.
 - There is a corresponding non-normative JSON schema defined by the WG and hosted on the bitbucket at https://bitbucket.org/openid/ekyc-ida/src/master/schema/
@@ -37,33 +38,34 @@
 [**OpenID Connect for Identity Assurance Claims Registration 1.0**](https://openid.net/specs/openid-connect-4-ida-claims-1_0-final.html) - **FINAL**
 - Registration of a number of new end-user claims that are used in some identity assurance use cases
 
-[**OpenID Attachments 1.0 draft**](https://openid.bitbucket.io/ekyc/openid-connect-4-ida-attachments.html) - DRAFT
+[**OpenID Attachments 1.0**](https://openid.net/specs/openid-connect-4-ida-attachments-1_0-final.html) - **FINAL**
 
 - a draft that defines a way of representing binary data in the context of a JSON payload
 - It can be used as an extension of OpenID Connect that defines attachments relating to the identity of a natural person or in other JSON contexts that need to have binary data elements
 
-[**OpenID Connect Authority claims extension**](https://openid.bitbucket.io/ekyc/openid-authority.html) - DRAFT
+[**OpenID Connect Authority claims extension**](https://github.com/openid/eKYC-IDA-Authority/blob/main/openid-connect-authority.md) - **WG DRAFT**
 
  - a draft that allows expression of "on behalf of" cases whether on behalf of a person or legal entity
+ - NOTE - this document is now maintained in a different Github repository at [https://github.com/openid/eKYC-IDA-Authority](https://github.com/openid/eKYC-IDA-Authority)
 
-[**OpenID Connect Advanced Syntax for Claims (ASC) 1.0**](https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html) - DRAFT
+[**OpenID Connect Advanced Syntax for Claims (ASC) 1.0**](https://openid.net/specs/openid-connect-advanced-syntax-for-claims-1_0-ID1.html) - **Implementors DRAFT 1**
 
 - a draft that extends OpenID Connect to permit the relying party to be much more specific about their requirements for claims
 - it adds two features "Transformed Claims" and "Selective Abort and Omit"
 
 ### Current version
 
-The current SNAPSHOT versions is being built automatically from the master branch and can be accessed at:
+The current SNAPSHOT versions from the master branch and can be accessed at:
 
-* https://openid.bitbucket.io/ekyc/openid-ida-verified-claims.html
-* https://openid.bitbucket.io/ekyc/openid-connect-4-identity-assurance.html
-* https://openid.bitbucket.io/ekyc/openid-connect-4-ida-claims.html
+* [https://openid.bitbucket.io/ekyc/openid-ida-verified-claims.html](https://github.com/openid/eKYC-IDA/blob/master/openid-ida-verified-claims.md)
+* [https://openid.bitbucket.io/ekyc/openid-connect-4-identity-assurance.html](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-identity-assurance.md)
+* [https://openid.bitbucket.io/ekyc/openid-connect-4-ida-claims.html](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-claims.md)
 
-* https://openid.bitbucket.io/ekyc/openid-connect-4-ida-attachments.html
+* [https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-attachments.md](https://github.com/openid/eKYC-IDA/blob/master/openid-connect-4-ida-attachments.md)
 
-* https://openid.bitbucket.io/ekyc/openid-authority.html
+* [https://github.com/openid/eKYC-IDA-Authority/blob/main/openid-connect-authority.md](https://github.com/openid/eKYC-IDA-Authority/blob/main/openid-connect-authority.md)
 
-* https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html
+* [https://openid.bitbucket.io/ekyc/openid-connect-advanced-syntax-for-claims.html](https://github.com/openid/eKYC-IDA/blob/master/openid-advanced-syntax-for-claims.md)
 
 ### How do I get set up? ###
 
